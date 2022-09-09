@@ -1,18 +1,10 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
-labels: ''
-assignees: ''
-
----
-
----
 name: User story template
-about: This template provides a basic structure for user story issues.
-label: user-story
+about: This template provides a basic structure for user story issues
+labels: https://github.com/NikShm/WebJournal/labels/user-story
 
 ---
+
 # [US-ID] : Title of the feature
 
 ## Description
