@@ -1,11 +1,10 @@
 ---
 name: User story template
 about: This template provides a basic structure for user story issues
+title: '#ID Title of the feature'
 labels: https://github.com/NikShm/WebJournal/labels/user-story
 
 ---
-
-# [US-ID] : Title of the feature
 
 ## Description
 A short description of the feature.
