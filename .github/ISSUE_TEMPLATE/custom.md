@@ -28,4 +28,12 @@ Any preconditions that must be met prior to the functionality being executed.
 
 ## Acceptance criteria
 **Scenario**: *[description]*\
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;**Given that** *[some context]*,\
+&nbsp;&nbsp;&nbsp;&nbsp;**when** *[some action is carried out]*\
+&nbsp;&nbsp;&nbsp;&nbsp;**then** *[a set of observable outcomes should occur]*.
+
+**Scenario**: *[description]*\
+&nbsp;&nbsp;&nbsp;&nbsp;*...*
+
+## Notes
+Some notes if necessary.
