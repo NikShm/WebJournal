@@ -17,10 +17,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
     @Bean
-    public DataSource getDataSource(@Value("${datasource.url}") String url,
-                                    @Value("${datasource.driverClassName}") String driverClassName,
-                                    @Value("${datasource.username}") String username,
-                                    @Value("${datasource.password}") String password
+    public DataSource getDataSource(@Value("${spring.datasource.url}") String url,
+                                    @Value("${spring.datasource.driverClassName}") String driverClassName,
+                                    @Value("${spring.datasource.username}") String username,
+                                    @Value("${spring.datasource.password}") String password
     ) {
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName(driverClassName);
