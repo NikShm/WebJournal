@@ -7,22 +7,22 @@ import java.util.List;
 
 /*
 @author Микола
-@project FreshBeauty
+@project WebJournal
 @class PageDTO
 @version 1.0.0
-@since 13.07.2022 - 19.28
+@since 14.09.2022 - 19.28
 */
-@ApiModel(description = "Page creation options class", value = "Page")
+@ApiModel(description = "Page creation options class")
 public class PageDTO<T> {
-    @ApiModelProperty(value = "List of elements of a given page.", readOnly = true, dataType = "int")
+    @ApiModelProperty(value = "List of elements of a given page")
     List<T> content;
-    @ApiModelProperty(value = "Total number of pages.", readOnly = true, dataType = "int")
+    @ApiModelProperty(value = "Total number of pages")
     int pageCount;
-    @ApiModelProperty(value = "Page number to be returned.", readOnly = true, dataType = "int")
-    int page;
-    @ApiModelProperty(value = "The size of the returned page.", readOnly = true, dataType = "int")
+    @ApiModelProperty(value = "Page number to be returned")
+    int currentPage;
+    @ApiModelProperty(value = "The size of the returned page")
     int pageSize;
-    @ApiModelProperty(value = "The total number of elements in the database.", readOnly = true, dataType = "int")
+    @ApiModelProperty(value = "The total number of elements in the database")
     long totalItem;
 
     public long getTotalItem() {
@@ -57,11 +57,11 @@ public class PageDTO<T> {
         this.pageCount = pageCount;
     }
 
-    public int getPage() {
-        return page;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 }
