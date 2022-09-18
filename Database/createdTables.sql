@@ -1,13 +1,10 @@
 --database name: webjournal
-
 DROP TABLE IF EXISTS post_tag, tag, follow, "comment", post, "user", "role";
 
 CREATE TABLE "role"
 (
     id SERIAL PRIMARY KEY,
-    role VARCHAR(32) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now()
+    role VARCHAR(32) NOT NULL UNIQUE
 );
 
 CREATE TABLE "user"
@@ -42,7 +39,8 @@ CREATE TABLE post
     likes INTEGER NOT NULL,
     is_approved BOOLEAN NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now()
+    updated_at TIMESTAMP DEFAULT now(),
+    published_at TIMESTAMP
 );
 
 CREATE TABLE "comment"
