@@ -6,24 +6,23 @@ import io.swagger.annotations.ApiModelProperty;
 
 /*
 @author Микола
-@project FreshBeauty
+@project WebJournal
 @class SearchDTO
 @version 1.0.0
-@since 13.07.2022 - 19.34
+@since 14.09.2022 - 19.34
 */
-@ApiModel(description = "Page creation options class", value = "Search")
+@ApiModel(description = "Page creation options class")
 public class SearchDTO {
-    @ApiModelProperty(value = "The line in which the user is searched, in the name and surname fields.", readOnly = true, dataType = "String")
+    @ApiModelProperty(value = "Phrase entered by user in search field to find things of interest")
     private String search;
-    @ApiModelProperty(value = "The field by which sorting is performed.", readOnly = true, dataType = "String")
+    @ApiModelProperty(value = "The field by which sorting is performed")
     private String sortField;
-    @ApiModelProperty(value = "The type of sort.", readOnly = true, dataType = "SortDirection")
+    @ApiModelProperty(value = "Sorting type")
     private SortDirection sortDirection;
-    @ApiModelProperty(value = "Page number to be returned.", readOnly = true, dataType = "String")
+    @ApiModelProperty(value = "Page number to be returned")
     private int page;
-    @ApiModelProperty(value = "The size of the returned page.", readOnly = true, dataType = "String")
+    @ApiModelProperty(value = "The size of the returned page")
     private int pageSize;
-
 
     public String getSearch() {
         return search;
