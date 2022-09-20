@@ -15,7 +15,6 @@ CREATE TABLE "user"
     email VARCHAR(256) UNIQUE,
     birth_date DATE NOT NULL,
     bio VARCHAR(150),
-    profile_picture_path VARCHAR(512) NOT NULL,
     role_id INTEGER REFERENCES "role"(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -25,7 +24,7 @@ CREATE TABLE follow
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES "user"(id) NOT NULL,
-    following_user_id INTEGER REFERENCES "user"(id) NOT NULL
+    follower_user_id INTEGER REFERENCES "user"(id) NOT NULL
 );
 
 CREATE TABLE post
@@ -35,12 +34,11 @@ CREATE TABLE post
     title VARCHAR(128) NOT NULL,
     foreword VARCHAR(150) NOT NULL,
     content TEXT NOT NULL,
-    photo_path VARCHAR(512) NOT NULL,
     likes INTEGER NOT NULL,
     is_approved BOOLEAN NOT NULL,
+    published_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now(),
-    published_at TIMESTAMP
+    updated_at TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE "comment"
