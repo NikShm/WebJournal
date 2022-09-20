@@ -10,16 +10,14 @@ package com.webjournal.dto;
 public class AuthorDTO {
     private Integer id;
     private String username;
-    private String profilePicturePath;
     private int followers;
 
     public AuthorDTO() {
     }
 
-    public AuthorDTO(Integer id, String username, String profilePicturePath, int followers) {
+    public AuthorDTO(Integer id, String username, int followers) {
         this.id = id;
         this.username = username;
-        this.profilePicturePath = profilePicturePath;
         this.followers = followers;
     }
 
@@ -39,14 +37,6 @@ public class AuthorDTO {
         this.username = username;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
-    }
-
     public int getFollowers() {
         return followers;
     }
@@ -60,7 +50,6 @@ public class AuthorDTO {
         return "AuthorDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", profilePicturePath='" + profilePicturePath + '\'' +
                 ", followers=" + followers +
                 '}';
     }

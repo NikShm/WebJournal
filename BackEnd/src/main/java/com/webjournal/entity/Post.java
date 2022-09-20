@@ -1,26 +1,26 @@
 package com.webjournal.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
-    @Column(name="created_at")
-    private LocalDateTime createdAt;
-    @Column(name="updated_at")
-    private LocalDateTime updatedAt;
+    private Integer id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
-    private User authorId;
+    private User author;
 
     @Column(name="title")
     private String title;
@@ -31,84 +31,47 @@ public class Post {
     @Column(name="content")
     private String content;
 
-    @Column(name="photo_path")
-    private String photoPath;
-
     @Column(name="likes")
-    private int likes;
+    private Integer likes;
 
-    @Column(name="is_approved")
-    private boolean isApproved;
-
-    @Column(name="published_at")
-    private LocalDateTime publishedAt;
+    @OneToMany
+    @JoinColumn(name="post_id")
+    private List<Comment> comments;
 
     @ManyToMany
     @JoinTable(name="post_tag",
             joinColumns= @JoinColumn(name="post_id"),
             inverseJoinColumns = @JoinColumn(name="tag_id"))
-    private Set<Tag> postTags;
+    private Set<Tag> tags;
 
-    public Post() {
-    }
+    @Column(name="is_approved")
+    private Boolean isApproved;
 
-    public Post(int id, LocalDateTime createdAt, LocalDateTime updatedAt, User authorId, String title, String foreword, String content, String photoPath, int likes, boolean isApproved, LocalDateTime publishedAt) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.authorId = authorId;
-        this.title = title;
-        this.foreword = foreword;
-        this.content = content;
-        this.photoPath = photoPath;
-        this.likes = likes;
-        this.isApproved = isApproved;
-        this.publishedAt = publishedAt;
-    }
+    @Column(name="published_at")
+    private LocalDateTime publishedAt;
 
-    public Post(LocalDateTime createdAt, LocalDateTime updatedAt, User authorId, String title, String foreword, String content, String photoPath, int likes, boolean isApproved, LocalDateTime publishedAt) {
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.authorId = authorId;
-        this.title = title;
-        this.foreword = foreword;
-        this.content = content;
-        this.photoPath = photoPath;
-        this.likes = likes;
-        this.isApproved = isApproved;
-        this.publishedAt = publishedAt;
-    }
+    @Column(name="created_at", updatable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    public int getId() {
+    @Column(name="updated_at")
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(User authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getTitle() {
@@ -135,27 +98,35 @@ public class Post {
         this.content = content;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
-    }
-
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
-    }
-
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
     }
 
-    public boolean isApproved() {
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Boolean getApproved() {
         return isApproved;
     }
 
-    public void setApproved(boolean approved) {
+    public void setApproved(Boolean approved) {
         isApproved = approved;
     }
 
@@ -167,33 +138,29 @@ public class Post {
         this.publishedAt = publishedAt;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return id == post.id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", authorId=" + authorId +
+                ", author=" + author +
                 ", title='" + title + '\'' +
                 ", foreword='" + foreword + '\'' +
                 ", content='" + content + '\'' +
-                ", photoPath='" + photoPath + '\'' +
                 ", likes=" + likes +
+                ", comments=" + comments +
+                ", tags=" + tags +
                 ", isApproved=" + isApproved +
                 ", publishedAt=" + publishedAt +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

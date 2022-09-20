@@ -1,90 +1,50 @@
 package com.webjournal.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name="comment")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
-    @Column(name="created_at")
-    private LocalDateTime createdAt;
-    @Column(name="updated_at")
-    private LocalDateTime updatedAt;
+    private Integer id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    private User userId;
-
-    @ManyToOne()
-    @JoinColumn(name="post_id")
-    private Post postId;
+    private User author;
 
     @Column(name="text")
     private String text;
 
-    public Comment() {
-    }
+    @Column(name="created_at", updatable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    public Comment(int id, LocalDateTime createdAt, LocalDateTime updatedAt, User userId, Post postId, String text) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.userId = userId;
-        this.postId = postId;
-        this.text = text;
-    }
+    @Column(name="updated_at")
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
-    public Comment(LocalDateTime createdAt, LocalDateTime updatedAt, User userId, Post postId, String text) {
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.userId = userId;
-        this.postId = postId;
-        this.text = text;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    public Post getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Post postId) {
-        this.postId = postId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getText() {
@@ -95,28 +55,22 @@ public class Comment {
         this.text = text;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return id == comment.id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
+                ", author=" + author +
+                ", text='" + text + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", userId=" + userId +
-                ", postId=" + postId +
-                ", text='" + text + '\'' +
                 '}';
     }
 }

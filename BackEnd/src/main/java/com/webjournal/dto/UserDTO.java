@@ -1,6 +1,7 @@
 package com.webjournal.dto;
 
 import com.webjournal.enums.RoleType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,11 +19,12 @@ public class UserDTO {
     private String username;
     private String password;
     private String email;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
     private String bio;
-    private String profilePicturePath;
     private List<AuthorDTO> followers;
     private List<AuthorDTO> following;
+    private List<PostDTO> posts;
     private RoleType role;
     private LocalDateTime registeredAt;
     private LocalDateTime updatedAt;
@@ -30,16 +32,16 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, String profilePicturePath, List<AuthorDTO> followers, List<AuthorDTO> following, RoleType role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
+    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, List<AuthorDTO> followers, List<AuthorDTO> following, List<PostDTO> posts, RoleType role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.birthDate = birthDate;
         this.bio = bio;
-        this.profilePicturePath = profilePicturePath;
         this.followers = followers;
         this.following = following;
+        this.posts = posts;
         this.role = role;
         this.registeredAt = registeredAt;
         this.updatedAt = updatedAt;
@@ -93,14 +95,6 @@ public class UserDTO {
         this.bio = bio;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
-    }
-
     public List<AuthorDTO> getFollowers() {
         return followers;
     }
@@ -115,6 +109,14 @@ public class UserDTO {
 
     public void setFollowing(List<AuthorDTO> following) {
         this.following = following;
+    }
+
+    public List<PostDTO> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostDTO> posts) {
+        this.posts = posts;
     }
 
     public RoleType getRole() {
@@ -150,9 +152,9 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
                 ", bio='" + bio + '\'' +
-                ", profilePicturePath='" + profilePicturePath + '\'' +
                 ", followers=" + followers +
                 ", following=" + following +
+                ", posts=" + posts +
                 ", role=" + role +
                 ", registeredAt=" + registeredAt +
                 ", updatedAt=" + updatedAt +

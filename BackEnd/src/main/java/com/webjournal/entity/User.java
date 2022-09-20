@@ -1,109 +1,77 @@
 package com.webjournal.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="user")
+@EntityListeners(AuditingEntityListener.class)
+@Table(name="user", schema = "public")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private int id;
-    @Column(name="created_at")
-    private LocalDateTime createdAt;
-    @Column(name="updated_at")
-    private LocalDateTime updatedAt;
+    private Integer id;
 
     @Column(name="login")
-    private String login;
+    private String username;
+
     @Column(name="password")
     private String password;
+
     @Column(name="email")
     private String email;
+
     @Column(name="birth_date")
     private LocalDate birthDate;
+
     @Column(name="bio")
     private String bio;
-    @Column(name="profile_picture_path")
-    private String profilePicturePath;
-    @ManyToOne()
-    @JoinColumn(name="role_id")
-    private Role roleId;
 
     @ManyToMany
     @JoinTable(name="follow",
             joinColumns= @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="following_user_id"))
-    private Set<User> followedByUser;
+            inverseJoinColumns = @JoinColumn(name="follower_user_id"))
+    private Set<User> followers;
 
-    @ManyToMany(mappedBy = "followedByUser")
-    private Set<User> usersWhoFollow;
+    @ManyToMany(mappedBy = "followers")
+    private Set<User> following;
 
-    public User() {
-    }
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts;
 
-    public User(int id, LocalDateTime createdAt, LocalDateTime updatedAt, String login, String password, String email, LocalDate birthDate, String bio, String profilePicturePath, Role roleId) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.bio = bio;
-        this.profilePicturePath = profilePicturePath;
-        this.roleId = roleId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="role_id")
+    private Role roleId;
 
-    public User(LocalDateTime createdAt, LocalDateTime updatedAt, String login, String password, String email, LocalDate birthDate, String bio, String profilePicturePath, Role roleId) {
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.bio = bio;
-        this.profilePicturePath = profilePicturePath;
-        this.roleId = roleId;
-    }
+    @Column(name="created_at", nullable = false, updatable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    public int getId() {
+    @Column(name="updated_at")
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -138,12 +106,28 @@ public class User {
         this.bio = bio;
     }
 
-    public String getProfilePicturePath() {
-        return profilePicturePath;
+    public Set<User> getFollowers() {
+        return followers;
     }
 
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
+    public void setFollowers(Set<User> followers) {
+        this.followers = followers;
+    }
+
+    public Set<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<User> following) {
+        this.following = following;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public Role getRoleId() {
@@ -154,32 +138,29 @@ public class User {
         this.roleId = roleId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
                 ", bio='" + bio + '\'' +
-                ", profilePicturePath='" + profilePicturePath + '\'' +
+                ", followers=" + followers +
+                ", following=" + following +
+                ", posts=" + posts +
                 ", roleId=" + roleId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

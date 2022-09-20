@@ -16,7 +16,6 @@ public class PostDTO {
     private String title;
     private String foreword;
     private String content;
-    private String photoPath;
     private int likes;
     private List<CommentDTO> comments;
     private List<TagDTO> tags;
@@ -28,13 +27,12 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, String photoPath, int likes, List<CommentDTO> comments, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, int likes, List<CommentDTO> comments, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.title = title;
         this.foreword = foreword;
         this.content = content;
-        this.photoPath = photoPath;
         this.likes = likes;
         this.comments = comments;
         this.tags = tags;
@@ -82,14 +80,6 @@ public class PostDTO {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getPhotoPath() {
-        return photoPath;
-    }
-
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
     }
 
     public int getLikes() {
@@ -156,7 +146,6 @@ public class PostDTO {
                 ", title='" + title + '\'' +
                 ", foreword='" + foreword + '\'' +
                 ", content='" + content + '\'' +
-                ", photoPath='" + photoPath + '\'' +
                 ", likes=" + likes +
                 ", comments=" + comments +
                 ", tags=" + tags +
