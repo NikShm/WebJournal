@@ -1,5 +1,5 @@
-INSERT INTO "role" (role) VALUES
-('ADMIN'), ('AUTHOR'), ('MODERATOR');
+INSERT INTO "role" (id, role)
+VALUES (1, 'ADMIN'), (2, 'AUTHOR'), (3, 'MODERATOR');
 
 INSERT INTO "user" (id, login, password, email, birth_date, bio, role_id)
 VALUES

@@ -9,18 +9,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="comment")
+@Table(name="comment", schema="public")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User author;
 
-    @Column(name="text")
     private String text;
 
     @Column(name="created_at", updatable = false)

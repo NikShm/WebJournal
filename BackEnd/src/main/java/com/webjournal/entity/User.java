@@ -12,26 +12,22 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="user", schema = "public")
+@Table(name="user", schema="public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Integer id;
 
     @Column(name="login")
     private String username;
 
-    @Column(name="password")
     private String password;
 
-    @Column(name="email")
     private String email;
 
     @Column(name="birth_date")
     private LocalDate birthDate;
 
-    @Column(name="bio")
     private String bio;
 
     @ManyToMany
@@ -50,7 +46,7 @@ public class User {
     @JoinColumn(name="role_id")
     private Role roleId;
 
-    @Column(name="created_at", nullable = false, updatable = false)
+    @Column(name="created_at", updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 

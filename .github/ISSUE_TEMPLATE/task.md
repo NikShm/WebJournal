@@ -9,12 +9,6 @@ labels: 'task'
 ## Description
 A short description of the task.
 
-### Priority
-Priority number of the task.
-
-### Estimate
-Estimated time needed to complete the task.
-
 ## User story
 Link to user story issue associated with this task.
 

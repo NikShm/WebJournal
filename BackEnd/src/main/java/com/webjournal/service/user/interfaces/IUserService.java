@@ -1,9 +1,9 @@
 package com.webjournal.service.user.interfaces;
 
-import com.webjournal.dto.AuthorDTO;
+import com.webjournal.dto.user.AuthorDTO;
 
 import java.util.List;
 
 public interface IUserService {
-    List<AuthorDTO> getInterestingBloggers(int quantity);
+    List<AuthorDTO> getInterestingAuthors(int quantity);
 }

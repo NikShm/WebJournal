@@ -35,7 +35,7 @@ public class PostMapper {
         dto.setTitle(entity.getTitle());
         dto.setForeword(entity.getForeword());
         dto.setContent(entity.getContent());
-        dto.setLikes(entity.getLikes());
+        dto.setLikes(0); // TODO get number of likes by query
         List<CommentDTO> comments = entity.getComments().stream().map(commentMapper::toDto).toList();
         dto.setComments(comments);
         List<TagDTO> tags = entity.getTags().stream().map(tagMapper::toDto).toList();

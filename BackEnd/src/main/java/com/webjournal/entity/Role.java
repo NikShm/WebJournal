@@ -3,14 +3,12 @@ package com.webjournal.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="role")
+@Table(name="role", schema="public")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Integer id;
 
-    @Column(name="role")
     private String role;
 
     public Integer getId() {

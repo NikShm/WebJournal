@@ -1,5 +1,5 @@
 --database name: webjournal
-DROP TABLE IF EXISTS post_tag, tag, follow, "comment", post, "user", "role";
+DROP TABLE IF EXISTS post_tag, tag, follow, "like", "comment", post, "user", "role";
 
 CREATE TABLE "role"
 (
@@ -39,6 +39,13 @@ CREATE TABLE post
     published_at TIMESTAMP NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE "like"
+(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES "user"(id) NOT NULL,
+    post_id INTEGER REFERENCES post(id) NOT NULL
 );
 
 CREATE TABLE "comment"
