@@ -1,5 +1,7 @@
-package com.webjournal.dto;
+package com.webjournal.dto.user;
 
+import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.enums.RoleType;
 import org.springframework.format.annotation.DateTimeFormat;
 

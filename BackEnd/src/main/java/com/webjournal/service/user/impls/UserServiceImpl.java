@@ -1,7 +1,6 @@
 package com.webjournal.service.user.impls;
 
-import com.webjournal.dto.AuthorDTO;
-import com.webjournal.entity.User;
+import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.mappers.UserMapper;
 import com.webjournal.repository.UserRepository;
 import com.webjournal.service.user.interfaces.IUserService;
@@ -21,8 +20,8 @@ public class UserServiceImpl implements IUserService {
         this.mapper = mapper;
     }
 
-    public List<AuthorDTO> getInterestingBloggers(int quantity) {
+    public List<AuthorDTO> getInterestingAuthors(int quantity) {
         Pageable page = PageRequest.of(0, quantity);
-        return repository.findTopBloggers(page).stream().map(mapper::toAuthorDto).toList();
+        return repository.findInterestingAuthors(page).stream().map(mapper::toAuthorDto).toList();
     }
 }

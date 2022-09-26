@@ -1,4 +1,4 @@
-package com.webjournal.dto;
+package com.webjournal.dto.user;
 
 /**
  * @author Yuliana

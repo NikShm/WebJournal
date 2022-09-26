@@ -1,7 +1,6 @@
 package com.webjournal.mappers;
 
-import com.webjournal.dto.AuthorDTO;
-import com.webjournal.dto.UserDTO;
+import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.entity.User;
 import org.springframework.stereotype.Component;
 

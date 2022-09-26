@@ -15,23 +15,18 @@ import java.util.Set;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
     private User author;
 
-    @Column(name="title")
     private String title;
 
-    @Column(name="foreword")
     private String foreword;
 
-    @Column(name="content")
     private String content;
 
-    @Column(name="likes")
     private Integer likes;
 
     @OneToMany

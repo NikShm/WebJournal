@@ -1,5 +1,7 @@
 package com.webjournal.dto;
 
+import com.webjournal.dto.user.AuthorDTO;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
