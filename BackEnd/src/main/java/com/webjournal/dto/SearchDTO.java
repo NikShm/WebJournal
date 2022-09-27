@@ -20,9 +20,9 @@ public class SearchDTO {
     @ApiModelProperty(value = "Sorting type")
     private SortDirection sortDirection;
     @ApiModelProperty(value = "Page number to be returned")
-    private int page;
+    private Integer page;
     @ApiModelProperty(value = "The size of the returned page")
-    private int pageSize;
+    private Integer pageSize;
 
     public String getSearch() {
         return search;
@@ -48,15 +48,15 @@ public class SearchDTO {
         this.sortDirection = sortDirection;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(Integer page) {
         this.page = page;
     }
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 

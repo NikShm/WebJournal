@@ -1,3 +1,28 @@
+INSERT INTO role(id, role)
+VALUES(1, 'ADMIN'),(2, 'USER');
+
+INSERT INTO languages(id, language) VALUES (1, 'english');
+
+INSERT INTO "user"(login, password, email, birth_date, bio, profile_picture_path, role_id)
+values('Bades', 'dsf', 'Goodes', '26-12-2222', 23, true,1);
+
+INSERT INTO post(author_id, title, foreword, content, photo_path, likes, is_approved)
+values(1, 'Bad', 'dsf', 'A 1.5 mile wide swath of winds gusting to around 95 mph created **tornado-like** damage along Kentucky Highway 259 in Edmons
+on County. The winds, extending 3/4 of a mile north and south of Bee Spring, destroyed or heavily damaged several small outbuildings, tore
+part of the roof off of one home, uprooted and snapped the trunks of numerous trees, and snapped around a dozen power poles. Several othe
+r homes sustained roof damage, and wind-driven hail shredded vinyl siding on a number of buildings.', '', 23, true);
+INSERT INTO post(author_id, title, foreword, content, photo_path, likes, is_approved)
+values(1, 'Bad', 'dsf', 'Good', '', 23, true);
+
+SELECT *
+FROM post
+WHERE  post.ts_content @@ phraseto_tsquery('english','roof damaging')
+ORDER BY author_id
+limit 10 offset 0;
+SELECT cfgname FROM pg_ts_config;
+show default_text_search_config;
+set default_text_search_config = 'pg_catalog.[ukrainian]'
+
 INSERT INTO "role" (id, role)
 VALUES (1, 'ADMIN'), (2, 'AUTHOR'), (3, 'MODERATOR');
 

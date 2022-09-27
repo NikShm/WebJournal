@@ -1,10 +1,20 @@
 --database name: webjournal
-DROP TABLE IF EXISTS post_tag, tag, follow, "like", "comment", post, "user", "role";
+DROP TABLE IF EXISTS post_tag, tag, follow, "comment", post, "user", "role";
 
 CREATE TABLE "role"
 (
-    id SERIAL PRIMARY KEY,
+    id   SERIAL PRIMARY KEY,
     role VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TYPE languages AS ENUM ('english', 'ukrainian');
+
+drop table languages;
+
+CREATE TABLE languages
+(
+    id       SERIAL PRIMARY KEY,
+    language regconfig NOT NULL DEFAULT 'english'::regconfig
 );
 
 CREATE TABLE "user"
@@ -15,6 +25,7 @@ CREATE TABLE "user"
     email VARCHAR(256) UNIQUE,
     birth_date DATE NOT NULL,
     bio VARCHAR(150),
+    profile_picture_path VARCHAR(512) NOT NULL,
     role_id INTEGER REFERENCES "role"(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -24,7 +35,7 @@ CREATE TABLE follow
 (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES "user"(id) NOT NULL,
-    follower_user_id INTEGER REFERENCES "user"(id) NOT NULL
+    following_user_id INTEGER REFERENCES "user"(id) NOT NULL
 );
 
 CREATE TABLE post
@@ -48,26 +59,32 @@ CREATE TABLE "like"
     post_id INTEGER REFERENCES post(id) NOT NULL
 );
 
+ALTER TABLE post
+    ADD COLUMN ts tsvector
+        GENERATED ALWAYS AS (to_tsvector('english', content)) STORED;
+
+CREATE INDEX ts_idx ON post USING GIN (ts);
+
 CREATE TABLE "comment"
 (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES "user"(id) NOT NULL,
-    post_id INTEGER REFERENCES post(id) NOT NULL,
-    text VARCHAR(500) NOT NULL,
+    id         SERIAL PRIMARY KEY,
+    user_id    INTEGER REFERENCES "user" (id) NOT NULL,
+    post_id    INTEGER REFERENCES post (id)   NOT NULL,
+    text       VARCHAR(500)                   NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE tag
 (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(64) NOT NULL UNIQUE,
+    id         SERIAL PRIMARY KEY,
+    name       VARCHAR(64) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE post_tag
 (
-    id SERIAL PRIMARY KEY,
-    post_id INTEGER REFERENCES post(id) NOT NULL,
-    tag_id INTEGER REFERENCES tag(id) NOT NULL
+    id      SERIAL PRIMARY KEY,
+    post_id INTEGER REFERENCES post (id) NOT NULL,
+    tag_id  INTEGER REFERENCES tag (id)  NOT NULL
 );
