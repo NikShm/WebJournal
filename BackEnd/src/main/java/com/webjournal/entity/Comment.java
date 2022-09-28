@@ -29,6 +29,17 @@ public class Comment {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    public Comment() {
+    }
+
+    public Comment(Integer id, User author, String text, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.author = author;
+        this.text = text;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public Integer getId() {
         return id;
     }

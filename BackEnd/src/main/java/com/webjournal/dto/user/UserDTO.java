@@ -1,7 +1,6 @@
 package com.webjournal.dto.user;
 
 import com.webjournal.dto.PostDTO;
-import com.webjournal.entity.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
