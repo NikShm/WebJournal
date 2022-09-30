@@ -30,7 +30,7 @@ CREATE TABLE follow
 CREATE TABLE post
 (
     id SERIAL PRIMARY KEY,
-    author_id INTEGER REFERENCES "user"(id) NOT NULL,
+    user_id INTEGER REFERENCES "user"(id) NOT NULL,
     title VARCHAR(128) NOT NULL,
     foreword VARCHAR(150) NOT NULL,
     content TEXT NOT NULL,

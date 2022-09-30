@@ -27,7 +27,7 @@ public class PostMapper {
         this.tagMapper = tagMapper;
     }
 
-    public PostDTO toDto(Post entity) {
+    public PostDTO toPostDto(Post entity) {
         PostDTO dto = new PostDTO();
 
         dto.setId(entity.getId());
