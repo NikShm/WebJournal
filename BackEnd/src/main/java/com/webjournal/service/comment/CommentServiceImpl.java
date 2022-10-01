@@ -1,4 +1,4 @@
-package com.webjournal.service.comment.impls;
+package com.webjournal.service.comment;
 
 import com.webjournal.entity.Comment;
 import com.webjournal.repository.CommentRepository;

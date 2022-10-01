@@ -1,4 +1,4 @@
-package com.webjournal.service.post.impls;
+package com.webjournal.service.post;
 
 import com.webjournal.dto.PostDTO;
 import com.webjournal.entity.Post;

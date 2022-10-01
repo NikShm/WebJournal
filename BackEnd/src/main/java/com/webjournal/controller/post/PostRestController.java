@@ -1,13 +1,10 @@
 package com.webjournal.controller.post;
 
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.user.AuthorDTO;
-import com.webjournal.entity.Post;
-import com.webjournal.service.post.impls.PostServiceImpl;
+import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
