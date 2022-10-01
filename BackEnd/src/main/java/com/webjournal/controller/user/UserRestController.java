@@ -1,7 +1,7 @@
 package com.webjournal.controller.user;
 
 import com.webjournal.dto.user.AuthorDTO;
-import com.webjournal.service.user.impls.UserServiceImpl;
+import com.webjournal.service.user.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

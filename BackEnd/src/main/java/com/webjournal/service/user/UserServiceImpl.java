@@ -1,9 +1,8 @@
-package com.webjournal.service.user.impls;
+package com.webjournal.service.user;
 
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.mappers.UserMapper;
 import com.webjournal.repository.UserRepository;
-import com.webjournal.service.user.interfaces.IUserService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

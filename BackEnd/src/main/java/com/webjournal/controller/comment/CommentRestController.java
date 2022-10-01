@@ -1,10 +1,7 @@
 package com.webjournal.controller.comment;
 
-import com.webjournal.entity.Comment;
-import com.webjournal.service.comment.impls.CommentServiceImpl;
+import com.webjournal.service.comment.CommentServiceImpl;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("")

@@ -1,4 +1,4 @@
-package com.webjournal.service.user.interfaces;
+package com.webjournal.service.user;
 
 import com.webjournal.dto.user.AuthorDTO;
 
