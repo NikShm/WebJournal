@@ -1,6 +1,7 @@
 package com.webjournal.mappers;
 
 import com.webjournal.dto.user.AuthorDTO;
+import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,15 @@ public class UserMapper {
         dto.setFollowers(entity.getFollowers().size());
 
         return dto;
+    }
+
+    public User toEntity(AuthorDTO dto) {
+        User entity = new User();
+
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        dto.setFollowers(entity.getFollowers().size());
+
+        return entity;
     }
 }
