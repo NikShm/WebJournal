@@ -1,8 +1,7 @@
 package com.webjournal.dto.user;
 
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.user.AuthorDTO;
-import com.webjournal.enums.RoleType;
+import com.webjournal.entity.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -28,14 +27,14 @@ public class UserDTO {
     private Set<AuthorDTO> followers;
     private Set<AuthorDTO> following;
     private List<PostDTO> posts;
-    private RoleType role;
+    private Integer role;
     private LocalDateTime registeredAt;
     private LocalDateTime updatedAt;
 
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<AuthorDTO> followers, Set<AuthorDTO> following, List<PostDTO> posts, RoleType role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
+    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<AuthorDTO> followers, Set<AuthorDTO> following, List<PostDTO> posts, Integer role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -122,11 +121,11 @@ public class UserDTO {
         this.posts = posts;
     }
 
-    public RoleType getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(RoleType role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 

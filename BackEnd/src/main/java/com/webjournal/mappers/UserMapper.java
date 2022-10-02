@@ -3,6 +3,7 @@ package com.webjournal.mappers;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.User;
+import com.webjournal.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,6 +15,14 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class UserMapper {
+
+    private final RoleRepository repository;
+
+    public UserMapper(RoleRepository repository) {
+        this.repository = repository;
+    }
+
+
     public AuthorDTO toAuthorDto(User entity) {
         AuthorDTO dto = new AuthorDTO();
 
@@ -24,12 +33,34 @@ public class UserMapper {
         return dto;
     }
 
-    public User toEntity(AuthorDTO dto) {
-        User entity = new User();
+    public User toAuthorEntity(User entity, AuthorDTO dto) {
+        entity.setId(dto.getId());
+        entity.setUsername(dto.getUsername());
 
+        return entity;
+    }
+
+    public UserDTO toUserDto(User entity) {
+        UserDTO dto = new UserDTO();
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
-        dto.setFollowers(entity.getFollowers().size());
+        dto.setPassword(entity.getPassword());
+        dto.setEmail(entity.getEmail());
+        dto.setBirthDate(entity.getBirthDate());
+        dto.setBio(entity.getBio());
+        dto.setRole(entity.getRoleId().getId());
+
+        return dto;
+    }
+
+    public User toUserEntity(User entity, UserDTO dto) {
+        entity.setId(dto.getId());
+        entity.setUsername(dto.getUsername());
+        entity.setPassword(dto.getPassword());
+        entity.setEmail(dto.getEmail());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setBio(dto.getBio());
+        entity.setRoleId(repository.getReferenceById(dto.getRole()));
 
         return entity;
     }

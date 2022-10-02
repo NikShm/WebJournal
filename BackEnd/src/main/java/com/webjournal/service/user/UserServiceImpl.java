@@ -4,6 +4,7 @@ import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.Post;
+import com.webjournal.entity.User;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mappers.UserMapper;
 import com.webjournal.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -22,15 +24,36 @@ public class UserServiceImpl implements IUserService {
         this.repository = repository;
         this.mapper = mapper;
     }
-    /*
+
+    @Override
+    public Integer create(UserDTO dto) {
+        User createdUser = mapper.toUserEntity(new User(), dto);
+        return repository.save(createdUser).getId();
+    }
+
+    @Override
+    public void delete(Integer id) throws IOException {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void update(UserDTO dto) throws IOException {
+        User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Post.class.getSimpleName()));
+        User updatedUser = mapper.toUserEntity(userToUpdate, dto);
+        repository.save(updatedUser);
+    }
+
+    @Override
     public UserDTO get(Integer id) {
-        return repository.findById(id).map(mapper::).orElseThrow(() -> new DatabaseFetchException(id, Post.class.getSimpleName()));
+        return repository.findById(id).map(mapper::toUserDto).orElseThrow(() -> new DatabaseFetchException(id, User.class.getSimpleName()));
     }
-*//*
-    public List<PostDTO> getAll() {
-        return repository.findAll().stream().map(mapper::toPostDto).toList();
+
+    @Override
+    public List<UserDTO> getAll() {
+        return repository.findAll().stream().map(mapper::toUserDto).toList();
     }
-    */
+
+    @Override
     public List<AuthorDTO> getInterestingAuthors(int quantity) {
         Pageable page = PageRequest.of(0, quantity);
         return repository.findInterestingAuthors(page).stream().map(mapper::toAuthorDto).toList();

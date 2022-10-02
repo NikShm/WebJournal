@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/posts")
 public class PostRestController {
-    @Autowired
+
     private PostServiceImpl service;
 
     public PostRestController(PostServiceImpl service) {
@@ -44,7 +44,7 @@ public class PostRestController {
         return service.getAll();
     }
 
-    @GetMapping("/topPerMonth")
+    @GetMapping("/top-per-month")
     public List<PostDTO> showInterestingPostsPerMonth(@RequestParam("count") int n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(1));
         return service.getInterestingPosts(n, date);
