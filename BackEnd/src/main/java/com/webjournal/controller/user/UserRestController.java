@@ -1,9 +1,11 @@
 package com.webjournal.controller.user;
 
 import com.webjournal.dto.user.AuthorDTO;
+import com.webjournal.dto.user.UserDTO;
 import com.webjournal.service.user.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -13,6 +15,31 @@ public class UserRestController {
 
     public UserRestController(UserServiceImpl service) {
         this.service = service;
+    }
+
+    @PostMapping("/create/")
+    public Integer create(@RequestBody UserDTO userDTO) {
+        return service.create(userDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteOne(@PathVariable Integer id) throws IOException {
+        service.delete(id);
+    }
+
+    @PutMapping( "/update/")
+    public void update(@RequestBody UserDTO userDTO) throws IOException {
+        service.update(userDTO);
+    }
+
+    @GetMapping("/{id}")
+    public UserDTO showOne(@PathVariable Integer id) {
+        return service.get(id);
+    }
+
+    @RequestMapping("/")
+    List<UserDTO> showAll(){
+        return service.getAll();
     }
 
     @GetMapping("/top")

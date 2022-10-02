@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="user", schema="public")
+@Table(name = "user", schema="public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,6 +134,7 @@ public class User {
         this.roleId = roleId;
     }
 
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -159,4 +160,6 @@ public class User {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+
 }
