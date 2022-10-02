@@ -1,11 +1,11 @@
 package com.webjournal.controller.post;
 
+import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
-import com.webjournal.entity.Post;
 import com.webjournal.enums.SortDirection;
-import com.webjournal.services.PostServiceImpl;
-import org.springframework.data.domain.Page;
+import com.webjournal.service.post.PostServiceImpl;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "/api/products", produces = "application/json")
+@RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PostRestController {
     private final PostServiceImpl postService;
 
@@ -22,15 +22,9 @@ public class PostRestController {
         this.postService = postService;
     }
 
-    @GetMapping
-    public Page<Post> showAll() {
-        SearchDTO searchDTO = new SearchDTO();
-        searchDTO.setSearch("roof damage");
-        searchDTO.setPage(0);
-        searchDTO.setPageSize(2);
-        searchDTO.setSortField("title");
-        searchDTO.setSortDirection(SortDirection.ASC);
-        return postService.getPage(searchDTO);
+    @PostMapping("/search")
+    public PageDTO<PostDTO> showPostPage(@RequestBody SearchDTO search) {
+        return postService.getPage(search);
     }
     @PostMapping("/create/")
     public Integer create(@RequestBody PostDTO postDTO) {
