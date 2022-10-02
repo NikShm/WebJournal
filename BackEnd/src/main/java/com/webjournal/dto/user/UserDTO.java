@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Yuliana
@@ -24,8 +25,8 @@ public class UserDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
     private String bio;
-    private List<AuthorDTO> followers;
-    private List<AuthorDTO> following;
+    private Set<AuthorDTO> followers;
+    private Set<AuthorDTO> following;
     private List<PostDTO> posts;
     private RoleType role;
     private LocalDateTime registeredAt;
@@ -34,7 +35,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, List<AuthorDTO> followers, List<AuthorDTO> following, List<PostDTO> posts, RoleType role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
+    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<AuthorDTO> followers, Set<AuthorDTO> following, List<PostDTO> posts, RoleType role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -97,19 +98,19 @@ public class UserDTO {
         this.bio = bio;
     }
 
-    public List<AuthorDTO> getFollowers() {
+    public Set<AuthorDTO> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(List<AuthorDTO> followers) {
+    public void setFollowers(Set<AuthorDTO> followers) {
         this.followers = followers;
     }
 
-    public List<AuthorDTO> getFollowing() {
+    public Set<AuthorDTO> getFollowing() {
         return following;
     }
 
-    public void setFollowing(List<AuthorDTO> following) {
+    public void setFollowing(Set<AuthorDTO> following) {
         this.following = following;
     }
 

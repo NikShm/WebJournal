@@ -2,6 +2,7 @@ package com.webjournal.mappers;
 
 import com.webjournal.dto.CommentDTO;
 import com.webjournal.entity.Comment;
+import com.webjournal.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,9 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommentMapper {
     private final UserMapper userMapper;
+    private final UserRepository userRepository;
 
-    public CommentMapper(UserMapper userMapper) {
+    public CommentMapper(UserMapper userMapper, UserRepository userRepository) {
         this.userMapper = userMapper;
+        this.userRepository = userRepository;
     }
 
     public CommentDTO toDto(Comment entity) {
@@ -29,5 +32,13 @@ public class CommentMapper {
         dto.setUpdatedAt(entity.getUpdatedAt());
 
         return dto;
+    }
+
+    public Comment toEntity(Comment entity, CommentDTO dto) {
+        entity.setId(dto.getId());
+        entity.setAuthor(userRepository.getReferenceById(dto.getAuthor().getId()));
+        entity.setText(dto.getText());
+
+        return entity;
     }
 }

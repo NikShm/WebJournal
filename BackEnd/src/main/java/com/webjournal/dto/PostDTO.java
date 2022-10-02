@@ -116,6 +116,7 @@ public class PostDTO {
         isApproved = approved;
     }
 
+
     public LocalDateTime getPublishedAt() {
         return publishedAt;
     }
@@ -157,4 +158,6 @@ public class PostDTO {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+
 }
