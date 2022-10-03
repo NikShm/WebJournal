@@ -16,29 +16,15 @@ import java.util.List;
 public class PageDTO<T> {
     @ApiModelProperty(value = "List of elements of a given page")
     List<T> content;
-    @ApiModelProperty(value = "Total number of pages")
-    int pageCount;
-    @ApiModelProperty(value = "Page number to be returned")
-    int currentPage;
-    @ApiModelProperty(value = "The size of the returned page")
-    int pageSize;
     @ApiModelProperty(value = "The total number of elements in the database")
-    long totalItem;
+    Long totalItem;
 
-    public long getTotalItem() {
+    public Long getTotalItem() {
         return totalItem;
     }
 
-    public void setTotalItem(long totalItem) {
+    public void setTotalItem(Long totalItem) {
         this.totalItem = totalItem;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
     }
 
     public List<T> getContent() {
@@ -47,21 +33,5 @@ public class PageDTO<T> {
 
     public void setContent(List<T> content) {
         this.content = content;
-    }
-
-    public int getPageCount() {
-        return pageCount;
-    }
-
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
     }
 }

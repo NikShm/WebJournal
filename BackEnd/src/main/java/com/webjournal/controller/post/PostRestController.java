@@ -1,8 +1,11 @@
 package com.webjournal.controller.post;
 
+import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.SearchDTO;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.service.post.PostServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -10,43 +13,47 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PostRestController {
+    private final PostServiceImpl postService;
 
-    private PostServiceImpl service;
-
-    public PostRestController(PostServiceImpl service) {
-        this.service = service;
+    public PostRestController(PostServiceImpl postService) {
+        this.postService = postService;
     }
 
+    @PostMapping("/search")
+    public PageDTO<PostDTO> showPostPage(@RequestBody SearchDTO search) {
+        return postService.getPage(search);
+    }
     @PostMapping("/create/")
     public Integer create(@RequestBody PostDTO postDTO) {
-        return service.create(postDTO);
+        return postService.create(postDTO);
     }
 
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) throws IOException {
-        service.delete(id);
+        postService.delete(id);
     }
 
     @PutMapping( "/update/")
     public void update(@RequestBody PostDTO postDTO) throws IOException {
-        service.update(postDTO);
+        postService.update(postDTO);
     }
 
     @GetMapping("/{id}")
     public PostDTO showOne(@PathVariable Integer id) {
-        return service.get(id);
+        return postService.get(id);
     }
 
     @RequestMapping("/")
     List<PostDTO> showAll(){
-        return service.getAll();
+        return postService.getAll();
     }
 
     @GetMapping("/top-per-month")
     public List<PostDTO> showInterestingPostsPerMonth(@RequestParam("count") int n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(1));
-        return service.getInterestingPosts(n, date);
+        return postService.getInterestingPosts(n, date);
     }
 }

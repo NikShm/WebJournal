@@ -1,5 +1,6 @@
 package com.webjournal.entity;
 
+import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,7 +34,7 @@ public class User {
     @ManyToMany
     @JoinTable(name="follow",
             joinColumns= @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="follower_user_id"))
+            inverseJoinColumns = @JoinColumn(name="following_user_id"))
     private Set<User> followers;
 
     @ManyToMany(mappedBy = "followers")
@@ -53,6 +54,9 @@ public class User {
     @Column(name="updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
+    private int countFollowers;
 
     public Integer getId() {
         return id;
@@ -143,6 +147,14 @@ public class User {
         return updatedAt;
     }
 
+    public int getCountFollowers() {
+        return countFollowers;
+    }
+
+    public void setCountFollowers(int countFollowers) {
+        this.countFollowers = countFollowers;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -152,8 +164,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
                 ", bio='" + bio + '\'' +
-                ", followers=" + followers +
-                ", following=" + following +
                 ", posts=" + posts +
                 ", roleId=" + roleId +
                 ", createdAt=" + createdAt +

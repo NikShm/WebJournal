@@ -28,7 +28,7 @@ public class UserMapper {
 
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
-        dto.setFollowers(entity.getFollowers().size());
+        dto.setFollowers(entity.getCountFollowers());
 
         return dto;
     }
