@@ -37,6 +37,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="following_user_id"))
     private Set<User> followers;
 
+    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
+    private int countFollowers;
+
     @ManyToMany(mappedBy = "followers")
     private Set<User> following;
 
@@ -72,9 +75,6 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
-    private int countFollowers;
 
     public Integer getId() {
         return id;

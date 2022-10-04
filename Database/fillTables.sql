@@ -48,7 +48,7 @@ VALUES
     (19, 5, 1), (20, 5, 3),
     (21, 6, 4);
 
-INSERT INTO post (id, user_id, title, foreword, content, likes, is_approved, published_at, created_at, updated_at)
+INSERT INTO post (id, author_id, title, foreword, content, likes, is_approved, published_at, created_at, updated_at)
 VALUES
     (1, 1, 'A', 'Travel', 'Travel', 7, true, '2022-09-01 19:10:25-07', '2022-09-01 19:10:25-07', '2022-09-01 19:10:25-07'),
     (2, 2, 'B', 'Cooking', 'Cooking', 6, true, '2022-09-02 19:10:25-07', '2022-09-01 19:10:25-07', '2022-09-01 19:10:25-07'),

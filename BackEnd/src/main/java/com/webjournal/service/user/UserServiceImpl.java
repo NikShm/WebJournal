@@ -1,6 +1,5 @@
 package com.webjournal.service.user;
 
-import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.Post;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -32,12 +30,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void delete(Integer id) throws IOException {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
     @Override
-    public void update(UserDTO dto) throws IOException {
+    public void update(UserDTO dto) {
         User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Post.class.getSimpleName()));
         User updatedUser = mapper.toUserEntity(userToUpdate, dto);
         repository.save(updatedUser);

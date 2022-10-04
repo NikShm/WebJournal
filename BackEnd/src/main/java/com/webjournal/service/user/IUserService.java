@@ -1,6 +1,5 @@
 package com.webjournal.service.user;
 
-import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 
