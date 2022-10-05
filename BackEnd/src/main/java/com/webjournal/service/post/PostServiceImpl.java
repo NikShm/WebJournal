@@ -14,14 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PostServiceImpl implements IPostService{
-
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
@@ -39,12 +37,12 @@ public class PostServiceImpl implements IPostService{
     }
 
     @Override
-    public void delete(Integer id) throws IOException {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
     @Override
-    public void update(PostDTO dto) throws IOException {
+    public void update(PostDTO dto) {
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Post.class.getSimpleName()));
         Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
         repository.save(updatedProduct);
@@ -61,7 +59,7 @@ public class PostServiceImpl implements IPostService{
     }
 
     @Override
-    public List<PostDTO> getInterestingPosts(int quantity, LocalDateTime date) {
+    public List<PostDTO> getFeaturedPosts(int quantity, LocalDateTime date) {
         Pageable page = PageRequest.of(0, quantity);
         return repository.findInterestingPosts(page, date).stream().map(postMapper::toPostDto).toList();
     }

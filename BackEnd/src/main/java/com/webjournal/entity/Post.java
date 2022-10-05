@@ -1,6 +1,5 @@
 package com.webjournal.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -53,6 +52,24 @@ public class Post {
     @Column(name="updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public Post() {
+    }
+
+    public Post(Integer id, User author, String title, String foreword, String content, Integer likes, List<Comment> comments, Set<Tag> tags, Boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.foreword = foreword;
+        this.content = content;
+        this.likes = likes;
+        this.comments = comments;
+        this.tags = tags;
+        this.isApproved = isApproved;
+        this.publishedAt = publishedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getId() {
         return id;

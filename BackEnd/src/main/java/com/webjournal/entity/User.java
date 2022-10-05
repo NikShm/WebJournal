@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "user", schema="public")
+@Table(name = "user", schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="following_user_id"))
     private Set<User> followers;
 
+    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
+    private int countFollowers;
+
     @ManyToMany(mappedBy = "followers")
     private Set<User> following;
 
@@ -45,7 +48,7 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id")
-    private Role roleId;
+    private Role role;
 
     @Column(name="created_at", updatable = false)
     @CreatedDate
@@ -55,8 +58,23 @@ public class User {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
-    private int countFollowers;
+    public User() {
+    }
+
+    public User(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<User> followers, Set<User> following, List<Post> posts, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.bio = bio;
+        this.followers = followers;
+        this.following = following;
+        this.posts = posts;
+        this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getId() {
         return id;
@@ -130,14 +148,13 @@ public class User {
         this.posts = posts;
     }
 
-    public Role getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
-
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -165,11 +182,9 @@ public class User {
                 ", birthDate=" + birthDate +
                 ", bio='" + bio + '\'' +
                 ", posts=" + posts +
-                ", roleId=" + roleId +
+                ", role=" + role +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
-
-
 }

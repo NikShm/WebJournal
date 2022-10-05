@@ -1,0 +1,3 @@
+DELETE FROM post;
+DELETE FROM "user";
+DELETE FROM "role";

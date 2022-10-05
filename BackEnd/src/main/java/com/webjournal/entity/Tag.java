@@ -20,6 +20,15 @@ public class Tag {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    public Tag() {
+    }
+
+    public Tag(Integer id, String name, LocalDateTime createdAt) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+    }
+
     public Integer getId() {
         return id;
     }

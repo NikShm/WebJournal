@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(value = "/api/users", produces = "application/json")
 public class UserRestController {
     private final UserServiceImpl service;
 
@@ -43,7 +43,7 @@ public class UserRestController {
     }
 
     @GetMapping("/top")
-    public List<AuthorDTO> showInterestingAuthors(@RequestParam("count") int n) {
+    public List<AuthorDTO> getInterestingAuthors(@RequestParam("count") int n) {
         return service.getInterestingAuthors(n);
     }
 }

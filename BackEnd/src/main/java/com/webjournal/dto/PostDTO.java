@@ -1,6 +1,8 @@
 package com.webjournal.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webjournal.dto.user.AuthorDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +24,14 @@ public class PostDTO {
     private List<CommentDTO> comments;
     private List<TagDTO> tags;
     private boolean isApproved;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
     public PostDTO() {
@@ -116,7 +124,6 @@ public class PostDTO {
         isApproved = approved;
     }
 
-
     public LocalDateTime getPublishedAt() {
         return publishedAt;
     }
@@ -158,6 +165,4 @@ public class PostDTO {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
-
-
 }

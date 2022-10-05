@@ -3,7 +3,6 @@ package com.webjournal.controller.post;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
-import com.webjournal.enums.SortDirection;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +25,7 @@ public class PostRestController {
     public PageDTO<PostDTO> showPostPage(@RequestBody SearchDTO search) {
         return postService.getPage(search);
     }
+
     @PostMapping("/create/")
     public Integer create(@RequestBody PostDTO postDTO) {
         return postService.create(postDTO);
@@ -52,8 +52,8 @@ public class PostRestController {
     }
 
     @GetMapping("/top-per-month")
-    public List<PostDTO> showInterestingPostsPerMonth(@RequestParam("count") int n) {
+    public List<PostDTO> getFeaturedPosts(@RequestParam("count") int n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(1));
-        return postService.getInterestingPosts(n, date);
+        return postService.getFeaturedPosts(n, date);
     }
 }

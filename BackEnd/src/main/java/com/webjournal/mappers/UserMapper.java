@@ -15,13 +15,11 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class UserMapper {
-
     private final RoleRepository repository;
 
     public UserMapper(RoleRepository repository) {
         this.repository = repository;
     }
-
 
     public AuthorDTO toAuthorDto(User entity) {
         AuthorDTO dto = new AuthorDTO();
@@ -48,7 +46,7 @@ public class UserMapper {
         dto.setEmail(entity.getEmail());
         dto.setBirthDate(entity.getBirthDate());
         dto.setBio(entity.getBio());
-        dto.setRole(entity.getRoleId().getId());
+        dto.setRole(entity.getRole().getId());
 
         return dto;
     }
@@ -60,7 +58,7 @@ public class UserMapper {
         entity.setEmail(dto.getEmail());
         entity.setBirthDate(dto.getBirthDate());
         entity.setBio(dto.getBio());
-        entity.setRoleId(repository.getReferenceById(dto.getRole()));
+        entity.setRole(repository.getReferenceById(dto.getRole()));
 
         return entity;
     }

@@ -6,6 +6,7 @@ CREATE TABLE "role"
     id   SERIAL PRIMARY KEY,
     role VARCHAR(32) NOT NULL UNIQUE
 );
+
 CREATE TYPE languages AS ENUM ('english', 'ukrainian');
 
 drop table languages;
@@ -40,7 +41,7 @@ CREATE TABLE follow
 CREATE TABLE post
 (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES "user"(id) NOT NULL,
+    author_id INTEGER REFERENCES "user"(id) NOT NULL,
     title VARCHAR(128) NOT NULL,
     foreword VARCHAR(150) NOT NULL,
     content TEXT NOT NULL,
@@ -50,43 +51,44 @@ CREATE TABLE post
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
 );
-CREATE OR REPLACE FUNCTION like_add() RETURNS TRIGGER AS $$
+
+CREATE OR REPLACE FUNCTION like_add()
+RETURNS TRIGGER
+AS
+$$
 BEGIN
     update post set likes = (select count(*) from "like" where post_id = id) where new.post_id = id;
     return new;
 END
 $$
 LANGUAGE 'plpgsql';
+
 drop trigger like_update_trigger on "like";
+
 CREATE TRIGGER like_update_trigger
-
     AFTER INSERT
-
-
     ON "like"
-
     FOR EACH ROW
+    EXECUTE PROCEDURE like_add();
 
-EXECUTE PROCEDURE like_add();
-
-CREATE OR REPLACE FUNCTION like_delete() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION like_delete()
+RETURNS TRIGGER
+AS
+$$
 BEGIN
     update post set likes = (select count(*) from "like" where post_id = id) where old.post_id = id;
     return new;
 END
 $$
-    LANGUAGE 'plpgsql';
+LANGUAGE 'plpgsql';
+
 drop trigger like_delete_trigger on "like";
+
 CREATE TRIGGER like_delete_trigger
-
     AFTER delete
-
     ON "like"
-
     FOR EACH ROW
-
-EXECUTE PROCEDURE like_delete();
-
+    EXECUTE PROCEDURE like_delete();
 
 CREATE TABLE "like"
 (
