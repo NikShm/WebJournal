@@ -3,7 +3,7 @@ package com.webjournal.controller;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.SearchPostDTO;
+import com.webjournal.dto.search.SearchPostDTO;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;

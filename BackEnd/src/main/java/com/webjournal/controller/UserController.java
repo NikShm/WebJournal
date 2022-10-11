@@ -1,7 +1,7 @@
 package com.webjournal.controller;
 
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.SearchAuthorDTO;
+import com.webjournal.dto.search.SearchAuthorDTO;
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;

@@ -1,4 +1,4 @@
-package com.webjournal.dto;
+package com.webjournal.dto.search;
 
 import com.webjournal.enums.SortDirection;
 
@@ -9,20 +9,11 @@ import com.webjournal.enums.SortDirection;
 @version 1.0.0
 @since 14.09.2022 - 19.34
 */
-public class SearchAuthorDTO {
-    private String search;
+public class SearchCommentDTO {
     private String sortField;
     private SortDirection sortDirection;
     private Integer page;
     private Integer pageSize;
-
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
 
     public String getSortField() {
         return sortField;
@@ -59,7 +50,6 @@ public class SearchAuthorDTO {
     @Override
     public String toString() {
         return "SearchPostDTO{" +
-                "search='" + search + '\'' +
                 ", sortField='" + sortField + '\'' +
                 ", sortDirection=" + sortDirection +
                 ", page=" + page +

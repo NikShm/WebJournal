@@ -3,7 +3,7 @@ package com.webjournal.service.post;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.SearchPostDTO;
+import com.webjournal.dto.search.SearchPostDTO;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
