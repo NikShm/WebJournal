@@ -3,11 +3,13 @@ package com.webjournal.service.post;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.SearchDTO;
+import com.webjournal.dto.SearchPostDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,7 @@ public class PostServiceImpl implements IPostService{
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
     public PostServiceImpl(PostRepository repository, PostMapper postMapper, EntityManager entityManager) {
         this.repository = repository;
@@ -98,15 +103,16 @@ public class PostServiceImpl implements IPostService{
 
     @SuppressWarnings("unchecked")
     @Override
-    public PageDTO<PostDTO> getPage(SearchDTO searchDTO) {
+    public PageDTO<PostDTO> getPage(SearchPostDTO searchPostDTO) {
+        LOGGER.info("Enter to getPage method, in class PostServiceImpl. Search parameters {}",searchPostDTO);
         List<PostDTO> postDTOS = new ArrayList<>();
-        for (Object entity : entityManager.createNativeQuery(getQuery(searchDTO), Post.class).getResultList()) {
+        for (Object entity : entityManager.createNativeQuery(getQuery(searchPostDTO), Post.class).getResultList()) {
             postDTOS.add(postMapper.toPostDto((Post) entity));
         }
         Page<PostDTO> page = new PageImpl<>(postDTOS);
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
         pageDTO.setContent(page.getContent());
-        pageDTO.setTotalItem(page.getTotalElements());
+        pageDTO.setTotalItem(((BigInteger)entityManager.createNativeQuery("SELECT count(*) from post").getSingleResult()).longValue());
         return pageDTO;
     }
 
@@ -118,17 +124,27 @@ public class PostServiceImpl implements IPostService{
      *
      * @see com.webjournal.utils.FullTextSearchPred
      */
-    private String getQuery(SearchDTO search) {
+    private String getQuery(SearchPostDTO searchPost) {
         StringBuilder query = new StringBuilder("SELECT * FROM post");
-        if (search.getSearch() != null) {
-            query.append(" WHERE post.ts_content @@ phraseto_tsquery('english', '").append(search.getSearch()).append("')");
-            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(search.getSearch()).append("')");
+        if (searchPost.getSearchTag() != null) {
+            query.append(" INNER JOIN post_tag pt on post.id = pt.post_id " +
+                    "INNER JOIN tag t on pt.tag_id = t.id");
         }
-        if (search.getSortDirection() != null && search.getSortField() != null) {
-            query.append(" ORDER BY ").append(search.getSortField()).append(" ").append(search.getSortDirection());
+        if (searchPost.getSearch() != null || searchPost.getSearchTag() != null){
+            query.append(" WHERE ");
         }
-        if (search.getPage() != null && search.getPageSize() != null) {
-            query.append(" limit ").append(search.getPageSize()).append(" offset ").append(search.getPage());
+        if (searchPost.getSearch() != null && !Objects.equals(searchPost.getSearch(), "")) {
+            query.append("post.ts_content @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("')");
+            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("')");
+        }
+        if (searchPost.getSearchTag() != null){
+            query.append(" or t.name like '%").append(searchPost.getSearchTag()).append("%'");
+        }
+        if (searchPost.getSortDirection() != null && searchPost.getSortField() != null) {
+            query.append(" ORDER BY ").append(searchPost.getSortField()).append(" ").append(searchPost.getSortDirection());
+        }
+        if (searchPost.getPage() != null && searchPost.getPageSize() != null) {
+            query.append(" limit ").append(searchPost.getPageSize()).append(" offset ").append(searchPost.getPage());
         }
         return query.toString();
     }

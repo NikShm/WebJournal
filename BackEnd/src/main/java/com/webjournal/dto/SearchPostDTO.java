@@ -7,14 +7,15 @@ import io.swagger.annotations.ApiModelProperty;
 /*
 @author Микола
 @project WebJournal
-@class SearchDTO
+@class SearchPostDTO
 @version 1.0.0
 @since 14.09.2022 - 19.34
 */
 @ApiModel(description = "Page creation options class")
-public class SearchDTO {
+public class SearchPostDTO {
     @ApiModelProperty(value = "Phrase entered by user in search field to find things of interest")
     private String search;
+    private String searchTag;
     @ApiModelProperty(value = "The field by which sorting is performed")
     private String sortField;
     @ApiModelProperty(value = "Sorting type")
@@ -30,6 +31,14 @@ public class SearchDTO {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getSearchTag() {
+        return searchTag;
+    }
+
+    public void setSearchTag(String searchTag) {
+        this.searchTag = searchTag;
     }
 
     public String getSortField() {
@@ -60,14 +69,15 @@ public class SearchDTO {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 
     @Override
     public String toString() {
-        return "SearchDTO{" +
+        return "SearchPostDTO{" +
                 "search='" + search + '\'' +
+                ", searchTeg='" + searchTag + '\'' +
                 ", sortField='" + sortField + '\'' +
                 ", sortDirection=" + sortDirection +
                 ", page=" + page +
