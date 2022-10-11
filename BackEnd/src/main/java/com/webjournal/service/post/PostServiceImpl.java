@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class PostServiceImpl implements IPostService{
+public class PostServiceImpl implements IPostService {
+
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
@@ -104,7 +105,7 @@ public class PostServiceImpl implements IPostService{
     @SuppressWarnings("unchecked")
     @Override
     public PageDTO<PostDTO> getPage(SearchPostDTO searchPostDTO) {
-        LOGGER.info("Enter to getPage method, in class PostServiceImpl. Search parameters {}",searchPostDTO);
+        LOGGER.info("Enter to getPage method, in class PostServiceImpl. Search parameters {}", searchPostDTO);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Object entity : entityManager.createNativeQuery(getQuery(searchPostDTO), Post.class).getResultList()) {
             postDTOS.add(postMapper.toPostDto((Post) entity));
@@ -112,7 +113,7 @@ public class PostServiceImpl implements IPostService{
         Page<PostDTO> page = new PageImpl<>(postDTOS);
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
         pageDTO.setContent(page.getContent());
-        pageDTO.setTotalItem(((BigInteger)entityManager.createNativeQuery("SELECT count(*) from post").getSingleResult()).longValue());
+        pageDTO.setTotalItem(((BigInteger) entityManager.createNativeQuery("SELECT count(*) from post").getSingleResult()).longValue());
         return pageDTO;
     }
 
@@ -127,18 +128,24 @@ public class PostServiceImpl implements IPostService{
     private String getQuery(SearchPostDTO searchPost) {
         StringBuilder query = new StringBuilder("SELECT * FROM post");
         if (searchPost.getSearchTag() != null) {
-            query.append(" INNER JOIN post_tag pt on post.id = pt.post_id " +
-                    "INNER JOIN tag t on pt.tag_id = t.id");
+            query.append(" Left JOIN post_tag pt on post.id = pt.post_id " +
+                    "Left JOIN tag t on pt.tag_id = t.id");
         }
-        if (searchPost.getSearch() != null || searchPost.getSearchTag() != null){
-            query.append(" WHERE ");
-        }
-        if (searchPost.getSearch() != null && !Objects.equals(searchPost.getSearch(), "")) {
-            query.append("post.ts_content @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("')");
-            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("')");
-        }
-        if (searchPost.getSearchTag() != null){
-            query.append(" or t.name like '%").append(searchPost.getSearchTag()).append("%'");
+        if (searchPost.getSearch() != null || searchPost.getSearchTag() != null) {
+            if (!Objects.equals(searchPost.getSearch(), "")
+                    || !Objects.equals(searchPost.getSearchTag(), "")) {
+                query.append(" WHERE ");
+            }
+            if (!Objects.equals(searchPost.getSearch(), "")) {
+                query.append("post.ts_content @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("')");
+                query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(searchPost.getSearch()).append("') ");
+            }
+            if (!Objects.equals(searchPost.getSearch(), "") && !Objects.equals(searchPost.getSearchTag(), "")) {
+                query.append(" or ");
+            }
+            if (!Objects.equals(searchPost.getSearchTag(), "")) {
+                query.append("t.name like '%").append(searchPost.getSearchTag()).append("%'");
+            }
         }
         if (searchPost.getSortDirection() != null && searchPost.getSortField() != null) {
             query.append(" ORDER BY ").append(searchPost.getSortField()).append(" ").append(searchPost.getSortDirection());
