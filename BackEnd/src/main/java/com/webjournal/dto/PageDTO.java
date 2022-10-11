@@ -1,7 +1,5 @@
 package com.webjournal.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
@@ -12,11 +10,8 @@ import java.util.List;
 @version 1.0.0
 @since 14.09.2022 - 19.28
 */
-@ApiModel(description = "Page creation options class")
 public class PageDTO<T> {
-    @ApiModelProperty(value = "List of elements of a given page")
     List<T> content;
-    @ApiModelProperty(value = "The total number of elements in the database")
     Long totalItem;
 
     public Long getTotalItem() {

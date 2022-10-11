@@ -1,5 +1,7 @@
 package com.webjournal.service.user;
 
+import com.webjournal.dto.PageDTO;
+import com.webjournal.dto.SearchAuthorDTO;
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.SearchDTO;
@@ -10,6 +12,7 @@ import com.webjournal.entity.Role;
 import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
 import com.webjournal.exception.RegistrationException;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.enums.SortDirection;
 import com.webjournal.mail.context.AccountVerificationMailContext;
@@ -17,6 +20,8 @@ import com.webjournal.mail.service.mail.MailServiceImpl;
 import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
 import com.webjournal.mapper.UserMapper;
 import com.webjournal.repository.UserRepository;
+import com.webjournal.utils.QueryHelper;
+import org.springframework.data.domain.Page;
 import com.webjournal.security.payload.request.RegistrationRequest;
 import com.webjournal.service.role.RoleServiceImpl;
 import freemarker.template.TemplateException;
@@ -25,6 +30,7 @@ import com.webjournal.utils.QueryHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +40,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import javax.persistence.EntityManager;
@@ -43,6 +55,7 @@ import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -173,6 +186,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<AuthorDTO> getInterestingAuthors(int quantity) {
         Pageable page = PageRequest.of(0, quantity);
         return repository.findInterestingAuthors(page).stream().map(mapper::toAuthorDto).toList();
+    }
+
+    @Override
+    public PageDTO<AuthorDTO> getPage(SearchAuthorDTO search) {
+        Sort sort = Sort.by(search.getSortField());
+        if (search.getSortDirection() == SortDirection.DESC) {
+            sort = sort.descending();
+        }
+        Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
+        Page<User> all = repository.findAll((root, query, criteriaBuilder) -> getPredicate(search, criteriaBuilder, root), pageable);
+        PageDTO<AuthorDTO> dto = new PageDTO<>();
+        dto.setContent(all.stream().map(mapper::toAuthorDto).collect(Collectors.toList()));
+        dto.setTotalItem(all.getTotalElements());
+        return dto;
+    }
+
+    private Predicate getPredicate(SearchAuthorDTO search, CriteriaBuilder criteriaBuilder, Root<User> user) {
+        List<Predicate> predicates = new ArrayList<>();
+        String value = search.getSearch();
+        if (value != null) {
+            predicates.add(QueryHelper.ilike(user.get("username"), criteriaBuilder, value));
+        }
+        return predicates.size() == 1 ? predicates.get(0) : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 
     @Transactional

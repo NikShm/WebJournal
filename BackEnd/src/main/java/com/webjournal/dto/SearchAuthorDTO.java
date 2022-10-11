@@ -9,9 +9,8 @@ import com.webjournal.enums.SortDirection;
 @version 1.0.0
 @since 14.09.2022 - 19.34
 */
-public class SearchPostDTO {
+public class SearchAuthorDTO {
     private String search;
-    private String searchTag;
     private String sortField;
     private SortDirection sortDirection;
     private Integer page;
@@ -23,14 +22,6 @@ public class SearchPostDTO {
 
     public void setSearch(String search) {
         this.search = search;
-    }
-
-    public String getSearchTag() {
-        return searchTag;
-    }
-
-    public void setSearchTag(String searchTag) {
-        this.searchTag = searchTag;
     }
 
     public String getSortField() {
@@ -69,7 +60,6 @@ public class SearchPostDTO {
     public String toString() {
         return "SearchPostDTO{" +
                 "search='" + search + '\'' +
-                ", searchTeg='" + searchTag + '\'' +
                 ", sortField='" + sortField + '\'' +
                 ", sortDirection=" + sortDirection +
                 ", page=" + page +
