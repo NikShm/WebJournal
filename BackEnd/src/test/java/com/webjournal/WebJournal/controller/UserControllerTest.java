@@ -36,12 +36,12 @@ public class UserControllerTest {
     @Test
     @Sql(value = "/interesting-authors/create-users-before.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "/interesting-authors/delete-users-after.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    public void getInterestingAuthorsTest() throws Exception {
+    public void testGetInterestingAuthors() throws Exception {
         List<AuthorDTO> interestingAuthors = Arrays.asList(new AuthorDTO(1, "yulianabilak", 6),
                                                         new AuthorDTO(3, "yulianabil", 5),
                                                         new AuthorDTO(4, "yulianabi", 4));
 
-        mockMvc.perform(get("/api/users/top").contentType("application/json").param("count", "3"))
+        mockMvc.perform(get("/api/users/top").param("count", "3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(objectMapper.writeValueAsString(interestingAuthors)))

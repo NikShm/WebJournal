@@ -2,7 +2,8 @@ package com.webjournal.repository;
 
 import com.webjournal.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+import java.util.Optional;
 
 /*
 @author Емілія
@@ -11,5 +12,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 @version 1.0.0
 @since 02.10.2022 - 16.57
 */
-public interface RoleRepository extends JpaRepository<Role, Integer>, JpaSpecificationExecutor<Role> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+    Optional<Role> findByRole(String role);
 }

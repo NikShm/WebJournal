@@ -1,4 +1,4 @@
-package com.webjournal.controller.tag;
+package com.webjournal.controller;
 
 import com.webjournal.dto.TagDTO;
 import com.webjournal.service.tag.TagServiceImpl;
@@ -10,10 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/tags", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TagRestController {
+public class TagController {
     private final TagServiceImpl service;
 
-    public TagRestController(TagServiceImpl service) {
+    public TagController(TagServiceImpl service) {
         this.service = service;
     }
 

@@ -16,6 +16,9 @@ import com.webjournal.utils.QueryHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +33,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository repository;
     private final UserMapper mapper;
     private final EntityManager entityManager;
@@ -42,10 +45,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " was not found."));
+    }
+
+    @Override
     public Integer create(UserDTO dto) {
         User createdUser = mapper.toUserEntity(new User(), dto);
         return repository.save(createdUser).getId();
-
     }
 
     @Override

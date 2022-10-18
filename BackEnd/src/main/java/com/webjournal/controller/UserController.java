@@ -1,4 +1,4 @@
-package com.webjournal.controller.user;
+package com.webjournal.controller;
 
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.user.AuthorDTO;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = "application/json")
-public class UserRestController {
+public class UserController {
     private final UserServiceImpl service;
 
-    public UserRestController(UserServiceImpl service) {
+    public UserController(UserServiceImpl service) {
         this.service = service;
     }
 
@@ -24,12 +24,12 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOne(@PathVariable Integer id) throws IOException {
+    public void deleteOne(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @PutMapping( "/update/")
-    public void update(@RequestBody UserDTO userDTO) throws IOException {
+    public void update(@RequestBody UserDTO userDTO) {
         service.update(userDTO);
     }
 

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
     Integer create(UserDTO dto);
     void delete(Integer id) throws IOException;
     void update(UserDTO dto) throws IOException;

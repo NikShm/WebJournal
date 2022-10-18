@@ -1,5 +1,7 @@
 package com.webjournal.utils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 /**
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 public class ErrorMessage {
     private int status;
     private String error;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
     private String path;
     private String message;

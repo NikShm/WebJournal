@@ -1,4 +1,4 @@
-package com.webjournal.controller.post;
+package com.webjournal.controller;
 
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
@@ -6,6 +6,7 @@ import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -15,10 +16,10 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
-public class PostRestController {
+public class PostController {
     private final PostServiceImpl postService;
 
-    public PostRestController(PostServiceImpl postService) {
+    public PostController(PostServiceImpl postService) {
         this.postService = postService;
     }
 
@@ -43,12 +44,13 @@ public class PostRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOne(@PathVariable Integer id) throws IOException {
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public void deleteOne(@PathVariable Integer id) {
         postService.delete(id);
     }
 
     @PutMapping( "/update/")
-    public void update(@RequestBody PostDTO postDTO) throws IOException {
+    public void update(@RequestBody PostDTO postDTO) {
         postService.update(postDTO);
     }
 

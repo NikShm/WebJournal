@@ -16,12 +16,11 @@ CREATE TABLE languages
 CREATE TABLE "user"
 (
     id SERIAL PRIMARY KEY,
-    login VARCHAR(128) NOT NULL UNIQUE,
-    password VARCHAR(32) NOT NULL,
+    login VARCHAR(64) NOT NULL UNIQUE,
+    password VARCHAR(128) NOT NULL,
     email VARCHAR(256) UNIQUE,
     birth_date DATE NOT NULL,
     bio VARCHAR(150),
-    profile_picture_path VARCHAR(512) NOT NULL,
     role_id INTEGER REFERENCES "role"(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -56,7 +55,6 @@ CREATE TABLE "like"
     post_id INTEGER REFERENCES post(id) NOT NULL,
     PRIMARY KEY (user_id, post_id)
 );
-
 
 CREATE TABLE "comment"
 (
