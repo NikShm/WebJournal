@@ -1,5 +1,6 @@
 package com.webjournal.controller.post;
 
+import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
@@ -29,6 +30,16 @@ public class PostRestController {
     @PostMapping("/create/")
     public Integer create(@RequestBody PostDTO postDTO) {
         return postService.create(postDTO);
+    }
+
+    @PostMapping("/set_like")
+    public void createLike(@RequestBody LikeDTO likeDTO) {
+         postService.setLike(likeDTO);
+    }
+
+    @PostMapping("/delete_like")
+    public void deleteLike(@RequestBody LikeDTO likeDTO) {
+        postService.deleteLike(likeDTO);
     }
 
     @DeleteMapping("/{id}")

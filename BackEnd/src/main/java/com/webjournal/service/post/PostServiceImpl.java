@@ -1,5 +1,6 @@
 package com.webjournal.service.post;
 
+import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
@@ -12,8 +13,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,30 @@ public class PostServiceImpl implements IPostService{
     public List<PostDTO> getFeaturedPosts(int quantity, LocalDateTime date) {
         Pageable page = PageRequest.of(0, quantity);
         return repository.findInterestingPosts(page, date).stream().map(postMapper::toPostDto).toList();
+    }
+
+    @Transactional
+    @Override
+    public void setLike(LikeDTO like) {
+        Integer authorId = (Integer) entityManager.createNativeQuery("SELECT author_id from post where id = " + like.getPostId())
+                .getSingleResult();
+        Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
+                .setParameter(1, like.getUserId())
+                .setParameter(2, like.getPostId())
+                .getSingleResult();
+        if (!Objects.equals(authorId, like.getUserId()) && !isExist) {
+            String INSERT_LIKE = "insert into \"like\"(user_id, post_id) VALUES (?1,?2) ON CONFLICT DO NOTHING";
+            entityManager.createNativeQuery(INSERT_LIKE).setParameter(1, like.getUserId())
+                    .setParameter(2, like.getPostId()).executeUpdate();
+        }
+    }
+
+    @Transactional
+    @Override
+    public void deleteLike(LikeDTO like) {
+        String DELETE_LIKE = "delete from \"like\" where user_id = ?1 and post_id = ?2";
+        entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, like.getUserId())
+                .setParameter(2, like.getPostId()).executeUpdate();
     }
 
     @SuppressWarnings("unchecked")
