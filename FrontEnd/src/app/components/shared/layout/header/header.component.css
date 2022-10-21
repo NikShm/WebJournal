@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,300;0,500;0,600;0,700;0,900;1,100;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body{
+    background: #EBE6D1;
+}
+
+.menu{
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 60px 40px;
+	width: 1140px;
+	height: 156px;
+
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+.textForHeader p {
+    position: relative;
+
+    margin: auto;
+    margin-top: -2px;
+    margin-bottom: 2px;
+    width: 500px;
+    left: 280px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.1em;
+
+    color: #2E303F;
+
+}
+
+.nameBlog{
+    position: absolute;
+    margin: auto;
+
+
+    margin-left: 30px;
+    margin-top: 200px;
+    width: 950px;
+    height: 150px;
+    font-family: 'Montserrat Alternates';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 128px;
+    letter-spacing: 0.1em;
+
+    color: #C24332;
+
+}
+/*****************!!!!!!!!!!!!!!!!!!!!*********************/
+
+.line1{
+    position: absolute;
+
+    width: 230px;
+    align-items: center;
+    margin-left: -140px;
+    margin-top: 20px;
+    transform: rotate(-90deg);
+    }
+
+
+#line1hr{
+  width: 150px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 70px;
+  margin-top:  10px;
+}
+
+.line2{
+  position: absolute;
+
+  width: 90px;
+  align-items: center;
+  margin-left: 60px;
+  margin-top: -70px;
+  transform: rotate(-90deg);
+
+  background-color: #70c23200;
+  }
+
+#line2hr{
+  width: 50px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 40px;
+  margin-top:  10px;
+}
+.line3{
+  position: absolute;
+
+  width: 90px;
+  align-items: center;
+  margin-left: 180px;
+  margin-top: -50px;
+  transform: rotate(-90deg);
+
+  background-color: #70c23200;
+  }
+
+#line3hr{
+  width: 60px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 40px;
+  margin-top:  10px;
+}
+.line4{
+  position: absolute;
+
+  width: 90px;
+  align-items: center;
+  margin-left: 730px;
+  margin-top: -30px;
+  transform: rotate(-90deg);
+
+  background-color: #70c23200;
+  }
+
+#line4hr{
+  width: 60px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 50px;
+  margin-top:  10px;
+}
+.line5{
+  position: absolute;
+
+  width: 90px;
+  align-items: center;
+  margin-left: 890px;
+  margin-top: -100px;
+  transform: rotate(-90deg);
+
+  background-color: #70c23200;
+  }
+
+#line5hr{
+  width: 40px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 50px;
+  margin-top:  10px;
+}
+
+.line6{
+  position: absolute;
+
+  width: 90px;
+  align-items: center;
+  margin-left: 1030px;
+  margin-top: 110px;
+  transform: rotate(-90deg);
+
+  background-color: #70c23200;
+  }
+
+#line6hr{
+  width: 80px;
+  border: 0.5px solid #63948C;
+  position: absolute;
+  margin-left: 100px;
+  margin-top:  10px;
+}
+
+/*****************!!!!!!!!!!!!!!!!!!!!*********************/
+.navigation{
+    position: absolute;
+    margin: auto;
+    margin-left: -40px;
+    margin-top: 450px;
+
+    width: 1140px;
+    height: 50px;
+}
+
+.navigation .line{
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 49px;
+    border: 2px solid #000000;
+}
+
+.ul{
+    position: absolute;
+    margin: auto;
+    background-color: rgba(0, 255, 255, 0);
+    display: flex;
+  }
+
+.ul li{
+width: 258px;
+height: 50px;
+list-style: none;
+position: relative;
+border: 2px #000000;
+}
+
+.aCss {
+color: rgb(0, 0, 0);
+
+display: block;
+height:49px;
+text-align: center;
+
+border: 1px solid black;
+line-height: 45px;
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+
+letter-spacing: 0.2em;
+text-decoration: none;
+transition: all .5s;
+}
+
+.aCss:hover {
+color: rgb(245, 236, 236);
+background: #C24332;
+}
+
+a img:hover{
+    transform: rotate(360deg);
+    transition: transform 2s;
+}
