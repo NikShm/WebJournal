@@ -6,6 +6,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,15 +23,19 @@ public class User {
     private Integer id;
 
     @Column(name="login")
+    @Size(max = 60, message = "USERNAME must be between 1 and 60 characters long")
+    @NotBlank(message = "USERNAME may not be null")
     private String username;
-
+    @NotBlank(message = "PASSWORD may not be null")
+    @Size(max = 32, message = "PASSWORD must be between 1 and 32 characters long")
     private String password;
-
+    @Size(max = 256, message = "USERNAME must be between 1 and 256 characters long")
     private String email;
 
     @Column(name="birth_date")
+    @NotNull(message = "BIRTH DATE may not be null")
     private LocalDate birthDate;
-
+    @Size(max = 150, message = "BIO must be between 1 and 150 characters long")
     private String bio;
 
     @ManyToMany
@@ -37,6 +44,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="following_user_id"))
     private Set<User> followers;
 
+    @NotBlank(message = "PROFILE PICTURE PATH may not be blank")
+    @Size(max = 512, message = "PROFILE PICTURE PATH must be between 1 and 512 characters long")
+    private String profile_picture_path;
     @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
     private int countFollowers;
 
@@ -48,6 +58,7 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id")
+    @NotNull(message = "ROLE may not be null")
     private Role role;
 
     @Column(name="created_at", updatable = false)
@@ -61,7 +72,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<User> followers, Set<User> following, List<Post> posts, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<User> followers, String profile_picture_path, int countFollowers, Set<User> following, List<Post> posts, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -69,6 +80,8 @@ public class User {
         this.birthDate = birthDate;
         this.bio = bio;
         this.followers = followers;
+        this.profile_picture_path = profile_picture_path;
+        this.countFollowers = countFollowers;
         this.following = following;
         this.posts = posts;
         this.role = role;
@@ -114,6 +127,14 @@ public class User {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getProfile_picture_path() {
+        return profile_picture_path;
+    }
+
+    public void setProfile_picture_path(String profile_picture_path) {
+        this.profile_picture_path = profile_picture_path;
     }
 
     public String getBio() {

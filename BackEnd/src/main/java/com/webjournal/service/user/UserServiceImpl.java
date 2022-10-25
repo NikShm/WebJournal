@@ -4,6 +4,7 @@ import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.User;
+import com.webjournal.exception.ApiRequestException;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mappers.UserMapper;
 import com.webjournal.repository.UserRepository;
@@ -11,7 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -23,14 +28,19 @@ public class UserServiceImpl implements IUserService {
         this.mapper = mapper;
     }
 
+
     @Override
     public Integer create(UserDTO dto) {
         User createdUser = mapper.toUserEntity(new User(), dto);
         return repository.save(createdUser).getId();
+
     }
 
     @Override
     public void delete(Integer id) {
+        if (!repository.existsById(id)) {
+            throw new ApiRequestException("CANT DELETE! Not found user with id = " + id);
+        }
         repository.deleteById(id);
     }
 
