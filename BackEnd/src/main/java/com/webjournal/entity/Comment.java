@@ -5,6 +5,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,6 +21,8 @@ public class Comment {
     @JoinColumn(name="user_id")
     private User author;
 
+    @NotBlank(message = "COMMENT TEXT may not be blank")
+    @Size(max = 512, message = "COMMENT TEXT must be between 1 and 500 characters long")
     private String text;
 
     @Column(name="created_at", updatable = false)
