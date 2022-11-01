@@ -1,9 +1,12 @@
 package com.webjournal.entity;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,6 +17,9 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @UniqueElements(message = "TAG with this NAME already exists")
+    @NotBlank(message = "TAG NAME may not be blank")
+    @Size(max = 64, message = "TAG NAME must be between 1 and 64 characters long")
     private String name;
 
     @Column(name="created_at", updatable = false)
