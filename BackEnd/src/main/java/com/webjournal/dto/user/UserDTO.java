@@ -1,8 +1,11 @@
 package com.webjournal.dto.user;
 
 import com.webjournal.dto.PostDTO;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +26,7 @@ public class UserDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
     private String bio;
+    private String profile_picture_path;
     private Set<AuthorDTO> followers;
     private Set<AuthorDTO> following;
     private List<PostDTO> posts;
@@ -33,13 +37,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Set<AuthorDTO> followers, Set<AuthorDTO> following, List<PostDTO> posts, Integer role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
+    public UserDTO(Integer id, String username, String password, String email, LocalDate birthDate, String bio, String profile_picture_path, Set<AuthorDTO> followers, Set<AuthorDTO> following, List<PostDTO> posts, Integer role, LocalDateTime registeredAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.birthDate = birthDate;
         this.bio = bio;
+        this.profile_picture_path = profile_picture_path;
         this.followers = followers;
         this.following = following;
         this.posts = posts;
@@ -70,6 +75,14 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfile_picture_path() {
+        return profile_picture_path;
+    }
+
+    public void setProfile_picture_path(String profile_picture_path) {
+        this.profile_picture_path = profile_picture_path;
     }
 
     public String getEmail() {
@@ -153,6 +166,7 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
                 ", bio='" + bio + '\'' +
+                ", profile_picture_path='" + profile_picture_path + '\'' +
                 ", followers=" + followers +
                 ", following=" + following +
                 ", posts=" + posts +

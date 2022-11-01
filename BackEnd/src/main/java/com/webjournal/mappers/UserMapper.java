@@ -6,6 +6,8 @@ import com.webjournal.entity.User;
 import com.webjournal.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+
 /**
  * @author Yuliana
  * @version 1.0.0
