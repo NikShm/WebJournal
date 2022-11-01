@@ -5,6 +5,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -17,16 +20,23 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull(message = "AUTHOR may not be null")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author_id")
     private User author;
 
+    @NotBlank(message = "TITLE may not be null")
+    @Size(max = 128, message = "TITLE must be between 1 and 128 characters long")
     private String title;
 
+    @NotBlank(message = "FOREWORD may not be null")
+    @Size(max = 150, message = "FOREWORD must be between 1 and 150 characters long")
     private String foreword;
 
+    @NotBlank(message = "CONTENT may not be null")
     private String content;
 
+    @NotNull(message = "LIKES may not be null")
     private Integer likes;
 
     @OneToMany
@@ -39,9 +49,11 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name="tag_id"))
     private Set<Tag> tags;
 
+    @NotNull(message = "IS APPROVED may not be null")
     @Column(name="is_approved")
     private Boolean isApproved;
 
+    @NotNull(message = "PUBLISHED AT may not be null")
     @Column(name="published_at")
     private LocalDateTime publishedAt;
 
