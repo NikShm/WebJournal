@@ -11,7 +11,7 @@
         <h1>Welcome</h1>
         <p>Dear ${username},</p>
         <p>Finish creating your account.</p>
-        <p>We're excited to have you get started. First, you need to confirm your account. Just press the link below.</p>
+        <p>We're excited to have you get started on WebJournal. First, you need to confirm your account. Just press the link below.</p>
         <a href="${verificationURL}">Verify email</a>
     </body>
 </html>

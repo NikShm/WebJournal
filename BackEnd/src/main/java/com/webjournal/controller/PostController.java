@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class PostController {
         return postService.getPage(search);
     }
 
-    @PostMapping("/create/")
+    @PostMapping("/create")
     public Integer create(@RequestBody PostDTO postDTO) {
         return postService.create(postDTO);
     }

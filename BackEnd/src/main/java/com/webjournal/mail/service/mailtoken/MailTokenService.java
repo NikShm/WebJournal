@@ -10,12 +10,8 @@ import com.webjournal.entity.MailToken;
  * @since 11/1/2022 - 20.15
  **/
 public interface MailTokenService {
-
     MailToken createMailToken();
-
     void saveMailToken(MailToken token);
-
     MailToken getByToken(String token);
-
     void deleteToken(MailToken token);
 }

@@ -1,4 +1,4 @@
-package com.webjournal.utils;
+package com.webjournal.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 /**
  * @author Yuliana
  * @version 1.0.0
- * @project FreshBeauty
- * @class ErrorMessage
+ * @project WebJournal
+ * @class ApiErrorMessage
  * @since 8/13/2022 - 22.14
  **/
-public class ErrorMessage {
+public class ApiErrorMessage {
     private int status;
     private String error;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -19,7 +19,7 @@ public class ErrorMessage {
     private String path;
     private String message;
 
-    public ErrorMessage(int status, String error, LocalDateTime timestamp, String path, String message) {
+    public ApiErrorMessage(int status, String error, LocalDateTime timestamp, String path, String message) {
         this.status = status;
         this.error = error;
         this.timestamp = timestamp;

@@ -9,10 +9,9 @@ import com.webjournal.entity.MailToken;
 import com.webjournal.entity.Role;
 import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
-import com.webjournal.exception.ApiRequestException;
-import com.webjournal.enums.SortDirection;
+import com.webjournal.exception.RegistrationException;
 import com.webjournal.exception.DatabaseFetchException;
-import com.webjournal.exception.InvalidMailTokenException;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.mail.context.AccountVerificationMailContext;
 import com.webjournal.mail.service.mail.MailServiceImpl;
 import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
@@ -33,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -57,8 +57,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Value("${site.base.url.http}")
     private String baseURL;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper, EntityManager entityManager) {
-    public UserServiceImpl(UserRepository repository, RoleServiceImpl roleService, UserMapper mapper, PasswordEncoder passwordEncoder, MailTokenServiceImpl mailTokenService, MailServiceImpl mailService) {
+    public UserServiceImpl(UserRepository repository, RoleServiceImpl roleService, UserMapper mapper, EntityManager entityManager, PasswordEncoder passwordEncoder, MailTokenServiceImpl mailTokenService, MailServiceImpl mailService) {
         this.repository = repository;
         this.roleService = roleService;
         this.mapper = mapper;
@@ -67,7 +66,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.mailTokenService = mailTokenService;
         this.mailService = mailService;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -85,7 +83,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void create(RegistrationRequest registrationRequest) {
+    public void create(RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException {
+        if (checkIfUserExistsByUsername(registrationRequest.getUsername())) {
+            throw new RegistrationException("Username is already taken");
+        }
+        if (checkIfUserExistsByEmail(registrationRequest.getEmail())) {
+            throw new RegistrationException("Email is already in use");
+        }
         User createdUser = new User();
         createdUser.setUsername(registrationRequest.getUsername());
         createdUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
@@ -108,8 +112,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         sendRegistrationConfirmationEmail(createdUser);
     }
 
-    @Override
-    public void sendRegistrationConfirmationEmail(User user) {
+    private void sendRegistrationConfirmationEmail(User user) throws TemplateException, MessagingException, IOException {
         MailToken mailToken = mailTokenService.createMailToken();
         mailToken.setUser(user);
         mailTokenService.saveMailToken(mailToken);
@@ -117,43 +120,41 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         mailContext.init(user);
         mailContext.buildVerificationUrl(baseURL, mailToken.getToken());
 
-        try {
-            mailService.sendMail(mailContext);
-        } catch (MessagingException | IOException | TemplateException ex) {
-            ex.printStackTrace();
-        }
+        mailService.sendMail(mailContext);
     }
 
     @Override
-    public boolean verifyUser(String token) {
+    public void verifyUser(String token) {
+        if (!StringUtils.hasText(token)) {
+            throw new RegistrationException("Token is empty");
+        }
         MailToken mailToken = mailTokenService.getByToken(token);
         if (mailToken == null || !token.equals(mailToken.getToken()) || mailToken.isExpired()) {
-            throw new InvalidMailTokenException("Mail token is not valid");
+            throw new RegistrationException("Mail token is not valid");
         }
         User user = repository.findById(mailToken.getUser().getId()).orElse(null);
         if (user == null) {
-            return false;
+            throw new RegistrationException("This user doesn't exist");
         }
         user.setAccountVerified(true);
         repository.save(user);
 
         mailTokenService.deleteToken(mailToken);
-        return true;
     }
 
     @Override
     public void delete(Integer id) {
         if (!repository.existsById(id)) {
-            throw new ApiRequestException("CANT DELETE! Not found user with id = " + id);
+            throw new DatabaseFetchException("CANT DELETE! Not found user with id = " + id);
         }
         repository.deleteById(id);
     }
 
     @Override
     public void update(UserDTO dto) {
-        /*User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Post.class.getSimpleName()));
+        User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with id " + dto.getId()));
         User updatedUser = mapper.toUserEntity(userToUpdate, dto);
-        repository.save(updatedUser);*/
+        repository.save(updatedUser);
     }
 
     @Override

@@ -14,6 +14,7 @@ public class RoleServiceImpl implements RoleService {
         this.repository = repository;
     }
 
+    @Override
     public Role getRoleByRoleType(RoleType type) {
         return repository.findByRole(type).orElseThrow(() -> new DatabaseFetchException("Could not find entity Role with name " + type.name()));
     }

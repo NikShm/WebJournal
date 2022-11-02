@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class TagServiceImpl implements ITagService {
+public class TagServiceImpl implements TagService {
     private final TagRepository repository;
     private final TagMapper mapper;
 

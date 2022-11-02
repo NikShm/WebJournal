@@ -33,7 +33,7 @@ public class JwtUtils {
         User userPrincipal = (User) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
+                .setSubject(userPrincipal.getEmail())
                 .claim("authorities", authentication.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(tokenValidityInDays)))

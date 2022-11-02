@@ -1,7 +1,7 @@
 package com.webjournal.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.webjournal.utils.ErrorMessage;
+import com.webjournal.exception.ApiErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         LOGGER.error("Forbidden error: {}", accessDeniedException.getMessage());
 
         String path = request.getServletPath();
-        ErrorMessage errorMessage = new ErrorMessage(FORBIDDEN.value(), FORBIDDEN.getReasonPhrase(), LocalDateTime.now(), path, accessDeniedException.getMessage());
+        ApiErrorMessage errorMessage = new ApiErrorMessage(FORBIDDEN.value(), FORBIDDEN.getReasonPhrase(), LocalDateTime.now(), path, accessDeniedException.getMessage());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);

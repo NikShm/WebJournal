@@ -1,7 +1,7 @@
 package com.webjournal.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.webjournal.utils.ErrorMessage;
+import com.webjournal.exception.ApiErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         LOGGER.error("Unauthorized error: {}", authException.getMessage());
 
         String path = request.getServletPath();
-        ErrorMessage errorMessage = new ErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, authException.getMessage());
+        ApiErrorMessage errorMessage = new ApiErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, authException.getMessage());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(status.value());
