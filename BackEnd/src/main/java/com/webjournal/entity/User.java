@@ -5,12 +5,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -20,16 +21,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "login", unique = true)
+    @Column(name = "login")
     private String username;
 
     private String password;
 
-    @Column(unique = true)
     private String email;
 
-    @Column(name="birth_date")
-    private LocalDate birthDate;
+    @Column(name = "account_verified")
+    private Boolean accountVerified;
 
     private String bio;
 
@@ -51,13 +51,14 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Integer id, String username, String password, String email, LocalDate birthDate, String bio, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String password, String email, Boolean accountVerified, String bio, int countFollowers, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.birthDate = birthDate;
+        this.accountVerified = accountVerified;
         this.bio = bio;
+        this.countFollowers = countFollowers;
         this.role = role;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -80,12 +81,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return accountVerified;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getRole().getGrantedAuthorities();
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role.getRole().name()));
     }
 
     @Override
@@ -122,12 +123,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public Boolean getAccountVerified() {
+        return accountVerified;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setAccountVerified(Boolean accountVerified) {
+        this.accountVerified = accountVerified;
     }
 
     public String getBio() {
@@ -169,7 +170,7 @@ public class User implements UserDetails {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", birthDate=" + birthDate +
+                ", accountVerified=" + accountVerified +
                 ", bio='" + bio + '\'' +
                 ", countFollowers=" + countFollowers +
                 ", role=" + role +

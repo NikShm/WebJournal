@@ -8,7 +8,7 @@ package com.webjournal.exception;
  * @since 8/13/2022 - 14.32
  **/
 public class DatabaseFetchException extends RuntimeException {
-    public DatabaseFetchException(Integer id, String entityName) {
-        super("Could not find " + entityName + " entity with id " + id);
+    public DatabaseFetchException(String message) {
+        super(message);
     }
 }

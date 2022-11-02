@@ -1,6 +1,7 @@
 package com.webjournal.repository;
 
 import com.webjournal.entity.Role;
+import com.webjournal.enums.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -13,5 +14,5 @@ import java.util.Optional;
 @since 02.10.2022 - 16.57
 */
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-    Optional<Role> findByRole(String role);
+    Optional<Role> findByRole(RoleType role);
 }

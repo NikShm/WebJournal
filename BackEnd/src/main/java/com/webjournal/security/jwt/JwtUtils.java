@@ -1,4 +1,4 @@
-package com.webjournal.utils;
+package com.webjournal.security.jwt;
 
 import com.webjournal.entity.User;
 import io.jsonwebtoken.*;
@@ -26,8 +26,8 @@ public class JwtUtils {
     private String secretKey;
     @Value("${application.jwt.tokenPrefix}")
     private String tokenPrefix;
-    @Value("${application.jwt.tokenExpirationAfterDays}")
-    private Integer tokenExpirationAfterDays;
+    @Value("${application.jwt.token.validity.in.days}")
+    private Integer tokenValidityInDays;
 
     public String generateJwtToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();
@@ -36,7 +36,7 @@ public class JwtUtils {
                 .setSubject(userPrincipal.getUsername())
                 .claim("authorities", authentication.getAuthorities())
                 .setIssuedAt(new Date())
-                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(tokenExpirationAfterDays)))
+                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(tokenValidityInDays)))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
@@ -80,11 +80,11 @@ public class JwtUtils {
         this.tokenPrefix = tokenPrefix;
     }
 
-    public Integer getTokenExpirationAfterDays() {
-        return tokenExpirationAfterDays;
+    public Integer getTokenValidityInDays() {
+        return tokenValidityInDays;
     }
 
-    public void setTokenExpirationAfterDays(Integer tokenExpirationAfterDays) {
-        this.tokenExpirationAfterDays = tokenExpirationAfterDays;
+    public void setTokenValidityInDays(Integer tokenValidityInDays) {
+        this.tokenValidityInDays = tokenValidityInDays;
     }
 }

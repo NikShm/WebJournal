@@ -1,9 +1,6 @@
-package com.webjournal.utils;
+package com.webjournal.security.payload.response;
 
 import com.webjournal.enums.RoleType;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Yuliana

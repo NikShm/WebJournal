@@ -1,7 +1,6 @@
 package com.webjournal.security.jwt;
 
 import com.webjournal.service.user.UserServiceImpl;
-import com.webjournal.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -18,11 +18,6 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/create/")
-    public Integer create(@RequestBody UserDTO userDTO) {
-        return service.create(userDTO);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) {
         service.delete(id);

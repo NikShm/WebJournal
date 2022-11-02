@@ -1,4 +1,4 @@
 package com.webjournal.service.role;
 
-public interface IRoleService {
+public interface RoleService {
 }
