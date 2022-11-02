@@ -5,6 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {NgxPaginationModule} from 'ngx-pagination';
 
+
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,7 @@ import { FooterComponent } from './components/shared/layout/footer/footer.compon
 // import {CartService} from "./services/cart.service";
 // import {FavouriteService} from "./services/favourite.service";
 import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
+import { PostComponent } from './components/post/post.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.s
     PostsComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
