@@ -30,7 +30,8 @@ CREATE TABLE "user"
 CREATE TABLE follow
 (
     user_id INTEGER REFERENCES "user"(id) NOT NULL,
-    following_user_id INTEGER REFERENCES "user"(id) NOT NULL
+    following_user_id INTEGER REFERENCES "user"(id) NOT NULL,
+    PRIMARY KEY (user_id, following_user_id)
 );
 
 CREATE TABLE post

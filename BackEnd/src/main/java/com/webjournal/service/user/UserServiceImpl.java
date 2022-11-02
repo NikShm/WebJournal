@@ -2,18 +2,23 @@ package com.webjournal.service.user;
 
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.search.SearchAuthorDTO;
+import com.webjournal.dto.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.User;
 import com.webjournal.exception.ApiRequestException;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mappers.UserMapper;
 import com.webjournal.repository.UserRepository;
+import com.webjournal.utils.QueryHelper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,6 +29,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.Set;
 
 @Service
@@ -104,7 +111,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public PageDTO<AuthorDTO> getPage(SearchAuthorDTO search) {
+    public PageDTO<AuthorDTO> getPage(SearchDTO search) {
         Sort sort = Sort.by(search.getSortField());
         if (search.getSortDirection() == SortDirection.DESC) {
             sort = sort.descending();
@@ -117,7 +124,7 @@ public class UserServiceImpl implements IUserService {
         return dto;
     }
 
-    private Predicate getPredicate(SearchAuthorDTO search, CriteriaBuilder criteriaBuilder, Root<User> user) {
+    private Predicate getPredicate(SearchDTO search, CriteriaBuilder criteriaBuilder, Root<User> user) {
         List<Predicate> predicates = new ArrayList<>();
         String value = search.getSearch();
         if (value != null) {

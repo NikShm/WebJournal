@@ -2,7 +2,7 @@ package com.webjournal.service.user;
 
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.search.SearchAuthorDTO;
+import com.webjournal.dto.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,5 +24,5 @@ public interface IUserService {
     @Transactional
     void unsubscribe(FollowDTO followDTO);
 
-    PageDTO<AuthorDTO> getPage(SearchAuthorDTO search);
+    PageDTO<AuthorDTO> getPage(SearchDTO search);
 }
