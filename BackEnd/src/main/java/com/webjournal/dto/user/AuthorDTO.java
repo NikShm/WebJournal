@@ -1,7 +1,5 @@
 package com.webjournal.dto.user;
 
-import java.math.BigInteger;
-
 /**
  * @author Yuliana
  * @version 1.0.0
