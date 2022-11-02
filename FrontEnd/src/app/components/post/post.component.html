@@ -1,0 +1,158 @@
+<app-header></app-header>
+<!--start section content... -->
+<body>
+<div class="postDiv">
+  <p id="datePostDiv">Nov 9, 2021 • 2 min read</p>
+  <h1 id="titlePostDiv">Back to Fiction: What I'm Reading This Summer</h1>
+    <p id="forewordPostDiv">
+      Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading.
+    </p>
+
+    <div class="imgDiv">
+      <img src="assets/colage.png">
+    </div>
+
+    <p id="mainContent">
+      Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading.
+    </p>
+    <hr id="postLowerHr">
+
+    <p id="byUser">
+      <a href="#">by User name</a>
+    </p>
+
+  <a href="#" class="like-button">
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+    <svg width="20" height="20" version="1.1" id="Layer_1" xmlns:xlink="http://www.w3.org/1999/xlink"  xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
+         viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <path d="M474.655,74.503C449.169,45.72,413.943,29.87,375.467,29.87c-30.225,0-58.5,12.299-81.767,35.566
+          c-15.522,15.523-28.33,35.26-37.699,57.931c-9.371-22.671-22.177-42.407-37.699-57.931c-23.267-23.267-51.542-35.566-81.767-35.566
+          c-38.477,0-73.702,15.851-99.188,44.634C13.612,101.305,0,137.911,0,174.936c0,44.458,13.452,88.335,39.981,130.418
+          c21.009,33.324,50.227,65.585,86.845,95.889c62.046,51.348,123.114,78.995,125.683,80.146c2.203,0.988,4.779,0.988,6.981,0
+          c2.57-1.151,63.637-28.798,125.683-80.146c36.618-30.304,65.836-62.565,86.845-95.889C498.548,263.271,512,219.394,512,174.936
+          C512,137.911,498.388,101.305,474.655,74.503z"/>
+      <path  d="M160.959,401.243c-36.618-30.304-65.836-62.565-86.845-95.889
+          c-26.529-42.083-39.981-85.961-39.981-130.418c0-37.025,13.612-73.631,37.345-100.433c21.44-24.213,49.775-39.271,81.138-43.443
+          c-5.286-0.786-10.653-1.189-16.082-1.189c-38.477,0-73.702,15.851-99.188,44.634C13.612,101.305,0,137.911,0,174.936
+          c0,44.458,13.452,88.335,39.981,130.418c21.009,33.324,50.227,65.585,86.845,95.889c62.046,51.348,123.114,78.995,125.683,80.146
+          c2.203,0.988,4.779,0.988,6.981,0c0.689-0.308,5.586-2.524,13.577-6.588C251.254,463.709,206.371,438.825,160.959,401.243z"/>
+        </svg>
+  </a>
+
+    <script>
+      let button = document.querySelector(".like-button");
+
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        this.classList.toggle("active");
+        this.classList.add("animated");
+        generateClones(this);
+      });
+
+
+      function generateClones(button) {
+        let clones = randomInt(2, 4);
+        for (let it = 1; it <= clones; it++) {
+          let clone = button.querySelector("svg").cloneNode(true),
+            size = randomInt(5, 16);
+          button.appendChild(clone);
+          clone.setAttribute("width", size);
+          clone.setAttribute("height", size);
+          clone.style.position = "absolute";
+          clone.style.transition =
+            "transform 0.5s cubic-bezier(0.12, 0.74, 0.58, 0.99) 0.3s, opacity 1s ease-out .5s";
+          let animTimeout = setTimeout(function() {
+            clearTimeout(animTimeout);
+            clone.style.transform =
+              "translate3d(" +
+              (plusOrMinus() * randomInt(10, 25)) +
+              "px," +
+              (plusOrMinus() * randomInt(10, 25)) +
+              "px,0)";
+            clone.style.opacity = 0;
+          }, 1);
+          let removeNodeTimeout = setTimeout(function() {
+            clone.parentNode.removeChild(clone);
+            clearTimeout(removeNodeTimeout);
+          }, 900);
+          let removeClassTimeout = setTimeout( function() {
+            button.classList.remove("animated")
+          }, 600);
+        }
+      }
+
+
+      function plusOrMinus() {
+        return Math.random() < 0.5 ? -1 : 1;
+      }
+
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+    </script>
+    <p id="tagName">
+      <a href="#">Art & Culture</a>
+    </p>
+</div>
+
+<!------start comment section----->
+<div class="commentBody">
+  <h2 class="similarPostsTitle">Comments</h2>
+  <div>
+    <div class="imgDivUser">
+      <img src="assets/cooking.webp">
+    </div>
+
+    <div class="input-container">
+      <input type="text" required=""/>
+      <label>Add a comment</label>
+      <button type="button" class="fill"><p id="publishBtn">publish</p></button>
+    </div>
+
+  </div>
+  <div>
+    <div class="imgDivUser">
+      <img src="assets/cooking.webp">
+    </div>
+  </div>
+  <div>
+    <div class="imgDivUser">
+      <img src="assets/cooking.webp">
+    </div>
+  </div>
+
+</div>
+
+<!------start recent post section----->
+<div class="similarPostsDiv">
+  <h2 class="similarPostsTitle">Similar Posts</h2>
+
+
+  <div class="oneSimilarPost">
+
+    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
+      <img src="assets/cooking.webp">
+    </div>
+    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Best Podcasts to Listen to When Traveling</a></p>
+  </div>
+
+  <div class="oneSimilarPost" id="secondPost">
+    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
+      <img src="assets/img.png">
+    </div>
+    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Movies That Need to Be Seen on the Big Screen</a></p>
+  </div>
+
+  <div class="oneSimilarPost"  id="thirdPost">
+    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
+      <img src="assets/colage.png">
+    </div>
+    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">This Artist Will Blow Your Mind</a></p>
+  </div>
+</div>
+</body>
+<!------start footer section----->
+
+<app-footer></app-footer>
