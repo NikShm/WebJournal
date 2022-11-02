@@ -6,7 +6,8 @@ import com.webjournal.entity.User;
 import com.webjournal.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
+import javax.persistence.EntityManager;
+import java.math.BigInteger;
 
 /**
  * @author Yuliana
@@ -18,9 +19,11 @@ import javax.validation.Valid;
 @Component
 public class UserMapper {
     private final RoleRepository repository;
+    private final EntityManager entityManager;
 
-    public UserMapper(RoleRepository repository) {
+    public UserMapper(RoleRepository repository, EntityManager entityManager) {
         this.repository = repository;
+        this.entityManager = entityManager;
     }
 
     public AuthorDTO toAuthorDto(User entity) {
@@ -29,7 +32,8 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setFollowers(entity.getCountFollowers());
-
+        dto.setPosts(((BigInteger) entityManager.createNativeQuery("SELECT count(*) from post where author_id = ?1")
+                .setParameter(1,entity.getId()).getSingleResult()).longValue());
         return dto;
     }
 

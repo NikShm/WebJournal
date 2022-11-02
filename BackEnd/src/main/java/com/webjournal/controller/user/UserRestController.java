@@ -1,6 +1,9 @@
 package com.webjournal.controller.user;
 
 import com.webjournal.dto.FollowDTO;
+import com.webjournal.dto.LikeDTO;
+import com.webjournal.dto.PageDTO;
+import com.webjournal.dto.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.service.user.UserServiceImpl;

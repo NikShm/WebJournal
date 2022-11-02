@@ -32,14 +32,14 @@ public class PostRestController {
         return postService.create(postDTO);
     }
 
-    @PostMapping("/set_like")
+    @PostMapping("/like")
     public void createLike(@RequestBody LikeDTO likeDTO) {
-         postService.setLike(likeDTO);
+         postService.like(likeDTO);
     }
 
-    @PostMapping("/delete_like")
+    @PostMapping("/dislike")
     public void deleteLike(@RequestBody LikeDTO likeDTO) {
-        postService.deleteLike(likeDTO);
+        postService.dislike(likeDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PostServiceImpl implements IPostService{
@@ -69,26 +70,31 @@ public class PostServiceImpl implements IPostService{
 
     @Transactional
     @Override
-    public void setLike(LikeDTO like) {
-        Integer authorId = (Integer) entityManager.createNativeQuery("SELECT author_id from post where id = " + like.getPostId())
-                .getSingleResult();
-        Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
-                .setParameter(1, like.getUserId())
-                .setParameter(2, like.getPostId())
-                .getSingleResult();
-        if (!Objects.equals(authorId, like.getUserId()) && !isExist) {
-            String INSERT_LIKE = "insert into \"like\"(user_id, post_id) VALUES (?1,?2) ON CONFLICT DO NOTHING";
-            entityManager.createNativeQuery(INSERT_LIKE).setParameter(1, like.getUserId())
-                    .setParameter(2, like.getPostId()).executeUpdate();
+    public void like(LikeDTO like) {
+        if (like.getPostId() != null && like.getUserId() != null) {
+            Integer authorId = (Integer) entityManager.createNativeQuery("SELECT author_id from post where id = ?1")
+                    .setParameter(1, + like.getPostId())
+                    .getSingleResult();
+            Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
+                    .setParameter(1, like.getUserId())
+                    .setParameter(2, like.getPostId())
+                    .getSingleResult();
+            if (!Objects.equals(authorId, like.getUserId()) && !isExist) {
+                String INSERT_LIKE = "insert into \"like\"(user_id, post_id) VALUES (?1,?2) ON CONFLICT DO NOTHING";
+                entityManager.createNativeQuery(INSERT_LIKE).setParameter(1, like.getUserId())
+                        .setParameter(2, like.getPostId()).executeUpdate();
+            }
         }
     }
 
     @Transactional
     @Override
-    public void deleteLike(LikeDTO like) {
-        String DELETE_LIKE = "delete from \"like\" where user_id = ?1 and post_id = ?2";
-        entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, like.getUserId())
-                .setParameter(2, like.getPostId()).executeUpdate();
+    public void dislike(LikeDTO like) {
+        if (like.getPostId() != null && like.getUserId() != null) {
+            String DELETE_LIKE = "delete from \"like\" where user_id = ?1 and post_id = ?2";
+            entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, like.getUserId())
+                    .setParameter(2, like.getPostId()).executeUpdate();
+        }
     }
 
     @SuppressWarnings("unchecked")

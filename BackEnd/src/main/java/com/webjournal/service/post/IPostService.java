@@ -11,11 +11,10 @@ import java.util.List;
 
 public interface IPostService{
     PageDTO<PostDTO> getPage(SearchDTO searchDTO);
-    void setLike(LikeDTO like);
+    void like(LikeDTO like);
 
-    void deleteLike(LikeDTO like);
+    void dislike(LikeDTO like);
 
-    PageDTO<PostDTO> getPage(SearchPostDTO searchDTO);
     Integer create(PostDTO dto);
     void delete(Integer id) throws IOException;
     void update(PostDTO dto) throws IOException;
