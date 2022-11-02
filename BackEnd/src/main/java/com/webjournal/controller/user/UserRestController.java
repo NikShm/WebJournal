@@ -1,5 +1,6 @@
 package com.webjournal.controller.user;
 
+import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.service.user.UserServiceImpl;
@@ -43,7 +44,17 @@ public class UserRestController {
     }
 
     @GetMapping("/top")
-    public List<AuthorDTO> getInterestingAuthors(@RequestParam("count") int n) {
+    public List<AuthorDTO> getInterestingAuthors(@RequestParam("count") Integer n) {
         return service.getInterestingAuthors(n);
+    }
+
+    @PostMapping("/unsubscribe")
+    public void unsubscribe(@RequestBody FollowDTO followDTO){
+        service.unsubscribe(followDTO);
+    }
+
+    @PostMapping("/subscribe")
+    public void subscribe(@RequestBody FollowDTO followDTO){
+        service.subscribe(followDTO);
     }
 }
