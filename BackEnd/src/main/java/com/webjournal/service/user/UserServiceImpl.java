@@ -25,13 +25,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -44,7 +40,6 @@ public class UserServiceImpl implements IUserService {
         this.mapper = mapper;
         this.entityManager = entityManager;
     }
-
 
     @Override
     public Integer create(UserDTO dto) {

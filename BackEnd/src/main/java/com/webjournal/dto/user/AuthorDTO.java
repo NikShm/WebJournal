@@ -10,12 +10,14 @@ package com.webjournal.dto.user;
 public class AuthorDTO {
     private Integer id;
     private String username;
-    private int followers;
+    private Integer followers;
+    private Integer following;
+    private Long posts;
 
     public AuthorDTO() {
     }
 
-    public AuthorDTO(Integer id, String username, int followers) {
+    public AuthorDTO(Integer id, String username, Integer followers) {
         this.id = id;
         this.username = username;
         this.followers = followers;
@@ -37,12 +39,28 @@ public class AuthorDTO {
         this.username = username;
     }
 
-    public int getFollowers() {
+    public Integer getFollowers() {
         return followers;
     }
 
-    public void setFollowers(int followers) {
+    public void setFollowers(Integer followers) {
         this.followers = followers;
+    }
+
+    public Integer getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Integer following) {
+        this.following = following;
+    }
+
+    public Long getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Long posts) {
+        this.posts = posts;
     }
 
     @Override
