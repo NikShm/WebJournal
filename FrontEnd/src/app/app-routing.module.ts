@@ -3,11 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import {PostComponent} from "./components/post/post.component";
+import {ArticlesComponent} from './components/articles/articles.component';
+import { AuthorsComponent } from './components/authors/authors.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'posts', component: PostsComponent},
-  {path: 'post', component: PostComponent}
+  {path: 'post', component: PostComponent},
+  {path: 'articles', component: ArticlesComponent},
+  {path: 'authors', component: AuthorsComponent}
 ];
 
 @NgModule({

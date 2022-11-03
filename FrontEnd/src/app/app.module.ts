@@ -23,6 +23,8 @@ import { FooterComponent } from './components/shared/layout/footer/footer.compon
 // import {FavouriteService} from "./services/favourite.service";
 import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
 import { PostComponent } from './components/post/post.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+import { AuthorsComponent } from './components/authors/authors.component';
 
 
 @NgModule({
@@ -32,7 +34,10 @@ import { PostComponent } from './components/post/post.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    PostComponent
+    PostComponent,
+    ArticlesComponent,
+    AuthorsComponent
+
   ],
   imports: [
     BrowserModule,
