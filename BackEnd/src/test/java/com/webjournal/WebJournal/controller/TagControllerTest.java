@@ -38,11 +38,11 @@ public class TagControllerTest {
     @Test
     @Sql(value = "/actual-tags/create-tags-before.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = "/actual-tags/delete-tags-after.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    public void getActualTagsTest() throws Exception {
+    public void testGetActualTags() throws Exception {
         List<TagDTO> actualTags = Arrays.asList(
-                new TagDTO(1, "ui", LocalDateTime.of(2022,9,15,19,10,25)),
-                new TagDTO(4, "java", LocalDateTime.of(2022,9,13,19,10,25)),
-                new TagDTO(6, "cooking", LocalDateTime.of(2022,9,16,19,10,25))
+                new TagDTO(1, "ui", LocalDateTime.of(2022,10,15,19,10,25)),
+                new TagDTO(4, "java", LocalDateTime.of(2022,10,13,19,10,25)),
+                new TagDTO(6, "cooking", LocalDateTime.of(2022,10,16,19,10,25))
         );
 
         mockMvc.perform(get("/api/tags/actual").param("count", "3"))

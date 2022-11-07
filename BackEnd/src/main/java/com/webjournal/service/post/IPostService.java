@@ -12,9 +12,7 @@ import java.util.List;
 public interface IPostService{
     PageDTO<PostDTO> getPage(SearchDTO searchDTO);
     void like(LikeDTO like);
-
     void dislike(LikeDTO like);
-
     Integer create(PostDTO dto);
     void delete(Integer id) throws IOException;
     void update(PostDTO dto) throws IOException;

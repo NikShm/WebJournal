@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
 @author Микола
@@ -18,6 +19,9 @@ import java.util.List;
 */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
-    @Query("SELECT u FROM User u ORDER BY u.followers.size DESC")
+    @Query("SELECT u FROM User u ORDER BY u.countFollowers DESC")
     List<User> findInterestingAuthors(Pageable page);
+    Optional<User> findByEmail(String email);
+    Boolean existsByUsername(String username);
+    Boolean existsByEmail(String email);
 }

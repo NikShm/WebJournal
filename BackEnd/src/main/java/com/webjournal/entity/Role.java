@@ -1,5 +1,7 @@
 package com.webjournal.entity;
 
+import com.webjournal.enums.RoleType;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,12 +11,13 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
     public Role() {
     }
 
-    public Role(Integer id, String role) {
+    public Role(Integer id, RoleType role) {
         this.id = id;
         this.role = role;
     }
@@ -27,11 +30,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
+    public RoleType getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleType role) {
         this.role = role;
     }
 

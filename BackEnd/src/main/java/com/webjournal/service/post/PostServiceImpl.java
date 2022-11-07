@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,14 +46,14 @@ public class PostServiceImpl implements IPostService{
 
     @Override
     public void update(PostDTO dto) {
-        Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Post.class.getSimpleName()));
+        Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
         repository.save(updatedProduct);
     }
 
     @Override
     public PostDTO get(Integer id) {
-        return repository.findById(id).map(postMapper::toPostDto).orElseThrow(() -> new DatabaseFetchException(id, Post.class.getSimpleName()));
+        return repository.findById(id).map(postMapper::toPostDto).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + id));
     }
 
     @Override
