@@ -1,10 +1,14 @@
 package com.webjournal.controller;
 
+import com.webjournal.entity.RefreshToken;
 import com.webjournal.security.payload.request.LoginRequest;
 import com.webjournal.entity.User;
 import com.webjournal.security.payload.request.RegistrationRequest;
+import com.webjournal.security.payload.request.TokenRefreshRequest;
 import com.webjournal.security.payload.response.JwtResponse;
 import com.webjournal.security.jwt.JwtUtils;
+import com.webjournal.security.payload.response.TokenRefreshResponse;
+import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
 import com.webjournal.service.user.UserServiceImpl;
 import freemarker.template.TemplateException;
 import org.springframework.http.MediaType;
@@ -33,11 +37,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final UserServiceImpl userService;
+    private final RefreshTokenServiceImpl refreshTokenService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserServiceImpl userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserServiceImpl userService, RefreshTokenServiceImpl refreshTokenService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.userService = userService;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("/login")
@@ -47,11 +53,21 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
 
         User userDetails = (User) authentication.getPrincipal();
+        String jwt = jwtUtils.generateJwtToken(userDetails.getEmail(), userDetails.getAuthorities());
 
-        return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), userDetails.getRole().getRole());
+        RefreshToken refreshToken = refreshTokenService.create(userDetails.getId());
+
+        return new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
+                userDetails.getRole().getRole());
+    }
+
+    @PostMapping("/refresh-token")
+    public TokenRefreshResponse refreshToken(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest) {
+        RefreshToken refreshToken = refreshTokenService.verifyExpiration(tokenRefreshRequest.getRefreshToken());
+        String accessToken = jwtUtils.generateJwtToken(refreshToken.getUser().getEmail(), refreshToken.getUser().getAuthorities());
+        return new TokenRefreshResponse(accessToken, refreshToken.getToken());
     }
 
     @PostMapping("/register")

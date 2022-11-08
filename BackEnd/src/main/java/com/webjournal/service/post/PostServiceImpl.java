@@ -6,7 +6,7 @@ import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.SearchDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.exception.DatabaseFetchException;
-import com.webjournal.mappers.PostMapper;
+import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

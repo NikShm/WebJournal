@@ -10,14 +10,19 @@ import com.webjournal.enums.RoleType;
  * @since 10/18/2022 - 21.27
  **/
 public class JwtResponse {
-    private String token; //access
+    private String accessToken;
+    private String refreshToken;
     private Integer id;
     private String username;
     private String email;
     private RoleType role;
 
-    public JwtResponse(String token, Integer id, String username, String email, RoleType role) {
-        this.token = token;
+    public JwtResponse() {
+    }
+
+    public JwtResponse(String accessToken, String refreshToken, Integer id, String username, String email, RoleType role) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
         this.id = id;
         this.username = username;
         this.email = email;
@@ -32,12 +37,12 @@ public class JwtResponse {
         this.id = id;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getUsername() {
@@ -64,11 +69,20 @@ public class JwtResponse {
         this.role = role;
     }
 
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     @Override
     public String toString() {
         return "JwtResponse{" +
-                "id=" + id +
-                ", token='" + token + '\'' +
+                "accessToken='" + accessToken + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +

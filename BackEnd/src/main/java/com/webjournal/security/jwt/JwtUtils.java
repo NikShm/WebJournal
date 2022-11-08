@@ -1,14 +1,15 @@
 package com.webjournal.security.jwt;
 
-import com.webjournal.entity.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -26,17 +27,15 @@ public class JwtUtils {
     private String secretKey;
     @Value("${application.jwt.tokenPrefix}")
     private String tokenPrefix;
-    @Value("${application.jwt.token.validity.in.days}")
-    private Integer tokenValidityInDays;
+    @Value("${application.jwt.accessToken.validity.in.minutes}")
+    private Integer tokenValidityInMinutes;
 
-    public String generateJwtToken(Authentication authentication) {
-        User userPrincipal = (User) authentication.getPrincipal();
-
+    public String generateJwtToken(String email, Collection<? extends GrantedAuthority> authorities) {
         return Jwts.builder()
-                .setSubject(userPrincipal.getEmail())
-                .claim("authorities", authentication.getAuthorities())
+                .setSubject(email)
+                .claim("authorities", authorities)
                 .setIssuedAt(new Date())
-                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(tokenValidityInDays)))
+                .setExpiration(Timestamp.valueOf(LocalDateTime.now().plusMinutes(tokenValidityInMinutes)))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
@@ -68,23 +67,11 @@ public class JwtUtils {
         return secretKey;
     }
 
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
-
     public String getTokenPrefix() {
         return tokenPrefix;
     }
 
-    public void setTokenPrefix(String tokenPrefix) {
-        this.tokenPrefix = tokenPrefix;
-    }
-
-    public Integer getTokenValidityInDays() {
-        return tokenValidityInDays;
-    }
-
-    public void setTokenValidityInDays(Integer tokenValidityInDays) {
-        this.tokenValidityInDays = tokenValidityInDays;
+    public Integer getTokenValidityInMinutes() {
+        return tokenValidityInMinutes;
     }
 }
