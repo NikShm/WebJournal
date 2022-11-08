@@ -1,5 +1,5 @@
 --database name: webjournal
-DROP TABLE IF EXISTS post_tag, tag, follow, "comment", post, "user", "role", "like", languages, mail_token;
+DROP TABLE IF EXISTS post_tag, tag, follow, "comment", post, "user", "role", "like", languages, mail_token, refresh_token;
 
 CREATE TABLE "role"
 (
@@ -84,6 +84,15 @@ CREATE TABLE mail_token
 (
     id SERIAL PRIMARY KEY,
     token VARCHAR(128) NOT NULL,
+    created_at TIMESTAMP DEFAULT now(),
+    expires_at TIMESTAMP NOT NULL,
+    user_id INTEGER REFERENCES "user"(id) NOT NULL
+);
+
+CREATE TABLE refresh_token
+(
+    id SERIAL PRIMARY KEY,
+    token VARCHAR(128) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT now(),
     expires_at TIMESTAMP NOT NULL,
     user_id INTEGER REFERENCES "user"(id) NOT NULL

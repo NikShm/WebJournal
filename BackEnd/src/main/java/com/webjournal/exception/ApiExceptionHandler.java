@@ -33,9 +33,15 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(RegistrationException.class)
-    public ResponseEntity<ApiErrorMessage> handleBadAuthRequestException(RegistrationException e, WebRequest request) {
+    public ResponseEntity<ApiErrorMessage> handleRegistrationException(RegistrationException e, WebRequest request) {
         LOGGER.error("Could not register user", e);
         return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
+    }
+
+    @ExceptionHandler(TokenRefreshException.class)
+    public ResponseEntity<ApiErrorMessage> handleTokenRefreshException(TokenRefreshException e, WebRequest request) {
+        LOGGER.error("Refresh token was expired", e);
+        return getResponse(HttpStatus.FORBIDDEN, request, e.getMessage());
     }
 
     private ResponseEntity<ApiErrorMessage> getResponse(HttpStatus status, WebRequest request, String message) {

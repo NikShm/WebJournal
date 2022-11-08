@@ -1,7 +1,7 @@
 package com.webjournal.service.tag;
 
 import com.webjournal.dto.TagDTO;
-import com.webjournal.mappers.TagMapper;
+import com.webjournal.mapper.TagMapper;
 import com.webjournal.repository.TagRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -15,7 +15,7 @@ import com.webjournal.enums.SortDirection;
 import com.webjournal.mail.context.AccountVerificationMailContext;
 import com.webjournal.mail.service.mail.MailServiceImpl;
 import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
-import com.webjournal.mappers.UserMapper;
+import com.webjournal.mapper.UserMapper;
 import com.webjournal.repository.UserRepository;
 import com.webjournal.security.payload.request.RegistrationRequest;
 import com.webjournal.service.role.RoleServiceImpl;
@@ -40,6 +40,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -129,7 +130,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new RegistrationException("Token is empty");
         }
         MailToken mailToken = mailTokenService.getByToken(token);
-        if (mailToken == null || !token.equals(mailToken.getToken()) || mailToken.isExpired()) {
+        if (mailToken == null || !token.equals(mailToken.getToken()) || mailToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            mailTokenService.deleteToken(mailToken);
             throw new RegistrationException("Mail token is not valid");
         }
         User user = repository.findById(mailToken.getUser().getId()).orElse(null);

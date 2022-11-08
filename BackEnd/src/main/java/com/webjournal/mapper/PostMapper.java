@@ -1,4 +1,4 @@
-package com.webjournal.mappers;
+package com.webjournal.mapper;
 
 import com.webjournal.dto.CommentDTO;
 import com.webjournal.dto.PostDTO;

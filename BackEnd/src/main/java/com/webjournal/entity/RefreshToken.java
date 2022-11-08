@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
  * @author Yuliana
  * @version 1.0.0
  * @project WebJournal
- * @class MailToken
- * @since 11/1/2022 - 20.22
+ * @class RefreshToken
+ * @since 11/8/2022 - 16.36
  **/
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "mail_token")
-public class MailToken {
+@Table(name = "refresh_token")
+public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,17 +27,17 @@ public class MailToken {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(name = "expires_at", updatable = false)
+    @Column(name = "expires_at")
     private LocalDateTime expiresAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public MailToken() {
+    public RefreshToken() {
     }
 
-    public MailToken(Integer id, String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
+    public RefreshToken(Integer id, String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
         this.id = id;
         this.token = token;
         this.createdAt = createdAt;
@@ -87,7 +87,7 @@ public class MailToken {
 
     @Override
     public String toString() {
-        return "MailToken{" +
+        return "RefreshToken{" +
                 "id=" + id +
                 ", token='" + token + '\'' +
                 ", createdAt=" + createdAt +
