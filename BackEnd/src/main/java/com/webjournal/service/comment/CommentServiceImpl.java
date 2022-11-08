@@ -2,11 +2,11 @@ package com.webjournal.service.comment;
 
 import com.webjournal.dto.CommentDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.search.SearchCommentDTO;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Comment;
 import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
-import com.webjournal.mappers.CommentMapper;
+import com.webjournal.mapper.CommentMapper;
 import com.webjournal.repository.CommentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,13 +40,13 @@ public class CommentServiceImpl implements ICommentService{
 
     @Override
     public void update(CommentDTO dto) throws IOException {
-        Comment commentToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException(dto.getId(), Comment.class.getSimpleName()));
+        Comment commentToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Comment updatedComment = mapper.toEntity(commentToUpdate, dto);
         repository.save(updatedComment);
     }
 
     @Override
-    public PageDTO<CommentDTO> getPage(SearchCommentDTO search) {
+    public PageDTO<CommentDTO> getPage(SearchDTO search) {
         Sort sort = Sort.by(search.getSortField());
         if (search.getSortDirection() == SortDirection.DESC) {
             sort = sort.descending();

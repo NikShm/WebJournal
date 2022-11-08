@@ -1,10 +1,10 @@
 package com.webjournal.service.user;
 
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.SearchAuthorDTO;
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.SearchDTO;
+import com.webjournal.dto.search.AuthorSearch;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.entity.MailToken;
@@ -188,20 +188,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public PageDTO<AuthorDTO> getPage(SearchAuthorDTO search) {
+    public PageDTO<AuthorDTO> getAuthorPage(SearchDTO<AuthorSearch> search) {
         Sort sort = Sort.by(search.getSortField());
         if (search.getSortDirection() == SortDirection.DESC) {
             sort = sort.descending();
         }
         Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
-        Page<User> all = repository.findAll((root, query, criteriaBuilder) -> getPredicate(search, criteriaBuilder, root), pageable);
+        Page<User> all = repository.findAll((root, query, criteriaBuilder) -> getPredicate(search.getSearchPattern(), criteriaBuilder, root), pageable);
         PageDTO<AuthorDTO> dto = new PageDTO<>();
         dto.setContent(all.stream().map(mapper::toAuthorDto).collect(Collectors.toList()));
         dto.setTotalItem(all.getTotalElements());
         return dto;
     }
 
-    private Predicate getPredicate(SearchAuthorDTO search, CriteriaBuilder criteriaBuilder, Root<User> user) {
+    private Predicate getPredicate(AuthorSearch search, CriteriaBuilder criteriaBuilder, Root<User> user) {
         List<Predicate> predicates = new ArrayList<>();
         String value = search.getSearch();
         if (value != null) {
@@ -234,28 +234,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, followDTO.getUserId())
                     .setParameter(2, followDTO.getFollowingUserId()).executeUpdate();
         }
-    }
-
-    @Override
-    public PageDTO<AuthorDTO> getPage(SearchDTO search) {
-        Sort sort = Sort.by(search.getSortField());
-        if (search.getSortDirection() == SortDirection.DESC) {
-            sort = sort.descending();
-        }
-        Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
-        Page<User> all = repository.findAll((root, query, criteriaBuilder) -> getPredicate(search, criteriaBuilder, root), pageable);
-        PageDTO<AuthorDTO> dto = new PageDTO<>();
-        dto.setContent(all.stream().map(mapper::toAuthorDto).collect(Collectors.toList()));
-        dto.setTotalItem(all.getTotalElements());
-        return dto;
-    }
-
-    private Predicate getPredicate(SearchDTO search, CriteriaBuilder criteriaBuilder, Root<User> user) {
-        List<Predicate> predicates = new ArrayList<>();
-        String value = search.getSearch();
-        if (value != null) {
-            predicates.add(QueryHelper.ilike(user.get("username"), criteriaBuilder, value));
-        }
-        return predicates.size() == 1 ? predicates.get(0) : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }

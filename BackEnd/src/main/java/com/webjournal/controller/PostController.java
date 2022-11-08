@@ -3,7 +3,8 @@ package com.webjournal.controller;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.search.SearchPostDTO;
+import com.webjournal.dto.search.PostSearch;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +24,7 @@ public class PostController {
     }
 
     @PostMapping("/search")
-    public PageDTO<PostDTO> showPostPage(@RequestBody SearchPostDTO search) {
+    public PageDTO<PostDTO> showPostPage(@RequestBody SearchDTO<PostSearch> search) {
         return postService.getPage(search);
     }
 

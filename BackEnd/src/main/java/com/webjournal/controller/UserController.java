@@ -1,8 +1,9 @@
 package com.webjournal.controller;
 
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.search.SearchAuthorDTO;
+import com.webjournal.dto.search.AuthorSearch;
 import com.webjournal.dto.FollowDTO;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.service.user.UserServiceImpl;
@@ -14,12 +15,13 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestController {
+public class UserController {
     private final UserServiceImpl service;
 
     public UserController(UserServiceImpl service) {
         this.service = service;
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) {
@@ -47,8 +49,8 @@ public class UserRestController {
     }
 
     @PostMapping("/search")
-    public PageDTO<AuthorDTO> getPage(@RequestBody SearchAuthorDTO search) {
-        return service.getPage(search);
+    public PageDTO<AuthorDTO> getPage(@RequestBody SearchDTO<AuthorSearch> search) {
+        return service.getAuthorPage(search);
     }
 
     @PostMapping("/unsubscribe")

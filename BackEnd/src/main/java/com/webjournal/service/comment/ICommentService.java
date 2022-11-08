@@ -2,8 +2,7 @@ package com.webjournal.service.comment;
 
 import com.webjournal.dto.CommentDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.search.SearchAuthorDTO;
-import com.webjournal.dto.search.SearchCommentDTO;
+import com.webjournal.dto.search.SearchDTO;
 
 import java.io.IOException;
 
@@ -14,5 +13,5 @@ public interface ICommentService {
 
     void update(CommentDTO dto) throws IOException;
 
-    PageDTO<CommentDTO> getPage(SearchCommentDTO search);
+    PageDTO<CommentDTO> getPage(SearchDTO search);
 }
