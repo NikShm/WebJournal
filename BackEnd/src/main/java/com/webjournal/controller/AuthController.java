@@ -4,14 +4,14 @@ import com.webjournal.entity.RefreshToken;
 import com.webjournal.security.payload.request.LoginRequest;
 import com.webjournal.entity.User;
 import com.webjournal.security.payload.request.RegistrationRequest;
-import com.webjournal.security.payload.request.TokenRefreshRequest;
-import com.webjournal.security.payload.response.JwtResponse;
+import com.webjournal.security.payload.response.UserInfoResponse;
 import com.webjournal.security.jwt.JwtUtils;
-import com.webjournal.security.payload.response.TokenRefreshResponse;
 import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
 import com.webjournal.service.user.UserServiceImpl;
 import freemarker.template.TemplateException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -47,7 +48,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getLogin(), loginRequest.getPassword())
         );
@@ -55,19 +56,26 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User userDetails = (User) authentication.getPrincipal();
-        String jwt = jwtUtils.generateJwtToken(userDetails.getEmail(), userDetails.getAuthorities());
+
+        ResponseCookie jwtAccessCookie = jwtUtils.generateJwtAccessCookie(userDetails);
 
         RefreshToken refreshToken = refreshTokenService.create(userDetails.getId());
+        ResponseCookie jwtRefreshCookie = jwtUtils.generateJwtRefreshCookie(refreshToken.getToken());
 
-        return new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
-                userDetails.getRole().getRole());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
+                .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), userDetails.getRole().getRole()));
     }
 
     @PostMapping("/refresh-token")
-    public TokenRefreshResponse refreshToken(@Valid @RequestBody TokenRefreshRequest tokenRefreshRequest) {
-        RefreshToken refreshToken = refreshTokenService.verifyExpiration(tokenRefreshRequest.getRefreshToken());
-        String accessToken = jwtUtils.generateJwtToken(refreshToken.getUser().getEmail(), refreshToken.getUser().getAuthorities());
-        return new TokenRefreshResponse(accessToken, refreshToken.getToken());
+    public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+        RefreshToken refreshToken = refreshTokenService.verifyExpiration(jwtUtils.getRefreshJwtFromCookies(request));
+        ResponseCookie jwtAccessCookie = jwtUtils.generateJwtAccessCookie(refreshToken.getUser());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, refreshToken.getToken())
+                .body("Access token is refreshed successfully");
     }
 
     @PostMapping("/register")
@@ -80,5 +88,21 @@ public class AuthController {
     public ResponseEntity<?> verifyUser(@RequestParam(required = false) String token) {
         userService.verifyUser(token);
         return ResponseEntity.ok("Successfully verified account");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser() {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!principal.toString().equals("anonymousUser")) {
+            refreshTokenService.deleteByUser(principal);
+        }
+
+        ResponseCookie jwtAccessCookie = jwtUtils.getCleanJwtAccessCookie();
+        ResponseCookie jwtRefreshCookie = jwtUtils.getCleanJwtRefreshCookie();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
+                .body("Successfully logged out");
     }
 }

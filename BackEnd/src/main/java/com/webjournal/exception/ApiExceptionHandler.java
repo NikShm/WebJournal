@@ -40,7 +40,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(TokenRefreshException.class)
     public ResponseEntity<ApiErrorMessage> handleTokenRefreshException(TokenRefreshException e, WebRequest request) {
-        LOGGER.error("Refresh token was expired", e);
+        LOGGER.error("Refresh token was invalid", e);
         return getResponse(HttpStatus.FORBIDDEN, request, e.getMessage());
     }
 
