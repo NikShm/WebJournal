@@ -6,11 +6,13 @@ import {PostComponent} from "./components/post/post.component";
 import {ArticlesComponent} from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { RulesComponent } from './components/rules/rules.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'posts', component: PostsComponent},
   {path: 'post', component: PostComponent},
+  {path: 'rules', component: RulesComponent},
   {path: 'articles', component: ArticlesComponent},
   {path: 'authors', component: AuthorsComponent},
   {path: 'registration', component: RegistrationComponent}
