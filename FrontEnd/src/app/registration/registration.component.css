@@ -1,102 +1,140 @@
-.blockregist{
-    position: absolute;
-    width: 100%;
-   
-    display: flex;
-    
-   margin-top: 10%;
-   margin-bottom: 10%;
-    margin-left:1%;
-   
-    
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,300;0,500;0,600;0,700;0,900;1,100;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: #EBE6D1;
+}
+
+.a{
+  margin: auto;
+  margin-top: 30px;
+
+  width: 220px;
+  height: 20px;
+
+  text-align: center;
+  background-color: #c2433200;
+}
+
+a{
+  text-decoration: none;
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  letter-spacing: 0.1em;
 
 
-  }
-  .lineregister{
-    position: absolute;
-      width: 100%;
-      margin: auto;
-      margin-top: 1%;
-      margin-bottom: 20%;
-      height: 50;
-      margin-left: -1.4%;
-      background-color: #6ebdb0;
-      border: 1px solid #000000;
+  color: #CD4532;
 
+}
 
-  }
-  .fotoforregist{
-    top:0px;
-    left: 10%;
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    border-right: 7%;
-  }
-  .nameregist{
-    position: relative;
-    left: 63%;
-    font-weight: 700;
-    font-size: 190%;
+a:hover{
+  text-decoration-line: underline;
+}
 
-    top: -6px;
+.mainDiv{
+  margin: auto;
 
-    font-family: 'Montserrat Alternates';
-    font-style: normal;
+  height: 460px;
+  width: 1140px;
 
-    /* identical to box height */
+  background-color: rgba(137, 43, 226, 0);
+  margin-top: 5%;
+  margin-bottom: 50%;
 
-    letter-spacing: 0.1em;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
 
-    color: #C24332;
+.heightHR{
+  position: absolute;
+  width: 100%;
+  border: 0.5px solid black;
+}
 
-  }
-  .blockregist .container{
-    width: 17.7%;
-    background: white;
-    padding: 30px;
-    margin: auto;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 61.5%;
-    border-radius: 10px;
-    background: none;
-  }
+.bottomHR{
+  position: absolute;
+  margin-top: 460px;
 
-  .blockregist .container .inputs{
-    height: 40%;
-    width: 100%;
-    position: relative;
-    margin-bottom: 30px;
-    background: none;
-    margin-top: -6%;
-  }
+  width: 100%;
+  border: 0.5px solid black;
+}
 
-  .blockregist .container .inputs input{
-    width: 100%;
-    height: 47px;
-    border: none;
-    background: none;
-    border-bottom: 2px solid #C24332;
-    outline: none;
-    font-size: 16px;
-    transition: 0.3s;
-  }
+.imgDiv{
+  width: 800px;
+  height: 460px;
+  background: center;
+  background-size: 820px 460px;
+  background-image: url("colage.png");
 
-  .blockregist .container .inputs input:focus{
-    border-color: crimson;
-  }
+  border-right: 0.5px solid black;
+}
 
-  .blockregist .container .inputs label{
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    pointer-events: none;
-    font-size: 16px;
-    transition: 0.3s;
-    position: absolute;
+.formDiv{
+  width: 340px;
+  height: 460px;
 
-  font-family: 'Montserrat Alternates';
+  position: absolute;
+  margin-left: 800px;
+  margin-top: -460px;
+  background-color: #c2433200;
+}
+
+#registration{
+  margin: auto;
+  margin-top: 20px;
+
+  width: 280px;
+  height: 44px;
+  text-align: center;
+
+  background-color: #c2433200;
+
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  /* identical to box height */
+
+  letter-spacing: 0.1em;
+
+  color: #C24332;
+}
+
+/******************************/
+.inputs{
+  margin-top: 40px;
+  text-align: center;
+}
+
+.inputs input{
+  width: 260px;
+  height: 30px;
+
+  margin-bottom: 20px;
+
+  border: none;
+  background: #c2433200;
+  border-bottom: 2px solid #C24332;
+
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.inputs input::placeholder{
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
@@ -106,105 +144,47 @@
   letter-spacing: 0.1em;
 
   color: #000000;
+}
 
-  }
+.inputs input:focus{
+  border-color: crimson;
+}
 
-  .blockregist .container .inputs input:focus ~ label,
-  .blockregist .container .inputs input:valid ~ label{
-    transform: translateY(-23px);
-    color: crimson;
-  }
+.inputs input:focus ~ label,
+.inputs input:valid ~ label{
+  transform: translateY(-23px);
+  color: crimson;
+}
 
-  .blockregist .container  .submit{
-    
-    /*left: 10%;
-    position: relative;
-    width: 310px;
-    height: 60px;
-    margin-top: 2%;
-    background: #C24332;
-  border: 1px solid #000000;
-  
-  border-radius: 30px;*/
-  position: absolute;
-  margin-left: 2%;
- margin-top: 1%;
-  width: 14%;
-  height: 8.5%;
-  background: #C24332;
-border: 1px solid #000000;
-box-shadow: 0px 4px 4px rgba(193, 74, 74, 0.69);
-transition: 1s;
-border-radius: 30px;
-
-  }
-  .blockregist .container  .submit label{
-    color: #C24332;
-    font-family: 'Montserrat Alternates';
-  font-style: normal;font-weight: 700;
-  font-size: 20px;
-  line-height: 17px;
+.submit{
   cursor: pointer;
-  
+  width: 200px;
+  height: 50px;
+  margin-top: 30px;
+
+  background: #C24332;
+
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(193, 74, 74, 0.69);
+  transition: 1s;
+  border-radius: 30px;
+}
+
+.submit label{
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
   letter-spacing: 0.1em;
- 
+  cursor: pointer;
 
   color: #FFFFFF;
+}
 
-  }
- 
-  .blockregist .container p{
-    position: relative;
-    font-family: 'Montserrat Alternates';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 17px;
-  margin-top: 39%;
-  text-align: center;
-  letter-spacing: 0.1em;
-  text-decoration-line: underline;
-  cursor: pointer;
-  color: #CD4532;
-  /*
-  position: absolute;
-  font-family: 'Montserrat Alternates';
-  font-style: normal;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 17px;
-  margin-top: 5%;
-  margin-left: 3.5%;
-  margin-bottom: 1%;
-  text-align: center;
-  letter-spacing: 0.1em;
-  text-decoration-line: underline;
-  cursor: pointer;
-  color: #CD4532;*/
-  
+.submit:hover{
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
-  }
-  .blockregist .container  p:hover{
-    color: #501a1a;
-   
-  }
-  .createe{
-    position: relative;
-    height: 40%;
-    width: 100%;
-    margin: auto;
-  }
-  .blockregist .lastline{
-
-    position: relative;
-    width:32.7%;
-    margin-top: 14%;
-    left: 70%;
-   
-    border: 1px solid #0000007c;
-    transform: rotate(-90deg);
-   
-    
-   
-    
-  }
