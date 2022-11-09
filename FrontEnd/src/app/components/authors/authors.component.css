@@ -11,14 +11,14 @@
 }
 
 body{
-  height: 1500px;
+  height: 1390px;
   width: 1140px;
 
   margin: auto;
   margin-top: 240px;
   margin-bottom: -200px;
 
-  background-color: rgba(131, 102, 186, 0.716);
+  background-color: rgba(131, 102, 186, 0);
 }
 
 #titleBlock{
@@ -198,33 +198,46 @@ body{
 
 
 
-
+/**----------------------------------------------------------------------*/
 #blog{
-  background-color: rgba(78, 220, 224, 0.827);
+  background-color: rgba(78, 219, 224, 0);
 
   margin-top: 30px;
-  padding-right: -100px;
-
+ 
   width: 1140px;
   height: 1300px;
 
   display: flex;
-  flex-direction: column;
-
+  row-gap: 1px;
+  column-gap: -100px;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: right;
+  justify-content: space-between;
   align-content: flex-start;
+  
   }
+#cetre{
+  position: absolute;
 
+  margin: auto;
+  margin-top: 380px;
+
+  height: 1086px;
+  margin-left: 49.6%;
+
+  border: 0.1px solid #000;
+
+}
   
 .con{
     display: inline-flex;
     padding: 5px;
-    background: rgba(39, 218, 176, 0.918);
+    background:rgba(116, 158, 148, 0.5);
     border: 1px solid #000000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding-left: 20px;
     width: 520px;
+    
     height: 99px;
     margin-top: -10px;
     margin-bottom: 50px;
@@ -284,7 +297,7 @@ line-height: 20px;
 letter-spacing: 0.1em;
 
 color: #000000;
-background-color: rgb(216, 42, 42);
+background-color: rgba(216, 42, 42, 0);
 
 }
 .spanstyle2{
@@ -299,15 +312,16 @@ font-weight: 400;
 font-size: 15px;
 line-height: 18px;
 letter-spacing: 0.1em;
-background-color: #20826b;
+background-color: #20826b00;
 color: #000000;
 }
 .centerusers{
   display: flex;
-background-color: #000;
-  width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
+background-color: rgba(187, 125, 125, 0);
+  width: 520px;
+  height: 100px;
+  margin-bottom: 40px;
+  
 }
 /*
 .centerlineusers{
@@ -330,7 +344,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 13px;
 line-height: 16px;
-background-color: #20826b;
+background-color: #20826b00;
 /* identical to box height */
 
 letter-spacing: 0.1em;
@@ -350,95 +364,4 @@ color: #000000;
   transform: rotate(90.08deg);
 }
 */
-
-
-.centerusers2{
-  display: flex;
-    width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.con2{
-  display: inline-flex;
-  padding: 5px;
-  background: rgba(116, 158, 148, 0.5);
-border: 1px solid #000000;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding-left: 20px;
-  width: 492px;
-  height: 99px;
-  margin-left: 331px;
-  margin-top: 40px;
-
-}
-.con3{
-  width: 80px;
-
-  height: 80px;
-  background: #D9D9D9;
-  border-radius: 50%;
-  text-align: center;
-  display: inline-flex;
-}
-.con2:hover:nth-child(1){
-  box-shadow: 10px 10px 10px #f8f8f84d;
-
-
-}
-.usering2{
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.innercon2{
-
-  width: 10px;
-  height: 10px;
-  background-color: #00000000;
-  margin-top: 72px;
-  margin-left: 20px;
-  border-radius: 50%;
-}
-.sidebox2{
-  margin-top: 5px;
-  display: inline-block;
-  padding-top: 5px;
-  width: 380px;
-}
-.spanstyle3{
-  font-size: 18px;
-  font-weight: 1;
-  text-align: left;
-  margin-left: 30px;
-  font-family: 'Montserrat Alternates';
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
-
-letter-spacing: 0.1em;
-
-color: #000000;
-
-}
-
-.spanstyle4{
-  font-size: 15px;
-  margin-left: 30px;
-  float:left;
-  margin-top: 23px;
-  font-family: 'Montserrat Alternates';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 18px;
-letter-spacing: 0.1em;
-
-color: #000000;
-}
-.twocolumn{
-  margin-top: -835px;
-  margin-left: 500px;
-}
 
