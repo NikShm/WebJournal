@@ -11,8 +11,8 @@
 
 body{
     background: #EBE6D1;
+    margin-top: 200px;
 }
-
 
 .search{
   margin-right: 1100px;
@@ -245,7 +245,7 @@ color: #000000;
     letter-spacing: 0.1em;
 
     color: #000000;
-  font-size: -webkit-box;
+  /*font-size: -webkit-box;*/
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
