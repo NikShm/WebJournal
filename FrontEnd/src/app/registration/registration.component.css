@@ -1,0 +1,160 @@
+.blockregist{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    margin-top:13%;
+    margin-left:1%;
+
+
+  }
+  .lineregister{
+    position: absolute;
+      width: 102.26%;
+      height: 600px;
+      left: -2%;
+
+
+      border: 1px solid #000000;
+
+
+  }
+  .fotoforregist{
+    top:0px;
+    left: 10%;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+  }
+  .nameregist{
+    position: absolute;
+    left: 63%;
+    font-weight: 700;
+    font-size: 200%;
+
+    top: -30px;
+
+    font-family: 'Montserrat Alternates';
+    font-style: normal;
+
+    /* identical to box height */
+
+    letter-spacing: 0.1em;
+
+    color: #C24332;
+
+  }
+  .blockregist .container{
+    width: 17.7%;
+    background: white;
+    padding: 30px;
+    margin-top: 3.7%;
+    margin-left: 61.5%;
+    border-radius: 10px;
+    background: none;
+  }
+
+  .blockregist .container .inputs{
+    height: 40%;
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+    background: none;
+  }
+
+  .blockregist .container .inputs input{
+    width: 100%;
+    height: 47px;
+    border: none;
+    background: none;
+    border-bottom: 2px solid #C24332;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .blockregist .container .inputs input:focus{
+    border-color: crimson;
+  }
+
+  .blockregist .container .inputs label{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    pointer-events: none;
+    font-size: 16px;
+    transition: 0.3s;
+    position: absolute;
+
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  letter-spacing: 0.1em;
+
+  color: #000000;
+
+  }
+
+  .blockregist .container .inputs input:focus ~ label,
+  .blockregist .container .inputs input:valid ~ label{
+    transform: translateY(-23px);
+    color: crimson;
+  }
+
+  .blockregist .container .submit{
+    position: absolute;
+    margin-left: 2%;
+    margin-top: 1%;
+    width: 14%;
+    height: 11%;
+    background: #C24332;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+
+  }
+  .blockregist .container .submit label{
+    color: #C24332;
+    font-family: 'Montserrat Alternates';
+  font-style: normal;font-weight: 700;
+  font-size: 20px;
+  line-height: 17px;
+
+
+
+  letter-spacing: 0.1em;
+
+  color: #FFFFFF;
+
+  }
+  .blockregist .container p{
+    font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 17px;
+   margin-top: 35%;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-decoration-line: underline;
+  cursor: pointer;
+  color: #CD4532;
+
+  }
+  .blockregist .container p:hover{
+    color: #501a1a;
+
+  }
+  .blockregist .lastline{
+
+    position: absolute;
+    width:30.7%;
+    top: 49.8%;
+    left: 70%;
+
+    border: 1px solid #0000007c;
+    transform: rotate(-90deg);
+  }
