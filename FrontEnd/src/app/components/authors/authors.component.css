@@ -11,7 +11,7 @@
 }
 
 body{
-  height: 2000px;
+  height: 1500px;
   width: 1140px;
 
   margin: auto;
@@ -198,205 +198,44 @@ body{
 
 
 
-/*
-.articlesline1{
-  position: absolute;
-    width: 102.26%;
-    height: 50px;
-    left: -2%;
-    top:325px;
-
-    border: 1px solid #000000;
-}
-.articlesline2{
-
-    width: 50px;
-    height: 300px;
-    margin-left: 479px;
-    margin-top: -196px;
-    border: 1px solid #000000;
-    transform: rotate(-90deg);
-
-}
-.articlesline2 p{
-  transform: rotate(90deg);
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 400;
-font-size: 32px;
-margin-top: 80px;
-line-height: 39px;*/
-/* identical to box height */
-/*
-letter-spacing: 0.1em;
-
-color: #000000;
-
-}
-.centerfilters{
-  width: 1300px;
-
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-
-}
-*/
-/* identical to box height */
-
-/*
-letter-spacing: 0.2em;
-
-color: #000000;
-}
-
-.namepage{
-  margin-left: auto;
-  margin-right: auto;
-  width: 10px;
-  height: 1px;
-
-  display: flex;
-
-}
-
-
-
 
 #blog{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 140px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.295);
-  margin-top: -90px;
-  }
+  background-color: rgba(78, 220, 224, 0.827);
 
-  .blog-heading h1{
-  text-decoration: underline rgb(248, 222, 103);
-  font-size: 2.4rem;
-  color: #333;
-  font-weight: 600;
-  }
-  .blog-container{
+  margin-top: 30px;
+  padding-right: -100px;
+
+  width: 1140px;
+  height: 1300px;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0px;
+  flex-direction: column;
+
   flex-wrap: wrap;
+  justify-content: right;
+  align-content: flex-start;
   }
-  .blog-box{
-  width: 350px;
-  position: relative;
-  background: #FEE0D4;
-border: 1px solid #000000;
-  margin: 58px 25px;
-  margin-top: -0.9cm;
-  }
-  .blog-img{
-  width: 100%;
-  height: auto;
-  }
-  .blog-img img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  }
-  .blog-text{
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  }
-  .blog-text span{
-  color: #e0ac1c;
-  font-size: 0.9rem;
-  }
-  .blog-text .blog-title{
-    margin-top: 10px;
-    font-family: 'Montserrat Alternates';
-font-style: normal;
-font-weight: 700;
-font-size: 1.3rem;
-line-height: 18px;
-letter-spacing: 0.1em;
 
-color: #000000;
-
-  }
-  .blog-text .blog-title:hover{
-  color: #eac23f;
-  transition: all ease 0.3s;
-  }
-  .blog-text p{
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    letter-spacing: 0.1em;
-
-    color: #000000;
-  font-size: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 20px 0px;
-  }
-  .blog-text a{
-  color: #333;
-  font-family: 'Montserrat';
-  }
-  .blog-text a:hover{
-  color: #eac23f;
-  transition: all ease 0.3s;
-  }
-  .blog-box .namesliders{
-    position: absolute;
-    width: 40%;
-    height: 4.5%;
-    background: #EBE6D1;
-    margin-top: -10px;
-
-    left: 20px;
-    border: 2px solid black;
-
-  }
-  .blog-box .namesliders p{
-   text-align: center;
-
-  margin-left: 1%;
-
-
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
-  letter-spacing: 0.1em;
-
-  color: #000000;
-  }
+  
 .con{
-  display: inline-flex;
-  padding: 5px;
-  background: rgba(116, 158, 148, 0.5);
-border: 1px solid #000000;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding-left: 20px;
-  width: 492px;
-  height: 99px;
-  margin-left: -45px;
-  margin-top: 40px;
+    display: inline-flex;
+    padding: 5px;
+    background: rgba(39, 218, 176, 0.918);
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-left: 20px;
+    width: 520px;
+    height: 99px;
+    margin-top: -10px;
+    margin-bottom: 50px;
 
 }
+/*icon of user*/
 .con1{
   width: 80px;
 
   height: 80px;
-  background: #D9D9D9;
+  background: #d9d9d900;
   border-radius: 50%;
   text-align: center;
   display: inline-flex;
@@ -419,33 +258,39 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-top: 72px;
   margin-left: 20px;
   border-radius: 50%;
+  
 }
 .sidebox{
   margin-top: 5px;
   display: inline-block;
   padding-top: 5px;
   width: 380px;
+  background-color: rgba(0, 255, 255, 0);
 }
 .spanstyle{
   font-size: 18px;
   font-weight: 1;
+  width: 130px;
+  height: 30px;
   text-align: left;
-  margin-left: 30px;
+  margin-left: -200px;
   font-family: 'Montserrat Alternates';
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
-line-height: 20px;*/
+line-height: 20px;
 /* identical to box height */
-/*
+
 letter-spacing: 0.1em;
 
 color: #000000;
+background-color: rgb(216, 42, 42);
 
 }
 .spanstyle2{
   font-size: 15px;
-  margin-left: 30px;
+  margin-left: -10px;
+  width: 340px;
   float:left;
   margin-top: 23px;
   font-family: 'Montserrat Alternates';
@@ -454,16 +299,17 @@ font-weight: 400;
 font-size: 15px;
 line-height: 18px;
 letter-spacing: 0.1em;
-
+background-color: #20826b;
 color: #000000;
 }
 .centerusers{
   display: flex;
-
-  width: 1100px;
+background-color: #000;
+  width: 1140px;
   margin-left: auto;
   margin-right: auto;
 }
+/*
 .centerlineusers{
   display: flex;
 
@@ -472,6 +318,27 @@ color: #000000;
   margin-right: auto;
 
 }
+*/
+.spanfollower p{
+  font-size: 15px;
+  margin-left: 250px;
+  width: 150px;
+  float:left;
+  margin-top: -61px;
+  font-family: 'Montserrat Alternates';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+background-color: #20826b;
+/* identical to box height */
+
+letter-spacing: 0.1em;
+
+color: #000000;
+
+}
+/*
 .centerlineusers hr{
 
 
@@ -482,7 +349,7 @@ color: #000000;
   border: 1px solid #00000094;
   transform: rotate(90.08deg);
 }
-
+*/
 
 
 .centerusers2{
@@ -547,14 +414,15 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
-line-height: 20px;*/
+line-height: 20px;
 /* identical to box height */
-/*
+
 letter-spacing: 0.1em;
 
 color: #000000;
 
 }
+
 .spanstyle4{
   font-size: 15px;
   margin-left: 30px;
@@ -573,20 +441,4 @@ color: #000000;
   margin-top: -835px;
   margin-left: 500px;
 }
-.spanfollower p{
-  font-size: 15px;
-  margin-left: 255px;
-  float:left;
-  margin-top: -61px;
-  font-family: 'Montserrat Alternates';
-font-style: normal;
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;*/
-/* identical to box height */
-/*
-letter-spacing: 0.1em;
 
-color: #000000;
-
-}*/
