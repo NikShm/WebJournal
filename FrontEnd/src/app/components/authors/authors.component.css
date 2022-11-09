@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,300;0,500;0,600;0,700;0,900;1,100;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+
 *{
   box-sizing: border-box;
   margin: 0;
@@ -10,77 +11,194 @@
 }
 
 body{
-    background: #EBE6D1;
+  height: 2000px;
+  width: 1140px;
+
+  margin: auto;
+  margin-top: 240px;
+  margin-bottom: -200px;
+
+  background-color: rgba(131, 102, 186, 0.716);
 }
+
+#titleBlock{
+  height: 53px;
+  width: 250px;
+
+  margin: auto;
+
+  text-align: center;
+  padding-top: 5px;
+  margin-top: -73px;
+
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+
+  background-color: rgba(194, 67, 50, 0);
+}
+
+#titleBlock p{
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+
+  vertical-align: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+
+
+#hrAfterTitle{
+  position: absolute;
+
+  margin: auto;
+  margin-top: 290px;
+
+  width: 100%;
+
+  border: 0.1px solid #000;
+}
+
+
+/*_________________SEARCH_START_________________*/
 
 .search{
-  margin-right: 1100px;
-  margin-top: 240px;
-}
-.search .search_wrap{
-	background: black;
-  margin-left: auto;
-    margin-right: auto;
-    width: 6em
-}
+  width: 443px;
+  height: 40px;
+  margin-top: 20px;
 
-.search .search_wrap .search_box{
-	position: absolute;
-	width: 400px;
-	height: 65px;
+  border: 1px solid #000000;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding-left: 11px;
+  padding-top: 5px;
 
+  background-color: #749E94;
 }
 
-.search .search_wrap .search_box .input{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 70%;
-	padding: 10px 20px;
-	border-radius: 3px;
-	font-size: 18px;
+
+.search input{
+  width: 380px;
+  height: 30px;
+
+  padding-left: 10px;
+  border: 0px;
+  background-color: rgba(158, 116, 116, 0);
+}
+
+
+.search input::placeholder{
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+
+
+#searchIcon{
+  position: absolute;
+  width: 23px;
+  height: 22px;
+
+  margin-top: 4px;
+  margin-left: 10px;
+
+  cursor: pointer;
+}
+
+#searchIcon:hover{
+  transform: rotate(360deg);
+  transition: 1s;
+}
+
+/*_________________SEARCH_END_________________*/
+
+.select{
+  width: 520px;
+  height: 40px;
+
+  float: right;
+  margin-top: -40px;
+
+  background: rgba(0, 0, 0, 0);
+}
+
+.alphabet{
+  float: right;
+
+  width: 187px;
+  height: 40px;
+
   background: #749E94;
-border: 1px solid #000000;
-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #000000;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.2em;
+
+  color: #000000;
 }
 
-.search .search_wrap .search_box .btn{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 60px;
-	height: 70%;
-	background: #749E94;
-border: 1px solid #000000;
-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-	z-index: 1;
-	cursor: pointer;
+.bydate{
+  position: absolute;
+  margin-left: 30px;
+
+  width: 137px;
+  height: 40px;
+
+  background: #749E94;
+  border: 1px solid #000000;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.2em;
+
+  color: #000000;
 }
 
-.search .search_wrap .search_box .btn:hover{
-	background: #C24332;
+.bylikes{
+  position: absolute;
+  margin-left: 170px;
+
+  width: 137px;
+  height: 40px;
+
+  background: #749E94;
+  border: 1px solid #000000;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.2em;
+
+  color: #000000;
 }
 
-.search .search_wrap .search_box .btn.btn_common .fas{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	color: rgb(0, 0, 0);
-	font-size: 20px;
-}
 
-.search.search_wrap.search_wrap_1 .search_box .btn{
-	right: 0;
-	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px;
-}
 
-.search .search_wrap.search_wrap_1 .search_box .input{
-	padding-right: 80px;
-}
-
+/*
 .articlesline1{
   position: absolute;
     width: 102.26%;
@@ -107,9 +225,9 @@ font-style: normal;
 font-weight: 400;
 font-size: 32px;
 margin-top: 80px;
-line-height: 39px;
+line-height: 39px;*/
 /* identical to box height */
-
+/*
 letter-spacing: 0.1em;
 
 color: #000000;
@@ -123,34 +241,10 @@ color: #000000;
   margin-right: auto;
 
 }
-.bylikes{
-  margin-left: 730px;
-  margin-top: -4px;
-
-
-}
-.bylikes ul{
-  display: flex;
-  margin-bottom: 10px;
-
-}
-.bylikes ul li{
-  list-style: none;
-  background: #749E94;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 13px 25px;
-  margin: 4px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 500;
-border: 1px solid #000000;
-font-size: 15px;
-line-height: 17px;
+*/
 /* identical to box height */
 
-
+/*
 letter-spacing: 0.2em;
 
 color: #000000;
@@ -341,9 +435,9 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
-line-height: 20px;
+line-height: 20px;*/
 /* identical to box height */
-
+/*
 letter-spacing: 0.1em;
 
 color: #000000;
@@ -453,9 +547,9 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
-line-height: 20px;
+line-height: 20px;*/
 /* identical to box height */
-
+/*
 letter-spacing: 0.1em;
 
 color: #000000;
@@ -488,11 +582,11 @@ color: #000000;
 font-style: normal;
 font-weight: 400;
 font-size: 13px;
-line-height: 16px;
+line-height: 16px;*/
 /* identical to box height */
-
+/*
 letter-spacing: 0.1em;
 
 color: #000000;
 
-}
+}*/
