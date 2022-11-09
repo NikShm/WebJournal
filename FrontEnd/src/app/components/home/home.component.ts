@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {Author} from "../../models/author";
 import {UserService} from "../../services/user.service";
@@ -56,5 +56,13 @@ export class HomeComponent implements OnInit {
 
   getRandomColor() {
     return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+  }
+
+  goToArticles() {
+    this.router.navigate(['articles']);
+  }
+
+  goToRegistration() {
+    this.router.navigate(['register']);
   }
 }

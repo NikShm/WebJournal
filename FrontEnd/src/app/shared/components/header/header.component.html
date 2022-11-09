@@ -1,4 +1,3 @@
-<!--start section header... -->
 <hr style="margin-top: 278px; border-width: 0.1px; border-color: black; position: absolute; width: 100%; margin-bottom: 1px;">
 <hr style="margin-top: 323px; border-width: 0.1px; border-color: black; position: absolute; width: 100%; margin-bottom: 1px;">
 <header class="menu">
@@ -29,13 +28,13 @@
 
   <div class="navigation">
     <ul class="ul">
-      <li><a href="http://localhost:4200" class="aCss">Home</a></li>
-      <li><a href="http://localhost:4200/posts" class="aCss">Articles</a></li>
+      <li><a routerLink="/" class="aCss">Home</a></li>
+      <li><a routerLink="/posts" class="aCss">Articles</a></li>
       <li><a href="#" class="aCss">News</a></li>
-      <li><a href="http://localhost:4200/authors" class="aCss">Authors</a></li>
+      <li><a routerLink="/authors" class="aCss">Authors</a></li>
       <li style="width: 105px;">
-        <a href="#" id="addPostBtn"><img src="assets/iconAdd.png" width="51px" height="51px"></a>
-        <a href="#" id="accountBtn"><img src="assets/iconsAccount.png" width="37px" height="37px"></a>
+        <button class="headerBtn" id="addPostBtn"><img src="assets/iconAdd.png" width="51px" height="51px"></button>
+        <button class="headerBtn" id="accountBtn" (click)="goToProfile()"><img src="assets/iconsAccount.png" width="37px" height="37px"></button>
       </li>
       <hr id="lastHr">
     </ul>

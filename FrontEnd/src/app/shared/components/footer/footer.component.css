@@ -7,16 +7,15 @@
   padding: 0;
 }
 
-body{
-  background: #EBE6D1;
-}
-
-
-
-a{
+a {
   text-decoration: none;
   color: #000;
 }
+
+a:hover {
+  color: #c24332;
+}
+
 footer{
   position: absolute;
   background-color: #ffe3e000;

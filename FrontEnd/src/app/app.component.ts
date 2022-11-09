@@ -39,8 +39,7 @@ export class AppComponent {
 
   logout(): void {
     this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
+      next: () => {
         this.storageService.clear();
         window.location.reload();
       },

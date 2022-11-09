@@ -32,7 +32,7 @@ import java.io.IOException;
  * @since 10/18/2022 - 20.28
  **/
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
     private final AuthenticationManager authenticationManager;

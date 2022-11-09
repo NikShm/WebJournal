@@ -1,40 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['../../shared/css/auth.css', './registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  form: any = {
-    username: null,
-    email: null,
-    password: null,
-    birthDate: null,
-    bio: null
-  }
-  isSuccessful = false;
-  isRegistrationFailed = false;
-  errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
-    const {username, email, password, birthDate, bio} = this.form;
+  showPlaceholder(event: any) {
+    this.sleep(250).then(() => event.target.type = 'date');
+  }
 
-    this.authService.register(username, email, password, birthDate, bio).subscribe({
-      next: () => {
-        this.isSuccessful = true;
-        this.isRegistrationFailed = false;
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isRegistrationFailed = true;
-      }
-    });
+  removePlaceholder(event: any) {
+    if (event.target.value === "") {
+      event.target.type = 'text';
+    }
+  }
+
+  private sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

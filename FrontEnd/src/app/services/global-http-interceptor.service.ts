@@ -21,9 +21,9 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
     ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        req = req.clone({
+        /*req = req.clone({
             withCredentials: true
-        });
+        });*/
         
         return next.handle(req).pipe(
             catchError((error) => {

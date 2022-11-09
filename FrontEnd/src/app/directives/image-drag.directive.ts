@@ -3,7 +3,7 @@ import { Directive,
   EventEmitter,
   Output,
   HostBinding } from '@angular/core';
-import {FileHandle} from "./app-routing.module";
+import {FileHandle} from "../app-routing.module";
 import {DomSanitizer} from "@angular/platform-browser";
 
 
