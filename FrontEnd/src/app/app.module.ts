@@ -1,4 +1,4 @@
-import {ErrorHandler, NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
@@ -16,8 +16,6 @@ import { PostsComponent } from './components/posts/posts.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/shared/layout/header/header.component';
 import { FooterComponent } from './components/shared/layout/footer/footer.component';
-
-import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
 import { PostComponent } from './components/post/post.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
@@ -27,6 +25,9 @@ import { RulesComponent } from './components/rules/rules.component';
 import { LoginComponent } from './login/login.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { ImageDragDirective } from './image-drag.directive';
+
+import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
+import { AuthService } from './services/auth.service';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { UserpageComponent } from './userpage/userpage.component';
@@ -47,7 +48,6 @@ import { UserpageComponent } from './userpage/userpage.component';
     DialogConfirmComponent,
     ImageDragDirective,
     UserpageComponent
-
   ],
   imports: [
     BrowserModule,
@@ -55,14 +55,13 @@ import { UserpageComponent } from './userpage/userpage.component';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
     AngularEditorModule,
   ],
   providers: [
-
+      AuthService,
       { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

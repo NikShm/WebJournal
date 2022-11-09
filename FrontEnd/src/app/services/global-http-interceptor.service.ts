@@ -1,15 +1,30 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { EventData } from '../models/event-data';
+import { AuthService } from './auth.service';
+import { EventBusService } from './event-bus.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalHttpInterceptorService implements HttpInterceptor {
-    constructor(private router: Router) {}
+    private isRefreshing = false;
+
+    constructor(
+        private router: Router, 
+        private storageService: StorageService,
+        private authService: AuthService,
+        private eventBusService: EventBusService 
+    ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        req = req.clone({
+            withCredentials: true
+        });
+        
         return next.handle(req).pipe(
             catchError((error) => {
                 let errorMessage = "other error";
@@ -20,6 +35,11 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
                     else {
                         errorMessage = `server error status: ${error.error.status} ${error.statusText}\n${error.error.message}`;
                         switch (error.status) {
+                            case 401:
+                                if (!req.url.includes('auth/login')) {
+                                    return this.handle401Error(req, next);
+                                }
+                                break;
                             case 404:
                                 if (req.method === 'GET') {
                                     this.router.navigate(['/404']);
@@ -36,8 +56,32 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
                     }
                 }
                 console.error(errorMessage);
-                return throwError(error);
+                return throwError(() => error);
             })
         );
+    }
+
+    private handle401Error(req: HttpRequest<any>,  next: HttpHandler) {
+        if (!this.isRefreshing) {
+            this.isRefreshing = true;
+
+            if (this.storageService.isLoggedIn()) {
+                return this.authService.refreshToken().pipe(
+                    switchMap(() => {
+                        this.isRefreshing = false;
+                        return next.handle(req);
+                    }),
+                    catchError((error) => {
+                        this.isRefreshing = false;
+                        if (error.status === '403') {
+                            this.eventBusService.emit(new EventData('logout', null));
+                        }
+                        return throwError(() => error);
+                    })
+                );
+            }
+        }
+        
+        return next.handle(req);
     }
 }
