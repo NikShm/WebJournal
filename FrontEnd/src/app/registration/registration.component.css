@@ -1,19 +1,26 @@
 .blockregist{
     position: absolute;
     width: 100%;
+   
     display: flex;
-    margin-top:13%;
+    
+   margin-top: 10%;
+   margin-bottom: 10%;
     margin-left:1%;
+   
+    
 
 
   }
   .lineregister{
     position: absolute;
-      width: 102.26%;
-      height: 600px;
-      left: -2%;
-
-
+      width: 100%;
+      margin: auto;
+      margin-top: 1%;
+      margin-bottom: 20%;
+      height: 50;
+      margin-left: -1.4%;
+      background-color: #6ebdb0;
       border: 1px solid #000000;
 
 
@@ -24,14 +31,15 @@
     position: absolute;
     width: 50%;
     height: 100%;
+    border-right: 7%;
   }
   .nameregist{
-    position: absolute;
+    position: relative;
     left: 63%;
     font-weight: 700;
-    font-size: 200%;
+    font-size: 190%;
 
-    top: -30px;
+    top: -6px;
 
     font-family: 'Montserrat Alternates';
     font-style: normal;
@@ -47,7 +55,9 @@
     width: 17.7%;
     background: white;
     padding: 30px;
-    margin-top: 3.7%;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
     margin-left: 61.5%;
     border-radius: 10px;
     background: none;
@@ -59,6 +69,7 @@
     position: relative;
     margin-bottom: 30px;
     background: none;
+    margin-top: -6%;
   }
 
   .blockregist .container .inputs input{
@@ -104,57 +115,96 @@
     color: crimson;
   }
 
-  .blockregist .container .submit{
-    position: absolute;
-    margin-left: 2%;
-    margin-top: 1%;
-    width: 14%;
-    height: 11%;
+  .blockregist .container  .submit{
+    
+    /*left: 10%;
+    position: relative;
+    width: 310px;
+    height: 60px;
+    margin-top: 2%;
     background: #C24332;
   border: 1px solid #000000;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
+  
+  border-radius: 30px;*/
+  position: absolute;
+  margin-left: 2%;
+ margin-top: 1%;
+  width: 14%;
+  height: 8.5%;
+  background: #C24332;
+border: 1px solid #000000;
+box-shadow: 0px 4px 4px rgba(193, 74, 74, 0.69);
+transition: 1s;
+border-radius: 30px;
 
   }
-  .blockregist .container .submit label{
+  .blockregist .container  .submit label{
     color: #C24332;
     font-family: 'Montserrat Alternates';
   font-style: normal;font-weight: 700;
   font-size: 20px;
   line-height: 17px;
-
-
-
+  cursor: pointer;
+  
   letter-spacing: 0.1em;
+ 
 
   color: #FFFFFF;
 
   }
+ 
   .blockregist .container p{
+    position: relative;
     font-family: 'Montserrat Alternates';
   font-style: normal;
   font-weight: 300;
   font-size: 18px;
   line-height: 17px;
-   margin-top: 35%;
+  margin-top: 39%;
   text-align: center;
   letter-spacing: 0.1em;
   text-decoration-line: underline;
   cursor: pointer;
   color: #CD4532;
+  /*
+  position: absolute;
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 17px;
+  margin-top: 5%;
+  margin-left: 3.5%;
+  margin-bottom: 1%;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-decoration-line: underline;
+  cursor: pointer;
+  color: #CD4532;*/
+  
 
   }
-  .blockregist .container p:hover{
+  .blockregist .container  p:hover{
     color: #501a1a;
-
+   
+  }
+  .createe{
+    position: relative;
+    height: 40%;
+    width: 100%;
+    margin: auto;
   }
   .blockregist .lastline{
 
-    position: absolute;
-    width:30.7%;
-    top: 49.8%;
+    position: relative;
+    width:32.7%;
+    margin-top: 14%;
     left: 70%;
-
+   
     border: 1px solid #0000007c;
     transform: rotate(-90deg);
+   
+    
+   
+    
   }
