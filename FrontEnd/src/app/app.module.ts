@@ -26,6 +26,8 @@ import { PostComponent } from './components/post/post.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { RulesComponent } from './components/rules/rules.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { RegistrationComponent } from './registration/registration.component';
     PostComponent,
     ArticlesComponent,
     AuthorsComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CreatePostComponent,
+    RulesComponent
 
   ],
   imports: [
