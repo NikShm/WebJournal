@@ -25,6 +25,7 @@ import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.s
 import { PostComponent } from './components/post/post.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AuthorsComponent } from './components/authors/authors.component';
     FooterComponent,
     PostComponent,
     ArticlesComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    RegistrationComponent
 
   ],
   imports: [
