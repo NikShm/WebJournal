@@ -35,7 +35,7 @@ a{
   margin-bottom: 2px;
   width: 500px;
   left: 280px;
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -55,7 +55,7 @@ a{
   margin-top: 200px;
   width: 950px;
   height: 150px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 700;
   font-size: 128px;
@@ -323,9 +323,8 @@ li a img:hover{
   font-family: 'Montserrat Alternates', serif;
 
   position:absolute;
-  top:0px;
-  left:0px;
-  font-size:16px;
+  top:0;
+  left:0;
   transition: all 0.5s ease-in-out;
 }
 
@@ -465,8 +464,8 @@ li a img:hover{
 }
 
 .fill:hover::after {
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 /* End of Fill Button  */
 /*******************************************************************/
@@ -486,7 +485,7 @@ li a img:hover{
 #datePostDiv{
   color: #000;
   font-size: 16px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   margin-bottom: 30px;
 }
 
@@ -505,6 +504,7 @@ li a img:hover{
   height: 514px;
   margin: auto;
   margin-bottom: 30px;
+  border: 0.1px solid black;
   height: 100%;
   width: 100%;
 }
@@ -528,14 +528,14 @@ li a img:hover{
 
 #byUser{
   text-align: left;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   font-size: 20px;
   margin-bottom: 30px;
 }
 
 #tagName{
   text-align: right;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 30px;
@@ -556,7 +556,7 @@ li a img:hover{
 
 .similarPostsTitle{
   font-size: 32px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   color: #C24332;
 
   margin-bottom: 31px;
@@ -584,7 +584,7 @@ li a img:hover{
   font-weight:700;
 
   font-size: 20px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
   color: #000000;
 }
 /*******************************************************************/
@@ -629,7 +629,7 @@ footer{
 }
 
 .quick_links{
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', serif;
   font-style: normal;
 
   position: absolute;
@@ -644,7 +644,7 @@ footer{
 }
 
 .extra_links{
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', serif;
   font-style: normal;
 
   position: absolute;
@@ -661,7 +661,7 @@ footer{
 }
 
 .location{
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', serif;
   font-style: normal;
 
   position: absolute;

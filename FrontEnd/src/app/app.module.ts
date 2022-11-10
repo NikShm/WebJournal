@@ -29,6 +29,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { RulesComponent } from './components/rules/rules.component';
 import { LoginComponent } from './login/login.component';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+import { ImageDragDirective } from './image-drag.directive';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { LoginComponent } from './login/login.component';
     RegistrationComponent,
     CreatePostComponent,
     RulesComponent,
-    LoginComponent
+    LoginComponent,
+    DialogConfirmComponent,
+    ImageDragDirective
 
   ],
   imports: [

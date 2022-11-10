@@ -10,14 +10,39 @@
 
     <div class="mainBody">
       <form>
-        <div class="input-container">
-          <input type="text" required maxlength="128"/>
-          <label>Name <b style="color: #C24332">*</b></label>
+
+        <!--TITLE INPUT WITH MAX LENGTH 80-->
+        <div id="inputTitle">
+          <p id="title">Title <b class="red">*</b> :</p>
+          <input maxlength="80" placeholder="Type text here..." type="text" (keyup)="title($event)">
+          <div class="inputLengthDiv">
+            {{titleNumberOfCharacters}} / {{titleMaxNumberOfCharacters}}
+          </div>
         </div>
-        <div class="input-container" style="margin-top: 100px">
-        <textarea id="story" name="story" rows="5" cols="33">
-        </textarea>
-          <label>Foreword <b style="color: #C24332">*</b></label>
+
+        <!--FOREWORD INPUT WITH MAX LENGTH 150-->
+        <div  id="inputForeword">
+          <p id="foreword">Foreword <b class="red">*</b> :</p>
+          <textarea maxlength="150" placeholder="Type text here..." cols="80" rows="5" (keyup)="foreword($event)"></textarea>
+          <div class="inputLengthDiv">
+            {{forewordNumberOfCharacters}} / {{forewordMaxNumberOfCharacters}}
+          </div>
+        </div>
+
+        <!--PHOTO INPUT-->
+        <div id="inputPhoto">
+          <p id="photo">Photo <b class="red">*</b> :</p>
+          <div class="dropzone" appImageDrag (files)="filesDropped($event)">
+            <p>Drag or <i style="text-decoration: underline">tap</i> to download</p><br>
+            <p>We recommend using high-quality files in the .jpg (up to 20 MB in size).</p>
+          </div>
+        </div>
+
+        <div id="uploadedPhoto">
+          <p>Here you will see how your photo will look</p>
+          <div class="imgDiv" *ngFor="let file of uploadedFiles">
+            <img [src]="file.url" alt=""/>
+          </div>
         </div>
 
       </form>

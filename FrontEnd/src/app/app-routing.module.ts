@@ -9,6 +9,12 @@ import { AuthorsComponent } from './components/authors/authors.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RulesComponent } from './components/rules/rules.component';
 import {LoginComponent} from "./login/login.component";
+import {SafeUrl} from "@angular/platform-browser";
+
+export interface FileHandle {
+  file: File;
+  url: SafeUrl;
+}
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,4 +35,6 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
+
+
 export class AppRoutingModule { }
