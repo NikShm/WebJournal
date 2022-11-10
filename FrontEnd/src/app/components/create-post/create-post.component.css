@@ -27,6 +27,10 @@ a{
   color: #000;
 }
 
+.red{
+  color: #C24332;
+}
+
 .textForHeader p {
   position: relative;
 
@@ -46,6 +50,41 @@ a{
 
 }
 
+#title{
+  position: absolute;
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+
+
+  color: #8caca2;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#foreword{
+  position: absolute;
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+
+
+  color: #8caca2;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#photo{
+  position: absolute;
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+
+
+  color: #8caca2;
+  background-color: rgba(0, 0, 0, 0);
+}
 
 #hrAfterTitle{
   position: absolute;
@@ -158,88 +197,174 @@ a{
   margin: auto;
   margin-bottom: 50px;
   margin-top: 150px;
-  background-color: rgba(194, 67, 50, 0.08);
-  height: 400px;
+
+  background-color: rgba(194, 67, 50, 0);
+
+  padding-top: 20px;
   width: 1040px;
 }
 
-.input-container{
-  background-color: #ff7b0000;
-  width: 840px;
+#inputTitle{
+  margin: auto;
+  text-align: right;
 
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+
+  background-color: rgba(136, 5, 213, 0);
+  width: 1000px;
+  height: 60px;
+}
+
+#inputTitle input{
+  height: 30px;
+  width: 800px;
+
+  outline: none;
+  background-color: transparent;
+
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  color: black;
+  padding: 5px;
+
+  border-radius: 10px;
+}
+
+#inputForeword{
+  margin: auto;
+  text-align: right;
+
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+
+  background-color: rgba(72, 0, 114, 0);
+  width: 1000px;
+  height: 90px;
+}
+
+#inputForeword textarea{
+  background-color: transparent;
+  height: 60px;
+  width: 800px;
+  margin-bottom: -5px;
+
+  padding: 5px;
+
+  outline: none;
+  resize: none;
+
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  color: black;
+
+  border-radius: 10px;
+}
+
+.inputLengthDiv{
+  margin-left: 900px;
+
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: right;
+
+  height: 20px;
+  width: 100px;
+
+  background-color: rgba(255, 0, 213, 0);
+}
+
+/*****************PHOTO******************/
+
+#inputPhoto{
+  height: 100px;
+  width: 1000px;
+
+  background-color: rgba(46, 48, 63, 0);
+  margin: auto;
+}
+
+.dropzone{
+  margin-left: 200px;
+  height: 100px;
+  width: 800px;
+
+  background-color: rgba(238, 238, 238, 0.55);
+  border: dashed 1px #aaa;
+  border-radius: 10px;
+
+  text-align: center;
+  padding-top: 20px;
+}
+
+.dropzone p{
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+
+  user-select: none;
+
+}
+
+/********************/
+#uploadedPhoto{
+  width: 1040px;
+  height: 514px;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
+
+  background-color: rgba(238, 238, 238, 0.55);
+  border: dashed 1px #aaa;
+  border-radius: 10px;
+
+  text-align: center;
+  padding-top: 250px;
+}
+
+#uploadedPhoto p{
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+
+  user-select: none;
+
+}
+
+
+.imgDiv{
   position: absolute;
-  margin-top: 10px;
-  margin-left: 100px;
+  width: 1041px;
+  height: 515px;
+  margin: auto;
+
+  margin-left: -1px;
+  margin-top: -270px;
+  border: 0.1px solid black;
+  background-color: #C24332;
+
 }
 
-.input-container label{
-  color: #63948C;
-  font-size: 15px;
-  font-family: 'Montserrat Alternates', serif;
-
-  position:absolute;
-  top:0px;
-  left:0px;
-  font-size:16px;
-  transition: all 0.5s ease-in-out;
+.imgDiv img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.input-container input{
-  border:0;
-  border-bottom:1px solid #555;
-  background:transparent;
-  height: 50px;
-  width:100%;
-  padding:8px 0 5px 0;
-  font-size:20px;
-  color: #C24332;
-}
-.input-container input:focus{
-  border:none;
-  outline:none;
-  border-bottom:1px solid #C24332;
-}
-
-.input-container input:focus ~ label,
-.input-container input:valid ~ label{
-  top:-5px;
-  font-size:12px;
-}
-
-/**/
-.input-container textarea{
-  border:0;
-  border-bottom:1px solid #555;
-  background:transparent;
-  height: 50px;
-  width:100%;
-  padding:8px 0 5px 0;
-  font-size:20px;
-  color: #C24332;
-}
-
-.input-container textarea label{
-  color: #63948C;
-  font-size: 15px;
-  font-family: 'Montserrat Alternates', serif;
-
-  position:absolute;
-  top:0px;
-  left:0px;
-  font-size:18px;
-  transition: all 0.5s ease-in-out;
-}
-
-
-.input-container textarea:focus{
-  border:none;
-  outline:none;
-  border-bottom:1px solid #C24332;
-}
-
-.input-container textarea:focus ~ label,
-.input-container textarea:valid ~ label{
-  top:-5px;
-  font-size:12px;
-}
 
