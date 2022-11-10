@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,300;0,500;0,600;0,700;0,900;1,100;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: #EBE6D1;
+}
+
+.menu{
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  width: 1140px;
+  height: 156px;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+.textForHeader p {
+  position: relative;
+
+  margin: auto;
+  margin-top: -2px;
+  margin-bottom: 2px;
+  width: 500px;
+  left: 280px;
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+
+  color: #2E303F;
+
+}
+
+
+#hrAfterTitle{
+  position: absolute;
+
+  margin: auto;
+  margin-top: 290px;
+
+  width: 100%;
+
+  border: 0.1px solid #000;
+}
+
+#titleBlock{
+  height: 53px;
+  width: 450px;
+
+  margin: auto;
+
+  text-align: center;
+  padding-top: 5px;
+  margin-top: 238px;
+
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+
+  background-color: rgba(194, 67, 50, 0);
+}
+
+#titleBlock p{
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+
+  vertical-align: center;
+  letter-spacing: 0.1em;
+
+  color: #000000;
+}
+
+.nameBlog{
+  position: absolute;
+  margin: auto;
+
+
+  margin-left: 30px;
+  margin-top: 200px;
+  width: 950px;
+  height: 150px;
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 128px;
+  letter-spacing: 0.1em;
+
+  color: #C24332;
+
+}
+
+.postDiv{
+  margin: auto;
+  margin-top: 30px;
+  width: 1140px;
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+
+  border: 0.1px solid black;
+  background-color: rgba(0, 255, 255, 0);
+}
+
+.hotDog{
+  width: 200px;
+  height: 270px;
+  background-repeat: no-repeat;
+  background: center;
+  background-size: 300px 300px;
+  background-image: url("hotDog.png");
+
+  background-color: rgba(194, 67, 50, 0);
+
+  margin-left: 170px;
+  margin-top: -60px;
+
+}
+
+#answ{
+  width: 500px;
+  background-color: rgba(194, 67, 50, 0);
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 32px;
+
+  margin-left: 400px;
+  margin-top: -200px;
+  text-align: center;
+
+  vertical-align: center;
+  letter-spacing: 0.1em;
+  text-decoration: underline;
+  color: #C24332;
+}
+
+#answ:hover{
+  color: #000000;
+}
+
+.mainBody{
+  margin: auto;
+  margin-bottom: 50px;
+  margin-top: 150px;
+  background-color: rgba(194, 67, 50, 0.08);
+  height: 400px;
+  width: 1040px;
+}
+
+.input-container{
+  background-color: #ff7b0000;
+  width: 840px;
+
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+.input-container label{
+  color: #63948C;
+  font-size: 15px;
+  font-family: 'Montserrat Alternates', serif;
+
+  position:absolute;
+  top:0px;
+  left:0px;
+  font-size:16px;
+  transition: all 0.5s ease-in-out;
+}
+
+.input-container input{
+  border:0;
+  border-bottom:1px solid #555;
+  background:transparent;
+  height: 50px;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:20px;
+  color: #C24332;
+}
+.input-container input:focus{
+  border:none;
+  outline:none;
+  border-bottom:1px solid #C24332;
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+  top:-5px;
+  font-size:12px;
+}
+
+/**/
+.input-container textarea{
+  border:0;
+  border-bottom:1px solid #555;
+  background:transparent;
+  height: 50px;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:20px;
+  color: #C24332;
+}
+
+.input-container textarea label{
+  color: #63948C;
+  font-size: 15px;
+  font-family: 'Montserrat Alternates', serif;
+
+  position:absolute;
+  top:0px;
+  left:0px;
+  font-size:18px;
+  transition: all 0.5s ease-in-out;
+}
+
+
+.input-container textarea:focus{
+  border:none;
+  outline:none;
+  border-bottom:1px solid #C24332;
+}
+
+.input-container textarea:focus ~ label,
+.input-container textarea:valid ~ label{
+  top:-5px;
+  font-size:12px;
+}
+

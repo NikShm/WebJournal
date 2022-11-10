@@ -1,1 +1,30 @@
-<p>create-post works!</p>
+<app-header></app-header>
+<!--start section content... -->
+
+<hr id="hrAfterTitle">
+<body>
+  <div id="titleBlock"><p>CREATE AN ARTICLE</p></div>
+  <div class="postDiv">
+    <div class="hotDog"></div>
+    <a href="http://localhost:4200/rules"><p id="answ">Have you read<br>the publication rules?</p></a>
+
+    <div class="mainBody">
+      <form>
+        <div class="input-container">
+          <input type="text" required maxlength="128"/>
+          <label>Name <b style="color: #C24332">*</b></label>
+        </div>
+        <div class="input-container" style="margin-top: 100px">
+        <textarea id="story" name="story" rows="5" cols="33">
+        </textarea>
+          <label>Foreword <b style="color: #C24332">*</b></label>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</body>
+<!------start footer section----->
+
+<app-footer></app-footer>

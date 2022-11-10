@@ -28,6 +28,7 @@ import { AuthorsComponent } from './components/authors/authors.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { RulesComponent } from './components/rules/rules.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { RulesComponent } from './components/rules/rules.component';
     AuthorsComponent,
     RegistrationComponent,
     CreatePostComponent,
-    RulesComponent
+    RulesComponent,
+    LoginComponent
 
   ],
   imports: [
