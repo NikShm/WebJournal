@@ -45,6 +45,12 @@
           </div>
         </div>
 
+        <p id="contentText">Content <b class="red">*</b> :</p>
+        <div id="content">
+          <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+        </div>
+
+        <button class="button-74" role="button">Publish</button>
       </form>
     </div>
 

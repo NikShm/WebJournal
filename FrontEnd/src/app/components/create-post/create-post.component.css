@@ -86,6 +86,18 @@ a{
   background-color: rgba(0, 0, 0, 0);
 }
 
+#contentText{
+  font-family: 'Montserrat Alternates', serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+
+
+  color: #8caca2;
+  background-color: rgba(255, 0, 0, 0);
+}
+
+
 #hrAfterTitle{
   position: absolute;
 
@@ -367,4 +379,48 @@ a{
   height: 100%;
 }
 
+
+#content{
+  width: 1041px;
+  background-color: rgba(194, 67, 50, 0);
+}
+
+.button-74 {
+  margin-left: 920px;
+  margin-top: 40px;
+
+  background-color: #8caca2;
+  border: 2px solid #C24332;
+  border-radius: 30px;
+  box-shadow: #C24332 4px 4px 0 0;
+  color: #EBE6D1;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  color: #C24332;
+  background-color: #EBE6D1;
+}
+
+.button-74:active {
+  box-shadow: #C24332 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
 
