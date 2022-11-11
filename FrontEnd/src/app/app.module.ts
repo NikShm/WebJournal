@@ -32,7 +32,7 @@ import { LoginComponent } from './login/login.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { ImageDragDirective } from './image-drag.directive';
 
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +60,8 @@ import { ImageDragDirective } from './image-drag.directive';
 
     MatCardModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    AngularEditorModule
   ],
   providers: [
       // ProductService,
