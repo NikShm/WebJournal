@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
@@ -66,10 +66,7 @@ import { UserpageComponent } from './userpage/userpage.component';
     AngularEditorModule
   ],
   providers: [
-      // ProductService,
-      // BrandService,
-      // CartService,
-      // FavouriteService,
+
       { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

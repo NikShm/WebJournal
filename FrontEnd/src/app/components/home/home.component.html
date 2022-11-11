@@ -87,51 +87,14 @@
         <p id="interesingBloggersTitle">Interesting bloggers</p>
         <div class="right-panel">
 
-
           <div class="friends-section" style="margin-top: 60px;">
 
-            <a class='friend' href="#">
+            <a class='friend' href="#" *ngFor="let author of authors">
               <div class="dp">
-                <img src="assets/dp.jpg" alt="">
+                <img [src]="userImage+author.id+'.jpg'" (error)="onError($event)" alt="">
               </div>
-              <p class="name">Henry Mosely</p>
+              <p class="name">{{author.username}}</p>
             </a>
-
-            <a class='friend' href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">George</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Aakash Malhotra</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Ragini Khanna</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Justin Bieber</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Ramesh GC</p>
-            </a>
-
 
           </div>
         </div>

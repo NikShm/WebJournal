@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../../models/product";
-import {ProductService} from "../../services/product.service";
 import {Router} from "@angular/router";
-import {CartService} from "../../services/cart.service";
-import {FavouriteService} from "../../services/favourite.service";
+import {Author} from "../../models/author";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-home',
@@ -11,33 +9,18 @@ import {FavouriteService} from "../../services/favourite.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  products: Product[] = [];
+  userImage: string = "assets/UsersIcon/user_";
+  authors: Author[] = [];
 
-  searchText = "";
-
-  search() {
-    this.searchText = this.searchText.trim();
-    this.productService.searchHomePage(this.searchText)
-    this.router.navigate(["/","products"])
-  }
-
-  constructor(private productService: ProductService,
-              private router: Router,
-              private cartService: CartService,
-              private favouriteService: FavouriteService) {
-  }
-
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    window.alert('Your product has been added to the cart!');
-  }
-
-  addToFavourite(product: Product) {
-    this.favouriteService.addToFavourite(product);
-    window.alert('Your product has been added to the favourites!');
+  constructor(private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.productService.getLastProduct().subscribe((data: Product[]) => {this.products=data;});
+    this.userService.getFavoriteAuthors().subscribe((data: any) => {this.authors=data;});
+  }
+
+  onError(event:any) {
+    event.target.src = 'assets/iconsAccount.png';
   }
 }
