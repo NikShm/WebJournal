@@ -20,7 +20,7 @@ public class TagController {
 
     @GetMapping("/actual")
     public List<TagDTO> getActualTags(@RequestParam("count") int n) {
-        LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(1));
+        LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return service.getActualTags(n, date);
     }
 }

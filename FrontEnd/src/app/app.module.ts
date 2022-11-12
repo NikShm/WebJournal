@@ -17,10 +17,6 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/shared/layout/header/header.component';
 import { FooterComponent } from './components/shared/layout/footer/footer.component';
 
-// import {ProductService} from "./services/product.service";
-// import {BrandService} from "./services/brand.service";
-// import {CartService} from "./services/cart.service";
-// import {FavouriteService} from "./services/favourite.service";
 import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
 import { PostComponent } from './components/post/post.component';
 import { ArticlesComponent } from './components/articles/articles.component';
