@@ -2,7 +2,8 @@ package com.webjournal.service.user;
 
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.SearchDTO;
+import com.webjournal.dto.search.AuthorSearch;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.security.payload.request.RegistrationRequest;
@@ -27,5 +28,5 @@ public interface UserService {
     void subscribe(FollowDTO followDTO);
     @Transactional
     void unsubscribe(FollowDTO followDTO);
-    PageDTO<AuthorDTO> getPage(SearchDTO search);
+    PageDTO<AuthorDTO> getAuthorPage(SearchDTO<AuthorSearch> search);
 }

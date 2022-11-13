@@ -43,7 +43,7 @@ public class Post {
     @JoinColumn(name="post_id")
     private List<Comment> comments;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name="post_tag",
             joinColumns= @JoinColumn(name="post_id"),
             inverseJoinColumns = @JoinColumn(name="tag_id"))

@@ -1,4 +1,4 @@
-package com.webjournal.dto;
+package com.webjournal.dto.search;
 
 import com.webjournal.enums.SortDirection;
 import io.swagger.annotations.ApiModel;
@@ -6,31 +6,22 @@ import io.swagger.annotations.ApiModelProperty;
 
 /*
 @author Микола
-@project WebJournal
+@project FreshBeauty
 @class SearchDTO
 @version 1.0.0
-@since 14.09.2022 - 19.34
+@since 13.07.2022 - 19.34
 */
-@ApiModel(description = "Page creation options class")
-public class SearchDTO {
-    @ApiModelProperty(value = "Phrase entered by user in search field to find things of interest")
-    private String search;
-    @ApiModelProperty(value = "The field by which sorting is performed")
+@ApiModel(description = "Page creation options class", value = "Search")
+public class SearchDTO<T> {
+    @ApiModelProperty(value = "The field by which sorting is performed.", readOnly = true, dataType = "String")
     private String sortField;
-    @ApiModelProperty(value = "Sorting type")
+    @ApiModelProperty(value = "The type of sort.", readOnly = true, dataType = "SortDirection")
     private SortDirection sortDirection;
-    @ApiModelProperty(value = "Page number to be returned")
+    @ApiModelProperty(value = "Page number to be returned.", readOnly = true, dataType = "String")
     private Integer page;
-    @ApiModelProperty(value = "The size of the returned page")
+    @ApiModelProperty(value = "The size of the returned page.", readOnly = true, dataType = "String")
     private Integer pageSize;
-
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
+    private T searchPattern;
 
     public String getSortField() {
         return sortField;
@@ -60,18 +51,26 @@ public class SearchDTO {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public T getSearchPattern() {
+        return searchPattern;
+    }
+
+    public void setSearchPattern(T searchPattern) {
+        this.searchPattern = searchPattern;
     }
 
     @Override
     public String toString() {
         return "SearchDTO{" +
-                "search='" + search + '\'' +
-                ", sortField='" + sortField + '\'' +
+                "sortField='" + sortField + '\'' +
                 ", sortDirection=" + sortDirection +
                 ", page=" + page +
                 ", pageSize=" + pageSize +
+                ", searchPattern=" + searchPattern.toString() +
                 '}';
     }
 }

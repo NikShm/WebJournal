@@ -3,11 +3,14 @@ package com.webjournal.service.post;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.SearchDTO;
+import com.webjournal.dto.search.PostSearch;
+import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,16 +19,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class PostServiceImpl implements IPostService{
+public class PostServiceImpl implements IPostService {
+
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
     public PostServiceImpl(PostRepository repository, PostMapper postMapper, EntityManager entityManager) {
         this.repository = repository;
@@ -98,15 +104,16 @@ public class PostServiceImpl implements IPostService{
 
     @SuppressWarnings("unchecked")
     @Override
-    public PageDTO<PostDTO> getPage(SearchDTO searchDTO) {
+    public PageDTO<PostDTO> getPage(SearchDTO<PostSearch> searchPostDTO) {
+        LOGGER.info("Enter to getPage method, in class PostServiceImpl. Search parameters {}", searchPostDTO);
         List<PostDTO> postDTOS = new ArrayList<>();
-        for (Object entity : entityManager.createNativeQuery(getQuery(searchDTO), Post.class).getResultList()) {
+        for (Object entity : entityManager.createNativeQuery(getPageQuery(searchPostDTO), Post.class).getResultList()) {
             postDTOS.add(postMapper.toPostDto((Post) entity));
         }
         Page<PostDTO> page = new PageImpl<>(postDTOS);
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
         pageDTO.setContent(page.getContent());
-        pageDTO.setTotalItem(page.getTotalElements());
+        pageDTO.setTotalItem(((BigInteger) entityManager.createNativeQuery(getCountQuery(searchPostDTO)).getSingleResult()).longValue());
         return pageDTO;
     }
 
@@ -118,18 +125,56 @@ public class PostServiceImpl implements IPostService{
      *
      * @see com.webjournal.utils.FullTextSearchPred
      */
-    private String getQuery(SearchDTO search) {
-        StringBuilder query = new StringBuilder("SELECT * FROM post");
-        if (search.getSearch() != null) {
-            query.append(" WHERE post.ts_content @@ phraseto_tsquery('english', '").append(search.getSearch()).append("')");
-            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(search.getSearch()).append("')");
-        }
-        if (search.getSortDirection() != null && search.getSortField() != null) {
-            query.append(" ORDER BY ").append(search.getSortField()).append(" ").append(search.getSortDirection());
+
+    private StringBuilder getQuery() {
+        return new StringBuilder();
+    }
+
+    private String getPageQuery(SearchDTO<PostSearch> search) {
+        StringBuilder query = getQuery();
+        PostSearch searchPattern = search.getSearchPattern();
+        query.append("SELECT * FROM post");
+        if (searchPattern != null && searchPattern.getSearch() != null) {
+            getFilter(searchPattern,query);
+            if (search.getSortDirection() != null && search.getSortField() != null) {
+                query.append(" ORDER BY post.").append(search.getSortField()).append(" ").append(search.getSortDirection());
+            }
         }
         if (search.getPage() != null && search.getPageSize() != null) {
-            query.append(" limit ").append(search.getPageSize()).append(" offset ").append(search.getPage());
+            query.append(" limit ").append(search.getPageSize()).append(" offset ").append(search.getPage() * search.getPageSize());
+        }
+
+        return query.toString();
+    }
+
+    private String getCountQuery(SearchDTO<PostSearch> search) {
+        StringBuilder query = getQuery();
+        PostSearch searchPattern = search.getSearchPattern();
+        query.append("SELECT count(*) FROM post");
+        if (searchPattern != null && searchPattern.getSearch() != null) {
+            getFilter(searchPattern,query);
         }
         return query.toString();
+    }
+
+    private void getFilter(PostSearch postSearch, StringBuilder query){
+        if (postSearch.getSearchTag() != null) {
+            query.append(" Left JOIN post_tag pt on post.id = pt.post_id " +
+                    "Left JOIN tag t on pt.tag_id = t.id");
+        }
+        if (!Objects.equals(postSearch.getSearch(), "")
+                || postSearch.getSearchTag() != null) {
+            query.append(" WHERE ");
+        }
+        if (!Objects.equals(postSearch.getSearch(), "")) {
+            query.append("post.ts_content @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("')");
+            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("') ");
+        }
+        if (!Objects.equals(postSearch.getSearch(), "") && postSearch.getSearchTag() != null) {
+            query.append(" or ");
+        }
+        if (postSearch.getSearchTag() != null) {
+            query.append("t.name like '%").append(postSearch.getSearchTag()).append("%'");
+        }
     }
 }
