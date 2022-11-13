@@ -59,7 +59,7 @@ import { UserpageComponent } from './userpage/userpage.component';
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   providers: [
 

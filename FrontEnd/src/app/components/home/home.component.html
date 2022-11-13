@@ -121,47 +121,10 @@
     <tr>
       <th style="border-bottom: 0.1px solid black" colspan="7" height="48cm">Actual tags</th>
     </tr>
+    <tr class="b2" *ngFor="let tags of tagList">
 
-    <tr class="b1">
-      <!--<th rowspan = "4" width="190cm" height="20cm"></th>-->
-      <th bgcolor=#c0362c class="font_color">Genshin impact</th>
-      <th>Cooking</th>
-      <th>Television</th>
-      <th>Modernism</th>
-      <th bgcolor=#89cff0>Programming</th>
-      <!--<th rowspan = "4" width="190cm" height="20cm"></th>-->
-
+      <th [ngStyle]="{'background-color': setBackgroundColor(tag.id)}" *ngFor="let tag of tags" >{{tag.name}}</th>
     </tr>
-    <tr class="b2">
-
-      <th>Summer outfit</th>
-      <th bgcolor=#f8d568>Fashion week</th>
-      <th>Elizabet II</th>
-      <th>Fanfics</th>
-      <th class="font_color" bgcolor=#ed7117>JavaScript</th>
-
-
-    </tr>
-    <tr class="b1">
-
-      <th>Back to school</th>
-      <th>Depression</th>
-      <th bgcolor=#5dbb63>Coronavirus</th>
-      <th>Iphone 16</th>
-      <th>Conspiracy theory</th>
-
-    </tr>
-    <tr class="b2">
-
-      <th>Vaccine</th>
-      <th class="font_color" bgcolor=#002366>Terrorism</th>
-      <th>K-pop</th>
-      <th bgcolor=#ffc0cb>Grunge</th>
-      <th>Mozart</th>
-
-    </tr>
-
-
   </table>
 </section>
 <!----------------Start video section------------->

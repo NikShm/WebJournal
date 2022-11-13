@@ -1,4 +1,4 @@
-import { Brand } from "./brand";
+import { Tag } from "./tag";
 
 export class Product {
     constructor(product: Product | null = null) {
@@ -29,7 +29,7 @@ export class Product {
     id: string;
     name: string;
     description: string;
-    brand: Brand | null;
+    brand: Tag | null;
     price: string;
     category: string;
     color: string;

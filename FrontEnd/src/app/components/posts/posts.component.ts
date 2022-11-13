@@ -5,7 +5,7 @@ import {CartService} from "../../services/cart.service";
 import {FavouriteService} from "../../services/favourite.service";
 import {Search} from "../../models/search";
 import {Router} from '@angular/router';
-import {Brand} from 'src/app/models/brand';
+import {Tag} from 'src/app/models/tag';
 
 @Component({
     selector: 'app-products',
@@ -14,7 +14,7 @@ import {Brand} from 'src/app/models/brand';
 })
 export class PostsComponent implements OnInit {
     products: Product[] = [];
-    brands: Brand[] = [];
+    brands: Tag[] = [];
     allProduct = 0;
     pageCount = 1;
     sortValue = "NameUp";

@@ -9,14 +9,14 @@ import {GlobalConstants} from "../global-constants";
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class TagService {
 
   constructor(private http: HttpClient) { }
 
-  getToPerMonth():Observable<PostList[]> {
-    return this.http.get<PostList[]>(GlobalConstants.apiURL +'/api/posts/top-per-month?count=4').pipe(map((data: any) => {
-      return data.map(function(post: any): PostList {
-        return new PostList(post);
+  getActual():Observable<Tag[]> {
+    return this.http.get<Tag[]>(GlobalConstants.apiURL +'/api/tags/actual?count=20').pipe(map((data: any) => {
+      return data.map(function(tag: any): Tag {
+        return new Tag(tag);
       })
     }));
   }

@@ -13,7 +13,7 @@
 // })
 // export class ProductService {
 //
-//     searchParameter = new Search(null, "", 0, 0, "name", "ASC", 0, 25, null);
+//     searchParameter = new Search(null, "", 0, 0, "name", kikiliii.jpg"ASC", 0, 25, null);
 //     private brands: Brand[] = [];
 //
 //     constructor(private http: HttpClient, private brandService: PostService) {
