@@ -7,7 +7,8 @@
   padding: 0;
 }
 
-body{
+section{
+ height: 895px;
   background: #EBE6D1;
 }
 
@@ -916,3 +917,4 @@ color: #FFFFFF;
 .submit:hover{
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
