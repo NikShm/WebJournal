@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {Product} from "../../models/product";
-import {ProductService} from "../../services/product.service";
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CartService} from "../../services/cart.service";
-import {FavouriteService} from "../../services/favourite.service";
+import {Author} from "../../models/author";
+import {UserService} from "../../services/user.service";
+import {PostService} from "../../services/post.service";
+import {PostList} from "../../models/postList";
+import {TagService} from "../../services/tag.service";
+import {Tag} from "../../models/tag";
 
 @Component({
   selector: 'app-home',
@@ -11,33 +13,48 @@ import {FavouriteService} from "../../services/favourite.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  products: Product[] = [];
+  userImage: string = "assets/UsersIcon/user_";
+  postImage: string = "assets/PostImage/post_";
+  authors: Author[] = [];
+  posts: PostList[] = [];
+  tagList:  Tag[][] = [];
+  isDataLoaded: boolean = false;
+  colors:Map<number,string> = new Map<number, string>();
 
-  searchText = "";
-
-  search() {
-    this.searchText = this.searchText.trim();
-    this.productService.searchHomePage(this.searchText)
-    this.router.navigate(["/","products"])
-  }
-
-  constructor(private productService: ProductService,
-              private router: Router,
-              private cartService: CartService,
-              private favouriteService: FavouriteService) {
-  }
-
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
-    window.alert('Your product has been added to the cart!');
-  }
-
-  addToFavourite(product: Product) {
-    this.favouriteService.addToFavourite(product);
-    window.alert('Your product has been added to the favourites!');
+  constructor(private userService: UserService,
+              private postService: PostService,
+              private tagService: TagService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.productService.getLastProduct().subscribe((data: Product[]) => {this.products=data;});
+    this.userService.getFavoriteAuthors().subscribe((data: any) => {this.authors=data;})
+    this.postService.getToPerMonth().subscribe((data: any) => {this.posts = data});
+    this.tagService.getActual().subscribe((data: any) => {
+      for (let i = 0; i < data.length/5; i++) {
+        this.tagList[i] = []
+        for (let y = 0; y < 5; y++) {
+          this.tagList[i][y] = data[i+y]
+          this.colors.set(data[i+y].id, this.getRandomColor())
+        }
+      }
+      this.isDataLoaded = true
+      });
+  }
+
+  onErrorUserImage(event:any) {
+    event.target.src = 'assets/iconsAccount.png';
+  }
+
+  onErrorPostImage(event:any) {
+    event.target.src = 'assets/PostImage/default.png';
+  }
+
+  setBackgroundColor(id:any){
+    return this.colors.get(id)
+  }
+
+  getRandomColor() {
+    return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
   }
 }

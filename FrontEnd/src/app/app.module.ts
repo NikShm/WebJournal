@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
@@ -17,10 +17,6 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/shared/layout/header/header.component';
 import { FooterComponent } from './components/shared/layout/footer/footer.component';
 
-// import {ProductService} from "./services/product.service";
-// import {BrandService} from "./services/brand.service";
-// import {CartService} from "./services/cart.service";
-// import {FavouriteService} from "./services/favourite.service";
 import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
 import { PostComponent } from './components/post/post.component';
 import { ArticlesComponent } from './components/articles/articles.component';
@@ -63,13 +59,10 @@ import { UserpageComponent } from './userpage/userpage.component';
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   providers: [
-      // ProductService,
-      // BrandService,
-      // CartService,
-      // FavouriteService,
+
       { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

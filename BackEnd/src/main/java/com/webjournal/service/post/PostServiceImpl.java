@@ -1,5 +1,6 @@
 package com.webjournal.service.post;
 
+import com.webjournal.dto.*;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
@@ -68,9 +69,9 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public List<PostDTO> getFeaturedPosts(int quantity, LocalDateTime date) {
+    public List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date) {
         Pageable page = PageRequest.of(0, quantity);
-        return repository.findInterestingPosts(page, date).stream().map(postMapper::toPostDto).toList();
+        return repository.findInterestingPosts(page, date).stream().map(postMapper::toPostListDto).toList();
     }
 
     @Transactional

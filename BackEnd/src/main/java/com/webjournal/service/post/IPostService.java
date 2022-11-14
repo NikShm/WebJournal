@@ -5,6 +5,7 @@ import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
+import com.webjournal.dto.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,5 +20,5 @@ public interface IPostService{
     void update(PostDTO dto) throws IOException;
     PostDTO get(Integer id);
     List<PostDTO> getAll();
-    List<PostDTO> getFeaturedPosts(int quantity, LocalDateTime date);
+    List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date);
 }

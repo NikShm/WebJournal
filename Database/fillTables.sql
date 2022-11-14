@@ -46,7 +46,47 @@ VALUES
     (3, 2);
 
 INSERT INTO tag(name)
-VALUES ('teg');
+VALUES ('Cooking'),
+       ('Television'),
+       ('Modernism'),
+       ('Programming'),
+       ('Genshin_impact'),
+       ('Summer_outfit'),
+       ('Fashion_week'),
+       ('Elizabet_II'),
+       ('Fanfics'),
+       ('JavaScript'),
+       ('Back_to_school'),
+       ('Depression'),
+       ('Coronavirus'),
+       ('Iphone_16'),
+       ('Conspiracy_theory'),
+       ('Vaccine'),
+       ('Terrorism'),
+       ('K-pop'),
+       ('Grunge'),
+       ('Mozart');
 
 INSERT INTO post_tag(post_id, tag_id)
-VALUES (2, 1);
+VALUES
+       (1, 1),
+       (1, 2),
+       (1, 3),
+       (2, 4),
+       (2, 5),
+       (2, 6),
+       (3, 7),
+       (3, 8),
+       (3, 9),
+       (4, 10),
+       (4, 11),
+       (4, 12),
+       (5, 13),
+       (5, 14),
+       (5, 15),
+       (6, 16),
+       (6, 17),
+       (6, 18),
+       (7, 19),
+       (7, 20),
+       (7, 21);

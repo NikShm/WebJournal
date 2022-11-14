@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/tags", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TagController {
     private final TagServiceImpl service;
@@ -19,7 +20,7 @@ public class TagController {
 
     @GetMapping("/actual")
     public List<TagDTO> getActualTags(@RequestParam("count") int n) {
-        LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(1));
+        LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return service.getActualTags(n, date);
     }
 }

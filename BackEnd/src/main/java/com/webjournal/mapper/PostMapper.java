@@ -2,6 +2,7 @@ package com.webjournal.mapper;
 
 import com.webjournal.dto.CommentDTO;
 import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.PostListDTO;
 import com.webjournal.dto.TagDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.repository.UserRepository;
@@ -50,6 +51,16 @@ public class PostMapper {
         dto.setUpdatedAt(entity.getUpdatedAt());
 
         return dto;
+    }
+
+    public PostListDTO toPostListDto(Post entity) {
+        PostListDTO listDTO = new PostListDTO();
+        listDTO.setId(entity.getId());
+        listDTO.setTitle(entity.getTitle());
+        listDTO.setForeword(entity.getForeword());
+        listDTO.setPublishedAt(entity.getPublishedAt());
+
+        return listDTO;
     }
 
     public Post toEntity(Post entity, PostDTO dto) {

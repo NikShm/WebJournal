@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <!--start section content... -->
-
+<div *ngIf="isDataLoaded">
 <section class="introduction">
   <div class="featuredPosts">
     <!--image slider start-->
@@ -15,43 +15,35 @@
         <!--radio buttons end-->
         <!--slide images start-->
         <div class="slide first">
-          <img src="assets/featureposts.png" alt="">
+          <img [src]="postImage+posts[0].id+'.jpg'" (error)="onErrorPostImage($event)"  alt="">
           <div class="pslider">
-            <h1>Turkey: Unique Festivals You Must Visit</h1>
-            <div class="datasliders"><p>Nov 9, 2022</p></div>
-            <div class="aboutsliders"><p>Turkey delivers more than just a fascinating culture & stunning landscape.
-              It is basically considered as a home to a various holidays and festivals, several of which have been
-              disclosed to help the country develop a more modern image.</p></div>
+            <h1>{{posts[0].title}}</h1>
+            <div class="datasliders"><p>{{posts[0].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="aboutsliders"><p>{{posts[0].foreword}}</p></div>
           </div>
         </div>
         <div class="slide">
-          <img src="assets/featureposts.png" alt="">
+          <img [src]="postImage+posts[1].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
-            <h1>Turkey: Unique Festivals You Must Visit</h1>
-            <div class="datasliders"><p>Nov 9, 2022</p></div>
-            <div class="aboutsliders"><p>Turkey delivers more than just a fascinating culture & stunning landscape.
-              It is basically considered as a home to a various holidays and festivals, several of which have been
-              disclosed to help the country develop a more modern image.</p></div>
+            <h1>{{posts[1].title}}</h1>
+            <div class="datasliders"><p>{{posts[1].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="aboutsliders"><p>{{posts[1].foreword}}</p></div>
           </div>
         </div>
         <div class="slide">
-          <img src="assets/featureposts.png" alt="">
+          <img [src]="postImage+posts[2].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
-            <h1>Turkey: Unique Festivals You Must Visit</h1>
-            <div class="datasliders"><p>Nov 9, 2022</p></div>
-            <div class="aboutsliders"><p>Turkey delivers more than just a fascinating culture & stunning landscape.
-              It is basically considered as a home to a various holidays and festivals, several of which have been
-              disclosed to help the country develop a more modern image.</p></div>
+            <h1>{{posts[2].title}}</h1>
+            <div class="datasliders"><p>{{posts[2].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="aboutsliders"><p>{{posts[2].foreword}}</p></div>
           </div>
         </div>
         <div class="slide">
-          <img src="assets/featureposts.png" alt="">
+          <img [src]="postImage+posts[3].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
-            <h1>Turkey: Unique Festivals You Must Visit</h1>
-            <div class="datasliders"><p>Nov 9, 2022</p></div>
-            <div class="aboutsliders"><p>Turkey delivers more than just a fascinating culture & stunning landscape.
-              It is basically considered as a home to a various holidays and festivals, several of which have been
-              disclosed to help the country develop a more modern image.</p></div>
+            <h1>{{posts[3].title}}</h1>
+            <div class="datasliders"><p>{{posts[3].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="aboutsliders"><p>{{posts[3].foreword}}</p></div>
           </div>
         </div>
 
@@ -87,51 +79,14 @@
         <p id="interesingBloggersTitle">Interesting bloggers</p>
         <div class="right-panel">
 
-
           <div class="friends-section" style="margin-top: 60px;">
 
-            <a class='friend' href="#">
+            <a class='friend' href="#" *ngFor="let author of authors">
               <div class="dp">
-                <img src="assets/dp.jpg" alt="">
+                <img [src]="userImage+author.id+'.jpg'" (error)="onErrorUserImage($event)" alt="">
               </div>
-              <p class="name">Henry Mosely</p>
+              <p class="name">{{author.username}}</p>
             </a>
-
-            <a class='friend' href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">George</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Aakash Malhotra</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Ragini Khanna</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Justin Bieber</p>
-            </a>
-
-            <a class="friend" href="#">
-              <div class="dp">
-                <img src="assets/dp.jpg" alt="">
-              </div>
-              <p class="name">Ramesh GC</p>
-            </a>
-
 
           </div>
         </div>
@@ -166,47 +121,10 @@
     <tr>
       <th style="border-bottom: 0.1px solid black" colspan="7" height="48cm">Actual tags</th>
     </tr>
+    <tr class="b2" *ngFor="let tags of tagList">
 
-    <tr class="b1">
-      <!--<th rowspan = "4" width="190cm" height="20cm"></th>-->
-      <th bgcolor=#c0362c class="font_color">Genshin impact</th>
-      <th>Cooking</th>
-      <th>Television</th>
-      <th>Modernism</th>
-      <th bgcolor=#89cff0>Programming</th>
-      <!--<th rowspan = "4" width="190cm" height="20cm"></th>-->
-
+      <th [ngStyle]="{'background-color': setBackgroundColor(tag.id)}" *ngFor="let tag of tags" >{{tag.name}}</th>
     </tr>
-    <tr class="b2">
-
-      <th>Summer outfit</th>
-      <th bgcolor=#f8d568>Fashion week</th>
-      <th>Elizabet II</th>
-      <th>Fanfics</th>
-      <th class="font_color" bgcolor=#ed7117>JavaScript</th>
-
-
-    </tr>
-    <tr class="b1">
-
-      <th>Back to school</th>
-      <th>Depression</th>
-      <th bgcolor=#5dbb63>Coronavirus</th>
-      <th>Iphone 16</th>
-      <th>Conspiracy theory</th>
-
-    </tr>
-    <tr class="b2">
-
-      <th>Vaccine</th>
-      <th class="font_color" bgcolor=#002366>Terrorism</th>
-      <th>K-pop</th>
-      <th bgcolor=#ffc0cb>Grunge</th>
-      <th>Mozart</th>
-
-    </tr>
-
-
   </table>
 </section>
 <!----------------Start video section------------->
@@ -238,6 +156,7 @@
 
 
 </section>
+</div>
 <!----------------END video section------------->
 <!-----------------End tag section---------------->
   <app-footer></app-footer>

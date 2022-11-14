@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../../models/product";
-import {ProductService} from "../../services/product.service";
 import {Page} from "../../models/pages";
 import {CartService} from "../../services/cart.service";
 import {FavouriteService} from "../../services/favourite.service";
 import {Search} from "../../models/search";
 import {Router} from '@angular/router';
-import {Brand} from 'src/app/models/brand';
+import {Tag} from 'src/app/models/tag';
 
 @Component({
     selector: 'app-products',
@@ -15,7 +14,7 @@ import {Brand} from 'src/app/models/brand';
 })
 export class PostsComponent implements OnInit {
     products: Product[] = [];
-    brands: Brand[] = [];
+    brands: Tag[] = [];
     allProduct = 0;
     pageCount = 1;
     sortValue = "NameUp";
@@ -53,15 +52,15 @@ export class PostsComponent implements OnInit {
     apply() {
         this.searchParameter.name = this.searchParameter.name.trim();
         this.searchParameter.page = 0;
-        this.productService.setSearchParameter(this.searchParameter);
+        // this.productService.setSearchParameter(this.searchParameter);
         this.search();
     }
 
     changePage(page: number) {
         this.searchParameter.page = page;
-        this.productService.setSearchPage(page);
+        // this.productService.setSearchPage(page);
         // this.productService.setSearchParameter(this.searchParameter);
-        console.log(this.productService.searchParameter);
+        // console.log(this.productService.searchParameter);
         console.log(this.searchParameter);
         this.search();
     }
@@ -96,35 +95,34 @@ export class PostsComponent implements OnInit {
 
     getFirst() {
         this.searchParameter.page = 0;
-        this.productService.setSearchPage(0);
+        // this.productService.setSearchPage(0);
         this.search()
     }
 
     getLast() {
         this.searchParameter.page = this.pageCount != 0 ? this.pageCount - 1 : 1;
-        this.productService.setSearchPage(this.pageCount != 0 ? this.pageCount - 1 : 1);
+        // this.productService.setSearchPage(this.pageCount != 0 ? this.pageCount - 1 : 1);
         this.search()
     }
 
     constructor(
-        private productService: ProductService,
         private cartService: CartService,
         private favouriteService: FavouriteService,
         private router: Router) {
     }
 
     search() {
-        this.productService.search().subscribe((page: Page) => {
-            this.products = page.products;
-            this.allProduct = page.totalItem;
-            this.pageCount = page.pageCount
-        });
+        // this.productService.search().subscribe((page: Page) => {
+        //     this.products = page.products;
+        //     this.allProduct = page.totalItem;
+        //     this.pageCount = page.pageCount
+        // });
     }
 
     ngOnInit() {
-        this.productService.getBrands().subscribe(val => {
-            this.brands = val;
-        });
+        // this.productService.getBrands().subscribe(val => {
+        //     this.brands = val;
+        // });
         this.search();
         if (JSON.parse(localStorage.getItem("user")!).role == "ADMIN") {
             this.classCreateButton = "fas fa-plus-circle"

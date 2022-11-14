@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Product} from "../models/product";
+import {Author} from "../models/author";
+import {GlobalConstants} from "../global-constants";
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +15,12 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    getUser(login: string, password:string): Observable<User> {
-        return this.http.get<User>('http://localhost:8080/api/user/login=' + login + "/password=" + password).pipe(map((data: any) => {
-            if(data != null) {
-                return new User(data);
-            }
-            return this.user;
+    getFavoriteAuthors(): Observable<User> {
+        return this.http.get<User>(GlobalConstants.apiURL +'/api/users/top?count=6').pipe(map((data: any) => {
+          data = data.map((author:Author) => {
+            return new Author(author);
+          })
+            return data;
         }));
     }
 }
