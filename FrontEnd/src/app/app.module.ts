@@ -33,6 +33,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
 import { ImageDragDirective } from './image-drag.directive';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { UserpageComponent } from './userpage/userpage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     RulesComponent,
     LoginComponent,
     DialogConfirmComponent,
-    ImageDragDirective
+    ImageDragDirective,
+    UserpageComponent
 
   ],
   imports: [

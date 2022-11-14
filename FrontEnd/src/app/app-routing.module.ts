@@ -7,6 +7,7 @@ import {PostComponent} from "./components/post/post.component";
 import {ArticlesComponent} from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { UserpageComponent } from './userpage/userpage.component';
 import { RulesComponent } from './components/rules/rules.component';
 import {LoginComponent} from "./login/login.component";
 import {SafeUrl} from "@angular/platform-browser";
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'post', component: PostComponent},
   {path: 'rules', component: RulesComponent},
   {path: 'articles', component: ArticlesComponent},
+  {path: 'userpage', component: UserpageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'createPost', component: CreatePostComponent},
   {path: 'authors', component: AuthorsComponent},
