@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit {
           this.colors.set(data[i+y].id, this.getRandomColor())
         }
       }
-      this.isDataLoaded = true
       });
   }
 
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToRegistration() {
-    this.router.navigate(['register']); 
+    this.router.navigate(['register']);
   }
 
   goToAuthors() {

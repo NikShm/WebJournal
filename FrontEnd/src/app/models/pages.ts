@@ -1,16 +1,8 @@
-import {Post} from "./post";
-
 export class Page {
-  constructor(products: Post[], pageCount : number, page : number, pageSize: number, totalItem:number) {
-    this.products = products;
-    this.pageCount = pageCount;
-    this.page = page;
-    this.pageSize = pageSize;
+  constructor(content: any[], totalItem:number) {
+    this.content = content;
     this.totalItem= totalItem;
   }
-  products: Post[] = [];
-  pageCount : number;
-  page : number;
-  pageSize : number;
+  content: any[] = [];
   totalItem:number;
 }

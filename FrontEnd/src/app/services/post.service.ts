@@ -1,16 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
+import { Tag } from "../models/tag";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
 import {PostList} from "../models/postList";
 import {GlobalConstants} from "../global-constants";
 import {Post} from "../models/post";
 import {StorageService} from "./storage.service";
+import {Page} from "../models/pages";
+import {Search} from "../models/search";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
+
+  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:""})
 
   constructor(private http: HttpClient,
               private storageService: StorageService) { }
@@ -32,5 +37,23 @@ export class PostService {
     postData.append('id', id);
 
     return id;
+  }
+
+  getSearchParameter(){
+    return this.searchParameter
+  }
+
+  setSearchParameter(searchParameter:Search){
+    console.log(this.searchParameter)
+  }
+
+  getPostPage():Observable<Page> {
+    return this.http.post(GlobalConstants.apiURL +'/api/posts/search', this.searchParameter).pipe(map((data: any) => {
+      data.content = data.content.map((post:PostList) => {
+        return new PostList(post)
+      })
+      console.log(data)
+      return new Page(data.content, data.totalItem)
+    }));
   }
 }

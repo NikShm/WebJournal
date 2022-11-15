@@ -134,11 +134,11 @@ public class PostServiceImpl implements IPostService {
     private String getPageQuery(SearchDTO<PostSearch> search) {
         StringBuilder query = getQuery();
         PostSearch searchPattern = search.getSearchPattern();
-        query.append("SELECT * FROM post");
+        query.append("SELECT * FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
             getFilter(searchPattern,query);
             if (search.getSortDirection() != null && search.getSortField() != null) {
-                query.append(" ORDER BY post.").append(search.getSortField()).append(" ").append(search.getSortDirection());
+                query.append(" ORDER BY p.").append(search.getSortField()).append(" ").append(search.getSortDirection());
             }
         }
         if (search.getPage() != null && search.getPageSize() != null) {
@@ -151,7 +151,7 @@ public class PostServiceImpl implements IPostService {
     private String getCountQuery(SearchDTO<PostSearch> search) {
         StringBuilder query = getQuery();
         PostSearch searchPattern = search.getSearchPattern();
-        query.append("SELECT count(*) FROM post");
+        query.append("SELECT count(*) FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
             getFilter(searchPattern,query);
         }
@@ -159,23 +159,21 @@ public class PostServiceImpl implements IPostService {
     }
 
     private void getFilter(PostSearch postSearch, StringBuilder query){
-        if (postSearch.getSearchTag() != null) {
-            query.append(" Left JOIN post_tag pt on post.id = pt.post_id " +
-                    "Left JOIN tag t on pt.tag_id = t.id");
-        }
-        if (!Objects.equals(postSearch.getSearch(), "")
-                || postSearch.getSearchTag() != null) {
-            query.append(" WHERE ");
-        }
-        if (!Objects.equals(postSearch.getSearch(), "")) {
-            query.append("post.ts_content @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("')");
-            query.append(" or post.ts_title @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("') ");
-        }
-        if (!Objects.equals(postSearch.getSearch(), "") && postSearch.getSearchTag() != null) {
-            query.append(" or ");
-        }
-        if (postSearch.getSearchTag() != null) {
-            query.append("t.name like '%").append(postSearch.getSearchTag()).append("%'");
+        if (postSearch.getSearchTag() != null && postSearch.getSearch() != null) {
+            if (!Objects.equals(postSearch.getSearch(), "")
+                    || !Objects.equals(postSearch.getSearchTag(), "")) {
+                query.append(" WHERE ");
+            }
+            if (!Objects.equals(postSearch.getSearch(), "")) {
+                query.append("p.ts_content @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("')");
+                query.append(" or p.ts_title @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("') ");
+            }
+            if (!Objects.equals(postSearch.getSearch(), "") && !Objects.equals(postSearch.getSearchTag(), "")) {
+                query.append(" or ");
+            }
+            if (!Objects.equals(postSearch.getSearchTag(), "")) {
+                query.append(" array_to_string(array(select name from tag left join post_tag pt on pt.tag_id = tag.id where pt.post_id = p.id),',') like '%").append(postSearch.getSearchTag()).append("%'");
+            }
         }
     }
 }

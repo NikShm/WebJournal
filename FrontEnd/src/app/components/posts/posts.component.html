@@ -7,29 +7,33 @@
   <div id="titleBlock"><p>Articles</p></div>
 
 <div class="search">
-  <input type="text" placeholder="Search...">
-  <img id="searchIcon" src="assets/iconsSearch.png">
+  <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.search" (keyup.enter)="apply()" >
+  <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
 </div>
+  <div class="search">
+    <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.searchTag" (keyup.enter)="apply()" >
+    <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
+  </div>
 
 
 <div class="select">
   <form action="#">
-    <select name="bylikes" class="bylikes">
-      <option value="none">By likes</option>
-      <option value="php">PHP</option>
-      <option value="java">Java</option>
-      <option value="golang">Golang</option>
-      <option value="python">Python</option>
-      <option value="c#">C#</option>
-      <option value="C++">C++</option>
-      <option value="erlang">Erlang</option>
+    <select name="bylikes" class="bylikes" [(ngModel)]="sort" (change)="setSorted()">
+      <option value="">Sort By</option>
+      <option value="Popular">Popular</option>
+      <option value="Unpopular">Unpopular</option>
+      <option value="New">New</option>
+      <option value="Old">Old</option>
+      <option value="A to Z">A to Z</option>
+      <option value="Z to A">Z to A</option>
     </select>
   </form>
 
   <form action="#">
     <select name="bydate" class="bydate">
-      <option value="none">By date</option>
-      <option value="php">PHP</option>
+      <option value="null">By date</option>
+      <option value="none">New</option>
+      <option value="php">Old</option>
     </select>
   </form>
 
@@ -48,191 +52,32 @@
 </div>
 
     <div id="blog">
-      <div class="post">
+      <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
         <div class="label">Programming</div>
-
         <div class="postPhoto">
-         <img src="assets/cooking.jpg">
+          <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" >
         </div>
 
         <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          <p class="postTitle">{{post.title}}</p>
+          <p class="postForeword">{{post.foreword}}</p>
         </a>
 
       </div>
 
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
+      <div style="width: 500px; background-color: #EBE6D1; margin: -30px auto auto;">
+        <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
+          <button style="width: 100px; font-size: 16px; margin-top: -5px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <div style="width: 300px; text-align: center; background-color: #EBE6D1; margin: auto;">
+            <pagination-controls previousLabel="Previous"
+                                 nextLabel="Next"
+                                 class="my-pagination"
+                                 [maxSize]="7" (pageChange)="changePage($event.valueOf() - 1)">
+            </pagination-controls>
+          </div>
+          <button style="width: 100px; font-size: 16px; float: right;  margin-top: -88px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
         </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
       </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/iconAdd.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/iconAdd.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-      <div class="post">
-        <div class="label">Programming</div>
-        <div class="postPhoto">
-          <img src="assets/colage.png">
-        </div>
-
-        <a href="#">
-          <p class="postTitle">Awesome dinner</p>
-          <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
-        </a>
-
-      </div>
-
-
 
     </div>
 
