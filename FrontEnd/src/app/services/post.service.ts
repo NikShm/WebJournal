@@ -14,7 +14,7 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getToPerMonth():Observable<PostList[]> {
-    return this.http.get<PostList[]>(GlobalConstants.apiURL +'/api/posts/top-per-month?count=4').pipe(map((data: any) => {
+    return this.http.get<PostList[]>(GlobalConstants.apiURL +'/posts/top-per-month?count=4').pipe(map((data: any) => {
       return data.map(function(post: any): PostList {
         return new PostList(post);
       })

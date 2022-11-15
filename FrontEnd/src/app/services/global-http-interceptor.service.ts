@@ -2,9 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { EventData } from '../models/event-data';
 import { AuthService } from './auth.service';
-import { EventBusService } from './event-bus.service';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -16,14 +14,13 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
     constructor(
         private router: Router, 
         private storageService: StorageService,
-        private authService: AuthService,
-        private eventBusService: EventBusService 
+        private authService: AuthService
     ) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        /*req = req.clone({
+        req = req.clone({
             withCredentials: true
-        });*/
+        });
         
         return next.handle(req).pipe(
             catchError((error) => {
@@ -74,7 +71,15 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
                     catchError((error) => {
                         this.isRefreshing = false;
                         if (error.status === '403') {
-                            this.eventBusService.emit(new EventData('logout', null));
+                            this.authService.logout().subscribe({
+                                next: () => {
+                                    this.storageService.clear();
+                                    window.location.reload();
+                                },
+                                error: err => {
+                                    console.error(err);
+                                }
+                            });
                         }
                         return throwError(() => error);
                     })

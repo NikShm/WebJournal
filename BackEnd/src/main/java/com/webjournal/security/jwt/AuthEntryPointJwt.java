@@ -35,10 +35,11 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {
         HttpStatus status = authException instanceof BadCredentialsException || authException instanceof DisabledException ? BAD_REQUEST : UNAUTHORIZED;
-        LOGGER.error("Unauthorized error: {}", authException.getMessage());
+        LOGGER.error("Authorization error: {}", authException.getMessage());
 
         String path = request.getServletPath();
-        ApiErrorMessage errorMessage = new ApiErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, authException.getMessage());
+        String message = authException instanceof BadCredentialsException ? "Incorrect email or password" : authException.getMessage();
+        ApiErrorMessage errorMessage = new ApiErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, message);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(status.value());

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RequestMapping(value = "/api/tags", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TagController {
     private final TagServiceImpl service;

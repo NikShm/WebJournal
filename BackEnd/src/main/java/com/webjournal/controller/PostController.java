@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PostController {
     private final PostServiceImpl postService;

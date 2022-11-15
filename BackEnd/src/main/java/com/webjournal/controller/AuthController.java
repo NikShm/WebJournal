@@ -65,7 +65,7 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-                .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), userDetails.getRole().getRole()));
+                .body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getRole().getRole()));
     }
 
     @PostMapping("/refresh-token")

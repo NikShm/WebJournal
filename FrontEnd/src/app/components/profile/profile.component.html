@@ -14,7 +14,7 @@
 
   </div>
   <div class="nameuserpage"><p>Articles</p></div>
-  <div class="nameuserpage1"><p>drg.mika</p></div>
+  <div class="nameuserpage1"><p>{{user.username}}</p></div>
   <div class="lineuser1">
 
     <hr style="margin-top: -610px; border-width: 0.6px; border-color: rgb(0, 0, 0); position: relative; width:1100px; margin-bottom: 1px;" >
@@ -121,34 +121,28 @@
     </div>
 
     <div class="followings">
-      <h1>1987</h1>
-
-
-      <p>followings</p>
+      <h1>{{user.following}}</h1>
+      <p>following</p>
     </div>
 
     <div class="articlescount">
-      <h1>200</h1>
-
+      <h1>{{user.posts}}</h1>
       <p>articles</p>
     </div>
     <div class="followers">
-      <h1>78</h1>
-
-
+      <h1>{{user.followers}}</h1>
       <p>followers</p>
     </div>
     <div class="box">
-      <p class="about">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-      </p>
+      <p class="about">{{user.bio}}</p>
       <p class="nameauthors">
         - by author
 
       </p>
 
     </div>
-    <button class="submit"><label>Follow</label></button>
-
+    <button *ngIf="!isYourProfile()" class="submit"><label>Follow</label></button>
+    <button *ngIf="isYourProfile()" class="submit"><label>Edit</label></button>
   </div>
 
 </section>

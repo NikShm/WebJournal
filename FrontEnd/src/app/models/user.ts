@@ -1,9 +1,17 @@
 export class User {
     constructor(user: User) {
-        this.login = user.login
-        this.role = user.role;
+        this.id = user.id;
+        this.username = user.username;
+        this.bio = user.bio;
+        this.followers = user.followers;
+        this.following = user.following;
+        this.posts = user.posts;
     }
 
-    login: string;
-    role: string;
+    id: string;
+    username: string;
+    bio: string;
+    followers: number;
+    following: number;
+    posts: number;
 }

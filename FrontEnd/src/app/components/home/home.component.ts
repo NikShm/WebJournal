@@ -6,6 +6,7 @@ import {PostService} from "../../services/post.service";
 import {PostList} from "../../models/postList";
 import {TagService} from "../../services/tag.service";
 import {Tag} from "../../models/tag";
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -24,11 +25,12 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService,
               private postService: PostService,
               private tagService: TagService,
-              private router: Router) {
+              private router: Router,
+              private storageService: StorageService) {
   }
 
   ngOnInit() {
-    this.userService.getFavoriteAuthors().subscribe((data: any) => {this.authors=data;})
+    this.userService.getFavoriteAuthors().subscribe((data: any) => {this.authors=data;});
     this.postService.getToPerMonth().subscribe((data: any) => {this.posts = data});
     this.tagService.getActual().subscribe((data: any) => {
       for (let i = 0; i < data.length/5; i++) {
@@ -63,6 +65,8 @@ export class HomeComponent implements OnInit {
   }
 
   goToRegistration() {
-    this.router.navigate(['register']);
+    if (!this.storageService.isLoggedIn()) {
+      this.router.navigate(['register']);
+    }    
   }
 }

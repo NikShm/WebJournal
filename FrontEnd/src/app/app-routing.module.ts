@@ -21,7 +21,6 @@ const routes: Routes = [
   {path: 'posts', component: PostsComponent},
   {path: 'post', component: PostComponent},
   {path: 'rules', component: RulesComponent},
-  {path: 'userpage', component: ProfileComponent},
   {path: 'login', component: LoginComponent},
   {path: 'createPost', component: CreatePostComponent},
   {path: 'authors', component: AuthorsComponent},

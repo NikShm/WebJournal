@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -20,6 +20,8 @@ export class HeaderComponent implements OnInit {
         if (!this.storageService.isLoggedIn()) {
             this.router.navigate(['login']);
         }
-        else {}
+        else {
+            this.router.navigate(['/authors/' + this.storageService.getUser().username]);
+        }
     }
 }

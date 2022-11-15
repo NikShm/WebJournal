@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RequestMapping(value = "/api/comments", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
     private final CommentServiceImpl service;

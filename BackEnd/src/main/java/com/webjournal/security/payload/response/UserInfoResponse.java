@@ -12,16 +12,14 @@ import com.webjournal.enums.RoleType;
 public class UserInfoResponse {
     private Integer id;
     private String username;
-    private String email;
     private RoleType role;
 
     public UserInfoResponse() {
     }
 
-    public UserInfoResponse(Integer id, String username, String email, RoleType role) {
+    public UserInfoResponse(Integer id, String username, RoleType role) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.role = role;
     }
 
@@ -41,14 +39,6 @@ public class UserInfoResponse {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public RoleType getRole() {
         return role;
     }
@@ -62,7 +52,6 @@ public class UserInfoResponse {
         return "UserInfoResponse{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
     }
