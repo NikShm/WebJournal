@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="centered-content">
+    <div class="content">
+      <div class="img"></div>
+      <div class="form-content">
+        <p class="heading">Regitsration</p>
+        <form class="form" autocomplete="off">
+          <div>
+            <input id="username" type="text" required>
+            <label for="username">Username</label>
+          </div>
+          <div>
+            <input id="email" type="text" required>
+            <label for="email">Email</label>
+          </div>
+          <div>
+            <input id="date-of-birth" type="text" (focus)="showPlaceholder($event)" (blur)="removePlaceholder($event)" required>
+            <label for="date-of-birth">Date of birth</label>
+          </div>
+          <div class="last-block">
+            <input id="password" type="password" required>
+            <label for="password">Password</label>
+          </div>
+          <button type="submit" class="submit">Create account</button>
+        </form>
+        <a routerLink="/login">Have an account ? Log in -></a>
+      </div>
+    </div>
+  </div>
+</div>

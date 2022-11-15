@@ -1,0 +1,150 @@
+<app-header></app-header>
+
+<section class="userpage">
+
+  <hr style="margin-top: 45px; border-width: 0.1px; border-color: black; position: absolute; width: 100%; margin-bottom: 1px;">
+  <div style="margin-top: 240px;"></div>
+
+  <div class="lineuser">
+
+
+
+    <hr style="margin-top: 547px; border-width: 0.6px; border-color: rgb(0, 0, 0); position: relative; width:1100px; margin-bottom: 1px;" >
+
+
+  </div>
+  <div class="nameuserpage"><p>Articles</p></div>
+  <div class="nameuserpage1"><p>{{user.username}}</p></div>
+  <div class="lineuser1">
+
+    <hr style="margin-top: -610px; border-width: 0.6px; border-color: rgb(0, 0, 0); position: relative; width:1100px; margin-bottom: 1px;" >
+
+
+  </div>
+  <div class="lineuser2">
+    <hr style="margin-top: -608px; border-width: 0.6px; border-color: rgb(0, 0, 0); position: relative; width:1186px; margin-bottom: 1px; margin-left: 175px;" >
+
+
+  </div>
+  <div class="postpart">
+    <div style="margin-left: -176px;">
+
+      <div id="blog">
+        <div class="post">
+          <div class="label">Programming</div>
+
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+
+        </div>
+
+        <div class="post">
+          <div class="label">Programming</div>
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+
+        </div>
+
+        <div class="post">
+          <div class="label">Programming</div>
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+
+        </div>
+
+        <div class="post">
+          <div class="label">Programming</div>
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+
+        </div>
+
+
+        <div class="post">
+          <div class="label">Programming</div>
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+
+        </div>
+
+        <div class="post">
+          <div class="label">Programming</div>
+          <div class="postPhoto">
+            <img src="assets/cooking.jpg">
+          </div>
+
+          <a href="#">
+            <p class="postTitle">Awesome dinner</p>
+            <p class="postForeword">Turkey delivers more than just a fascinating culture &  ...</p>
+          </a>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <div class="userinfo">
+    <div class="userinfoplace">
+      <img class="fotouser" src="assets/op.jpg">
+    </div>
+
+    <div class="followings">
+      <h1>{{user.following}}</h1>
+      <p>following</p>
+    </div>
+
+    <div class="articlescount">
+      <h1>{{user.posts}}</h1>
+      <p>articles</p>
+    </div>
+    <div class="followers">
+      <h1>{{user.followers}}</h1>
+      <p>followers</p>
+    </div>
+    <div class="box">
+      <p class="about">{{user.bio}}</p>
+      <p class="nameauthors">
+        - by author
+
+      </p>
+
+    </div>
+    <button *ngIf="!isYourProfile()" class="submit"><label>Follow</label></button>
+    <button *ngIf="isYourProfile()" class="submit"><label>Edit</label></button>
+  </div>
+
+</section>
+
+<app-footer></app-footer>

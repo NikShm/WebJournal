@@ -1,44 +1,42 @@
-import {ErrorHandler, NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
-import {NgxPaginationModule} from 'ngx-pagination';
-
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { MatCardModule } from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { AppComponent } from './app.component';
-import { PostsComponent } from './components/posts/posts.component';
 import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/shared/layout/header/header.component';
-import { FooterComponent } from './components/shared/layout/footer/footer.component';
-
-import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.service";
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { PostComponent } from './components/post/post.component';
-import { ArticlesComponent } from './components/articles/articles.component';
+import { PostsComponent } from './components/posts/posts.component';
 import { AuthorsComponent } from './components/authors/authors.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { RulesComponent } from './components/rules/rules.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
-import { ImageDragDirective } from './image-drag.directive';
+import { ProfileComponent } from './components/profile/profile.component';
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { UserpageComponent } from './userpage/userpage.component';
+import { GlobalHttpInterceptorService } from "./services/global-http-interceptor.service";
+import { AuthService } from './services/auth.service';
+
+import { ImageDragDirective } from './directives/image-drag.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,
     HomeComponent,
     HeaderComponent,
     FooterComponent,
     PostComponent,
-    ArticlesComponent,
+    PostsComponent,
     AuthorsComponent,
     RegistrationComponent,
     CreatePostComponent,
@@ -46,8 +44,7 @@ import { UserpageComponent } from './userpage/userpage.component';
     LoginComponent,
     DialogConfirmComponent,
     ImageDragDirective,
-    UserpageComponent
-
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -55,14 +52,13 @@ import { UserpageComponent } from './userpage/userpage.component';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
     AngularEditorModule,
   ],
   providers: [
-
+      AuthService,
       { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

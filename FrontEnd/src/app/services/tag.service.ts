@@ -14,7 +14,7 @@ export class TagService {
   constructor(private http: HttpClient) { }
 
   getActual():Observable<Tag[]> {
-    return this.http.get<Tag[]>(GlobalConstants.apiURL +'/api/tags/actual?count=20').pipe(map((data: any) => {
+    return this.http.get<Tag[]>(GlobalConstants.apiURL +'/tags/actual?count=20').pipe(map((data: any) => {
       return data.map(function(tag: any): Tag {
         return new Tag(tag);
       })

@@ -11,7 +11,6 @@ package com.webjournal.dto.user;
 public class UserDTO {
     private Integer id;
     private String username;
-    private String email;
     private String bio;
     private Integer followers;
     private Integer following;
@@ -20,10 +19,9 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String email, String bio, Integer followers, Integer following, Long posts) {
+    public UserDTO(Integer id, String username, String bio, Integer followers, Integer following, Long posts) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.bio = bio;
         this.followers = followers;
         this.following = following;
@@ -44,14 +42,6 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getBio() {
@@ -91,7 +81,6 @@ public class UserDTO {
         return "UserDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
                 ", bio='" + bio + '\'' +
                 ", followers=" + followers +
                 ", following=" + following +

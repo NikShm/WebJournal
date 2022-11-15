@@ -1,6 +1,7 @@
 package com.webjournal.service.refreshtoken;
 
 import com.webjournal.entity.RefreshToken;
+import com.webjournal.entity.User;
 
 /**
  * @author Yuliana
@@ -13,4 +14,5 @@ public interface RefreshTokenService {
     RefreshToken getByToken(String token);
     RefreshToken create(Integer userId);
     RefreshToken verifyExpiration(String token);
+    void deleteByUser(User user);
 }

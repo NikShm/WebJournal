@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/users", produces = "application/json")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     private final UserServiceImpl service;
 
@@ -21,20 +22,19 @@ public class UserController {
         this.service = service;
     }
 
-
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) {
         service.delete(id);
     }
 
-    @PutMapping( "/update/")
+    /*@PutMapping( "/update/")
     public void update(@RequestBody UserDTO userDTO) {
         service.update(userDTO);
-    }
+    }*/
 
-    @GetMapping("/{id}")
-    public UserDTO showOne(@PathVariable Integer id) {
-        return service.get(id);
+    @GetMapping("/{username}")
+    public UserDTO getByUsername(@PathVariable String username) {
+        return service.getByUsername(username);
     }
 
     @RequestMapping("/")

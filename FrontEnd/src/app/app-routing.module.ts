@@ -4,12 +4,11 @@ import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import {PostComponent} from "./components/post/post.component";
-import {ArticlesComponent} from './components/articles/articles.component';
 import { AuthorsComponent } from './components/authors/authors.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { UserpageComponent } from './userpage/userpage.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { RulesComponent } from './components/rules/rules.component';
-import {LoginComponent} from "./login/login.component";
+import { LoginComponent } from './components/login/login.component';
 import {SafeUrl} from "@angular/platform-browser";
 
 export interface FileHandle {
@@ -22,12 +21,11 @@ const routes: Routes = [
   {path: 'posts', component: PostsComponent},
   {path: 'post', component: PostComponent},
   {path: 'rules', component: RulesComponent},
-  {path: 'articles', component: ArticlesComponent},
-  {path: 'userpage', component: UserpageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'createPost', component: CreatePostComponent},
   {path: 'authors', component: AuthorsComponent},
-  {path: 'registration', component: RegistrationComponent}
+  {path: 'authors/:username', component: ProfileComponent},
+  {path: 'register', component: RegistrationComponent}
 ];
 
 @NgModule({
@@ -37,6 +35,4 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
-
-
 export class AppRoutingModule { }

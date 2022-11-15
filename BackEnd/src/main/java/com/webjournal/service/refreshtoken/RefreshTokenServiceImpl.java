@@ -1,12 +1,14 @@
 package com.webjournal.service.refreshtoken;
 
 import com.webjournal.entity.RefreshToken;
+import com.webjournal.entity.User;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.exception.TokenRefreshException;
 import com.webjournal.repository.RefreshTokenRepository;
 import com.webjournal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -53,8 +55,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         RefreshToken refreshToken = getByToken(token);
         if (refreshToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             repository.delete(refreshToken);
-            throw new TokenRefreshException(refreshToken.getToken(), "Refresh token is expired");
+            throw new TokenRefreshException(refreshToken.getToken(), "Refresh token is expired. Please make a new login request");
         }
         return refreshToken;
+    }
+
+    @Override
+    @Transactional
+    public void deleteByUser(User user) {
+        repository.deleteByUser(user);
     }
 }

@@ -81,6 +81,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserDTO getByUsername(String username) {
+        return repository.findByUsername(username).map(mapper::toUserDto).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with username " + username));
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " was not found."));
     }
@@ -164,15 +169,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         repository.deleteById(id);
     }
 
+    /* new DTO for updating user will be created
     @Override
     public void update(UserDTO dto) {
         User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with id " + dto.getId()));
         User updatedUser = mapper.toUserEntity(userToUpdate, dto);
         repository.save(updatedUser);
-    }
+    }*/
 
     @Override
-    public UserDTO get(Integer id) {
+    public UserDTO getById(Integer id) {
         return repository.findById(id).map(mapper::toUserDto).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with id " + id));
     }
 

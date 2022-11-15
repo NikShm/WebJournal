@@ -38,7 +38,6 @@ public class UserMapper {
 
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
-        dto.setEmail(entity.getEmail());
         dto.setBio(entity.getBio());
         dto.setFollowers(entity.getCountFollowers());
         dto.setFollowing((int) ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) from follow where following_user_id = ?1")
@@ -47,13 +46,5 @@ public class UserMapper {
                 .setParameter(1,entity.getId()).getSingleResult()).longValue());
 
         return dto;
-    }
-
-    // TODO finish (this is temporary)
-    public User toUserEntity(User entity, UserDTO dto) {
-        entity.setUsername(dto.getUsername());
-        entity.setBio(dto.getBio());
-
-        return entity;
     }
 }

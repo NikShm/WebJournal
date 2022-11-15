@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="centered-content">
+    <div class="content">
+      <div class="form-content">
+        <p class="heading">Log In</p>
+        <form class="form" #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onLogin()" autocomplete="off" novalidate>
+          <div>
+            <input id="email" name="email" type="text" [(ngModel)]="login.login" #email="ngModel" required>
+            <label for="email">Email</label>
+            <div *ngIf="!email.valid && loginForm.submitted" class="error">Email is required</div>
+          </div>
+          <div class="last-block">
+            <input id="password" name="password" type="password" [(ngModel)]="login.password" #password="ngModel" required>
+            <label for="password">Password</label>
+            <div *ngIf="!password.valid && loginForm.submitted" class="error">Password is required</div>
+            <div *ngIf="loginFailed && loginForm.submitted" class="auth-error">Login failed: {{errorMessage}}</div>
+          </div>
+          <button type="submit" class="submit">Log In</button>
+        </form>
+        <a routerLink="/register">Don't have an account ? Create one -></a>
+      </div>
+      <div class="img"></div>
+    </div>
+  </div>
+</div>

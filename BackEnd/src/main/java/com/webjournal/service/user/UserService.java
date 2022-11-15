@@ -15,13 +15,14 @@ import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
+    UserDTO getByUsername(String username);
     Boolean checkIfUserExistsByUsername(String username);
     Boolean checkIfUserExistsByEmail(String email);
     void create(RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException;
     void verifyUser(String token);
     void delete(Integer id);
-    void update(UserDTO dto);
-    UserDTO get(Integer id);
+    //void update(UserDTO dto);
+    UserDTO getById(Integer id);
     List<UserDTO> getAll();
     List<AuthorDTO> getInterestingAuthors(int quantity);
     @Transactional
