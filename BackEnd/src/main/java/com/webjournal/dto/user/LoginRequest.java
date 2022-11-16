@@ -1,4 +1,4 @@
-package com.webjournal.security.payload.request;
+package com.webjournal.dto.user;
 
 import javax.validation.constraints.NotBlank;
 

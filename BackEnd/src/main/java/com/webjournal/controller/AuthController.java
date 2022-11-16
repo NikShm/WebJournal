@@ -1,14 +1,14 @@
 package com.webjournal.controller;
 
 import com.webjournal.entity.RefreshToken;
-import com.webjournal.security.payload.request.LoginRequest;
+import com.webjournal.dto.user.LoginRequest;
 import com.webjournal.entity.User;
-import com.webjournal.security.payload.request.RegistrationRequest;
-import com.webjournal.security.payload.response.MessageResponse;
-import com.webjournal.security.payload.response.UserInfoResponse;
+import com.webjournal.dto.user.RegistrationRequest;
+import com.webjournal.dto.MessageResponse;
+import com.webjournal.dto.user.UserInfoResponse;
 import com.webjournal.security.jwt.JwtUtils;
+import com.webjournal.service.auth.AuthServiceImpl;
 import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
-import com.webjournal.service.user.UserServiceImpl;
 import freemarker.template.TemplateException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -38,13 +38,13 @@ import java.io.IOException;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
-    private final UserServiceImpl userService;
+    private final AuthServiceImpl authService;
     private final RefreshTokenServiceImpl refreshTokenService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserServiceImpl userService, RefreshTokenServiceImpl refreshTokenService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AuthServiceImpl authService, RefreshTokenServiceImpl refreshTokenService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
-        this.userService = userService;
+        this.authService = authService;
         this.refreshTokenService = refreshTokenService;
     }
 
@@ -81,13 +81,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException {
-        userService.create(registrationRequest);
+        authService.register(registrationRequest);
         return ResponseEntity.ok(new MessageResponse("Successfully registered user"));
     }
 
     @GetMapping("/register/verify")
     public ResponseEntity<?> verifyUser(@RequestParam(required = false) String token) {
-        userService.verifyUser(token);
+        authService.verifyUser(token);
         return ResponseEntity.ok(new MessageResponse("Successfully verified account"));
     }
 

@@ -1,4 +1,4 @@
-package com.webjournal.security.payload.response;
+package com.webjournal.dto;
 
 /**
  * @author Yuliana

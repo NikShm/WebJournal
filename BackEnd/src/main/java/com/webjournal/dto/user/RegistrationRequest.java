@@ -1,4 +1,4 @@
-package com.webjournal.security.payload.request;
+package com.webjournal.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webjournal.validation.birthdate.BirthDate;

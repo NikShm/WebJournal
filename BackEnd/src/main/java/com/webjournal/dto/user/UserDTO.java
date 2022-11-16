@@ -7,7 +7,6 @@ package com.webjournal.dto.user;
  * @class UserDTO
  * @since 9/17/2022 - 20.26
  **/
-//TODO finish design (this is temporary)
 public class UserDTO {
     private Integer id;
     private String username;
