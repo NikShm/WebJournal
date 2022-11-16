@@ -3,7 +3,7 @@ package com.webjournal.security;
 import com.webjournal.security.jwt.AuthEntryPointJwt;
 import com.webjournal.security.jwt.AuthTokenFilter;
 import com.webjournal.security.jwt.CustomAccessDeniedHandler;
-import com.webjournal.service.user.UserServiceImpl;
+import com.webjournal.service.auth.AuthServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,12 +26,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final UserServiceImpl userDetailsService;
+    private final AuthServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final CustomAccessDeniedHandler forbiddenHandler;
     private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(UserServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, CustomAccessDeniedHandler forbiddenHandler, PasswordEncoder passwordEncoder) {
+    public SecurityConfig(AuthServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, CustomAccessDeniedHandler forbiddenHandler, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
         this.forbiddenHandler = forbiddenHandler;

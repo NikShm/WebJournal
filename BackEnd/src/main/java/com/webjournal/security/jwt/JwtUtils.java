@@ -88,6 +88,24 @@ public class JwtUtils {
                 .build();
     }
 
+    public ResponseCookie getCleanJwtAccessCookie() {
+        return ResponseCookie
+                .from(accessCookie, "")
+                .path("/api")
+                .maxAge(0)
+                .httpOnly(true)
+                .build();
+    }
+
+    public ResponseCookie getCleanJwtRefreshCookie() {
+        return ResponseCookie
+                .from(refreshCookie, "")
+                .path("/api/auth/refresh-token")
+                .maxAge(0)
+                .httpOnly(true)
+                .build();
+    }
+
     public String getAccessJwtFromCookies(HttpServletRequest request) {
         return getCookieValueByName(request, accessCookie);
     }
@@ -100,15 +118,6 @@ public class JwtUtils {
         Cookie cookie = WebUtils.getCookie(request, name);
         if (cookie != null) {
             return cookie.getValue();
-        }
-        else return null;
-    }
-
-    public ResponseCookie getCleanJwtAccessCookie() {
-        return ResponseCookie.from(accessCookie, null).path("/api").build();
-    }
-
-    public ResponseCookie getCleanJwtRefreshCookie() {
-        return ResponseCookie.from(refreshCookie, null).path("/api/auth/refresh-token").build();
+        } else return null;
     }
 }
