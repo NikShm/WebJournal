@@ -3,6 +3,11 @@ import {Router} from '@angular/router';
 import {Tag} from 'src/app/models/tag';
 import {PostService} from "../../services/post.service";
 import {Sort} from "../../models/sort";
+import {User} from "../../models/user";
+import {Observable} from "rxjs";
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import {Page} from "../../models/pages";
+import {Search} from "../../models/search";
 
 @Component({
     selector: 'app-products',
@@ -14,13 +19,24 @@ export class PostsComponent implements OnInit {
   searchParameter!: Search;
   postImage: string = "assets/PostImage/post_";
   sort = "";
-
+  keyword = 'name';
+  tags:any[] = [];
 
     apply() {
       this.searchParameter.page = 0
       this.search()
 
     }
+
+    getTags(name:string){
+      this.searchParameter.searchPattern.searchTag = name
+      this.postService.getListTag().subscribe((tags:any)=>{this.tags = tags;
+        console.log(this.tags)})
+    }
+
+  selectedTags(name:Tag){
+    this.searchParameter.searchPattern.searchTag = name.name
+  }
 
   changePage(page: number) {
     this.searchParameter.page = page
@@ -32,47 +48,19 @@ export class PostsComponent implements OnInit {
     console.log(event)
   }
 
-    setSorted() {
-        switch (this.sort) {
-            case "Popular": {
-                this.searchParameter.sortField = "likes";
-                this.searchParameter.sortDirection = "ASC";
-                break;
-            }
-            case "Unpopular": {
-                this.searchParameter.sortField = "likes";
-                this.searchParameter.sortDirection = "DESC";
-                break;
-            }
-            case "New": {
-                this.searchParameter.sortField = "published_at";
-                this.searchParameter.sortDirection = "ASC";
-                break;
-            }
-            case "Old": {
-                this.searchParameter.sortField = "published_at";
-                this.searchParameter.sortDirection = "DESC";
-                break;
-            }
-          case "A to Z": {
-            this.searchParameter.sortField = "title";
-            this.searchParameter.sortDirection = "ASC";
-            break;
-          }
-          case "Z to A": {
-            this.searchParameter.sortField = "title";
-            this.searchParameter.sortDirection = "DESC";
-            break;
-          }
-            default: {
-                break;
-            }
-        }
+    setSorted(event:any) {
+      console.log(event.active)
+      this.searchParameter.sortField = event.active
+      if (this.searchParameter.sortDirection === "ASC"){
+        this.searchParameter.sortDirection ="DESC";
+      } else {
+        this.searchParameter.sortDirection = "ASC"
+      }
+      this.search()
     }
 
     getFirst() {
         this.searchParameter.page = 0;
-        // this.productService.setSearchPage(0);
         this.search()
     }
 
@@ -82,7 +70,6 @@ export class PostsComponent implements OnInit {
       } else {
         this.searchParameter.page = Math.floor(this.page.totalItem / this.searchParameter.pageSize);
       }
-      console.log(this.searchParameter.page)
         this.search()
     }
 
@@ -99,10 +86,15 @@ export class PostsComponent implements OnInit {
     ngOnInit() {
         this.search();
         this.searchParameter = this.postService.getSearchParameter();
+        this.postService.getListTag().subscribe((tags:any)=>{this.tags = tags
+          console.log(this.tags)})
     }
 
   onErrorPostImage(event:any) {
     event.target.src = 'assets/PostImage/default.png';
   }
 
+  onFocused($event: void) {
+
+  }
 }

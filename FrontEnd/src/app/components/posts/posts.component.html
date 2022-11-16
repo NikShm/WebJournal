@@ -11,45 +11,33 @@
   <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
 </div>
   <div class="search">
-    <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.searchTag" (keyup.enter)="apply()" >
-    <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
+    <ng-autocomplete
+      [data]="tags"
+      [searchKeyword]="keyword"
+      placeholder="Tag..."
+      (inputChanged)='getTags($event)'
+      (selected)='selectedTags($event)'
+      historyIdentifier="countries"
+      [itemTemplate]="itemTemplate"
+      (keyup.enter)="apply()">
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item>
+      <a href="javascript:void(0)">
+        <span [innerHTML]="item.name"></span>,
+        <span [innerHTML]="item.address"></span>
+      </a>
+    </ng-template>
+<!--    <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">-->
   </div>
 
-
-<div class="select">
-  <form action="#">
-    <select name="bylikes" class="bylikes" [(ngModel)]="sort" (change)="setSorted()">
-      <option value="">Sort By</option>
-      <option value="Popular">Popular</option>
-      <option value="Unpopular">Unpopular</option>
-      <option value="New">New</option>
-      <option value="Old">Old</option>
-      <option value="A to Z">A to Z</option>
-      <option value="Z to A">Z to A</option>
-    </select>
-  </form>
-
-  <form action="#">
-    <select name="bydate" class="bydate">
-      <option value="null">By date</option>
-      <option value="none">New</option>
-      <option value="php">Old</option>
-    </select>
-  </form>
-
-  <form action="#">
-    <select name="alphabet" class="alphabet">
-      <option value="none">Alphabetically</option>
-      <option value="php">PHP</option>
-      <option value="java">Java</option>
-      <option value="golang">Golang</option>
-      <option value="python">Python</option>
-      <option value="c#">C#</option>
-      <option value="C++">C++</option>
-      <option value="erlang">Erlang</option>
-    </select>
-  </form>
-</div>
+<table class="select" matSort (matSortChange)="setSorted($event)">
+  <tr>
+    <th name="bylikes" mat-sort-header="likes" class="bylikes" > By like</th>
+    <th name="bydate" class="bydate"  mat-sort-header="published_at"> By date
+    </th>
+    <th name="alphabet" class="alphabet" mat-sort-header="title"> Alphabetically </th>
+  <tr>
+</table>
 
     <div id="blog">
       <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">

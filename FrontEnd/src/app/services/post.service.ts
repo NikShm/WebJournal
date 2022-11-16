@@ -48,12 +48,20 @@ export class PostService {
   }
 
   getPostPage():Observable<Page> {
-    return this.http.post(GlobalConstants.apiURL +'/api/posts/search', this.searchParameter).pipe(map((data: any) => {
+    return this.http.post(GlobalConstants.apiURL +'/posts/search', this.searchParameter).pipe(map((data: any) => {
       data.content = data.content.map((post:PostList) => {
         return new PostList(post)
       })
-      console.log(data)
       return new Page(data.content, data.totalItem)
+    }));
+  }
+
+  getListTag():any {
+    return this.http.get(GlobalConstants.apiURL +'/tags/tag='+this.searchParameter.searchPattern.searchTag).pipe(map((data: any) => {
+      data = data.map((tag:Tag) => {
+        return new Tag(tag)
+      })
+      return data
     }));
   }
 }

@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
           this.colors.set(data[i+y].id, this.getRandomColor())
         }
       }
+      this.isDataLoaded = true
       });
   }
 

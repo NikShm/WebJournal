@@ -70,6 +70,17 @@ body{
 
   background-color: #749E94;
 }
+.ng_autocomplete{
+  /*width: 443px;*/
+  /*height: 40px;*/
+  margin-top: -500px;
+  /*border: 1px solid #000000;*/
+  /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+  /*padding-left: 11px;*/
+  /*padding-top: 5px;*/
+
+  color: #749E94;
+}
 
 
 .search input{
@@ -147,7 +158,7 @@ body{
 
 .bydate{
   position: absolute;
-  margin-left: 30px;
+  margin-left: 165px;
 
   width: 137px;
   height: 40px;
@@ -186,6 +197,7 @@ body{
   font-size: 13px;
   line-height: 16px;
   letter-spacing: 0.2em;
+  align-items: center;
 
   color: #000000;
 }
