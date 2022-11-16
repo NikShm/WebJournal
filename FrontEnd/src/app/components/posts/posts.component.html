@@ -10,7 +10,7 @@
   <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.search" (keyup.enter)="apply()" >
   <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
 </div>
-  <div class="search">
+  <div style="width: 300px; height: 30px;">
     <ng-autocomplete
       [data]="tags"
       [searchKeyword]="keyword"
@@ -19,10 +19,11 @@
       (selected)='selectedTags($event)'
       historyIdentifier="countries"
       [itemTemplate]="itemTemplate"
-      (keyup.enter)="apply()">
+      (keyup.enter)="apply()"
+      (inputCleared)="cleanTagSearch()">
     </ng-autocomplete>
-    <ng-template #itemTemplate let-item>
-      <a href="javascript:void(0)">
+    <ng-template #itemTemplate let-item >
+      <a href="javascript:void(0)" class="ng-template">
         <span [innerHTML]="item.name"></span>,
         <span [innerHTML]="item.address"></span>
       </a>
@@ -32,7 +33,7 @@
 
 <table class="select" matSort (matSortChange)="setSorted($event)">
   <tr>
-    <th name="bylikes" mat-sort-header="likes" class="bylikes" > By like</th>
+    <th name="bylikes" mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
     <th name="bydate" class="bydate"  mat-sort-header="published_at"> By date
     </th>
     <th name="alphabet" class="alphabet" mat-sort-header="title"> Alphabetically </th>
@@ -41,7 +42,7 @@
 
     <div id="blog">
       <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
-        <div class="label">Programming</div>
+<!--        <div class="label">Programming</div>-->
         <div class="postPhoto">
           <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" >
         </div>
@@ -53,9 +54,9 @@
 
       </div>
 
-      <div style="width: 500px; background-color: #EBE6D1; margin: -30px auto auto;">
+      <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-          <button style="width: 100px; font-size: 16px; margin-top: -5px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
           <div style="width: 300px; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"
@@ -63,7 +64,7 @@
                                  [maxSize]="7" (pageChange)="changePage($event.valueOf() - 1)">
             </pagination-controls>
           </div>
-          <button style="width: 100px; font-size: 16px; float: right;  margin-top: -88px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
+          <button style="width: 210px; font-size: 16px; float: right;  margin-top: -67px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
         </div>
       </div>
 

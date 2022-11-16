@@ -49,12 +49,10 @@ export class PostsComponent implements OnInit {
   }
 
     setSorted(event:any) {
-      console.log(event.active)
+      console.log(event)
       this.searchParameter.sortField = event.active
-      if (this.searchParameter.sortDirection === "ASC"){
-        this.searchParameter.sortDirection ="DESC";
-      } else {
-        this.searchParameter.sortDirection = "ASC"
+      if (event.direction != "") {
+        this.searchParameter.sortDirection = event.direction.toUpperCase()
       }
       this.search()
     }
@@ -94,7 +92,7 @@ export class PostsComponent implements OnInit {
     event.target.src = 'assets/PostImage/default.png';
   }
 
-  onFocused($event: void) {
-
+  cleanTagSearch() {
+      this.searchParameter.searchPattern.searchTag = ''
   }
 }
