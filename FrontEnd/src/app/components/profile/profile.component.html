@@ -143,6 +143,7 @@
     </div>
     <button *ngIf="!isYourProfile()" class="submit"><label>Follow</label></button>
     <button *ngIf="isYourProfile()" class="submit"><label>Edit</label></button>
+    <button *ngIf="isYourProfile()" class="submit" (click)="logout()">Logout</button>
   </div>
 
 </section>

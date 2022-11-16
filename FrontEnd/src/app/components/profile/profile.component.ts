@@ -38,6 +38,6 @@ export class ProfileComponent implements OnInit {
       error: err => {
           console.error(err);
       }
-  });
+    });
   }
 }

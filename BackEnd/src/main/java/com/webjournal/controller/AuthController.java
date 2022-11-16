@@ -4,6 +4,7 @@ import com.webjournal.entity.RefreshToken;
 import com.webjournal.security.payload.request.LoginRequest;
 import com.webjournal.entity.User;
 import com.webjournal.security.payload.request.RegistrationRequest;
+import com.webjournal.security.payload.response.MessageResponse;
 import com.webjournal.security.payload.response.UserInfoResponse;
 import com.webjournal.security.jwt.JwtUtils;
 import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
@@ -75,19 +76,19 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, refreshToken.getToken())
-                .body("Access token is refreshed successfully");
+                .body(new MessageResponse("Access token is refreshed successfully"));
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException {
         userService.create(registrationRequest);
-        return ResponseEntity.ok("Successfully registered user");
+        return ResponseEntity.ok(new MessageResponse("Successfully registered user"));
     }
 
     @GetMapping("/register/verify")
     public ResponseEntity<?> verifyUser(@RequestParam(required = false) String token) {
         userService.verifyUser(token);
-        return ResponseEntity.ok("Successfully verified account");
+        return ResponseEntity.ok(new MessageResponse("Successfully verified account"));
     }
 
     @PostMapping("/logout")
@@ -103,6 +104,6 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtAccessCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-                .body("Successfully logged out");
+                .body(new MessageResponse("Successfully logged out"));
     }
 }
