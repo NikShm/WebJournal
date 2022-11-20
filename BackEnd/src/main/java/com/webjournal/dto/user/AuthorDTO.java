@@ -11,6 +11,7 @@ public class AuthorDTO {
     private Integer id;
     private String username;
     private Integer followers;
+    private String bio;
 
     public AuthorDTO() {
     }
@@ -45,12 +46,21 @@ public class AuthorDTO {
         this.followers = followers;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
     @Override
     public String toString() {
         return "AuthorDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", followers=" + followers +
+                ", bio='" + bio + '\'' +
                 '}';
     }
 }
