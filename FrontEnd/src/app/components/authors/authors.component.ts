@@ -7,12 +7,13 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements OnInit {
-  searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 2}
+  searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 2, searchPattern:{}}
 
   constructor(private authorService: UserService ) { }
 
   ngOnInit(): void {
-  console.log(this.authorService.getAuthors(this.searchParameter))
+  this.authorService.getAuthors(this.searchParameter).subscribe((data)=>{
+    console.log(data)})
   }
 
 }

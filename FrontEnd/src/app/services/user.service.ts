@@ -25,7 +25,7 @@ export class UserService {
         }));
     }
     getAuthors(search: any): Observable<Page> {
-      return this.http.post(GlobalConstants.apiURL +'/api/users/search', search).pipe(map((data: any) => {
+      return this.http.post(GlobalConstants.apiURL +'/users/search', search).pipe(map((data: any) => {
         data.content = data.content.map((author:Authors) => {
           return new Authors(author);
         })
