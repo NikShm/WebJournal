@@ -29,6 +29,7 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setFollowers(entity.getCountFollowers());
+        dto.setBio(entity.getBio());
 
         return dto;
     }
