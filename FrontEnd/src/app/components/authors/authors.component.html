@@ -380,10 +380,12 @@
               </div>
             </div>
         <div class="d-flex justify-content-between p-2">
-          <ngb-pagination
-            [collectionSize]="page.totalItem" [(page)]='searchParameter.page'
-            [pageSize]="searchParameter.pageSize" [maxSize]="15" [boundaryLinks]="true" (pageChange)="setPage()">
-          </ngb-pagination>
+          <pagination-controls previousLabel="Previous"
+                               nextLabel="Next"
+                               class="my-pagination"
+                               [maxSize]="7"
+          >
+          </pagination-controls>
         </div>
 
 </body>
