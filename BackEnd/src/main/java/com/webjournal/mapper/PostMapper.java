@@ -1,13 +1,11 @@
 package com.webjournal.mapper;
 
-import com.webjournal.dto.CommentDTO;
-import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.PostListDTO;
-import com.webjournal.dto.TagDTO;
+import com.webjournal.dto.*;
 import com.webjournal.entity.Post;
 import com.webjournal.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -72,6 +70,18 @@ public class PostMapper {
         entity.setLikes(dto.getLikes());
         entity.setApproved(dto.isApproved());
         entity.setPublishedAt(dto.getPublishedAt());
+
+        return entity;
+    }
+
+    public Post createToEntity(Post entity, PostFormDTO dto) {
+        entity.setAuthor(userRepository.getReferenceById(dto.getAuthorId()));
+        entity.setTitle(dto.getTitle());
+        entity.setForeword(dto.getForeword());
+        entity.setContent(dto.getContent());
+        entity.setLikes(0);
+        entity.setApproved(false);
+        entity.setPublishedAt(LocalDateTime.now());
 
         return entity;
     }

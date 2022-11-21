@@ -71,6 +71,7 @@ public class SecurityConfig {
                 .antMatchers("/api/comments/**").permitAll()
                 .antMatchers("/api/tags/**").permitAll()
                 .antMatchers("/api/users/**").permitAll()
+                .antMatchers("/api/posts/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

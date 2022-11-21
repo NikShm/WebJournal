@@ -24,4 +24,13 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(['/authors/' + this.storageService.getUser().username]);
         }
     }
+
+    goToCreatePostPage() {
+      if (!this.storageService.isLoggedIn()) {
+        this.router.navigate(['login']);
+      }
+      else {
+        this.router.navigate(['/createPost']);
+      }
+    }
 }

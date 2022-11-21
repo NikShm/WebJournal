@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
   user!: User;
   private username: string = this.route.snapshot.paramMap.get('username') ?? '';
-  
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,

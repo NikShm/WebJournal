@@ -15,7 +15,7 @@ public interface IPostService{
     void like(LikeDTO like);
     void dislike(LikeDTO like);
     PageDTO<PostDTO> getPage(SearchDTO<PostSearch> searchDTO);
-    Integer create(PostDTO dto);
+    Integer create(PostFormDTO dto);
     void delete(Integer id) throws IOException;
     void update(PostDTO dto) throws IOException;
     PostDTO get(Integer id);
