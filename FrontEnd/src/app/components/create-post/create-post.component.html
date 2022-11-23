@@ -10,11 +10,12 @@
 
 
     <div class="mainBody">
-      <form  #productForm="ngForm" novalidate autocomplete="off" >
+      <form #postForm="ngForm" novalidate autocomplete="off" (ngSubmit)="onSave()">
         <!--TITLE INPUT WITH MAX LENGTH 80-->
         <div id="inputTitle">
           <p id="title">Title <b class="red">*</b> :</p>
-          <input maxlength="80" placeholder="Type text here..." type="text" (keyup)="title($event)">
+          <input  type="text" name="title" maxlength="80" placeholder="Type text here..."
+                  [(ngModel)]="post.title" required appTrim #title="ngModel" (keyup)="titleInput($event)">
           <div class="inputLengthDiv">
             {{titleNumberOfCharacters}} / {{titleMaxNumberOfCharacters}}
           </div>
@@ -23,7 +24,8 @@
         <!--FOREWORD INPUT WITH MAX LENGTH 150-->
         <div  id="inputForeword">
           <p id="foreword">Foreword <b class="red">*</b> :</p>
-          <textarea maxlength="150" placeholder="Type text here..." cols="80" rows="5" (keyup)="foreword($event)"></textarea>
+          <textarea name="foreword" maxlength="150" placeholder="Type text here..." cols="80" rows="5"  type="text"
+                    [(ngModel)]="post.foreword" required appTrim (keyup)="forewordInput($event)"></textarea>
           <div class="inputLengthDiv">
             {{forewordNumberOfCharacters}} / {{forewordMaxNumberOfCharacters}}
           </div>
@@ -47,17 +49,18 @@
 
         <p id="contentText">Content <b class="red">*</b> :</p>
         <div id="content">
-          <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+          <angular-editor name="content" #content="ngModel" [placeholder]="'Enter text here...'" [(ngModel)]="post.content" type="text"
+                          required appTrim></angular-editor>
         </div>
         <p  id="warning">🌭 Fields with <b class="red">*</b> are mandatory 🌭</p>
         <div class="checkBox">
-          <br><input type="checkbox" id="switch" /><label for="switch"></label>
+          <br><input type="checkbox" id="switch" required/><label for="switch"></label>
 
           <p id="agreeText">I confirm that I am the author of the text I publish and I understand that
             the publication of other people's works or the publication of works that violate
             the rules may lead to the removal of these works and blocking access to the site.</p>
         </div>
-        <button class="button-74" role="button">Publish</button>
+        <button type="submit" class="button-74" role="button">Publish</button>
       </form>
     </div>
 

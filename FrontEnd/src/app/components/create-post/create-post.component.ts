@@ -18,6 +18,12 @@ export class CreatePostComponent implements OnInit {
 import { Component, OnInit,  Input } from '@angular/core';
 import {FileHandle} from "../../app-routing.module";
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import {Post} from "../../models/post";
+import {PostService} from "../../services/post.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {StorageService} from "../../services/storage.service";
+import {User} from "../../models/user";
+import {UserService} from "../../services/user.service";
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -70,7 +76,7 @@ export class CreatePostComponent implements OnInit {
     inputValue: ''
   };
 
-  title(event: any): void {
+  titleInput(event: any): void {
     this.titleNumberOfCharacters = event.target.value.length;
 
     if (this.titleNumberOfCharacters > this.titleMaxNumberOfCharacters) {
@@ -79,7 +85,7 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  foreword(event: any): void {
+  forewordInput(event: any): void {
     this.forewordNumberOfCharacters = event.target.value.length;
 
     if (this.forewordNumberOfCharacters > this.forewordMaxNumberOfCharacters) {
@@ -93,10 +99,24 @@ export class CreatePostComponent implements OnInit {
     this.uploadedFiles = files;
   }
 
-  constructor() { }
+  @Input() post: Post = new Post();
+  @Input() mode: string = "create";
+
+  constructor(private postService: PostService,
+              private router: Router,
+              private storageService: StorageService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (JSON.parse(localStorage.getItem("auth-user")!).role !== "AUTHOR"){
+      this.router.navigate(['/login']);
+    }
   }
-
-
+  onSave() {
+    if (this.mode === 'create') {
+      this.postService.createPost(this.post).then((id: any) => {
+        window.alert(`Post was created successfully with id ${id}.`);
+      })
+    }
+  }
 }

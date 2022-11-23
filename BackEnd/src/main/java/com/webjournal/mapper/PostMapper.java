@@ -1,13 +1,16 @@
 package com.webjournal.mapper;
 
-import com.webjournal.dto.CommentDTO;
-import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.PostListDTO;
-import com.webjournal.dto.TagDTO;
+import com.webjournal.dto.*;
 import com.webjournal.entity.Post;
+import com.webjournal.entity.User;
+import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
 import com.webjournal.repository.UserRepository;
+import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
+import com.webjournal.service.user.UserServiceImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,14 +25,14 @@ public class PostMapper {
     private final UserMapper userMapper;
     private final CommentMapper commentMapper;
     private final TagMapper tagMapper;
-
     private final UserRepository userRepository;
-
-    public PostMapper(UserMapper userMapper, CommentMapper commentMapper, TagMapper tagMapper, UserRepository userRepository) {
+    private final UserServiceImpl userService;
+    public PostMapper(UserMapper userMapper, CommentMapper commentMapper, TagMapper tagMapper, UserRepository userRepository, UserServiceImpl userService) {
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
         this.tagMapper = tagMapper;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public PostDTO toPostDto(Post entity) {
@@ -72,6 +75,19 @@ public class PostMapper {
         entity.setLikes(dto.getLikes());
         entity.setApproved(dto.isApproved());
         entity.setPublishedAt(dto.getPublishedAt());
+
+        return entity;
+    }
+
+    public Post createToEntity(Post entity, PostFormDTO dto) {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        entity.setAuthor(principal);
+        entity.setTitle(dto.getTitle());
+        entity.setForeword(dto.getForeword());
+        entity.setContent(dto.getContent());
+        entity.setLikes(0);
+        entity.setApproved(false);
+        entity.setPublishedAt(LocalDateTime.now());
 
         return entity;
     }

@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public Integer create(@RequestBody PostDTO postDTO) {
+    public Integer create(@RequestBody PostFormDTO postDTO) {
         return postService.create(postDTO);
     }
 

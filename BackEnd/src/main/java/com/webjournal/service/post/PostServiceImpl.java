@@ -41,8 +41,8 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public Integer create(PostDTO dto) {
-        Post createdPost = postMapper.toEntity(new Post(), dto);
+    public Integer create(PostFormDTO dto) {
+        Post createdPost = postMapper.createToEntity(new Post(), dto);
         return repository.save(createdPost).getId();
     }
 

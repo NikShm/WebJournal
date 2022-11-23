@@ -1,14 +1,14 @@
-import {Product} from "./product";
+import {Post} from "./post";
 
 export class Page {
-  constructor(products: Product[], pageCount : number, page : number, pageSize: number,totalItem:number) {
+  constructor(products: Post[], pageCount : number, page : number, pageSize: number, totalItem:number) {
     this.products = products;
     this.pageCount = pageCount;
     this.page = page;
     this.pageSize = pageSize;
     this.totalItem= totalItem;
   }
-  products: Product[] = [];
+  products: Post[] = [];
   pageCount : number;
   page : number;
   pageSize : number;
