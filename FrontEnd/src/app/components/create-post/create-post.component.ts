@@ -114,7 +114,6 @@ export class CreatePostComponent implements OnInit {
   }
   onSave() {
     if (this.mode === 'create') {
-      this.post.author_id = this.storageService.getUser().id;
       this.postService.createPost(this.post).then((id: any) => {
         window.alert(`Post was created successfully with id ${id}.`);
       })

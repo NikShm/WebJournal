@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByUsernameButGetUser(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with username " + username));
+    }
+
+    @Override
     public void delete(Integer id) {
         if (!repository.existsById(id)) {
             throw new DatabaseFetchException("CANT DELETE! Not found user with id = " + id);

@@ -10,9 +10,6 @@ package com.webjournal.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostFormDTO {
-
-    private Integer authorId;
-
     private String title;
 
     private String foreword;
@@ -21,19 +18,10 @@ public class PostFormDTO {
     public PostFormDTO() {
     }
 
-    public PostFormDTO(Integer authorId, String title, String foreword, String content) {
-        this.authorId = authorId;
+    public PostFormDTO(String title, String foreword, String content) {
         this.title = title;
         this.foreword = foreword;
         this.content = content;
-    }
-
-    public Integer getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
     }
 
     public String getTitle() {
@@ -65,7 +53,6 @@ public class PostFormDTO {
     @Override
     public String toString() {
         return "PostFormDTO{" +
-                ", authorId=" + authorId +
                 ", title='" + title + '\'' +
                 ", foreword='" + foreword + '\'' +
                 ", content='" + content + '\'' +

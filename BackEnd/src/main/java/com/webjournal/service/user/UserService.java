@@ -6,12 +6,14 @@ import com.webjournal.dto.search.AuthorSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
+import com.webjournal.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface UserService {
     UserDTO getByUsername(String username);
+    User getByUsernameButGetUser(String username);
     void delete(Integer id);
     //void update(UserDTO dto);
     UserDTO getById(Integer id);
