@@ -45,27 +45,27 @@ VALUES
     (1, 3),
     (3, 2);
 
-INSERT INTO tag(name)
-VALUES ('Cooking'),
-       ('Television'),
-       ('Modernism'),
-       ('Programming'),
-       ('Genshin_impact'),
-       ('Summer_outfit'),
-       ('Fashion_week'),
-       ('Elizabet_II'),
-       ('Fanfics'),
-       ('JavaScript'),
-       ('Back_to_school'),
-       ('Depression'),
-       ('Coronavirus'),
-       ('Iphone_16'),
-       ('Conspiracy_theory'),
-       ('Vaccine'),
-       ('Terrorism'),
-       ('K-pop'),
-       ('Grunge'),
-       ('Mozart');
+INSERT INTO tag(id, name)
+VALUES (1, 'Cooking'),
+       (2, 'Television'),
+       (3, 'Modernism'),
+       (4, 'Programming'),
+       (5, 'Genshin Impact'),
+       (6, 'Summer outfit'),
+       (7, 'Fashion week'),
+       (8, 'Elizabet II'),
+       (9, 'Fanfics'),
+       (10, 'JavaScript'),
+       (11, 'Back to school'),
+       (12, 'Depression'),
+       (13, 'Coronavirus'),
+       (14, 'Iphone 16'),
+       (15, 'Conspiracy theory'),
+       (16, 'Vaccine'),
+       (17, 'Terrorism'),
+       (18, 'K-pop'),
+       (19, 'Grunge'),
+       (20, 'Mozart');
 
 INSERT INTO post_tag(post_id, tag_id)
 VALUES
@@ -88,5 +88,4 @@ VALUES
        (6, 17),
        (6, 18),
        (7, 19),
-       (7, 20),
-       (7, 21);
+       (7, 20);

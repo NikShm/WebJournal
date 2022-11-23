@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
               private postService: PostService,
               private tagService: TagService,
               private router: Router,
-              private storageService: StorageService) {
+              public storageService: StorageService) {
   }
 
   ngOnInit() {
@@ -61,12 +61,14 @@ export class HomeComponent implements OnInit {
   }
 
   goToArticles() {
-    this.router.navigate(['articles']);
+    this.router.navigate(['posts']);
   }
 
   goToRegistration() {
-    if (!this.storageService.isLoggedIn()) {
-      this.router.navigate(['register']);
-    }    
+    this.router.navigate(['register']); 
+  }
+
+  goToAuthors() {
+    this.router.navigate(['authors']);
   }
 }

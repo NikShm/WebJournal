@@ -38,7 +38,16 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         LOGGER.error("Authorization error: {}", authException.getMessage());
 
         String path = request.getServletPath();
-        String message = authException instanceof BadCredentialsException ? "Incorrect email or password" : authException.getMessage();
+        String message;
+        if (authException instanceof BadCredentialsException) {
+            message = "incorrect email or password";
+        }
+        else if (authException instanceof DisabledException) {
+            message = "you have to verify your account through email first";
+        }
+        else {
+            message = authException.getMessage();
+        }
         ApiErrorMessage errorMessage = new ApiErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, message);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

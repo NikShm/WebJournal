@@ -1,4 +1,4 @@
-package com.webjournal.dto.user;
+package com.webjournal.dto.auth;
 
 import com.webjournal.enums.RoleType;
 

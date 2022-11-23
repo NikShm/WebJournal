@@ -80,7 +80,7 @@
         <div class="right-panel">
 
           <div class="friends-section" style="margin-top: 60px;">
-            <a class='friend' href="#" *ngFor="let author of authors">
+            <a class='friend' routerLink="/authors/{{author.username}}" *ngFor="let author of authors">
               <div class="dp">
                 <img [src]="userImage+author.id+'.jpg'" (error)="onErrorUserImage($event)" alt="">
               </div>
@@ -142,9 +142,11 @@
 
 
     <div class="BecomeNewAuthor">
-      <p>Become a new author</p>
+      <p *ngIf="!this.storageService.isLoggedIn()">Become a new author</p>
+      <p *ngIf="this.storageService.isLoggedIn()">Find people to follow</p>
 
-      <button type="button" class="fill2" (click)="goToRegistration()"><p id="registerBtn">register</p></button>
+      <button *ngIf="!this.storageService.isLoggedIn()" type="button" class="fill2" (click)="goToRegistration()"><p id="registerBtn">register</p></button>
+      <button *ngIf="this.storageService.isLoggedIn()" type="button" class="fill2" (click)="goToAuthors()"><p id="authorsBtn">search</p></button>
 
       <hr class="linevideos2">
 

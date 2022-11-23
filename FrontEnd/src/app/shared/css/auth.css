@@ -44,10 +44,8 @@ a:hover {
 }
 
 .form-content {
-    padding-top: 14px;
-    padding-left: 60px;
-    padding-right: 60px;
-    padding-bottom: 28px;
+  padding: 14px 60px 28px;
+  width: 447px;
 }
 
 .heading {
@@ -92,7 +90,7 @@ a:hover {
 }
 
 .form input:focus ~ label,
-.form input:valid ~ label {
+.label-up {
     transform: translateY(-24px);
     color: #c24332;
 }

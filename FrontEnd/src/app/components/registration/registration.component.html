@@ -3,23 +3,34 @@
     <div class="content">
       <div class="img"></div>
       <div class="form-content">
-        <p class="heading">Regitsration</p>
-        <form class="form" autocomplete="off">
+        <p class="heading">Registration</p>
+        <form class="form" #regForm="ngForm" (ngSubmit)="regForm.form.valid && onRegistration()" autocomplete="off" novalidate>
           <div>
-            <input id="username" type="text" required>
+            <input id="username" name="username" type="text" #username="ngModel" [(ngModel)]="reg.username" minlength="3" maxlength="64" required (focus)="LabelUp($event)" (blur)="LabelDown($event)">
             <label for="username">Username</label>
+            <div *ngIf="username.errors?.['required'] && regForm.submitted" class="error">Username is required</div>
+            <div *ngIf="username.errors?.['minlength'] && regForm.submitted" class="error">Username should contain at least 3 characters</div>
+            <div *ngIf="username.errors?.['maxlength'] && regForm.submitted" class="error">Username should contain at most 64 characters</div>
           </div>
           <div>
-            <input id="email" type="text" required>
+            <input id="email" name="email" type="email" #email="ngModel" [(ngModel)]="reg.email" maxlength="256" required (focus)="LabelUp($event)" (blur)="LabelDown($event)">
             <label for="email">Email</label>
+            <div *ngIf="email.errors?.['required'] && regForm.submitted" class="error">Email is required</div>
+            <div *ngIf="email.errors?.['maxlength'] && regForm.submitted" class="error">Email should contain at most 256 characters</div>
           </div>
           <div>
-            <input id="date-of-birth" type="text" (focus)="showPlaceholder($event)" (blur)="removePlaceholder($event)" required>
+            <input id="date-of-birth" name="date-of-birth" type="text" #birthDate="ngModel" [(ngModel)]="reg.birthDate" appBirthDateValidator (focus)="showPlaceholder($event)" (blur)="removePlaceholder($event)" required>
             <label for="date-of-birth">Date of birth</label>
+            <div *ngIf="birthDate.errors?.['required'] && regForm.submitted" class="error">Birth date is required</div>
+            <div *ngIf="birthDate.errors?.['birthDate'] && regForm.submitted" class="error">You should be 18+ to register</div>
           </div>
           <div class="last-block">
-            <input id="password" type="password" required>
+            <input id="password" name="password" type="password" #password="ngModel" [(ngModel)]="reg.password" minlength="6" maxlength="32" required (focus)="LabelUp($event)" (blur)="LabelDown($event)">
             <label for="password">Password</label>
+            <div *ngIf="password.errors?.['required'] && regForm.submitted" class="error">Password is required</div>
+            <div *ngIf="password.errors?.['minlength'] && regForm.submitted" class="error">Password should contain at least 6 characters</div>
+            <div *ngIf="password.errors?.['maxlength'] && regForm.submitted" class="error">Password should contain at most 32 characters</div>
+            <div *ngIf="regFailed && regForm.submitted" class="auth-error">Registration failed: {{errorMessage}}</div>
           </div>
           <button type="submit" class="submit">Create account</button>
         </form>

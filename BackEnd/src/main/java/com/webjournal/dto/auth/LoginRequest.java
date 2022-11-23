@@ -1,4 +1,4 @@
-package com.webjournal.dto.user;
+package com.webjournal.dto.auth;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
  * @since 10/18/2022 - 20.37
  **/
 public class LoginRequest {
-    @NotBlank
+    @NotBlank(message = "email is required")
     private String login;
 
-    @NotBlank
+    @NotBlank(message = "password is required")
     private String password;
 
     public LoginRequest() {

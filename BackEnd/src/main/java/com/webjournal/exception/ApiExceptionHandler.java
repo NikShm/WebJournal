@@ -2,6 +2,7 @@ package com.webjournal.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,8 +29,9 @@ public class ApiExceptionHandler {
         LOGGER.error("Validation error", e);
         List<String> errorMessages = e.getBindingResult().getFieldErrors()
                 .stream()
-                .map(err -> err.getField() + ": " + err.getDefaultMessage()).toList();
-        return getResponse(HttpStatus.BAD_REQUEST, request, errorMessages.toString());
+                .map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
+        String err = errorMessages.toString();
+        return getResponse(HttpStatus.BAD_REQUEST, request, err.substring(1, err.length()-1));
     }
 
     @ExceptionHandler(RegistrationException.class)

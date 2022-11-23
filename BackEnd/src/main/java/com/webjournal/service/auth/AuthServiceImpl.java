@@ -1,8 +1,7 @@
 package com.webjournal.service.auth;
 
-import com.webjournal.dto.user.RegistrationRequest;
+import com.webjournal.dto.auth.RegistrationRequest;
 import com.webjournal.entity.MailToken;
-import com.webjournal.entity.Role;
 import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
 import com.webjournal.exception.RegistrationException;
@@ -67,28 +66,17 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public void register(RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException {
         if (checkIfUserExistsByUsername(registrationRequest.getUsername())) {
-            throw new RegistrationException("Username is already taken");
+            throw new RegistrationException("this username is already taken");
         }
         if (checkIfUserExistsByEmail(registrationRequest.getEmail())) {
-            throw new RegistrationException("Email is already in use");
+            throw new RegistrationException("email is already in use");
         }
         User createdUser = new User();
         createdUser.setUsername(registrationRequest.getUsername());
         createdUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
         createdUser.setEmail(registrationRequest.getEmail());
         createdUser.setAccountVerified(false);
-        createdUser.setBio(registrationRequest.getBio());
-
-        Role role = roleService.getRoleByRoleType(RoleType.AUTHOR);
-        if (registrationRequest.getRole() != null) {
-            switch (registrationRequest.getRole()) {
-                case "ADMIN" ->
-                        role = roleService.getRoleByRoleType(RoleType.ADMIN);
-                case "MODERATOR" ->
-                        role = roleService.getRoleByRoleType(RoleType.MODERATOR);
-            }
-        }
-        createdUser.setRole(role);
+        createdUser.setRole(roleService.getRoleByRoleType(RoleType.AUTHOR));
 
         createdUser = repository.save(createdUser);
         sendRegistrationConfirmationEmail(createdUser);
@@ -108,16 +96,16 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     @Override
     public void verifyUser(String token) {
         if (!StringUtils.hasText(token)) {
-            throw new RegistrationException("Token is empty");
+            throw new RegistrationException("token is empty");
         }
         MailToken mailToken = mailTokenService.getByToken(token);
         if (mailToken == null || !token.equals(mailToken.getToken()) || mailToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             mailTokenService.deleteToken(mailToken);
-            throw new RegistrationException("Mail token is not valid");
+            throw new RegistrationException("mail token is not valid");
         }
         User user = repository.findById(mailToken.getUser().getId()).orElse(null);
         if (user == null) {
-            throw new RegistrationException("This user doesn't exist");
+            throw new RegistrationException("this user doesn't exist");
         }
         user.setAccountVerified(true);
         repository.save(user);

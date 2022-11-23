@@ -7,7 +7,6 @@ import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.service.post.PostServiceImpl;
-import io.swagger.models.auth.In;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
