@@ -527,7 +527,7 @@ top:63%;
   background-color: rgba(0, 0, 0, 0);
 }
 
-#registerBtn{
+#registerBtn, #authorsBtn {
   position: absolute;
   width: 82px;
   height: 19px;

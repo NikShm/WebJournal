@@ -35,4 +35,14 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  LabelUp(event: any) {
+    event.target.nextElementSibling.classList.add('label-up');
+  }
+
+  LabelDown(event: any) {
+    if (event.target.value === "") {
+      event.target.nextElementSibling.classList.remove('label-up');
+    }
+  }
 }

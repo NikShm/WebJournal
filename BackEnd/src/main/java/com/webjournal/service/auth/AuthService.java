@@ -1,6 +1,6 @@
 package com.webjournal.service.auth;
 
-import com.webjournal.dto.user.RegistrationRequest;
+import com.webjournal.dto.auth.RegistrationRequest;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;

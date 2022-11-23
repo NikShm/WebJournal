@@ -1,19 +1,16 @@
 package com.webjournal.controller;
 
 import com.webjournal.entity.RefreshToken;
-import com.webjournal.dto.user.LoginRequest;
+import com.webjournal.dto.auth.LoginRequest;
 import com.webjournal.entity.User;
-import com.webjournal.dto.user.RegistrationRequest;
+import com.webjournal.dto.auth.RegistrationRequest;
 import com.webjournal.dto.MessageResponse;
-import com.webjournal.dto.user.UserInfoResponse;
+import com.webjournal.dto.auth.UserInfoResponse;
 import com.webjournal.security.jwt.JwtUtils;
 import com.webjournal.service.auth.AuthServiceImpl;
 import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
 import freemarker.template.TemplateException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +21,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URI;
 
 /**
  * @author Yuliana
@@ -88,14 +86,16 @@ public class AuthController {
     @GetMapping("/register/verify")
     public ResponseEntity<?> verifyUser(@RequestParam(required = false) String token) {
         authService.verifyUser(token);
-        return ResponseEntity.ok(new MessageResponse("Successfully verified account"));
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .location(URI.create("http://localhost:4200/login"))
+                .build();
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser() {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!principal.toString().equals("anonymousUser")) {
-            refreshTokenService.deleteByUser(principal);
+            refreshTokenService.deleteByUser((User) principal);
         }
 
         ResponseCookie jwtAccessCookie = jwtUtils.getCleanJwtAccessCookie();

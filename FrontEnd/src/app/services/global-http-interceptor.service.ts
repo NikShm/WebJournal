@@ -70,7 +70,7 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
                     }),
                     catchError((error) => {
                         this.isRefreshing = false;
-                        if (error.status === '403') {
+                        if (error.status === 403) {
                             this.authService.logout().subscribe({
                                 next: () => {
                                     this.storageService.clear();

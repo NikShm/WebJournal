@@ -1,4 +1,4 @@
-package com.webjournal.dto.user;
+package com.webjournal.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webjournal.validation.birthdate.BirthDate;
@@ -18,38 +18,33 @@ import java.time.LocalDate;
  * @since 11/1/2022 - 18.11
  **/
 public class RegistrationRequest {
-    @NotBlank
-    @Size(min = 3, max = 64)
+    @NotBlank(message = "username is required")
+    @Size(min = 3, max = 64, message = "username should be between 3 and 64 characters long")
     private String username;
 
-    @NotBlank
-    @Size(min = 6, max = 32)
+    @NotBlank(message = "password is required")
+    @Size(min = 6, max = 32, message = "password should be between 6 and 32 characters long")
     private String password;
 
-    @NotBlank
-    @Email
-    @Size(max = 256)
+    @NotBlank(message = "email is required")
+    @Email(message = "email is not valid")
+    @Size(max = 256, message = "email should contain at most 256 characters")
     private String email;
 
-    @NotNull
+    @NotNull(message = "birth date is required")
     @BirthDate
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    private String bio;
-    private String role;
-
     public RegistrationRequest() {
     }
 
-    public RegistrationRequest(String username, String password, String email, LocalDate birthDate, String bio, String role) {
+    public RegistrationRequest(String username, String password, String email, LocalDate birthDate) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.birthDate = birthDate;
-        this.bio = bio;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -84,22 +79,6 @@ public class RegistrationRequest {
         this.birthDate = birthDate;
     }
 
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
         return "RegistrationRequest{" +
@@ -107,8 +86,6 @@ public class RegistrationRequest {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
-                ", bio='" + bio + '\'' +
-                ", role='" + role + '\'' +
                 '}';
     }
 }
