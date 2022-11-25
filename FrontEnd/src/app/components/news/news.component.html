@@ -7,11 +7,11 @@
   <div id="titleBlock"><p>News</p></div>
   <div style=" position: relative; height: 300px; font-size: 16px; margin: 0px auto auto;" *ngIf="!isDataLoaded">
     <div class="con">
-            <b class="spanstyle">Ви не авторизувалися</b>
+            <b class="spanstyle">You are not authorized!</b>
     </div>
   </div>
     <div id="blog" *ngIf="isDataLoaded">
-      <div class="post" *ngFor="let post of page.content">
+      <div class="post" *ngFor="let post of page">
         <div class="postPhoto">
           <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" >
         </div>

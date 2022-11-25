@@ -22,5 +22,5 @@ public interface IPostService{
     List<PostDTO> getAll();
     List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date);
 
-    PageDTO<PostListDTO> getNewPost(SearchDTO<PostSearch> search);
+    List<PostListDTO> getNewPost(SearchDTO<PostSearch> search);
 }

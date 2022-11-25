@@ -76,7 +76,7 @@ public class PostController {
         return postService.getFeaturedPosts(n, date);
     }
     @PostMapping("/news-post")
-    public PageDTO<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
+    public List<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
         return postService.getNewPost(search);
     }
 

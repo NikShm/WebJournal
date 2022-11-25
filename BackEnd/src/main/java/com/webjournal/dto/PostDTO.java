@@ -20,8 +20,7 @@ public class PostDTO {
     private String title;
     private String foreword;
     private String content;
-    private int likes;
-    private List<CommentDTO> comments;
+    private Integer likes;
     private List<TagDTO> tags;
     private boolean isApproved;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -37,14 +36,13 @@ public class PostDTO {
     public PostDTO() {
     }
 
-    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, int likes, List<CommentDTO> comments, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, Integer likes, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.title = title;
         this.foreword = foreword;
         this.content = content;
         this.likes = likes;
-        this.comments = comments;
         this.tags = tags;
         this.isApproved = isApproved;
         this.publishedAt = publishedAt;
@@ -92,20 +90,12 @@ public class PostDTO {
         this.content = content;
     }
 
-    public int getLikes() {
+    public Integer getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
-    }
-
-    public List<CommentDTO> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentDTO> comments) {
-        this.comments = comments;
     }
 
     public List<TagDTO> getTags() {
@@ -157,7 +147,6 @@ public class PostDTO {
                 ", foreword='" + foreword + '\'' +
                 ", content='" + content + '\'' +
                 ", likes=" + likes +
-                ", comments=" + comments +
                 ", tags=" + tags +
                 ", isApproved=" + isApproved +
                 ", publishedAt=" + publishedAt +

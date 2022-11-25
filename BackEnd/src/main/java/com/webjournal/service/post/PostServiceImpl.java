@@ -8,6 +8,7 @@ import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.User;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
@@ -181,52 +182,15 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public PageDTO<PostListDTO> getNewPost(SearchDTO search) {
-        List<PostListDTO> postDTOS = new ArrayList<>();
-        String newsPageQuery = getNewsPageQuery(search);
-        if (newsPageQuery == null){
-            return null;
-        }
-        for (Object entity : entityManager.createNativeQuery(newsPageQuery, Post.class).getResultList()) {
-            postDTOS.add(postMapper.toPostListDto((Post) entity));
-        }
-        Page<PostListDTO> page = new PageImpl<>(postDTOS);
-        PageDTO<PostListDTO> pageDTO = new PageDTO<>();
-        pageDTO.setContent(page.getContent());
-        pageDTO.setTotalItem(((BigInteger) entityManager.createNativeQuery(getNewsPostCountQuery()).getSingleResult()).longValue());
-        System.out.println(pageDTO);
-        return pageDTO;
-    }
-
-    private String getNewsPageQuery(SearchDTO search) {
-        StringBuilder query = getQuery();
-        query.append("SELECT * FROM post p ");
-        if (!getNewsPostsQuery(query)){
-            return null;
-        }
-        query.append(" ORDER BY p.published_at ASC");
-        if (search.getPage() != null && search.getPageSize() != null) {
-            query.append(" limit ").append(search.getPageSize()).append(" offset ").append(search.getPage() * search.getPageSize());
-        }
-        return query.toString();
-    }
-
-    private Boolean getNewsPostsQuery(StringBuilder query){
+    public List<PostListDTO> getNewPost(SearchDTO search) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() == "anonymousUser"){
-            return false;
+            return null;
         }
         User authorizeUser = (User)authentication.getPrincipal();
         Integer userId = authorizeUser.getId();
-        query.append("left join follow folow on folow.user_id = ").append(userId);
-        query.append(" where p.author_id = following_user_id");
-        return true;
-    }
-
-    private String getNewsPostCountQuery() {
-        StringBuilder query = getQuery();
-        query.append("SELECT count(*) FROM post p ");
-        getNewsPostsQuery(query);
-        return query.toString();
+        Sort sort = Sort.by("published_at");
+        Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
+        return repository.findNewsPosts(pageable, userId).stream().map(postMapper::toPostListDto).toList();
     }
 }

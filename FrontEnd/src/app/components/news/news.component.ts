@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {PostService} from "../../services/post.service";
 import {Search} from "../../models/search";
 import {Page} from "../../models/pages";
+import {PostList} from "../../models/postList";
 
 @Component({
   selector: 'app-products',
@@ -10,7 +11,7 @@ import {Page} from "../../models/pages";
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  page: Page = new Page([], 0);
+  page: PostList[] = [];
   searchParameter = {page: 0,pageSize: 3}
   isDataLoaded: boolean = false;
   isDataFullLoaded: boolean = false;
@@ -24,25 +25,26 @@ export class NewsComponent implements OnInit {
   }
 
   search() {
-    this.searchParameter.page += 1;
-    this.postService.getNews(this.searchParameter).subscribe((page: Page|null) => {
+    this.postService.getNews(this.searchParameter).subscribe((page: PostList[]|null) => {
       console.log(page)
       if (page != null) {
-        this.page.content = this.page.content.concat(page.content)
-      }
-      if(page?.content){
-        this.isDataFullLoaded = false
+        this.page = this.page.concat(page)
+        this.searchParameter.page += 1;
+        if(page?.length == 0){
+          this.isDataFullLoaded = false
+        }
       }
     });
   }
 
   ngOnInit() {
-    this.postService.getNews(this.searchParameter).subscribe((page: Page|null) => {
+    this.postService.getNews(this.searchParameter).subscribe((page: PostList[]|null) => {
       if (page != null) {
         this.page = page
         this.isDataLoaded = true;
-        this.isDataFullLoaded = true;
+        this.isDataFullLoaded = true
       }
+      this.searchParameter.page += 1;
     });
   }
 }

@@ -44,8 +44,6 @@ public class PostMapper {
         dto.setForeword(entity.getForeword());
         dto.setContent(entity.getContent());
         dto.setLikes(entity.getLikes());
-        List<CommentDTO> comments = entity.getComments().stream().map(commentMapper::toDto).toList();
-        dto.setComments(comments);
         List<TagDTO> tags = entity.getTags().stream().map(tagMapper::toDto).toList();
         dto.setTags(tags);
         dto.setApproved(entity.getApproved());
