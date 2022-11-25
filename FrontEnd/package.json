@@ -21,6 +21,7 @@
     "@angular/router": "^14.1.0",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
     "@syncfusion/ej2-angular-richtexteditor": "^20.3.56",
+    "angular-ng-autocomplete": "^2.0.12",
     "ngx-pagination": "^6.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,6 +1,7 @@
 package com.webjournal.controller;
 
 import com.webjournal.dto.TagDTO;
+import com.webjournal.entity.Tag;
 import com.webjournal.service.tag.TagServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,5 +23,10 @@ public class TagController {
     public List<TagDTO> getActualTags(@RequestParam("count") int n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return service.getActualTags(n, date);
+    }
+
+    @GetMapping("/tag={name}")
+    public List<Tag> getTags(@PathVariable String  name) {
+        return service.getTags(name);
     }
 }

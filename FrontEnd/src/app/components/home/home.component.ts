@@ -33,11 +33,13 @@ export class HomeComponent implements OnInit {
     this.userService.getFavoriteAuthors().subscribe((data: any) => {this.authors=data;});
     this.postService.getToPerMonth().subscribe((data: any) => {this.posts = data});
     this.tagService.getActual().subscribe((data: any) => {
+      let tagListNumber= 0
       for (let i = 0; i < data.length/5; i++) {
         this.tagList[i] = []
-        for (let y = 0; y < 5; y++) {
-          this.tagList[i][y] = data[i+y]
-          this.colors.set(data[i+y].id, this.getRandomColor())
+        for (let y = 0; y < 5 && tagListNumber<data.length; y++) {
+          this.tagList[i][y] = data[tagListNumber]
+          this.colors.set(data[tagListNumber].id, this.getRandomColor())
+          tagListNumber++;
         }
       }
       this.isDataLoaded = true
@@ -65,7 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToRegistration() {
-    this.router.navigate(['register']); 
+    this.router.navigate(['register']);
   }
 
   goToAuthors() {
