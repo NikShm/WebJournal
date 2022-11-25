@@ -1,6 +1,7 @@
 package com.webjournal.repository;
 
 import com.webjournal.entity.Post;
+import com.webjournal.entity.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
