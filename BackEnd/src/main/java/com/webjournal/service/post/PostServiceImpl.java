@@ -183,7 +183,11 @@ public class PostServiceImpl implements IPostService {
     @Override
     public PageDTO<PostListDTO> getNewPost(SearchDTO search) {
         List<PostListDTO> postDTOS = new ArrayList<>();
-        for (Object entity : entityManager.createNativeQuery(getNewsPageQuery(search), Post.class).getResultList()) {
+        String newsPageQuery = getNewsPageQuery(search);
+        if (newsPageQuery == null){
+            return null;
+        }
+        for (Object entity : entityManager.createNativeQuery(newsPageQuery, Post.class).getResultList()) {
             postDTOS.add(postMapper.toPostListDto((Post) entity));
         }
         Page<PostListDTO> page = new PageImpl<>(postDTOS);
@@ -197,7 +201,9 @@ public class PostServiceImpl implements IPostService {
     private String getNewsPageQuery(SearchDTO search) {
         StringBuilder query = getQuery();
         query.append("SELECT * FROM post p ");
-        getNewsPostsQuery(query);
+        if (!getNewsPostsQuery(query)){
+            return null;
+        }
         query.append(" ORDER BY p.published_at ASC");
         if (search.getPage() != null && search.getPageSize() != null) {
             query.append(" limit ").append(search.getPageSize()).append(" offset ").append(search.getPage() * search.getPageSize());
@@ -205,12 +211,16 @@ public class PostServiceImpl implements IPostService {
         return query.toString();
     }
 
-    private void getNewsPostsQuery(StringBuilder query){
+    private Boolean getNewsPostsQuery(StringBuilder query){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() == "anonymousUser"){
+            return false;
+        }
         User authorizeUser = (User)authentication.getPrincipal();
         Integer userId = authorizeUser.getId();
         query.append("left join follow folow on folow.user_id = ").append(userId);
         query.append(" where p.author_id = following_user_id");
+        return true;
     }
 
     private String getNewsPostCountQuery() {

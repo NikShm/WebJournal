@@ -27,6 +27,7 @@ import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.s
 
 import { ImageDragDirective } from './directives/image-drag.directive';
 import { BirthDateValidatorDirective } from './directives/birth-date-validator.directive';
+import {NewsComponent} from "./components/news/news.component";
 
 import {AngularEditorModule} from '@kolkov/angular-editor';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -43,6 +44,7 @@ import { PostInfoComponent } from './components/post-info/post-info.component';
     FooterComponent,
     PostComponent,
     PostsComponent,
+    NewsComponent,
     AuthorsComponent,
     RegistrationComponent,
     CreatePostComponent,

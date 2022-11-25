@@ -20,6 +20,7 @@ footer{
   height: 345px;
   width: 100%;
   border-top: 0.1px solid #000000;
+  border-bottom: 0.1px solid #000000;
   float: bottom;
   margin-top: 200px;
 }
