@@ -28,13 +28,19 @@ export class PostService {
     }));
   }
 
-  async createPost(postToCreate: Post) {
+  async createPost(postToCreate: Post, image: File) {
     let postData: Post | FormData;
     postData = new Post(postToCreate);
     const id = <string>await this.http.post(GlobalConstants.apiURL + '/posts/create', postData).toPromise();
-    window.alert(`Post was created successfully with id ${id}.`);
+    const newPath = `post_${id}.jpg`;
     postData = new FormData();
     postData.append('id', id);
+
+    let imageData: FormData;
+    imageData = new FormData();
+    imageData.append('photo', image);
+    imageData.append('newPath', newPath);
+    await this.http.post(GlobalConstants.apiURL + '/posts/uploadPhoto/', imageData).toPromise();
 
     return id;
   }

@@ -34,7 +34,9 @@
         <!--PHOTO INPUT-->
         <div id="inputPhoto">
           <p id="photo">Photo <b class="red">*</b> :</p>
-          <div class="dropzone" appImageDrag (files)="filesDropped($event)">
+          <div class="dropzone">
+            <input type="file" name="photo" id="uploadPhoto" accept="image/png, image/jpeg" appFileValidator
+                   (change)="previewImage()" ngModel #photo="ngModel" [required]="mode === 'create'">
             <p>Drag or <i style="text-decoration: underline">tap</i> to download</p><br>
             <p>We recommend using high-quality files in the .jpg (up to 20 MB in size).</p>
           </div>
