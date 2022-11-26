@@ -105,8 +105,17 @@ export class CreatePostComponent implements OnInit {
       this.forewordNumberOfCharacters = this.forewordMaxNumberOfCharacters;
     }
   }
-
   /*****************************************/
+  toogleBool: boolean=true;
+
+  changeEvent(event: any): void {
+    if (event.target.checked) {
+      this.toogleBool= false;
+    }
+    else {
+      this.toogleBool= true;
+    }
+  }
 
   public previewImage() {
     const fileReader = new FileReader();
