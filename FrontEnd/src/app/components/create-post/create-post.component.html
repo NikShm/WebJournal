@@ -16,6 +16,7 @@
           <p id="title">Title <b class="red">*</b> :</p>
           <input  type="text" name="title" maxlength="80" placeholder="Type text here..."
                   [(ngModel)]="post.title" required appTrim #title="ngModel" (keyup)="titleInput($event)">
+          <div class="error" *ngIf="!title.valid && !title.untouched">*Name is required</div>
           <div class="inputLengthDiv">
             {{titleNumberOfCharacters}} / {{titleMaxNumberOfCharacters}}
           </div>
@@ -25,7 +26,8 @@
         <div  id="inputForeword">
           <p id="foreword">Foreword <b class="red">*</b> :</p>
           <textarea name="foreword" maxlength="150" placeholder="Type text here..." cols="80" rows="5"  type="text"
-                    [(ngModel)]="post.foreword" required appTrim (keyup)="forewordInput($event)"></textarea>
+                    [(ngModel)]="post.foreword" required appTrim #foreword="ngModel" (keyup)="forewordInput($event)"></textarea>
+          <div class="error" *ngIf="!foreword.valid && !foreword.untouched">*Foreword is required</div>
           <div class="inputLengthDiv">
             {{forewordNumberOfCharacters}} / {{forewordMaxNumberOfCharacters}}
           </div>
@@ -42,7 +44,7 @@
           </div>
         </div>
 
-        <div id="uploadedPhoto" *ngIf="photo != null">
+        <div id="uploadedPhoto" *ngIf="image != null">
           <p>Here you will see how your photo will look</p>
           <div class="imgDiv">
             <img id="preview-img" alt=""/>
@@ -53,16 +55,19 @@
         <div id="content">
           <angular-editor name="content" #content="ngModel" [placeholder]="'Enter text here...'" [(ngModel)]="post.content" type="text"
                           required appTrim></angular-editor>
+          <div class="errorContent" *ngIf="!content.valid && !content.untouched">*Content is required</div>
         </div>
         <p  id="warning">🌭 Fields with <b class="red">*</b> are mandatory 🌭</p>
         <div class="checkBox">
-          <br><input type="checkbox" id="switch" required/><label for="switch"></label>
+          <br><input type="checkbox" id="switch" name="checkbox" (change)="changeEvent($event)" /><label for="switch"></label>
 
           <p id="agreeText">I confirm that I am the author of the text I publish and I understand that
             the publication of other people's works or the publication of works that violate
             the rules may lead to the removal of these works and blocking access to the site.</p>
         </div>
-        <button type="submit" class="button-74" role="button">Publish</button>
+        <button type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid
+         || photo.invalid || toogleBool"
+                [title]="postForm.invalid ? 'Fill all fields with valid values.' : ''">Publish</button>
       </form>
     </div>
 
