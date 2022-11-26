@@ -368,7 +368,6 @@ a{
 
 
 .imgDiv{
-  position: absolute;
   width: 1041px;
   height: 515px;
   margin: auto;
@@ -377,7 +376,6 @@ a{
   margin-top: -270px;
   border: 0.1px solid black;
   background-color: #C24332;
-
 }
 
 .imgDiv img {
