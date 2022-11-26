@@ -42,10 +42,10 @@
           </div>
         </div>
 
-        <div id="uploadedPhoto">
+        <div id="uploadedPhoto" *ngIf="photo != null">
           <p>Here you will see how your photo will look</p>
-          <div class="imgDiv" *ngFor="let file of uploadedFiles">
-            <img [src]="file.url" alt=""/>
+          <div class="imgDiv">
+            <img id="preview-img" alt=""/>
           </div>
         </div>
 
