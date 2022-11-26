@@ -323,7 +323,10 @@ a{
   border-radius: 10px;
 
   text-align: center;
-  padding-top: 20px;
+}
+
+.dropzone:hover{
+  background-color: rgba(213, 213, 213, 0.55);
 }
 
 .dropzone p{
@@ -334,10 +337,18 @@ a{
   text-align: center;
   background-color: rgba(0, 0, 0, 0);
 
+  margin-top: -75px;
   user-select: none;
 
 }
 
+
+input[type=file]{
+  height: 100px;
+  width: 800px;
+  cursor: pointer;
+  opacity: 0;
+}
 /********************/
 #uploadedPhoto{
   width: 1040px;
@@ -366,16 +377,13 @@ a{
 
 }
 
-
 .imgDiv{
-  width: 1041px;
-  height: 515px;
+  width: 1040px;
+  height: 514px;
   margin: auto;
-
+  border-radius: 10px;
   margin-left: -1px;
   margin-top: -270px;
-  border: 0.1px solid black;
-  background-color: #C24332;
 }
 
 .imgDiv img {
