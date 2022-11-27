@@ -21,9 +21,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {StorageService} from "../../services/storage.service";
-import {User} from "../../models/user";
-import {UserService} from "../../services/user.service";
+
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -36,8 +34,7 @@ export class CreatePostComponent implements OnInit {
   @Input() mode: string = "create";
 
   constructor(private postService: PostService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     if (JSON.parse(localStorage.getItem("auth-user")!).role !== "AUTHOR"){
@@ -109,12 +106,7 @@ export class CreatePostComponent implements OnInit {
   toogleBool: boolean=true;
 
   changeEvent(event: any): void {
-    if (event.target.checked) {
-      this.toogleBool= false;
-    }
-    else {
-      this.toogleBool= true;
-    }
+    this.toogleBool = !event.target.checked;
   }
 
   public previewImage() {
@@ -131,6 +123,7 @@ export class CreatePostComponent implements OnInit {
     if (this.mode === 'create') {
       this.postService.createPost(this.post, this.image).then((id: any) => {
         window.alert(`Post was created successfully with id ${id}.`);
+        this.router.navigate([`/posts/${id}`]);
       })
     }
   }

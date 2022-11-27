@@ -33,10 +33,10 @@
 
 <table class="select" matSort (matSortChange)="setSorted($event)">
   <tr>
-    <th name="bylikes" mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
-    <th name="bydate" class="bydate"  mat-sort-header="published_at"> By date
+    <th mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
+    <th class="bydate"  mat-sort-header="published_at"> By date
     </th>
-    <th name="alphabet" class="alphabet" mat-sort-header="title"> Alphabetically </th>
+    <th class="alphabet" mat-sort-header="title"> Alphabetically </th>
   <tr>
 </table>
 
@@ -44,10 +44,10 @@
       <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
 <!--        <div class="label">Programming</div>-->
         <div class="postPhoto">
-          <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" >
+          <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)"  alt="">
         </div>
 
-        <a href="#">
+        <a routerLink="/posts/{{post.id}}">
           <p class="postTitle">{{post.title}}</p>
           <p class="postForeword">{{post.foreword}}</p>
         </a>

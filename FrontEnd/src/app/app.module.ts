@@ -33,6 +33,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatInputModule} from "@angular/material/input";
 import {AutocompleteLibModule} from "angular-ng-autocomplete";
 import {MatSortModule} from "@angular/material/sort";
+import { PostInfoComponent } from './components/post-info/post-info.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {MatSortModule} from "@angular/material/sort";
     DialogConfirmComponent,
     ImageDragDirective,
     ProfileComponent,
-    BirthDateValidatorDirective
+    BirthDateValidatorDirective,
+    PostInfoComponent
   ],
   imports: [
     BrowserModule,

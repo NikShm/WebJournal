@@ -5,6 +5,7 @@ export class Post {
       this.title = post.title;
       this.foreword = post.foreword;
       this.content = post.content;
+      this.authorId=post.authorId
     }
     else {
       this.id = '';
@@ -17,5 +18,5 @@ export class Post {
   title: string;
   foreword: string;
   content: string;
-
+  authorId: bigint | undefined;
 }
