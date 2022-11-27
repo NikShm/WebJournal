@@ -7,13 +7,17 @@ import {Author} from "../models/author";
 import {GlobalConstants} from "../global-constants";
 
 import {Page} from "../models/pages";
+import {Search} from "../models/search";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    constructor(private http: HttpClient) {
+
+  searchParameter = new Search("title", "ASC", 0,3,{search:""})
+
+  constructor(private http: HttpClient) {
     }
 
     getFavoriteAuthors(): Observable<Author> {
@@ -32,8 +36,15 @@ export class UserService {
         return new Page(data.content, data.totalItem)
       }));
     }
+    getSearchParameter(){
+      return this.searchParameter
+    }
+
+    setSearchParameter(searchParameter:Search){
+      console.log(this.searchParameter)
+    }
     // getAuPage():Observable<Page> {
-    //   return this.http.post(GlobalConstants.apiURL +'/users/search', search).pipe(map((data: any) => {
+    //   return this.http.post(GlobalConstants.apiURL +'api/users/search', search).pipe(map((data: any) => {
     //     data.content = data.content.map((post:Author) => {
     //       return new Author(post)
     //     })
