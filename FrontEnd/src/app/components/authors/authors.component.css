@@ -277,6 +277,7 @@ body{
   font-weight: 1;
   width: 130px;
   height: 30px;
+
   text-align: left;
   margin-left: -200px;
   font-family: 'Montserrat Alternates';
@@ -297,7 +298,7 @@ background-color: rgba(216, 42, 42, 0);
   margin-left: -10px;
   width: 340px;
   float:left;
-  margin-top: 23px;
+  margin-top: 5px;
   font-family: 'Montserrat Alternates';
 font-style: normal;
 font-weight: 400;
@@ -330,7 +331,7 @@ background-color: rgba(187, 125, 125, 0);
   margin-left: 250px;
   width: 150px;
   float:left;
-  margin-top: -61px;
+  margin-top: -60px;
   font-family: 'Montserrat Alternates';
 font-style: normal;
 font-weight: 400;
