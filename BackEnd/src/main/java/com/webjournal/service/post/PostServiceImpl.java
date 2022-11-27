@@ -1,23 +1,24 @@
 package com.webjournal.service.post;
 
 import com.webjournal.dto.*;
-import com.webjournal.dto.LikeDTO;
-import com.webjournal.dto.PageDTO;
-import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.User;
-import com.webjournal.enums.SortDirection;
+import com.webjournal.enums.RoleType;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,7 +95,7 @@ public class PostServiceImpl implements IPostService {
     public void like(LikeDTO like) {
         if (like.getPostId() != null && like.getUserId() != null) {
             Integer authorId = (Integer) entityManager.createNativeQuery("SELECT author_id from post where id = ?1")
-                    .setParameter(1, + like.getPostId())
+                    .setParameter(1, +like.getPostId())
                     .getSingleResult();
             Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
                     .setParameter(1, like.getUserId())
@@ -154,7 +155,7 @@ public class PostServiceImpl implements IPostService {
         }
         query.append("SELECT * FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
-            getFilter(searchPattern,query);
+            getFilter(searchPattern, query);
             if (search.getSortDirection() != null && search.getSortField() != null) {
                 query.append(" ORDER BY p.").append(search.getSortField()).append(" ").append(search.getSortDirection());
             }
@@ -171,16 +172,28 @@ public class PostServiceImpl implements IPostService {
         PostSearch searchPattern = search.getSearchPattern();
         query.append("SELECT count(*) FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
-            getFilter(searchPattern,query);
+            getFilter(searchPattern, query);
         }
         return query.toString();
     }
 
-    private void getFilter(PostSearch postSearch, StringBuilder query){
+    private void getFilter(PostSearch postSearch, StringBuilder query) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = null;
+        if (authentication.getPrincipal() != "anonymousUser"){
+            authorizeUser = (User) authentication.getPrincipal();
+        }
+        if (authorizeUser == null) {
+            query.append(" WHERE is_approved = true");
+        } else if (authorizeUser.getRole().getRole() == RoleType.AUTHOR || postSearch.getIsApprove() == null){
+            query.append(" WHERE is_approved = true");
+        }
+        else if (postSearch.getIsApprove() != null){
+            query.append(" WHERE is_approved = ").append(postSearch.getIsApprove()).append(" ");
+        }
         if (postSearch.getSearchTag() != null && postSearch.getSearch() != null) {
-            if (!Objects.equals(postSearch.getSearch(), "")
-                    || !Objects.equals(postSearch.getSearchTag(), "")) {
-                query.append(" WHERE ");
+            if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")){
+                query.append(" and (");
             }
             if (!Objects.equals(postSearch.getSearch(), "")) {
                 query.append("p.ts_content @@ phraseto_tsquery('english', '").append(postSearch.getSearch()).append("')");
@@ -191,6 +204,9 @@ public class PostServiceImpl implements IPostService {
             }
             if (!Objects.equals(postSearch.getSearchTag(), "")) {
                 query.append(" array_to_string(array(select name from tag left join post_tag pt on pt.tag_id = tag.id where pt.post_id = p.id),',') like '%").append(postSearch.getSearchTag()).append("%'");
+            }
+            if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")) {
+                query.append(")");
             }
         }
     }
