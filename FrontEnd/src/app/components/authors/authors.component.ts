@@ -8,7 +8,7 @@ import {Page} from "../../models/pages";
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements OnInit {
-  searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 2, searchPattern:{}}
+  searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 2, searchPattern:{search:""}}
   page:Page = new Page([], 0);
 
   constructor(private authorService: UserService ) { }
