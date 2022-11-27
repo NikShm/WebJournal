@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Tag } from "../models/tag";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
@@ -17,8 +17,7 @@ export class PostService {
 
   searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:""})
 
-  constructor(private http: HttpClient,
-              private storageService: StorageService) { }
+  constructor(private http: HttpClient) { }
 
   getToPerMonth():Observable<PostList[]> {
     return this.http.get<PostList[]>(GlobalConstants.apiURL +'/posts/top-per-month?count=4').pipe(map((data: any) => {
@@ -43,6 +42,14 @@ export class PostService {
     await this.http.post(GlobalConstants.apiURL + '/posts/uploadPhoto/', imageData).toPromise();
 
     return id;
+  }
+
+  getOnePost(id: string): Observable<Post> {
+    return this.http.get<Post>(GlobalConstants.apiURL + '/posts/' + id);
+  }
+
+  deletePost(id: string) {
+    return this.http.delete<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }
 
   getSearchParameter(){

@@ -19,7 +19,7 @@ export interface FileHandle {
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'posts', component: PostsComponent},
-  {path: 'post', component: PostComponent},
+  {path: 'posts/:id', component: PostComponent},
   {path: 'rules', component: RulesComponent},
   {path: 'login', component: LoginComponent},
   {path: 'createPost', component: CreatePostComponent},
