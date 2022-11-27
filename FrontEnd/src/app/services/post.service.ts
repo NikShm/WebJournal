@@ -15,7 +15,7 @@ import {Search} from "../models/search";
 })
 export class PostService {
 
-  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:""})
+  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:"", isApprove:true})
 
   constructor(private http: HttpClient) { }
 

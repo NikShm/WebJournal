@@ -20,7 +20,8 @@
       historyIdentifier="countries"
       [itemTemplate]="itemTemplate"
       (keyup.enter)="apply()"
-      (inputCleared)="cleanTagSearch()">
+      (inputCleared)="cleanTagSearch()"
+    >
     </ng-autocomplete>
     <ng-template #itemTemplate let-item >
       <a href="javascript:void(0)" class="ng-template">
@@ -32,14 +33,21 @@
   </div>
 
 <table class="select" matSort (matSortChange)="setSorted($event)">
+
   <tr>
     <th mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
     <th class="bydate"  mat-sort-header="published_at"> By date
     </th>
     <th class="alphabet" mat-sort-header="title"> Alphabetically </th>
   <tr>
-</table>
 
+</table>
+  <form action="#" style="height: 50px;" *ngIf="haveYouEnoughRule()">
+    <select name="alphabet" class="alphabet" style="margin: 2% auto; display: block;" (change)="changeApproved($event)" [value]="searchParameter.searchPattern.isApprove">
+      <option value="true">Approve</option>
+      <option value="false">Not Approve</option>
+    </select>
+  </form>
     <div id="blog">
       <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
 <!--        <div class="label">Programming</div>-->
@@ -57,11 +65,11 @@
       <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
           <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
-          <div style="width: 300px; text-align: center; background-color: #EBE6D1; margin: auto;">
+          <div style="width: 400px; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"
                                  class="my-pagination"
-                                 [maxSize]="7" (pageChange)="changePage($event.valueOf() - 1)">
+                                 [maxSize]="6" (pageChange)="changePage($event.valueOf() - 1)">
             </pagination-controls>
           </div>
           <button style="width: 210px; font-size: 16px; float: right;  margin-top: -67px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>

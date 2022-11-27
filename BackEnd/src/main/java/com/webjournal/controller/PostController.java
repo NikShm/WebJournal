@@ -2,7 +2,6 @@ package com.webjournal.controller;
 
 import com.webjournal.dto.*;
 import com.webjournal.dto.LikeDTO;
-import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
