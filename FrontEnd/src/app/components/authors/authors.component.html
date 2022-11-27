@@ -10,35 +10,13 @@
         </div>
 
 
-        <div class="select">
 
-
-          <form action="#">
-            <select name="bylikes" class="bylikes">
-              <option value="none">By followers</option>
-              <option value="php">PHP</option>
-              <option value="java">Java</option>
-              <option value="golang">Golang</option>
-              <option value="python">Python</option>
-              <option value="c#">C#</option>
-              <option value="C++">C++</option>
-              <option value="erlang">Erlang</option>
-            </select>
-          </form>
-
-          <form action="#">
-            <select name="alphabet" class="alphabet">
-              <option value="none">Alphabetically</option>
-              <option value="php">PHP</option>
-              <option value="java">Java</option>
-              <option value="golang">Golang</option>
-              <option value="python">Python</option>
-              <option value="c#">C#</option>
-              <option value="C++">C++</option>
-              <option value="erlang">Erlang</option>
-            </select>
-          </form>
-        </div>
+        <table class="select" matSort (matSortChange)="setSorted($event)">
+          <tr>
+            <th name="bylikes" mat-sort-header="likes" class="bylikes" style="text-align: center"> By followers</th>
+            <th name="alphabet" class="alphabet" mat-sort-header="title"> Alphabetically </th>
+          <tr>
+        </table>
 
         <div id="blog">
               <div class="centerusers" *ngFor="let author of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
@@ -63,336 +41,24 @@
                 </div>
               </div>
 
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
 
-<!--                      <div class="sidebox">-->
 
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
 
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/kikiliii.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/op.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/op.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/op.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="centerusers">-->
-<!--                <div class="con">-->
-<!--                  <div class="con1">-->
-<!--                    <img src="assets/op.jpg" class="usering">-->
-<!--                      <div class="innercon"></div>-->
-
-<!--                      <div class="sidebox">-->
-
-<!--                                <span class="spanstyle">-->
-<!--                                    <b>Nick of person</b>-->
-<!--                                </span><br>-->
-<!--                        <span class="spanstyle2">-->
-<!--                                  <p>“I am the person in the world”</p>-->
-<!--                                </span>-->
-<!--                        <span class="spanfollower">-->
-<!--                                  <p>144 followers</p>-->
-<!--                              </span>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-        <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
+            </div>
+        <div style="width: 500px; background-color: #EBE6D1; margin: -580px auto auto;">
           <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-            <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+            <button style="width: 100px; font-size: 16px; margin-top: -5px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
             <div style="width: 300px; text-align: center; background-color: #EBE6D1; margin: auto;">
               <pagination-controls previousLabel="Previous"
                                    nextLabel="Next"
                                    class="my-pagination"
-                                   [maxSize]="7">
+                                   [maxSize]="7" >
               </pagination-controls>
             </div>
-            <button style="width: 210px; font-size: 16px; float: right;  margin-top: -67px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
+            <button style="width: 100px; font-size: 16px; float: right;  margin-top: -88px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
           </div>
         </div>
-        </div>
+
 </body>
 
 

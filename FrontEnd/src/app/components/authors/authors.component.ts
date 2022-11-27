@@ -10,6 +10,7 @@ import {Page} from "../../models/pages";
 export class AuthorsComponent implements OnInit {
   searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 2, searchPattern:{search:""}}
   page:Page = new Page([], 0);
+  sort = "";
 
   constructor(private authorService: UserService ) { }
 
@@ -18,6 +19,44 @@ export class AuthorsComponent implements OnInit {
     this.page = data
     console.log(data)})
 
+  }
+  changePage(page: number) {
+    this.searchParameter.page = page
+    this.authorService.setSearchParameter(this.searchParameter)
+    this.search()
+  }
+  sorted(event:any){
+    console.log(this.sort)
+    console.log(event)
+  }
+
+  setSorted(event: any) {
+    switch (this.sort) {
+      case "Popular": {
+        this.searchParameter.sortField = "likes";
+        this.searchParameter.sortDirection = "ASC";
+        break;
+      }
+      case "Unpopular": {
+        this.searchParameter.sortField = "likes";
+        this.searchParameter.sortDirection = "DESC";
+        break;
+      }
+
+      case "A to Z": {
+        this.searchParameter.sortField = "title";
+        this.searchParameter.sortDirection = "ASC";
+        break;
+      }
+      case "Z to A": {
+        this.searchParameter.sortField = "title";
+        this.searchParameter.sortDirection = "DESC";
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
   getFirst() {
     this.searchParameter.page = 0;
