@@ -32,8 +32,18 @@ export class UserService {
         return new Page(data.content, data.totalItem)
       }));
     }
+    // getAuPage():Observable<Page> {
+    //   return this.http.post(GlobalConstants.apiURL +'/users/search', search).pipe(map((data: any) => {
+    //     data.content = data.content.map((post:Author) => {
+    //       return new Author(post)
+    //     })
+    //     return new Page(data.content, data.totalItem)
+    //   }));
+    // }
 
     getUser(username: string): Observable<User> {
       return this.http.get<User>(GlobalConstants.apiURL + '/users/' + username);
     }
+
+
 }

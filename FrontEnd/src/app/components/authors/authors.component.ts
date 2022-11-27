@@ -23,9 +23,6 @@ export class AuthorsComponent implements OnInit {
     this.searchParameter.page = 0;
     this.search()
   }
-  search() {
-
-  }
 
   getLast() {
     if (this.page.totalItem / this.searchParameter.page < 0){
@@ -34,6 +31,17 @@ export class AuthorsComponent implements OnInit {
       this.searchParameter.page = Math.floor(this.page.totalItem / this.searchParameter.pageSize);
     }
     this.search()
+  }
+
+  apply() {
+    this.searchParameter.page = 0
+    this.search()
+
+  }
+  search() {
+    this.authorService.getAuthors(this.searchParameter).subscribe((page: Page) => {
+      this.page = page
+    });
   }
 
 }
