@@ -17,10 +17,10 @@
       placeholder="Tag..."
       (inputChanged)='getTags($event)'
       (selected)='selectedTags($event)'
-      historyIdentifier="countries"
       [itemTemplate]="itemTemplate"
       (keyup.enter)="apply()"
       (inputCleared)="cleanTagSearch()"
+      initialValue='{{tag}}'
     >
     </ng-autocomplete>
     <ng-template #itemTemplate let-item >
@@ -29,10 +29,9 @@
         <span [innerHTML]="item.address"></span>
       </a>
     </ng-template>
-<!--    <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">-->
   </div>
 
-<table class="select" matSort (matSortChange)="setSorted($event)">
+<table class="select" matSort (matSortChange)="setSorted($event)" [matSortDirection]="sort.direction" [matSortActive]="sort.active">
 
   <tr>
     <th mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
@@ -48,6 +47,11 @@
       <option value="false">Not Approve</option>
     </select>
   </form>
+  <div style=" position: relative; height: 300px; font-size: 16px; margin: 0px auto auto;"  *ngIf="page.content.length == 0">
+    <div class="con">
+      <b class="spanstyle">Not Result</b>
+    </div>
+  </div>
     <div id="blog">
       <div class="post" *ngFor="let post of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
 <!--        <div class="label">Programming</div>-->
@@ -64,7 +68,7 @@
 
       <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-          <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <button style="width: 210px; font-size: 16px; margin-top: -11px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
           <div style="width: 400px; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"

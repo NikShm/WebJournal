@@ -191,7 +191,7 @@ public class PostServiceImpl implements IPostService {
         else if (postSearch.getIsApprove() != null){
             query.append(" WHERE is_approved = ").append(postSearch.getIsApprove()).append(" ");
         }
-        if (postSearch.getSearchTag() != null && postSearch.getSearch() != null) {
+        if (postSearch.getSearchTag() != null || postSearch.getSearch() != null) {
             if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")){
                 query.append(" and (");
             }

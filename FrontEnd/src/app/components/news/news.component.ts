@@ -12,7 +12,7 @@ import {PostList} from "../../models/postList";
 })
 export class NewsComponent implements OnInit {
   page: PostList[] = [];
-  searchParameter = {page: 0,pageSize: 3}
+  searchParameter = {page: 0,pageSize: 9}
   isDataLoaded: boolean = false;
   isDataFullLoaded: boolean = false;
   postImage: string = "assets/PostImage/post_";
