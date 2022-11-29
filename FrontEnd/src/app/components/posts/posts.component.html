@@ -17,10 +17,11 @@
       placeholder="Tag..."
       (inputChanged)='getTags($event)'
       (selected)='selectedTags($event)'
-      historyIdentifier="countries"
+      historyIdentifier="tags"
       [itemTemplate]="itemTemplate"
       (keyup.enter)="apply()"
       (inputCleared)="cleanTagSearch()"
+      initialValue='{{tag}}'
     >
     </ng-autocomplete>
     <ng-template #itemTemplate let-item >
@@ -29,10 +30,9 @@
         <span [innerHTML]="item.address"></span>
       </a>
     </ng-template>
-<!--    <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">-->
   </div>
 
-<table class="select" matSort (matSortChange)="setSorted($event)">
+<table class="select" matSort (matSortChange)="setSorted($event)" [matSortDirection]="sort.direction" [matSortActive]="sort.active">
 
   <tr>
     <th mat-sort-header="likes" class="bylikes" style="text-align: center"> By like</th>
@@ -64,7 +64,7 @@
 
       <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-          <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <button style="width: 210px; font-size: 16px; margin-top: -11px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
           <div style="width: 400px; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"

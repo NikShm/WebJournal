@@ -5,6 +5,8 @@ import {PostService} from "../../services/post.service";
 import {Page} from "../../models/pages";
 import {Search} from "../../models/search";
 import {StorageService} from "../../services/storage.service";
+import {MatSort, MatSortDefaultOptions, Sort} from "@angular/material/sort";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-products',
@@ -15,10 +17,13 @@ export class PostsComponent implements OnInit {
   page: Page = new Page([], 0);
   searchParameter!: Search;
   postImage: string = "assets/PostImage/post_";
-  sort = "";
+  tag!: string;
   keyword = 'name';
-  tags: any[] = [];
+  tags: Tag[] = [];
   role!:any;
+  sort:Sort = new MatSort()
+  guestForm: any;
+
 
   apply() {
     this.searchParameter.page = 0
@@ -30,12 +35,17 @@ export class PostsComponent implements OnInit {
     this.searchParameter.searchPattern.searchTag = name
     this.postService.getListTag().subscribe((tags: any) => {
       this.tags = tags;
-      console.log(this.tags)
     })
+    if (this.tag != ""){
+      this.tag = ""
+    }
   }
 
   selectedTags(name: Tag) {
     this.searchParameter.searchPattern.searchTag = name.name
+    if (this.tag != ""){
+      this.tag = ""
+    }
   }
 
   haveYouEnoughRule(): boolean {
@@ -44,6 +54,7 @@ export class PostsComponent implements OnInit {
 
   changeApproved(event:any){
     this.searchParameter.searchPattern.isApprove = event.target.value
+    this.searchParameter.page = 0
     this.search()
   }
 
@@ -93,6 +104,9 @@ export class PostsComponent implements OnInit {
       this.tags = tags
       console.log(this.tags)
     })
+    this.sort.active = this.searchParameter.sortField
+    this.sort.direction = this.searchParameter.sortDirection.toLowerCase() != "asc"?"desc":"asc"
+    this.tag = this.searchParameter.searchPattern.searchTag
   }
 
   onErrorPostImage(event: any) {
