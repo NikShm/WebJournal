@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping("/search")
-    public PageDTO<PostDTO> showPostPage(@RequestBody SearchDTO<PostSearch> search) {
+    public PageDTO<PostListDTO> showPostPage(@RequestBody SearchDTO<PostSearch> search) {
         return postService.getPage(search);
     }
 
@@ -74,6 +74,10 @@ public class PostController {
     public List<PostListDTO> getFeaturedPosts(@RequestParam("count") Integer n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return postService.getFeaturedPosts(n, date);
+    }
+    @PostMapping("/news-post")
+    public List<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
+        return postService.getNewPost(search);
     }
 
     @PostMapping("/uploadPhoto/")

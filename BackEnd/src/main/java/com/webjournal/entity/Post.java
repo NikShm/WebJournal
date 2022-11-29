@@ -39,10 +39,6 @@ public class Post {
     @NotNull(message = "LIKES may not be null")
     private Integer likes;
 
-    @OneToMany
-    @JoinColumn(name="post_id")
-    private List<Comment> comments;
-
     @ManyToMany()
     @JoinTable(name="post_tag",
             joinColumns= @JoinColumn(name="post_id"),
@@ -68,14 +64,13 @@ public class Post {
     public Post() {
     }
 
-    public Post(Integer id, User author, String title, String foreword, String content, Integer likes, List<Comment> comments, Set<Tag> tags, Boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Post(Integer id, User author, String title, String foreword, String content, Integer likes, Set<Tag> tags, Boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.title = title;
         this.foreword = foreword;
         this.content = content;
         this.likes = likes;
-        this.comments = comments;
         this.tags = tags;
         this.isApproved = isApproved;
         this.publishedAt = publishedAt;
@@ -131,13 +126,6 @@ public class Post {
         this.likes = likes;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public Set<Tag> getTags() {
         return tags;
@@ -180,7 +168,6 @@ public class Post {
                 ", foreword='" + foreword + '\'' +
                 ", content='" + content + '\'' +
                 ", likes=" + likes +
-                ", comments=" + comments +
                 ", tags=" + tags +
                 ", isApproved=" + isApproved +
                 ", publishedAt=" + publishedAt +

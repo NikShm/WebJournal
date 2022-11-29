@@ -77,4 +77,15 @@ export class PostService {
       return data
     }));
   }
+
+  getNews(searchParameter:any):Observable<PostList[]> {
+    return this.http.post(GlobalConstants.apiURL +'/posts/news-post', searchParameter).pipe(map((data: any) => {
+      if (data === null){
+        return null;
+      }
+      return data.map(function(post: any): PostList {
+        return new PostList(post);
+      })
+    }));
+  }
 }

@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<hr id="hrAfterTitle">
+
+
+<body>
+  <div id="titleBlock"><p>News</p></div>
+  <div style=" position: relative; height: 300px; font-size: 16px; margin: 0px auto auto;" *ngIf="!isDataLoaded">
+    <div class="con">
+            <b class="spanstyle">You are not authorized!</b>
+    </div>
+  </div>
+    <div id="blog" *ngIf="isDataLoaded">
+      <div class="post" *ngFor="let post of page">
+        <div class="postPhoto">
+          <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" >
+        </div>
+        <a href="#">
+          <p class="postTitle">{{post.title}}</p>
+          <p class="postForeword">{{post.foreword}}</p>
+        </a>
+      </div>
+  </div>
+  <div style=" position: relative; font-size: 16px; margin: 0px auto auto;"  *ngIf="isDataFullLoaded">
+    <button style="width: 210px;height: 30px; font-size: 16px; margin: -20px auto 30px; display: block;" class="btn btn-dark btn-lg" (click)="search()">Download</button>
+  </div>
+</body>
+
+<app-footer></app-footer>

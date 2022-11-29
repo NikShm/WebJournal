@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RulesComponent } from './components/rules/rules.component';
 import { LoginComponent } from './components/login/login.component';
 import {SafeUrl} from "@angular/platform-browser";
+import {NewsComponent} from "./components/news/news.component";
 
 export interface FileHandle {
   file: File;
@@ -19,6 +20,8 @@ export interface FileHandle {
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'posts', component: PostsComponent},
+  {path: 'news-posts', component: NewsComponent},
+  {path: 'post', component: PostComponent},
   {path: 'posts/:id', component: PostComponent},
   {path: 'rules', component: RulesComponent},
   {path: 'login', component: LoginComponent},

@@ -7,15 +7,16 @@ import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Post;
+import com.webjournal.entity.User;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -105,14 +106,14 @@ public class PostServiceImpl implements IPostService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public PageDTO<PostDTO> getPage(SearchDTO<PostSearch> searchPostDTO) {
+    public PageDTO<PostListDTO> getPage(SearchDTO<PostSearch> searchPostDTO) {
         LOGGER.info("Enter to getPage method, in class PostServiceImpl. Search parameters {}", searchPostDTO);
-        List<PostDTO> postDTOS = new ArrayList<>();
+        List<PostListDTO> postDTOS = new ArrayList<>();
         for (Object entity : entityManager.createNativeQuery(getPageQuery(searchPostDTO), Post.class).getResultList()) {
-            postDTOS.add(postMapper.toPostDto((Post) entity));
+            postDTOS.add(postMapper.toPostListDto((Post) entity));
         }
-        Page<PostDTO> page = new PageImpl<>(postDTOS);
-        PageDTO<PostDTO> pageDTO = new PageDTO<>();
+        Page<PostListDTO> page = new PageImpl<>(postDTOS);
+        PageDTO<PostListDTO> pageDTO = new PageDTO<>();
         pageDTO.setContent(page.getContent());
         pageDTO.setTotalItem(((BigInteger) entityManager.createNativeQuery(getCountQuery(searchPostDTO)).getSingleResult()).longValue());
         return pageDTO;
@@ -133,7 +134,10 @@ public class PostServiceImpl implements IPostService {
 
     private String getPageQuery(SearchDTO<PostSearch> search) {
         StringBuilder query = getQuery();
-        PostSearch searchPattern = search.getSearchPattern();
+        PostSearch searchPattern = new PostSearch();
+        if (search.getSearchPattern() != null) {
+            searchPattern = search.getSearchPattern();
+        }
         query.append("SELECT * FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
             getFilter(searchPattern,query);
@@ -175,5 +179,18 @@ public class PostServiceImpl implements IPostService {
                 query.append(" array_to_string(array(select name from tag left join post_tag pt on pt.tag_id = tag.id where pt.post_id = p.id),',') like '%").append(postSearch.getSearchTag()).append("%'");
             }
         }
+    }
+
+    @Override
+    public List<PostListDTO> getNewPost(SearchDTO search) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() == "anonymousUser"){
+            return null;
+        }
+        User authorizeUser = (User)authentication.getPrincipal();
+        Integer userId = authorizeUser.getId();
+        Sort sort = Sort.by("published_at");
+        Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
+        return repository.findNewsPosts(pageable, userId).stream().map(postMapper::toPostListDto).toList();
     }
 }
