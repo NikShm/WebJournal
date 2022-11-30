@@ -1,7 +1,12 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Tag} from "../../models/tag";
+import {TagService} from "../../services/tag.service";
+import {Author} from "../../models/author";
+import {UserService} from "../../services/user.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-post-info',
@@ -11,36 +16,38 @@ import {Router} from "@angular/router";
 export class PostInfoComponent implements OnInit {
 
   @Input() post!: Post;
+  @Input() authorId!: string;
+  @Input() postId!: string;
+
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
   classButtonShowAction = "";
 
   constructor(private postService: PostService,
-              private router: Router) { }
+              private tagService: TagService,
+              private userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private storageService: StorageService) { }
 
   ngOnInit(): void {
+    if (this.storageService.getUser().id != this.authorId ||
+      this.storageService.getUser().role != "AUTHOR"){
+      this.idButtonShowAction = "notShow";
+      this.classButtonShowAction = "notShow";
+    } else{
+      this.classButtonShowAction = ""
+      this.idButtonShowAction = ""
+    }
   }
 
+  // @ts-ignore
   public showActions() {
-    if (JSON.parse(localStorage.getItem("user")!).role == "ADMIN") {
-      document.getElementById("dropdown-content-actions")?.classList.toggle("show");
-      document.getElementById("actions")?.classList.toggle("btn-dropdown-active");
+    if (this.storageService.getUser().role != "AUTHOR") {
+      return true;
     }
   }
 
-  @HostListener('window:click', ['$event'])
-  public onClick(event: MouseEvent) {
-    if (!(<HTMLElement>event.target).matches('#actions')) {
-      const dropdown = document.getElementById("dropdown-content-actions");
-      const button = document.getElementById("actions");
-      if (dropdown?.classList.contains('show')) {
-        dropdown.classList.remove('show');
-      }
-      if (button?.classList.contains('btn-dropdown-active')) {
-        button.classList.remove('btn-dropdown-active');
-      }
-    }
-  }
 
   @Output() onEdit = new EventEmitter<boolean>();
 
@@ -50,10 +57,25 @@ export class PostInfoComponent implements OnInit {
 
   delete() {
     if (window.confirm("Are you sure you want to permanently delete this post?")) {
-      this.postService.deletePost(this.post.id).subscribe(() => {
+      this.postService.deletePost(this.postId).subscribe(() => {
         window.alert(`Post was deleted successfully.`);
         this.router.navigate(['/posts']);
       });
     }
+  }
+
+  bgColor() {}
+
+  getRandomColor2() {
+    var length = 6;
+    var chars = 'ABC';
+    var hex = '#';
+    while(length--) hex += chars[(Math.random() * 16) | 0];
+    return hex;
+  }
+
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
   }
 }

@@ -12,6 +12,7 @@ import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
+import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,12 +35,14 @@ public class PostServiceImpl implements IPostService {
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
+    private final FilesStorageServiceImpl fileService;
     private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
-    public PostServiceImpl(PostRepository repository, PostMapper postMapper, EntityManager entityManager) {
+    public PostServiceImpl(PostRepository repository, PostMapper postMapper, EntityManager entityManager, FilesStorageServiceImpl fileService) {
         this.repository = repository;
         this.postMapper = postMapper;
         this.entityManager = entityManager;
+        this.fileService = fileService;
     }
 
     @Override
@@ -48,16 +52,26 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws IOException {
+        fileService.delete("post_" + id + ".jpg");
         repository.deleteById(id);
     }
 
     @Override
-    public void update(PostDTO dto) {
+    public void update(PostDTO dto){
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
         repository.save(updatedProduct);
     }
+
+    @Override
+    public void updateWithPhoto(PostDTO dto) throws IOException {
+        Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
+        Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
+        repository.save(updatedProduct);
+        fileService.delete("post_" + dto.getId()+ ".jpg");
+    }
+
 
     @Override
     public PostDTO get(Integer id) {

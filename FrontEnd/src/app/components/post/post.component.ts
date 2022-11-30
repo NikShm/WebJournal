@@ -17,16 +17,16 @@ export class PostComponent implements OnInit {
   constructor(private route: ActivatedRoute, private postService: PostService) { }
 
   ngOnInit(): void {
-    this.getProduct();
+    this.getPost();
   }
 
-  private getProduct(): void {
+  private getPost(): void {
     const id: string = this.route.snapshot.paramMap.get('id') ?? '';
     this.postService.getOnePost(id).subscribe(data => this.post = new Post(data));
   }
 
   changeEditMode(value: boolean) {
-    this.getProduct();
+    this.getPost();
     this.editMode = value;
   }
 

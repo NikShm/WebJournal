@@ -17,7 +17,8 @@ public interface IPostService{
     PageDTO<PostListDTO> getPage(SearchDTO<PostSearch> searchDTO);
     Integer create(PostFormDTO dto);
     void delete(Integer id) throws IOException;
-    void update(PostDTO dto) throws IOException;
+    void update(PostDTO dto);
+    void updateWithPhoto(PostDTO dto) throws IOException;
     PostDTO get(Integer id);
     List<PostDTO> getAll();
     List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date);

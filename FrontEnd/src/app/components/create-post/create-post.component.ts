@@ -15,7 +15,7 @@ export class CreatePostComponent implements OnInit {
 }
 */
 
-import { Component, OnInit,  Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FileHandle} from "../../app-routing.module";
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {Post} from "../../models/post";
@@ -31,8 +31,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CreatePostComponent implements OnInit {
   @Input() post: Post = new Post();
   image!: File;
-  @Input() mode: string = "create";
-
+  @Input() mode: string = "CREATE";
+  @Input() postId: string = "";
+  previewImg = "assets/PostImage/post_";
   constructor(private postService: PostService,
               private router: Router) { }
 
@@ -110,21 +111,59 @@ export class CreatePostComponent implements OnInit {
   }
 
   public previewImage() {
-    const fileReader = new FileReader();
-    const file = (<HTMLInputElement>document.getElementById("uploadPhoto")).files![0];
-    this.image = file;
-    fileReader.readAsDataURL(file);
-    fileReader.onload = function(fileReaderEvent) {
-      (<HTMLImageElement>document.getElementById("preview-img")).src = fileReaderEvent.target?.result as string;
+    if (this.mode === 'CREATE') {
+      const fileReader = new FileReader();
+      const file = (<HTMLInputElement>document.getElementById("uploadPhoto")).files![0];
+      this.image = file;
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function (fileReaderEvent) {
+        (<HTMLImageElement>document.getElementById("previewImg")).src = fileReaderEvent.target?.result as string;
+      }
+    }
+    if(this.mode === 'UPDATE'){
+      const fileReader = new FileReader();
+      const file = (<HTMLInputElement>document.getElementById("uploadPhoto")).files![0];
+        this.image = file;
+        fileReader.readAsDataURL(file);
+        fileReader.onload = function (fileReaderEvent) {
+          (<HTMLImageElement>document.getElementById("previewImg")).src = fileReaderEvent.target?.result as string;
+        }
     }
   }
 
   onSave() {
-    if (this.mode === 'create') {
+    if (this.mode === 'CREATE') {
       this.postService.createPost(this.post, this.image).then((id: any) => {
         window.alert(`Post was created successfully with id ${id}.`);
         this.router.navigate([`/posts/${id}`]);
       })
+    } else if (this.mode === 'UPDATE') {
+      if(this.image == null){
+        this.postService.updatePost(this.post).then(() => {
+          window.alert(`Post was updated successfully with id №${this.postId}.`);
+        })
+      }
+      else{
+        this.postService.updateWithPhoto(this.post, this.image).then(() => {
+          window.alert(`Post was updated successfully with id №${this.postId}.`);
+        })
+      }
     }
+    this.exit();
+  }
+
+  exit() {
+    if (this.mode === 'UPDATE') {
+      this.returnToInfo();
+    }
+    else if (this.mode === 'CREATE') {
+      this.router.navigate(['/posts']);
+    }
+  }
+
+  @Output() onInfo = new EventEmitter<boolean>();
+
+  public returnToInfo() {
+    this.onInfo.emit(false);
   }
 }

@@ -37,6 +37,12 @@ public class UserController {
         return service.getByUsername(username);
     }
 
+    @GetMapping("/author/{id}")
+    public AuthorDTO getById(@PathVariable Integer id) {
+        return service.getAuthorById(id);
+    }
+
+
     @RequestMapping("/")
     List<UserDTO> showAll(){
         return service.getAll();

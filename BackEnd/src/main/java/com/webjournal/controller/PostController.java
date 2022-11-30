@@ -50,14 +50,19 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public void deleteOne(@PathVariable Integer id) {
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'AUTHOR')")
+    public void deleteOne(@PathVariable Integer id) throws IOException {
         postService.delete(id);
     }
 
     @PutMapping( "/update/")
     public void update(@RequestBody PostDTO postDTO) {
         postService.update(postDTO);
+    }
+
+    @PutMapping( "/updateWithPhoto/")
+    public void updateWithPhoto(@RequestBody PostDTO postDTO) throws IOException {
+        postService.updateWithPhoto(postDTO);
     }
 
     @GetMapping("/{id}")
@@ -84,4 +89,6 @@ public class PostController {
     public void upload(@RequestPart MultipartFile photo, @RequestParam String newPath) throws IOException {
         fileService.save(photo, newPath);
     }
+
+
 }

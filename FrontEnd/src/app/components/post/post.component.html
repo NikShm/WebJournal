@@ -1,2 +1,2 @@
-<app-post-info [post]="post" (onEdit)="showEditForm($event)" *ngIf="!editMode"></app-post-info>
-<app-create-post [post]="editedPost" [mode]="'edit'" *ngIf="editMode"></app-create-post>
+<app-post-info  [post]="post" [authorId]="post.author.id" [postId]="post.id" (onEdit)="showEditForm($event)" *ngIf="!editMode"></app-post-info>
+<app-create-post [post]="editedPost" [mode]="'UPDATE'" [postId]="post.id" *ngIf="editMode"></app-create-post>
