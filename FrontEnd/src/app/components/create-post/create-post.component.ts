@@ -149,7 +149,6 @@ export class CreatePostComponent implements OnInit {
         })
       }
     }
-    this.exit();
   }
 
   exit() {

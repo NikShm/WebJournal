@@ -57,7 +57,7 @@ export class PostService {
     let postData: Post | FormData;
 
     postData = new Post(postToUpdate);
-    await this.http.put(GlobalConstants.apiURL + '/posts/update/', postData).toPromise();
+    await this.http.put(GlobalConstants.apiURL + '/posts/updateWithPhoto/', postData).toPromise();
 
     const newPath = `post_${postToUpdate.id}.jpg`;
     let imageData: FormData;
