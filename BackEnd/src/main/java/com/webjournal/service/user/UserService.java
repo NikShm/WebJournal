@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface UserService {
     UserDTO getByUsername(String username);
+    AuthorDTO getAuthorById(Integer id);
     User getByUsernameButGetUser(String username);
     void delete(Integer id);
     //void update(UserDTO dto);

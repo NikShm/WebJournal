@@ -1,3 +1,6 @@
+import {Tag} from "./tag";
+import {Author} from "./author";
+
 export class Post {
   constructor(post: Post | null = null) {
     if (post) {
@@ -5,18 +8,26 @@ export class Post {
       this.title = post.title;
       this.foreword = post.foreword;
       this.content = post.content;
-      this.authorId=post.authorId
+      this.author=new Author(post.author);
+      this.publishedAt = post.publishedAt;
+      this.likes = post.likes;
+      this.tagList = post.tagList;
     }
     else {
       this.id = '';
       this.title = '';
       this.foreword = '';
       this.content = '';
+      this.author = new Author();
+      this.likes = 0;
     }
   }
   id: string;
   title: string;
   foreword: string;
   content: string;
-  authorId: bigint | undefined;
+  author: Author;
+  publishedAt: Date | undefined;
+  tagList: Tag[] = [];
+  likes: number;
 }

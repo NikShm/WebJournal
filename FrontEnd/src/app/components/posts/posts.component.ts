@@ -75,6 +75,7 @@ export class PostsComponent implements OnInit {
         private router: Router) {
     }
 
+
     search() {
         this.postService.getPostPage().subscribe((page: Page) => {
           this.page = page

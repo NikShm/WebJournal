@@ -44,6 +44,30 @@ export class PostService {
     return id;
   }
 
+  async updatePost(postToUpdate: Post) {
+    let postData: Post | FormData;
+
+    postData = new Post(postToUpdate);
+    await this.http.put(GlobalConstants.apiURL + '/posts/update/', postData).toPromise();
+
+  }
+
+
+  async updateWithPhoto(postToUpdate: Post, newImage: File) {
+    let postData: Post | FormData;
+
+    postData = new Post(postToUpdate);
+    await this.http.put(GlobalConstants.apiURL + '/posts/update/', postData).toPromise();
+
+    const newPath = `post_${postToUpdate.id}.jpg`;
+    let imageData: FormData;
+    imageData = new FormData();
+    imageData.append('photo', newImage);
+    imageData.append('newPath', newPath);
+    await this.http.post(GlobalConstants.apiURL + '/posts/uploadPhoto/', imageData).toPromise();
+
+  }
+
   getOnePost(id: string): Observable<Post> {
     return this.http.get<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }

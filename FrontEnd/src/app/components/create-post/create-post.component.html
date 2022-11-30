@@ -3,7 +3,7 @@
 
 <hr id="hrAfterTitle">
 <body>
-  <div id="titleBlock"><p>CREATE AN ARTICLE</p></div>
+  <div id="titleBlock"><p>{{mode}} AN ARTICLE</p></div>
   <div class="postDiv">
     <div class="hotDog"></div>
     <a href="http://localhost:4200/rules"><p id="answ">Have you read<br>the publication rules?</p></a>
@@ -44,10 +44,10 @@
           </div>
         </div>
 
-        <div id="uploadedPhoto" *ngIf="image != null">
+        <div id="uploadedPhoto" *ngIf="image != null || mode == 'UPDATE'">
           <p class="previewPhoto">Preview photo:</p>
           <div class="imgDiv">
-            <img id="preview-img" alt=""/>
+            <img id="previewImg" [src]="previewImg + postId + '.jpg'" alt=""/>
           </div>
         </div>
 

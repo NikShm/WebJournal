@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Tag } from "../models/tag";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
-import {PostList} from "../models/postList";
 import {GlobalConstants} from "../global-constants";
 
 @Injectable({

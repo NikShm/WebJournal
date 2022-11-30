@@ -2,7 +2,19 @@
 <!--start section content... -->
 <body>
 <div class="postDiv">
-  <p id="datePostDiv">Nov 9, 2021 • 2 min read</p>
+
+
+  <div class="dropdown">
+    <button class="dropbtn" id="{{idButtonShowAction}}" (click)="showActions()">
+      <img src="assets/iconMenu.png" alt="menu" width="40px" >
+    </button>
+    <div class="dropdown-content" id="{{classButtonShowAction}}">
+      <button (click)="enableEditMode()">Edit</button>
+      <button (click)="delete()">Delete</button>
+    </div>
+  </div>
+
+  <p id="datePostDiv">{{post.publishedAt | date:'MMM d, y'}}</p>
   <h1 id="titlePostDiv">{{post.title}}</h1>
   <p id="forewordPostDiv">{{post.foreword}}</p>
 
@@ -14,19 +26,24 @@
   <hr id="postLowerHr">
 
   <p id="byUser">
-    <a href="#">by User name</a>
+    <a href="#">by {{post.author.username}}</a>
   </p>
 
-
-    <div class="heart-btn">
-      <div class="content">
-        <span class="heart"></span>
-        <span class="text">Like</span>
-        <span class="numb"></span>
-      </div>
+  <div class="heart-btn">
+    <div class="content">
+      <button class="heart"></button>
     </div>
   </div>
 
+  <div class="contentLikeText">Likes {{post.likes}}</div>
+</div>
+
+
+
+<!------start tags section----->
+<div class="tagsSection">
+  <div class="div-67" [ngStyle]="{'background': getRandomColor()}">s</div>
+</div>
 <!------start comment section----->
 <div class="commentBody">
   <h2 class="similarPostsTitle">Comments</h2>

@@ -13,16 +13,17 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    getFavoriteAuthors(): Observable<Author> {
-        return this.http.get<Author>(GlobalConstants.apiURL +'/users/top?count=6').pipe(map((data: any) => {
-          data = data.map((author:Author) => {
-            return new Author(author);
-          })
-            return data;
-        }));
-    }
+  getFavoriteAuthors(): Observable<Author> {
+      return this.http.get<Author>(GlobalConstants.apiURL +'/users/top?count=6').pipe(map((data: any) => {
+        data = data.map((author:Author) => {
+          return new Author(author);
+        })
+          return data;
+      }));
+  }
 
-    getUser(username: string): Observable<User> {
-      return this.http.get<User>(GlobalConstants.apiURL + '/users/' + username);
-    }
+  getUser(username: string): Observable<User> {
+    return this.http.get<User>(GlobalConstants.apiURL + '/users/' + username);
+  }
+
 }

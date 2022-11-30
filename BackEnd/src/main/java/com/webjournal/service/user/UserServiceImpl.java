@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public AuthorDTO getAuthorById(Integer id) {
+        return repository.findById(id).map(mapper::toAuthorDto).orElseThrow(() -> new DatabaseFetchException("Could not find Author entity with id " + id));
+    }
+
+    @Override
     public User getByUsernameButGetUser(String username) {
         return repository.findByUsername(username).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with username " + username));
     }
