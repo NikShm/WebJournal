@@ -8,10 +8,12 @@ export class Post {
       this.title = post.title;
       this.foreword = post.foreword;
       this.content = post.content;
-      this.author=new Author(post.author);
+      this.author = new Author(post.author);
       this.publishedAt = post.publishedAt;
       this.likes = post.likes;
-      this.tagList = post.tagList;
+      this.tags = post.tags.map((tag:Tag) => {
+        return new Tag(tag)
+      })
     }
     else {
       this.id = '';
@@ -28,6 +30,6 @@ export class Post {
   content: string;
   author: Author;
   publishedAt: Date | undefined;
-  tagList: Tag[] = [];
+  tags: Tag[] = [];
   likes: number;
 }

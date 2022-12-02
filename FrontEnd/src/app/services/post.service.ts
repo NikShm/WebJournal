@@ -72,6 +72,7 @@ export class PostService {
     return this.http.get<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }
 
+
   deletePost(id: string) {
     return this.http.delete<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }

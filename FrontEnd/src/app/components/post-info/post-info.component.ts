@@ -63,19 +63,4 @@ export class PostInfoComponent implements OnInit {
       });
     }
   }
-
-  bgColor() {}
-
-  getRandomColor2() {
-    var length = 6;
-    var chars = 'ABC';
-    var hex = '#';
-    while(length--) hex += chars[(Math.random() * 16) | 0];
-    return hex;
-  }
-
-  getRandomColor() {
-    var color = Math.floor(0x1000000 * Math.random()).toString(16);
-    return '#' + ('000000' + color).slice(-6);
-  }
 }
