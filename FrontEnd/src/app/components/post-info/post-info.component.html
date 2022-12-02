@@ -41,8 +41,8 @@
 
 
 <!------start tags section----->
-<div class="tagsSection">
-  <div class="div-67" [ngStyle]="{'background': getRandomColor()}">s</div>
+<div class="tagsSection" >
+  <button class="button-89"  *ngFor="let tag of post.tags">{{tag.name}}</button>
 </div>
 <!------start comment section----->
 <div class="commentBody">
