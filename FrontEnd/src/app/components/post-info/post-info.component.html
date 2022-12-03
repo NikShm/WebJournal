@@ -42,7 +42,7 @@
 
 <!------start tags section----->
 <div class="tagsSection" >
-  <button class="button-89"  *ngFor="let tag of post.tags">{{tag.name}}</button>
+  <button class="button-89" (click)="setTag($event)" value="{{tag.name}}" *ngFor="let tag of post.tags">{{tag.name}}</button>
 </div>
 <!------start comment section----->
 <div class="commentBody">

@@ -77,7 +77,7 @@ public class PostController {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return postService.getFeaturedPosts(n, date);
     }
-
+    @PreAuthorize("hasAnyRole('AUTHOR')")
     @PostMapping("/news-post")
     public List<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
         return postService.getNewPost(search);

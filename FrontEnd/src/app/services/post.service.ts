@@ -128,4 +128,8 @@ export class PostService {
   getFilteredAuthorsPostsPage(id: string): Observable<Page> {
     return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-filtered`, this.searchParameter);
   }
+
+  setTagSearch(name:any){
+    this.searchParameter.searchPattern.searchTag = name.toString()
+  }
 }

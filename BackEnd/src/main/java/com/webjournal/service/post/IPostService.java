@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IPostService{
+    List<PostListDTO> getSimilarPosts( Integer postId);
     void like(LikeDTO like);
     void dislike(LikeDTO like);
     PageDTO<PostListDTO> getPage(SearchDTO<PostSearch> searchDTO);

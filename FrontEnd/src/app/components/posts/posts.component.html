@@ -10,27 +10,25 @@
   <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.search" (keyup.enter)="apply()" >
   <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
 </div>
-  <div>
-    <div style="width: 300px; height: 30px;">
-      <ng-autocomplete
-        [data]="tags"
-        [searchKeyword]="keyword"
-        placeholder="Tag..."
-        (inputChanged)='getTags($event)'
-        (selected)='selectedTags($event)'
-        [itemTemplate]="itemTemplate"
-        (keyup.enter)="apply()"
-        (inputCleared)="cleanTagSearch()"
-        initialValue='{{tag}}'
-      >
-      </ng-autocomplete>
-      <ng-template #itemTemplate let-item >
-        <a href="javascript:void(0)" class="ng-template">
-          <span [innerHTML]="item.name"></span>,
-          <span [innerHTML]="item.address"></span>
-        </a>
-      </ng-template>
-    </div>
+  <div style="width: 300px; height: 30px;">
+    <ng-autocomplete
+      [data]="tags"
+      [searchKeyword]="keyword"
+      placeholder="Tag..."
+      (inputChanged)='getTags($event)'
+      (selected)='selectedTags($event)'
+      [itemTemplate]="itemTemplate"
+      (keyup.enter)="apply()"
+      (inputCleared)="cleanTagSearch()"
+      initialValue='{{tag}}'
+    >
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item >
+      <a href="javascript:void(0)" class="ng-template">
+        <span [innerHTML]="item.name"></span>,
+        <span [innerHTML]="item.address"></span>
+      </a>
+    </ng-template>
   </div>
 
 

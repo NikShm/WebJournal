@@ -94,6 +94,12 @@ public class PostServiceImpl implements IPostService {
         return repository.findInterestingPosts(page, date).stream().map(postMapper::toPostListDto).toList();
     }
 
+    @Override
+    public List<PostListDTO> getSimilarPosts(Integer postId) {
+        Pageable page = PageRequest.of(0, 3);
+        return repository.findSimilarTags(page, postId).stream().map(postMapper::toPostListDto).toList();
+    }
+
     @Transactional
     @Override
     public void like(LikeDTO like) {

@@ -32,7 +32,7 @@ export class PostInfoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.storageService.getUser().id != this.authorId ||
-      this.storageService.getUser().role != "AUTHOR"){
+      this.storageService.getUser().role == "AUTHOR"){
       this.idButtonShowAction = "notShow";
       this.classButtonShowAction = "notShow";
     } else{
@@ -62,5 +62,10 @@ export class PostInfoComponent implements OnInit {
         this.router.navigate(['/posts']);
       });
     }
+  }
+
+  setTag(event:any) {
+    this.postService.setTagSearch(event.target.value)
+    this.router.navigate(['/posts'])
   }
 }

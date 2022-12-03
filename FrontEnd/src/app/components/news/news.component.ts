@@ -43,8 +43,8 @@ export class NewsComponent implements OnInit {
         this.page = page
         this.isDataLoaded = true;
         this.isDataFullLoaded = true
+        this.searchParameter.page += 1;
       }
-      this.searchParameter.page += 1;
     });
   }
 }
