@@ -15,7 +15,7 @@
   height: 667px;
   margin: auto;
   top: 20px;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 .slider{
@@ -198,21 +198,18 @@
   text-align: right;
 }
 
-
 .pslider .aboutsliders p{
   width: 693px;
   height: 67px;
   margin-left: 13px;
   top: 580px;
   text-align: left;
-
   font-family: 'Montserrat', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   letter-spacing: 0.1em;
-
   color: #000000;
 }
 
@@ -224,7 +221,7 @@
   margin-top: -95%;
   left: 20px;
   top:-8px;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 
@@ -266,17 +263,15 @@
   height: 667px;
 }
 
-
 .boxBlogers{
   box-sizing: border-box;
-
   position: relative;
   width: 328px;
   height: 670px;
   top: 0.9px;
-
   background: #C24332;
   border: 1px solid #000000;
+  border-radius: 0;
 }
 
 .namepeople{
@@ -287,8 +282,7 @@
   background: #EBE6D1;
   margin-top: -5%;
   left: 45px;
-
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 .namepeople p{
@@ -379,8 +373,9 @@
 .actualTagsHr{
   position: absolute;
   width: 100%;
-  border: 0.1px solid black;
-  border-collapse: collapse;
+  background-color: black; 
+  border: 0; 
+  height: 0.1px; 
 }
 
 .actual_tags{
@@ -392,23 +387,31 @@
   height: 148px;
   margin: auto;
   top: -220px;
-  border: 0.1px solid #000000;
+  border-left: 0.1px solid #000000;
+  border-right: 0.1px solid #000000;
 }
 
-table, th, td {
-  border: 1px solid black;
+table, td {
   border-collapse: collapse;
 }
 
-.b1{
+td {
+  text-align: center;
+  border-right: 0.1px solid black;
+  border-top: 0.1px solid black;
+}
+
+.actual_tags th {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.b1, .b2 {
   height:1.2cm;
 }
-.b2{
-    height:1.2cm;
-}
+
 .font_color{
     color:white;
-
 }
 
 /*------------------video parts------------------*/
@@ -514,16 +517,14 @@ top:63%;
   font-weight: 200;
   letter-spacing: 1px;
   padding: 10px 20px 10px;
-
   width: 215px;
   height: 42px;
-
   outline: 0;
   border: 1px solid black;
   cursor: pointer;
   position: absolute;
   margin-left: 1010px;
-  margin-top: 450px;
+  margin-top: 510px;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -575,19 +576,15 @@ top:63%;
   background: #EBE6D1;
 }
 
-
 .linevideos{
   position: absolute;
   width: 290px;
-  height: 0px;
-  margin: auto;
   left: 755px;
-  top: 130px;
-
-  border: 0.1px solid #000;
+  background-color: black; 
+  border: 0; 
+  height: 0.1px; 
   transform: rotate(90deg);
 }
-
 
 .vidos1{
   position: absolute ;
@@ -616,7 +613,6 @@ top:63%;
    height: 281px;
    left: 37.7%;
    top:69%;
-
 }
 
 .BecomeNewAuthor p{
@@ -631,19 +627,15 @@ position: absolute;
   font-size: 32px;
   line-height: 39px;
   letter-spacing: 0.1em;
-
   color: #000000;
-
 }
-.linevideos2{
-    position: absolute;
-    width: 290px;
-    height: 0px;
-    left: 755px;
-    top: 500px;
 
-    border: 0.1px solid #000;
-    transform: rotate(90deg);
+.linevideos1 {
+  top: 130px;
+}
+
+.linevideos2{
+    top: 500px;
 }
 
 .vidos2{
