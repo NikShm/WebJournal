@@ -51,6 +51,42 @@
           </div>
         </div>
 
+        <!--TAGS INPUT-->
+
+        <p id="tagsText">Tags <b class="red">*</b> :</p>
+        <div id="tagList">
+          <form (submit)="addTodo($event)">
+            <div class="ng-autocomplete">
+              <ng-autocomplete
+                [data]="tags"
+                [searchKeyword]="keyword"
+                placeholder="Enter a tag name"
+                (selected)='selectEvent($event)'
+                (inputChanged)='getTags($event)'
+                (inputFocused)='onFocused($event)'
+                [itemTemplate]="itemTemplate"
+                [notFoundTemplate]="notFoundTemplate"
+                [(ngModel)]="newTodo"
+                (keyup.enter)="newTodo=undefined"
+                name="newTodo">
+              </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                  <div [innerHTML]="notFound"></div>
+                </ng-template>
+
+            </div>
+            <button class="button-89" role="button"  type="submit" [disabled]="newTodo==undefined">Add</button>
+          </form>
+        </div>
+        <div class="listOfTags">
+          <button class="button-91" (click)="deleteTodo(i)" *ngFor="let tag of post.tags; let i=index">{{ tag.name }}</button>
+        </div>
+        <!--CONTENT INPUT-->
         <p id="contentText">Content <b class="red">*</b> :</p>
         <div id="content">
           <angular-editor name="content" #content="ngModel" [placeholder]="'Enter text here...'" [(ngModel)]="post.content" type="text"
@@ -59,6 +95,7 @@
         </div>
         <p  id="warning">🌭 Fields with <b class="red">*</b> are mandatory 🌭</p>
         <div class="checkBox">
+
           <br><input type="checkbox" id="switch" name="checkbox" (change)="changeEvent($event)" /><label for="switch"></label>
 
           <p id="agreeText">I confirm that I am the author of the text I publish and I understand that

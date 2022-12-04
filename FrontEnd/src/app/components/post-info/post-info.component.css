@@ -704,10 +704,9 @@ footer{
   background-color: rgba(222, 26, 0, 0);
 
   align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: flex;
   flex-direction: row;
-
+  flex-wrap: wrap;
 }
 
 .button-89 {
@@ -732,7 +731,8 @@ footer{
   -webkit-user-select: none;
   touch-action: manipulation;
 
-  margin-right: 10px;
+  flex: 1;
+  margin: 0px 5px;
 }
 
 .button-89:hover,

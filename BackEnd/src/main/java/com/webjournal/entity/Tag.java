@@ -51,6 +51,10 @@ public class Tag {
         this.name = name;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

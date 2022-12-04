@@ -2,6 +2,7 @@ package com.webjournal.mapper;
 
 import com.webjournal.dto.*;
 import com.webjournal.entity.Post;
+import com.webjournal.entity.Tag;
 import com.webjournal.entity.User;
 import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
 import com.webjournal.repository.UserRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Yuliana
@@ -82,6 +85,8 @@ public class PostMapper {
         entity.setAuthor(principal);
         entity.setTitle(dto.getTitle());
         entity.setForeword(dto.getForeword());
+        Set<Tag> tags = dto.getTags().stream().map(tagMapper::toEntity).collect(Collectors.toSet());
+        entity.setTags(tags);
         entity.setContent(dto.getContent());
         entity.setLikes(0);
         entity.setApproved(false);
