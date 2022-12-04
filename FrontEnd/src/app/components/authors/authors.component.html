@@ -10,11 +10,11 @@
         </div>
 
 
-
         <table class="select" matSort (matSortChange)="setSorted($event)">
           <tr>
-            <th name="bylikes" mat-sort-header="likes" class="bylikes" style="text-align: center"> By followers</th>
-            <th name="alphabet" class="alphabet" mat-sort-header="title"> Alphabetically </th>
+            <th name="bylikes" mat-sort-header="countFollowers" class="bylikes" > By followers</th>
+
+            <th name="alphabet" class="alphabet" mat-sort-header="username"> Alphabetically </th>
           <tr>
         </table>
 

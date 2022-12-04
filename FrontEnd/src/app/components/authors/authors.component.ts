@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Page} from "../../models/pages";
-
+import {User} from "../../models/user";
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
@@ -30,33 +30,43 @@ export class AuthorsComponent implements OnInit {
     console.log(event)
   }
 
-  setSorted(event: any) {
-    switch (this.sort) {
-      case "Popular": {
-        this.searchParameter.sortField = "likes";
-        this.searchParameter.sortDirection = "ASC";
-        break;
-      }
-      case "Unpopular": {
-        this.searchParameter.sortField = "likes";
-        this.searchParameter.sortDirection = "DESC";
-        break;
-      }
-
-      case "A to Z": {
-        this.searchParameter.sortField = "title";
-        this.searchParameter.sortDirection = "ASC";
-        break;
-      }
-      case "Z to A": {
-        this.searchParameter.sortField = "title";
-        this.searchParameter.sortDirection = "DESC";
-        break;
-      }
-      default: {
-        break;
-      }
+  // setSorted(event: any) {
+  //   switch (this.sort) {
+  //     case "Popular": {
+  //       this.searchParameter.sortField = "likes";
+  //       this.searchParameter.sortDirection = "ASC";
+  //       break;
+  //     }
+  //     case "Unpopular": {
+  //       this.searchParameter.sortField = "likes";
+  //       this.searchParameter.sortDirection = "DESC";
+  //       break;
+  //     }
+  //
+  //     case "A to Z": {
+  //       this.searchParameter.sortField = "title";
+  //       this.searchParameter.sortDirection = "ASC";
+  //       break;
+  //     }
+  //     case "Z to A": {
+  //       this.searchParameter.sortField = "title";
+  //       this.searchParameter.sortDirection = "DESC";
+  //       break;
+  //     }
+  //     default: {
+  //       break;
+  //     }
+  //   }
+  // }
+  setSorted(event:any) {
+    console.log(event.active)
+    this.searchParameter.sortField = event.active
+    if (this.searchParameter.sortDirection === "ASC"){
+      this.searchParameter.sortDirection ="DESC";
+    } else {
+      this.searchParameter.sortDirection = "ASC"
     }
+    this.search()
   }
   getFirst() {
     this.searchParameter.page = 0;

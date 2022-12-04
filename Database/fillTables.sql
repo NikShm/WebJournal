@@ -3,16 +3,21 @@ INSERT INTO languages(id, language) VALUES (1, 'english');
 INSERT INTO "role" (id, role)
 VALUES (1, 'ADMIN'), (2, 'AUTHOR'), (3, 'MODERATOR');
 
-INSERT INTO "user" (id, login, password, email, account_verified, bio, role_id)
+INSERT INTO "user" (login, password, email, account_verified, bio, role_id)
 VALUES
-    (1, 'yulianabilak', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bilak.yuliana@chnu.edu.ua', true, '...', 2),
-    (2, 'yulianabila', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bila.yuliana@chnu.edu.ua', true, '...', 2),
-    (3, 'yulianabil', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bil.yuliana@chnu.edu.ua', true, '...', 2),
-    (4, 'yulianabi', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bi.yuliana@chnu.edu.ua', true, '...', 2),
-    (5, 'yulianab', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'b.yuliana@chnu.edu.ua', true, '...', 2),
-    (6, 'yuliana', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yuliana@chnu.edu.ua', true, '...', 2),
-    (7, 'yulian', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yulian@chnu.edu.ua', true, '...', 2),
-    (8, 'yuliana-admin', '$2a$10$KrX9CF.o2qiBc5aDYJVn4.PHDQm5NQhno0nnEtM0jeHBIsmRqEMPS', 'bilakyuliana6996@gmail.com', true, '...', 1);
+    ( 'yulianabilak', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bilak.yuliana@chnu.edu.ua', true, 'If you can change something, change it. If you can’t, don’t waste time thinking about it', 2),
+    ( 'yulianabila', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bila.yuliana@chnu.edu.ua', true, 'Your kindness warms my heart more than the brightest flame ever could', 2),
+    ( 'yulianabil', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bil.yuliana@chnu.edu.ua', true, 'You should know that all power comes at a price. For every bit of power you gain', 2),
+    ( 'yulianabi', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'bi.yuliana@chnu.edu.ua', true, 'I need your actions', 2),
+    ( 'yulianab', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'b.yuliana@chnu.edu.ua', true, 'Reality is the stillness buried deep beneath the illusion', 2),
+    ( 'yuliana', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yuliana@chnu.edu.ua', true, 'You should know that all power comes at a price.', 2),
+    ( 'yulian', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yulian@chnu.edu.ua', true, 'Yesterday’s experiences make me stronger today', 2),
+    ( 'yulia', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yulia@chnu.edu.ua', true, 'Osmanthus wine tastes the same as I remember... ', 2),
+    ( 'yuli', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yuli.yuliana@chnu.edu.ua', true, 'Inactivity serves no purpose whatsoever', 2),
+    ( 'yu', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yu.yuliana@chnu.edu.ua', true, 'But where are those who share the memory?', 2),
+    ( 'y', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'y.yuliana@chnu.edu.ua', true, 'For every bit of power you gain, so too do you gain more responsibility?', 2),
+    ( 'yul', '$2a$10$HzGSQ/C.BsbmjQjQIQRX9eU6Vie2C2.9TCvuo7MNPLJNNWJz04wZu', 'yul.yuliana@chnu.edu.ua', true, 'Every journey has its final day. Don’t rush!', 2),
+    ( 'yuliana-admin', '$2a$10$KrX9CF.o2qiBc5aDYJVn4.PHDQm5NQhno0nnEtM0jeHBIsmRqEMPS', 'bilakyuliana6996@gmail.com', true, 'Yesterday’s experiences make me stronger today', 1);
 
 INSERT INTO follow (user_id, following_user_id)
 VALUES

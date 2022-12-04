@@ -363,6 +363,18 @@ color: #000000;
 .btn:hover, .btn:hover:enabled {
   background: #C24332;
 }
+.ng_autocomplete{
+  /*width: 443px;*/
+  /*height: 40px;*/
+  margin-top: -500px;
+  /*border: 1px solid #000000;*/
+  /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+  /*padding-left: 11px;*/
+  /*padding-top: 5px;*/
+
+  color: #749E94;
+}
+
 
 /*
 .centerlineusers hr{
