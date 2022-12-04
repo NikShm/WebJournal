@@ -2,11 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
-import {map} from "rxjs/operators";
-import {Tag} from "../../models/tag";
-import {Observable} from "rxjs";
-import {PostList} from "../../models/postList";
-import {GlobalConstants} from "../../global-constants";
 
 
 @Component({

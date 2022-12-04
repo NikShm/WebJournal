@@ -37,8 +37,9 @@ public class TagMapper {
 
     public Tag toEntity(TagDTO dto) {
         Tag entity = new Tag();
-
-        entity.setId(dto.getId());
+        if(dto.getId() != null){
+            entity.setId(dto.getId());
+        }
         entity.setName(dto.getName());
         entity.setCreatedAt(LocalDateTime.now());
         return entity;

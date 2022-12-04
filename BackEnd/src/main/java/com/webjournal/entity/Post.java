@@ -39,7 +39,7 @@ public class Post {
     @NotNull(message = "LIKES may not be null")
     private Integer likes;
 
-    @ManyToMany()
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="post_tag",
             joinColumns= @JoinColumn(name="post_id"),
             inverseJoinColumns = @JoinColumn(name="tag_id"))

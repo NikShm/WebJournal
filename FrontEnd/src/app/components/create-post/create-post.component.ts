@@ -135,6 +135,8 @@ export class CreatePostComponent implements OnInit {
           window.alert(`Post was updated successfully with id №${this.postId}.`);
         })
       }
+
+      this.returnToInfo();
     }
   }
 
@@ -166,8 +168,9 @@ export class CreatePostComponent implements OnInit {
     else{
       this.newTag.name = this.newTodo;
       this.post.tags.push(this.newTag);
+      this.newTag = new Tag;
     }
-
+    this.newTodo = '';
     event.preventDefault();
   }
 
