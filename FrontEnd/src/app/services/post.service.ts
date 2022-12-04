@@ -6,7 +6,6 @@ import {map} from "rxjs/operators";
 import {PostList} from "../models/postList";
 import {GlobalConstants} from "../global-constants";
 import {Post} from "../models/post";
-import {StorageService} from "./storage.service";
 import {Page} from "../models/pages";
 import {Search} from "../models/search";
 

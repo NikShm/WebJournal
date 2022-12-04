@@ -1,26 +1,10 @@
-/*import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.css']
-})
-export class CreatePostComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
-*/
-
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FileHandle} from "../../app-routing.module";
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Tag} from "../../models/tag";
 
 @Component({
   selector: 'app-create-post',
@@ -165,4 +149,43 @@ export class CreatePostComponent implements OnInit {
   public returnToInfo() {
     this.onInfo.emit(false);
   }
+
+
+  /***********************************************/
+
+  newTodo: Tag | undefined;
+  todoObj!: Tag | undefined;
+
+
+
+  addTodo(event: any) {
+    this.todoObj = this.newTodo
+    if (this.todoObj instanceof Tag) {
+      this.post.tags.push(this.todoObj);
+    }
+    this.newTodo = undefined;
+    event.preventDefault();
+  }
+
+  deleteTodo(index: any) {
+    window.confirm("are you sure you want to delete this tag?")
+    this.post.tags.splice(index, 1);
+  }
+
+  keyword = 'name';
+  tags:any[] = [];
+
+  getTags(name:string){
+    this.postService.getListTag().subscribe((tags:any)=>{this.tags = tags;
+      console.log(this.tags)})
+  }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onFocused(e: any){
+    // do something when input is focused
+  }
+
 }

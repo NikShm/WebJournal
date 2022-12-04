@@ -2,7 +2,10 @@ package com.webjournal.mapper;
 
 import com.webjournal.dto.TagDTO;
 import com.webjournal.entity.Tag;
+import com.webjournal.repository.TagRepository;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Yuliana
@@ -13,6 +16,13 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class TagMapper {
+
+    final TagRepository repository;
+
+    public TagMapper(TagRepository repository) {
+        this.repository = repository;
+    }
+
     public TagDTO toDto(Tag entity) {
         TagDTO dto = new TagDTO();
 
@@ -21,5 +31,14 @@ public class TagMapper {
         dto.setCreatedAt(entity.getCreatedAt());
 
         return dto;
+    }
+
+    public Tag toEntity(TagDTO dto) {
+        Tag entity = new Tag();
+
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setCreatedAt(LocalDateTime.now());
+        return entity;
     }
 }
