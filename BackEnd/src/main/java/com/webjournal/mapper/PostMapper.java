@@ -68,10 +68,12 @@ public class PostMapper {
     }
 
     public Post toEntity(Post entity, PostDTO dto) {
-        entity.setId(dto.getId());
-        entity.setAuthor(userRepository.getReferenceById(dto.getAuthor().getId()));
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        entity.setAuthor(principal);
         entity.setTitle(dto.getTitle());
         entity.setForeword(dto.getForeword());
+        Set<Tag> tags = dto.getTags().stream().map(tagMapper::toEntity).collect(Collectors.toSet());
+        entity.setTags(tags);
         entity.setContent(dto.getContent());
         entity.setLikes(dto.getLikes());
         entity.setApproved(dto.isApproved());
@@ -90,7 +92,6 @@ public class PostMapper {
         entity.setContent(dto.getContent());
         entity.setLikes(0);
         entity.setApproved(false);
-        entity.setPublishedAt(LocalDateTime.now());
 
         return entity;
     }
