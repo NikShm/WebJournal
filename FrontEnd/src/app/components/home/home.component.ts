@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   onErrorUserImage(event:any) {
-    event.target.src = 'assets/iconsAccount.png';
+    event.target.src = 'assets/UsersIcon/default.png';
   }
 
   onErrorPostImage(event:any) {

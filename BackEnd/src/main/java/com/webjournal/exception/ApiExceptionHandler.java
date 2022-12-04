@@ -46,6 +46,12 @@ public class ApiExceptionHandler {
         return getResponse(HttpStatus.FORBIDDEN, request, e.getMessage());
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ApiErrorMessage> handleForbiddenException(ForbiddenException e, WebRequest request) {
+        LOGGER.error("Access is denied", e);
+        return getResponse(HttpStatus.FORBIDDEN, request, e.getMessage());
+    }
+
     private ResponseEntity<ApiErrorMessage> getResponse(HttpStatus status, WebRequest request, String message) {
         String path = ((ServletWebRequest)request).getRequest().getRequestURI();
         ApiErrorMessage errorMessage = new ApiErrorMessage(status.value(), status.getReasonPhrase(), LocalDateTime.now(), path, message);

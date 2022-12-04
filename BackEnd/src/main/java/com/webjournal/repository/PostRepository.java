@@ -1,14 +1,13 @@
 package com.webjournal.repository;
 
 import com.webjournal.entity.Post;
-import com.webjournal.entity.Tag;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.lang.annotation.Native;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,4 +25,10 @@ public interface PostRepository extends JpaRepository<Post, Integer>, JpaSpecifi
     @Query(value = "SELECT * FROM post p left join follow folow on folow.user_id = ?1 where p.author_id = following_user_id and is_approved = true",
             nativeQuery = true)
     List<Post> findNewsPosts(Pageable page, Integer authorizeUserId);
+    @Query("SELECT p FROM Post p WHERE p.author.id = ?1")
+    Page<Post> findAllAuthorsPosts(Pageable page, Integer authorId);
+    @Query("SELECT p FROM Post p WHERE p.author.id = ?1 AND p.isApproved = true")
+    Page<Post> findApprovedAuthorsPosts(Pageable page, Integer authorId);
+    @Query("SELECT p FROM Post p WHERE p.author.id = ?1 AND p.isApproved = ?2")
+    Page<Post> findAuthorsPosts(Pageable page, Integer authorId, Boolean isApproved);
 }

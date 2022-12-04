@@ -11,36 +11,24 @@ body, html {
 button {
     cursor: pointer;
 }
-/*pagination-controls .ngx-pagination .current {*/
-/*  padding: 0.1875rem 0.625rem;*/
-/*  background: #749E94;*/
-/*  border-radius: 10px;*/
-/*  cursor: pointer;*/
-/*  align-content: center;*/
-/*}*/
+
 .ngx-pagination .current,
-.btn-info {
+.btn-info, .ngx-pagination a:hover {
   background: #749E94 !important;
-  border: transparent !important;
-  border-radius: 20px !important;
+  border: transparent;
+  border-radius: 50%;
+  color: white;
 }
 
-.ngx-pagination .current:hover {
-  background: #749E94 !important;
-  border-radius: 20px !important;
-  border: transparent !important;
-}
-pagination-controls .ngx-pagination :hover {
-  /*padding: 0.001rem 0.006rem;*/
-  background: #749E94;
-  border-radius: 10px;
-  cursor: pointer;
+.ngx-pagination li:not(.pagination-next, .pagination-previous) {
+  margin-left: 5px;
 }
 
-/*.btn {*/
-/*  display: inline-block;*/
-/*  margin-top: 1rem;*/
-/*}*/
+.ngx-pagination .disabled, 
+.pagination-next a:hover, .pagination-previous a:hover {
+  background: none !important;
+  color: gray !important;
+}
 
 .btn {
   border-radius: 5rem;

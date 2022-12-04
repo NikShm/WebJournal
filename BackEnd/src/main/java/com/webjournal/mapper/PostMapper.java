@@ -1,12 +1,11 @@
 package com.webjournal.mapper;
 
 import com.webjournal.dto.*;
+import com.webjournal.dto.post.PostPreviewDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.Tag;
 import com.webjournal.entity.User;
-import com.webjournal.mail.service.mailtoken.MailTokenServiceImpl;
 import com.webjournal.repository.UserRepository;
-import com.webjournal.service.refreshtoken.RefreshTokenServiceImpl;
 import com.webjournal.service.user.UserServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -94,5 +93,18 @@ public class PostMapper {
         entity.setApproved(false);
 
         return entity;
+    }
+
+    public PostPreviewDTO toPostPreviewDTO(Post entity) {
+        PostPreviewDTO previewDTO = new PostPreviewDTO();
+
+        previewDTO.setId(entity.getId());
+        previewDTO.setTitle(entity.getTitle());
+        previewDTO.setForeword(entity.getForeword());
+        Tag tag = entity.getTags().stream().findFirst().orElse(null);
+        String label = tag == null ? "" : tag.getName();
+        previewDTO.setTag(label);
+
+        return previewDTO;
     }
 }

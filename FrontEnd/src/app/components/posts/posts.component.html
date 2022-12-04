@@ -39,7 +39,6 @@
     </th>
     <th class="alphabet" mat-sort-header="title"> Alphabetically </th>
   <tr>
-
 </table>
   <form action="#" style="height: 50px;" *ngIf="haveYouEnoughRule()">
     <select name="alphabet" class="alphabet" style="margin: 2% auto; display: block;" (change)="changeApproved($event)" [value]="searchParameter.searchPattern.isApprove">
@@ -68,8 +67,8 @@
 
       <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-          <button style="width: 210px; font-size: 16px; margin-top: -11px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
-          <div style="width: 400px; text-align: center; background-color: #EBE6D1; margin: auto;">
+          <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <div style="width: 600px; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"
                                  class="my-pagination"

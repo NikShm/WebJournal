@@ -1,0 +1,67 @@
+<app-header></app-header>
+<section class="profile-details">
+    <div class="headings-container">
+        <div class="headings">
+            <div id="art-heading">
+                <p>Articles</p>
+                <div *ngIf="articlesPage.totalItem > 0 && hasPermission()">
+                    <p>(</p>
+                    <select name="filter" class="articles-filter" (change)="changePostsFilter()" [(ngModel)]="searchModel.searchPattern.areApproved">
+                        <option value="true">Approved</option>
+                        <option value="false">Not Approved</option>
+                        <option value="">All</option>
+                    </select>
+                    <p>)</p>
+                </div>
+            </div>
+            <p id="username">{{user.username}}</p>
+        </div>
+    </div>
+    <div class="content">
+        <div id="articles">
+            <div class="articles-list">
+                <div class="article" *ngFor="let article of articlesPage.content | paginate: {itemsPerPage: searchModel.pageSize, currentPage: searchModel.page+1, totalItems: articlesPage.totalItem}">
+                    <div class="post-label">{{article.tag}}</div>
+                    <div class="article-photo">
+                        <img src="assets/PostImage/post_{{article.id}}.jpg" (error)="onErrorPostImage($event)" alt="post #{{article.id}} photo">
+                    </div>
+                    <a routerLink="/posts/{{article.id}}">
+                        <p class="article-title">{{article.title}}</p>
+                        <p class="article-foreword">{{article.foreword}}</p>
+                    </a>
+                </div>
+                <p *ngIf="articlesPage.totalItem === 0" class="no-articles">No articles yet...</p>
+            </div>
+            <pagination-controls *ngIf="articlesPage.totalItem > searchModel.pageSize" previousLabel="Previous" nextLabel="Next" class="pagination" [maxSize]="5" (pageChange)="changePage($event.valueOf() - 1)"></pagination-controls>
+        </div>
+        <div id="user">
+            <div class="user">
+                <div class="user-photo">
+                    <img src="assets/UsersIcon/user_{{user.id}}.jpg" (error)="onErrorUserImage($event)" alt="{{user.username}}'s profile picture">
+                </div>
+                <div class="user-info">
+                    <div>
+                        <p class="number">{{user.following}}</p>
+                        <p class="number-label">following</p>
+                    </div>
+                    <div>
+                        <p class="number">{{articlesPage.totalItem}}</p>
+                        <p class="number-label">articles</p>
+                    </div>
+                    <div>
+                        <p class="number">{{user.followers}}</p>
+                        <p class="number-label">followers</p>
+                    </div>
+                </div>
+                <div class="box" *ngIf="user.bio && user.bio !== ''">
+                    <p class="bio">{{user.bio}}</p>
+                    <p class="name-authors">- by author</p>
+                </div>
+                <button *ngIf="!isYourProfile()" class="profile-btn">Follow</button>
+                <button *ngIf="isYourProfile()" class="profile-btn" (click)="enableEditMode()">Edit</button>
+            </div>
+            <button *ngIf="isYourProfile()" class="logout" (click)="logout()">Logout</button>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

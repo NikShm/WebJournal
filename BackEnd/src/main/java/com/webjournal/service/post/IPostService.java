@@ -3,6 +3,8 @@ package com.webjournal.service.post;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.post.PostPreviewDTO;
+import com.webjournal.dto.search.AuthorsPostsSearch;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.*;
@@ -22,6 +24,8 @@ public interface IPostService{
     PostDTO get(Integer id);
     List<PostDTO> getAll();
     List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date);
-
     List<PostListDTO> getNewPost(SearchDTO<PostSearch> search);
+    PageDTO<PostPreviewDTO> getAuthorsPosts(SearchDTO<AuthorsPostsSearch> search);
+
+    PageDTO<PostPreviewDTO> getApprovedAuthorsPosts(SearchDTO<String> search);
 }

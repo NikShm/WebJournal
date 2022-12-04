@@ -15,6 +15,10 @@ a:hover {
   color: #c24332;
 }
 
+.footer-margin {
+  margin-top: 0;
+}
+
 footer{
   width: 100%;
   border-top: 1px solid #000000;
