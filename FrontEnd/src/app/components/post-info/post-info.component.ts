@@ -7,6 +7,7 @@ import {TagService} from "../../services/tag.service";
 import {Author} from "../../models/author";
 import {UserService} from "../../services/user.service";
 import {StorageService} from "../../services/storage.service";
+import {PostList} from "../../models/postList";
 
 @Component({
   selector: 'app-post-info',
@@ -22,6 +23,7 @@ export class PostInfoComponent implements OnInit {
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
   classButtonShowAction = "";
+  similarPosts: PostList[] = [];
 
   constructor(private postService: PostService,
               private tagService: TagService,
@@ -39,6 +41,9 @@ export class PostInfoComponent implements OnInit {
       this.classButtonShowAction = ""
       this.idButtonShowAction = ""
     }
+    this.postService.getSimilar(this.postId).subscribe((posts) => {
+      this.similarPosts = posts
+    })
   }
 
   // @ts-ignore
@@ -67,5 +72,9 @@ export class PostInfoComponent implements OnInit {
   setTag(event:any) {
     this.postService.setTagSearch(event.target.value)
     this.router.navigate(['/posts'])
+  }
+
+  onErrorPostImage(event: any) {
+    event.target.src = 'assets/PostImage/default.png';
   }
 }

@@ -6,7 +6,7 @@
 
   <div class="dropdown">
     <button class="dropbtn" id="{{idButtonShowAction}}" (click)="showActions()">
-      <img src="assets/iconMenu.png" alt="menu" width="40px" >
+      <img src="assets/iconMenu.png" alt="menu" width="40px">
     </button>
     <div class="dropdown-content" id="{{classButtonShowAction}}">
       <button (click)="enableEditMode()">Edit</button>
@@ -39,10 +39,10 @@
 </div>
 
 
-
 <!------start tags section----->
-<div class="tagsSection" >
-  <button class="button-89" (click)="setTag($event)" value="{{tag.name}}" *ngFor="let tag of post.tags">{{tag.name}}</button>
+<div class="tagsSection">
+  <button class="button-89" (click)="setTag($event)" value="{{tag.name}}"
+          *ngFor="let tag of post.tags">{{tag.name}}</button>
 </div>
 <!------start comment section----->
 <div class="commentBody">
@@ -85,29 +85,51 @@
 <!------start recent post section----->
 <div class="similarPostsDiv">
   <h2 class="similarPostsTitle">Similar Posts</h2>
-
-
-  <div class="oneSimilarPost">
-
-    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
-      <img src="assets/cooking.webp">
+  <div id="blog">
+    <div style=" position: relative; height: 300px; font-size: 16px; margin: 0px auto auto;"  *ngIf="similarPosts.length == 0">
+      <div class="con">
+        <b class="spanstyle">Not Similar Posts</b>
+      </div>
     </div>
-    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Best Podcasts to Listen to When Traveling</a></p>
-  </div>
+    <div class="post" *ngFor="let post of similarPosts">
+      <!--        <div class="label">Programming</div>-->
+      <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
+        <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)">
+      </div>
+      <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.title}}</a></p>
+      <p class="postForeword"><a class="postTitleA" href="#">{{post.foreword}}</a></p>
 
-  <div class="oneSimilarPost" id="secondPost">
-    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
-      <img src="assets/img.png" alt="menu">
     </div>
-    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Movies That Need to Be Seen on the Big Screen</a></p>
   </div>
+  <!--  <div class="oneSimilarPost" *ngFor="let post of similarPosts">-->
+  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
+  <!--      <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)">-->
+  <!--    </div>-->
+  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.title}}</a></p>-->
+  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.foreword}}</a></p>-->
+  <!--  </div>-->
 
-  <div class="oneSimilarPost"  id="thirdPost">
-    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
-      <img src="assets/colage.png">
-    </div>
-    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">This Artist Will Blow Your Mind</a></p>
-  </div>
+  <!--  <div class="oneSimilarPost">-->
+
+  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
+  <!--      <img src="assets/cooking.webp">-->
+  <!--    </div>-->
+  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Best Podcasts to Listen to When Traveling</a></p>-->
+  <!--  </div>-->
+
+  <!--  <div class="oneSimilarPost" id="secondPost">-->
+  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
+  <!--      <img src="assets/img.png">-->
+  <!--    </div>-->
+  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Movies That Need to Be Seen on the Big Screen</a></p>-->
+  <!--  </div>-->
+
+  <!--  <div class="oneSimilarPost"  id="thirdPost">-->
+  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
+  <!--      <img src="assets/colage.png">-->
+  <!--    </div>-->
+  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">This Artist Will Blow Your Mind</a></p>-->
+  <!--  </div>-->
 </div>
 </body>
 <!------start footer section----->

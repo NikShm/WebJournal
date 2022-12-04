@@ -129,6 +129,14 @@ export class PostService {
     return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-filtered`, this.searchParameter);
   }
 
+  getSimilar(postId:any):Observable<PostList[]> {
+    return this.http.get(GlobalConstants.apiURL +'/posts/similar-posts?postId='+postId).pipe(map((data: any) => {
+      return data.map(function(post: any): PostList {
+        return new PostList(post);
+      })
+    }));
+  }
+
   setTagSearch(name:any){
     this.searchParameter.searchPattern.searchTag = name.toString()
   }
