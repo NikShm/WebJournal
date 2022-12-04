@@ -41,21 +41,20 @@
                 </div>
               </div>
 
-
-
-
             </div>
-        <div style="width: 500px; background-color: #EBE6D1; margin: -580px auto auto;">
-          <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-            <button style="width: 100px; font-size: 16px; margin-top: -5px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
-            <div style="width: 300px; text-align: center; background-color: #EBE6D1; margin: auto;">
-              <pagination-controls previousLabel="Previous"
+        <div style="width: 700px;position: absolute;  margin-top: -438px; margin-left: 175px">
+          <div style=" position: relative;background-color: #EBE6D1;  font-size: 16px; margin-left: 20px;">
+            <button style="width: 200px;font-family: 'Montserrat Alternates'; font-size: 16px; margin-top: -18px; margin-left: 22px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+            <div style="width: 700px;font-family: 'Montserrat Alternates';text-align: left; margin-left: 5cm">
+              <pagination-controls
+                                   previousLabel="Previous"
                                    nextLabel="Next"
+
                                    class="my-pagination"
-                                   [maxSize]="7" >
+                                   [maxSize]="7" (pageChange)="changePage($event.valueOf() - 1)" >
               </pagination-controls>
             </div>
-            <button style="width: 100px; font-size: 16px; float: right;  margin-top: -88px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
+            <button style="width: 200px;font-family: 'Montserrat Alternates'; font-size: 16px; float: right; margin-left: 20px;   margin-top: -68px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
           </div>
         </div>
 

@@ -15,7 +15,7 @@ import {Search} from "../models/search";
 })
 export class UserService {
 
-  searchParameter = new Search("title", "ASC", 0,3,{search:""})
+  searchParameter = new Search("title", "ASC", 0,2,{search:""})
 
   constructor(private http: HttpClient) {
     }
