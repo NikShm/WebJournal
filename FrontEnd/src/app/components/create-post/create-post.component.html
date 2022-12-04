@@ -61,13 +61,10 @@
                 [data]="tags"
                 [searchKeyword]="keyword"
                 placeholder="Enter a tag name"
-                (selected)='selectEvent($event)'
                 (inputChanged)='getTags($event)'
-                (inputFocused)='onFocused($event)'
                 [itemTemplate]="itemTemplate"
                 [notFoundTemplate]="notFoundTemplate"
                 [(ngModel)]="newTodo"
-                (keyup.enter)="newTodo=undefined"
                 name="newTodo">
               </ng-autocomplete>
 
@@ -80,7 +77,7 @@
                 </ng-template>
 
             </div>
-            <button class="button-89" role="button"  type="submit" [disabled]="newTodo==undefined">Add</button>
+            <button class="button-89" role="button"  type="submit" [disabled]="newTodo==null">Add</button>
           </form>
         </div>
         <div class="listOfTags">

@@ -5,6 +5,7 @@ import {Post} from "../../models/post";
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Tag} from "../../models/tag";
+import {TagService} from "../../services/tag.service";
 
 @Component({
   selector: 'app-create-post',
@@ -14,11 +15,13 @@ import {Tag} from "../../models/tag";
 })
 export class CreatePostComponent implements OnInit {
   @Input() post: Post = new Post();
+  @Input() tag: Tag = new Tag();
   image!: File;
   @Input() mode: string = "CREATE";
   @Input() postId: string = "";
   previewImg = "assets/PostImage/post_";
   constructor(private postService: PostService,
+              private tagService: TagService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -153,22 +156,23 @@ export class CreatePostComponent implements OnInit {
 
   /***********************************************/
 
-  newTodo: Tag | undefined;
-  todoObj!: Tag | undefined;
-
-
+  newTodo!: Tag | string;
+  newTag = new Tag;
 
   addTodo(event: any) {
-    this.todoObj = this.newTodo
-    if (this.todoObj instanceof Tag) {
-      this.post.tags.push(this.todoObj);
+    if (this.newTodo instanceof Tag) {
+      this.post.tags.push(this.newTodo);
     }
-    this.newTodo = undefined;
+    else{
+      this.newTag.name = this.newTodo;
+      this.post.tags.push(this.newTag);
+    }
+
     event.preventDefault();
   }
 
   deleteTodo(index: any) {
-    window.confirm("are you sure you want to delete this tag?")
+    window.confirm("Are you sure you want to delete this tag?")
     this.post.tags.splice(index, 1);
   }
 
@@ -176,16 +180,8 @@ export class CreatePostComponent implements OnInit {
   tags:any[] = [];
 
   getTags(name:string){
-    this.postService.getListTag().subscribe((tags:any)=>{this.tags = tags;
+    this.postService.getListTagForCreatePage().subscribe((tags:any)=>{this.tags = tags;
       console.log(this.tags)})
-  }
-
-  selectEvent(item: any) {
-    // do something with selected item
-  }
-
-  onFocused(e: any){
-    // do something when input is focused
   }
 
 }

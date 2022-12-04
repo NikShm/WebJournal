@@ -1,9 +1,13 @@
 package com.webjournal.service.tag;
 
+import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.PostFormDTO;
 import com.webjournal.dto.TagDTO;
 import com.webjournal.dto.search.AuthorSearch;
+import com.webjournal.entity.Post;
 import com.webjournal.entity.Tag;
 import com.webjournal.entity.User;
+import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.TagMapper;
 import com.webjournal.repository.TagRepository;
 import com.webjournal.utils.QueryHelper;
@@ -49,5 +53,21 @@ public class TagServiceImpl implements TagService {
             predicates.add(QueryHelper.ilike(user.get("name"), criteriaBuilder, tagName));
         }
         return predicates.size() == 1 ? predicates.get(0) : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+    }
+
+    @Override
+    public Integer create(TagDTO dto) {
+        Tag createdTag = mapper.toCreateEntity(dto);
+        return repository.save(createdTag).getId();
+    }
+
+    @Override
+    public List<TagDTO> getAll() {
+        return repository.findAll().stream().map(mapper::toDto).toList();
+    }
+
+    @Override
+    public TagDTO get(Integer id) {
+        return repository.findById(id).map(mapper::toDto).orElseThrow(() -> new DatabaseFetchException("Could not find Tag entity with id " + id));
     }
 }
