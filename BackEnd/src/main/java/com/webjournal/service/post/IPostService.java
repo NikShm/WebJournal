@@ -8,6 +8,7 @@ import com.webjournal.dto.search.AuthorsPostsSearch;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -17,6 +18,13 @@ public interface IPostService{
     List<PostListDTO> getSimilarPosts( Integer postId);
     void like(LikeDTO like);
     void dislike(LikeDTO like);
+
+    @Transactional
+    Boolean approved(Integer postId);
+
+    @Transactional
+    Boolean canselApproved(Integer postId);
+
     PageDTO<PostListDTO> getPage(SearchDTO<PostSearch> searchDTO);
     Integer create(PostFormDTO dto);
     void delete(Integer id) throws IOException;

@@ -59,7 +59,7 @@ export class PostsComponent implements OnInit {
 
   changePage(page: number) {
     this.searchParameter.page = page
-    this.postService.setSearchParameter(this.searchParameter)
+    this.postService.setSearchPostParameter(this.searchParameter)
     this.search()
   }
 
@@ -98,7 +98,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.search();
-    this.searchParameter = this.postService.getSearchParameter();
+    this.searchParameter = this.postService.getSearchPostParameter();
     this.postService.getListTag().subscribe((tags: any) => {
       this.tags = tags
     })

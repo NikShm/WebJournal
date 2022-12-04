@@ -9,8 +9,10 @@
       <img src="assets/iconMenu.png" alt="menu" width="40px">
     </button>
     <div class="dropdown-content" id="{{classButtonShowAction}}">
-      <button (click)="enableEditMode()">Edit</button>
-      <button (click)="delete()">Delete</button>
+      <button *ngIf="showAuthorsButton()" (click)="enableEditMode()">Edit</button>
+      <button *ngIf="showAuthorsButton()" (click)="delete()">Delete</button>
+      <button *ngIf="approvedButton" (click)="approved()">Approve</button>
+      <button *ngIf="canselApprovedButton" (click)="canselApproved()">Сancel Approve</button>
     </div>
   </div>
 
@@ -19,7 +21,7 @@
   <p id="forewordPostDiv">{{post.foreword}}</p>
 
   <div class="imgDivi">
-    <img class="img" [src]="postImage+post.id+'.jpg'" alt="">
+    <img class="img" [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
   </div>
 
   <p id="mainContent" [innerHTML]="post.content"></p>
@@ -96,9 +98,10 @@
       <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
         <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)">
       </div>
-      <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.title}}</a></p>
-      <p class="postForeword"><a class="postTitleA" href="#">{{post.foreword}}</a></p>
-
+      <a (click)="goToPost(post.id)">
+      <p class="similarPostsPostTitle"><a class="postTitleA">{{post.title}}</a></p>
+      <p class="postForeword"><a class="postTitleA">{{post.foreword}}</a></p>
+      </a>
     </div>
   </div>
   <!--  <div class="oneSimilarPost" *ngFor="let post of similarPosts">-->

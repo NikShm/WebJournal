@@ -14,6 +14,7 @@ export class Post {
       this.tags = post.tags.map((tag:Tag) => {
         return new Tag(tag)
       })
+      this.approved = post.approved
     }
     else {
       this.id = '';
@@ -22,6 +23,7 @@ export class Post {
       this.content = '';
       this.author = new Author();
       this.likes = 0;
+      this.approved = false
     }
   }
   id: string;
@@ -32,4 +34,5 @@ export class Post {
   publishedAt: Date | undefined;
   tags: Tag[] = [];
   likes: number;
+  approved:boolean;
 }

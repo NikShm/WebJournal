@@ -8,6 +8,7 @@ import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +48,18 @@ public class PostController {
         postService.dislike(likeDTO);
     }
 
+    @GetMapping("/approved")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public Boolean approved(@RequestParam("id") Integer postId) {
+        return postService.approved(postId);
+    }
+
+    @GetMapping("/cancel-approved")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public Boolean cancelApproved(@RequestParam("id") Integer postId) {
+        return postService.canselApproved(postId);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) throws IOException {
         postService.delete(id);
@@ -81,7 +94,7 @@ public class PostController {
     public List<PostListDTO> getSimilarPosts(@RequestParam("postId") Integer n) {
         return postService.getSimilarPosts(n);
     }
-    @PreAuthorize("hasAnyRole('AUTHOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'AUTHOR')")
     @PostMapping("/news-post")
     public List<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
         return postService.getNewPost(search);

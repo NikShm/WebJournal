@@ -17,7 +17,7 @@
         <!--slide images start-->
         <div class="slide first">
           <img [src]="postImage+posts[0].id+'.jpg'" (error)="onErrorPostImage($event)"  alt="">
-          <div class="pslider">
+          <div class="pslider" routerLink="/posts/{{posts[0].id}}">
             <h1>{{posts[0].title}}</h1>
             <div class="datasliders"><p style="margin-left: -8px">{{posts[0].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[0].foreword}}</p></div>
@@ -25,7 +25,7 @@
         </div>
         <div class="slide">
           <img [src]="postImage+posts[1].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
-          <div class="pslider">
+          <div class="pslider" routerLink="/posts/{{posts[1].id}}">
             <h1>{{posts[1].title}}</h1>
             <div class="datasliders"><p style="margin-left: -8px">{{posts[1].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[1].foreword}}</p></div>
@@ -33,7 +33,7 @@
         </div>
         <div class="slide">
           <img [src]="postImage+posts[2].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
-          <div class="pslider">
+          <div class="pslider" routerLink="/posts/{{posts[2].id}}">
             <h1>{{posts[2].title}}</h1>
             <div class="datasliders"><p style="margin-left: -8px">{{posts[2].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[2].foreword}}</p></div>
@@ -41,7 +41,7 @@
         </div>
         <div class="slide">
           <img [src]="postImage+posts[3].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
-          <div class="pslider">
+          <div class="pslider" routerLink="/posts/{{posts[3].id}}">
             <h1>{{posts[3].title}}</h1>
             <div class="datasliders"><p style="margin-left: -8px">{{posts[3].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[3].foreword}}</p></div>

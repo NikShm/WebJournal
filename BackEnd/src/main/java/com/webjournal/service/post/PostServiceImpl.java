@@ -18,13 +18,9 @@ import com.webjournal.repository.PostRepository;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +60,7 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public void update(PostDTO dto){
+    public void update(PostDTO dto) {
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Post updatedPost = postMapper.toEntity(postToUpdate, dto);
         repository.save(updatedPost);
@@ -74,7 +70,7 @@ public class PostServiceImpl implements IPostService {
     public void updateWithPhoto(PostDTO dto) throws IOException {
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
-        fileService.delete("post_" + dto.getId()+ ".jpg");
+        fileService.delete("post_" + dto.getId() + ".jpg");
         repository.save(updatedProduct);
     }
 
@@ -127,6 +123,34 @@ public class PostServiceImpl implements IPostService {
             entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, like.getUserId())
                     .setParameter(2, like.getPostId()).executeUpdate();
         }
+    }
+
+    @Transactional
+    @Override
+    public Boolean approved(Integer postId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = (User)authentication.getPrincipal();
+        Post post = repository.findById(postId).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + postId));
+        if (!Objects.equals(post.getId(), authorizeUser.getId())){
+            post.setApproved(true);
+            repository.save(post);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    @Override
+    public Boolean canselApproved(Integer postId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = (User)authentication.getPrincipal();
+        Post post = repository.findById(postId).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + postId));
+        if (!Objects.equals(post.getId(), authorizeUser.getId())){
+            post.setApproved(false);
+            repository.save(post);
+            return true;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -190,19 +214,18 @@ public class PostServiceImpl implements IPostService {
     private void getFilter(PostSearch postSearch, StringBuilder query) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authorizeUser = null;
-        if (authentication.getPrincipal() != "anonymousUser"){
+        if (authentication.getPrincipal() != "anonymousUser") {
             authorizeUser = (User) authentication.getPrincipal();
         }
         if (authorizeUser == null) {
             query.append(" WHERE is_approved = true");
-        } else if (authorizeUser.getRole().getRole() == RoleType.AUTHOR || postSearch.getIsApprove() == null){
+        } else if (authorizeUser.getRole().getRole() == RoleType.AUTHOR || postSearch.getIsApprove() == null) {
             query.append(" WHERE is_approved = true");
-        }
-        else if (postSearch.getIsApprove() != null){
+        } else if (postSearch.getIsApprove() != null) {
             query.append(" WHERE is_approved = ").append(postSearch.getIsApprove()).append(" ");
         }
         if (postSearch.getSearchTag() != null || postSearch.getSearch() != null) {
-            if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")){
+            if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")) {
                 query.append(" and (");
             }
             if (!Objects.equals(postSearch.getSearch(), "")) {
@@ -224,10 +247,10 @@ public class PostServiceImpl implements IPostService {
     @Override
     public List<PostListDTO> getNewPost(SearchDTO search) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() == "anonymousUser"){
+        if (authentication.getPrincipal() == "anonymousUser") {
             return null;
         }
-        User authorizeUser = (User)authentication.getPrincipal();
+        User authorizeUser = (User) authentication.getPrincipal();
         Integer userId = authorizeUser.getId();
         Sort sort = Sort.by("published_at");
         Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);

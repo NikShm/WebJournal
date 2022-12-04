@@ -70,7 +70,8 @@
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
           <button style="font-family: 'Montserrat Alternates', serif; width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
           <div style="width: 600px; font-family: 'Montserrat Alternates', serif; text-align: center; background-color: #EBE6D1; margin: auto;">
-            <pagination-controls previousLabel="Previous"
+            <pagination-controls style="font-family: 'Montserrat Alternates',serif"
+              previousLabel="Previous"
                                  nextLabel="Next"
                                  class="my-pagination"
                                  [maxSize]="6" (pageChange)="changePage($event.valueOf() - 1)">
