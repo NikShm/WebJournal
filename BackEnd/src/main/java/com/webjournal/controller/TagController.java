@@ -1,5 +1,7 @@
 package com.webjournal.controller;
 
+import com.webjournal.dto.CommentDTO;
+import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.TagDTO;
 import com.webjournal.entity.Tag;
 import com.webjournal.service.tag.TagServiceImpl;
@@ -19,10 +21,25 @@ public class TagController {
         this.service = service;
     }
 
+    @GetMapping("/{id}")
+    public TagDTO showOne(@PathVariable Integer id) {
+        return service.get(id);
+    }
+
+    @PostMapping("/create/")
+    public Integer create(@RequestBody TagDTO tagDTO) {
+        return service.create(tagDTO);
+    }
+
     @GetMapping("/actual")
     public List<TagDTO> getActualTags(@RequestParam("count") int n) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return service.getActualTags(n, date);
+    }
+
+    @GetMapping("/")
+    public List<TagDTO> showAll() {
+        return service.getAll();
     }
 
     @GetMapping("/tag={name}")

@@ -4,6 +4,7 @@ import com.webjournal.dto.TagDTO;
 import com.webjournal.entity.Tag;
 import com.webjournal.repository.TagRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -33,12 +34,19 @@ public class TagMapper {
         return dto;
     }
 
+
     public Tag toEntity(TagDTO dto) {
         Tag entity = new Tag();
 
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setCreatedAt(LocalDateTime.now());
+        return entity;
+    }
+
+    public Tag toCreateEntity(TagDTO dto) {
+        Tag entity = new Tag();
+        entity.setName(dto.getName());
         return entity;
     }
 }

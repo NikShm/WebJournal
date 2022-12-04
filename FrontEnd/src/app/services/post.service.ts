@@ -102,6 +102,15 @@ export class PostService {
     }));
   }
 
+  getListTagForCreatePage():any {
+    return this.http.get(GlobalConstants.apiURL +'/tags/').pipe(map((data: any) => {
+      data = data.map((tag:Tag) => {
+        return new Tag(tag)
+      })
+      return data
+    }));
+  }
+
   getNews(searchParameter:any):Observable<PostList[]> {
     return this.http.post(GlobalConstants.apiURL +'/posts/news-post', searchParameter).pipe(map((data: any) => {
       if (data === null){
