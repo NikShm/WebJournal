@@ -13,18 +13,16 @@ public class UserDTO {
     private String bio;
     private Integer followers;
     private Integer following;
-    private Long posts;
 
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String bio, Integer followers, Integer following, Long posts) {
+    public UserDTO(Integer id, String username, String bio, Integer followers, Integer following) {
         this.id = id;
         this.username = username;
         this.bio = bio;
         this.followers = followers;
         this.following = following;
-        this.posts = posts;
     }
 
     public Integer getId() {
@@ -67,14 +65,6 @@ public class UserDTO {
         this.following = following;
     }
 
-    public Long getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Long posts) {
-        this.posts = posts;
-    }
-
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -83,7 +73,6 @@ public class UserDTO {
                 ", bio='" + bio + '\'' +
                 ", followers=" + followers +
                 ", following=" + following +
-                ", posts=" + posts +
                 '}';
     }
 }

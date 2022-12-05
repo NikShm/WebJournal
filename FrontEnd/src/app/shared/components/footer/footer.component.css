@@ -2,9 +2,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', serif;
 }
 
 a {
+  display: block;
   text-decoration: none;
   color: #000;
 }
@@ -13,92 +15,42 @@ a:hover {
   color: #c24332;
 }
 
+.footer-margin {
+  margin-top: 0;
+}
+
 footer{
-  position: absolute;
-  background-color: #ffe3e000;
-  margin: auto;
-  height: 345px;
   width: 100%;
-  border-top: 0.1px solid #000000;
-  border-bottom: 0.1px solid #000000;
-  float: bottom;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
   margin-top: 200px;
+  letter-spacing: 0.2em;
 }
 
 .footerBody{
   margin: auto;
-  width: 620px;
-  height: 343px;
-  border-left: 2px solid #000000;
-  border-right: 2px solid #000000;
+  width: 660px;
 }
 
-
-.hr3{
-  width: 342px;
-  border: 0.1px solid #000000;
-  transform: rotate(90deg);
-
-  position: absolute;
-  margin-top: 170px;
-  margin-left: 30px;
+.block {
+  display: inline-block;
+  padding-top: 26px;
+  padding-left: 25px;
+  padding-right: 13px;
+  border-left: 1px solid black;
+  width: 220px;
 }
 
-.hr4{
-  width: 342px;
-  border: 0.01px solid #000000;
-  transform: rotate(90deg);
-
-  position: absolute;
-  margin-top: 170px;
-  margin-left: 240px;
+.location {
+  border-right: 1px solid black;
 }
 
-.quick_links{
-  font-family: 'Montserrat';
-  font-style: normal;
-
-  position: absolute;
-
-  width: 170px;
-  height: 250px;
-
-  line-height: 0.75cm;
-
-  margin-left: 15px;
-  margin-top: 30px;
+.block > h2 {
+  font-size: 20px;
+  margin-bottom: 23px;
 }
 
-.extra_links{
-  font-family: 'Montserrat';
-  font-style: normal;
-
-  position: absolute;
-
-  width: 170px;
-  height: 250px;
-
-  line-height: 0.75cm;
-
-  margin-left: 230px;
-  margin-top: 30px;
-
-  background-color: #70c23200;
-}
-
-.location{
-  font-family: 'Montserrat';
-  font-style: normal;
-
-  position: absolute;
-
-  width: 170px;
-  height: 250px;
-
-  line-height: 0.75cm;
-
-  margin-left: 450px;
-  margin-top: 30px;
-
-  background-color: #70c23200;
+.block a, .block p {
+  font-size: 15px;
+  margin-bottom: 30px;
 }

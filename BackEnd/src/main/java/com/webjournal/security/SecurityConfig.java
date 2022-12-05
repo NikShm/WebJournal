@@ -6,6 +6,7 @@ import com.webjournal.security.jwt.CustomAccessDeniedHandler;
 import com.webjournal.service.auth.AuthServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -68,11 +69,11 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/posts/top-per-month").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/top-per-month", "/api/posts/{id}", "/api/users/{username}",
+                        "/api/users/author/{id}", "/api/users/top").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/posts/search", "/api/posts/by-user", "/api/users/search", "/api/users/{id}/posts-approved").permitAll()
                 .antMatchers("/api/comments/**").permitAll()
                 .antMatchers("/api/tags/**").permitAll()
-                .antMatchers("/api/users/**").permitAll()
-                .antMatchers("/api/posts/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

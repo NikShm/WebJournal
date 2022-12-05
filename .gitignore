@@ -66,6 +66,8 @@ yarn-error.log
 testem.log
 /typings
 Backend/application.properties
+Resourse/PostImage
+Resourse/UsersIcon
 
 # System files
 .DS_Store

@@ -213,12 +213,18 @@ a {
 }
 
 /*****************!!!!!!!!!!!!!!!!!!!!*********************/
+.headerHr {
+  background-color: black;
+  border: 0;
+  height: 0.1px;
+  position: absolute;
+  width: 100%;
+  margin-bottom: 1px;
+}
+
 .navigation{
   position: absolute;
-  margin: auto;
-  margin-left: -40px;
-  margin-top: 450px;
-
+  margin: 450px auto auto -40px;
   width: 1140px;
   height: 50px;
 }
@@ -243,22 +249,18 @@ a {
   height: 40px;
   list-style: none;
   position: relative;
-  border: 0.1px #000000;
 }
 
 .aCss {
   color: rgb(0, 0, 0);
-
   display: block;
   text-align: center;
-
-  border: 0.1px solid black;
+  border-left: 1px solid black;
   line-height: 45px;
   font-family: 'Montserrat', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
-
   letter-spacing: 0.2em;
   text-decoration: none;
   transition: all .5s;
@@ -277,5 +279,7 @@ li button img:hover{
 
 #lastHr{
   margin-bottom: -5px;
-  border: 0.1px solid black;
+  background-color: black;
+  width: 0.1px;
+  border: 0;
 }

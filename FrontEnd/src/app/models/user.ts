@@ -5,7 +5,6 @@ export class User {
         this.bio = user.bio;
         this.followers = user.followers;
         this.following = user.following;
-        this.posts = user.posts;
     }
 
     id: string;
@@ -13,5 +12,4 @@ export class User {
     bio: string;
     followers: number;
     following: number;
-    posts: number;
 }

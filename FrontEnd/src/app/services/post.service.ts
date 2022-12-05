@@ -13,8 +13,7 @@ import {Search} from "../models/search";
   providedIn: 'root'
 })
 export class PostService {
-
-  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:"", isApprove:true})
+  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:""})
 
   constructor(private http: HttpClient) { }
 
@@ -76,12 +75,12 @@ export class PostService {
     return this.http.delete<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }
 
-  getSearchParameter(){
-    return this.searchParameter
+  getSearchParameter() {
+    return this.searchParameter;
   }
 
-  setSearchParameter(searchParameter:Search){
-    console.log(this.searchParameter)
+  setSearchParameter(searchParameter:Search) {
+    this.searchParameter = searchParameter;
   }
 
   getPostPage():Observable<Page> {
@@ -120,5 +119,13 @@ export class PostService {
         return new PostList(post);
       })
     }));
+  }
+
+  getApprovedAuthorsPostsPage(id: string): Observable<Page> {
+    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-approved`, this.searchParameter);
+  }
+
+  getFilteredAuthorsPostsPage(id: string): Observable<Page> {
+    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-filtered`, this.searchParameter);
   }
 }

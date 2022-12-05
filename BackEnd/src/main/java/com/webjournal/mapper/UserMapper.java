@@ -43,8 +43,6 @@ public class UserMapper {
         dto.setFollowers(entity.getCountFollowers());
         dto.setFollowing((int) ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) from follow where following_user_id = ?1")
                 .setParameter(1, entity.getId()).getSingleResult()).longValue());
-        dto.setPosts(((BigInteger) entityManager.createNativeQuery("SELECT count(*) from post where author_id = ?1")
-                .setParameter(1,entity.getId()).getSingleResult()).longValue());
 
         return dto;
     }

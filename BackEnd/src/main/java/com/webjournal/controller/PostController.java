@@ -8,7 +8,6 @@ import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,7 +48,6 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'AUTHOR')")
     public void deleteOne(@PathVariable Integer id) throws IOException {
         postService.delete(id);
     }
@@ -79,6 +77,7 @@ public class PostController {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now().minusMonths(6));
         return postService.getFeaturedPosts(n, date);
     }
+
     @PostMapping("/news-post")
     public List<PostListDTO> getNewsPosts(@RequestBody SearchDTO search) {
         return postService.getNewPost(search);
@@ -88,6 +87,4 @@ public class PostController {
     public void upload(@RequestPart MultipartFile photo, @RequestParam String newPath) throws IOException {
         fileService.save(photo, newPath);
     }
-
-
 }
