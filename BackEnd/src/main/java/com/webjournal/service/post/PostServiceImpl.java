@@ -66,8 +66,8 @@ public class PostServiceImpl implements IPostService {
     @Override
     public void update(PostDTO dto){
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
-        Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
-        repository.save(updatedProduct);
+        Post updatedPost = postMapper.toEntity(postToUpdate, dto);
+        repository.save(updatedPost);
     }
 
     @Override
