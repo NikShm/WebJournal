@@ -2,16 +2,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
 }
 
 body{
-  height: 1390px;
+  height: 1000px;
   width: 1140px;
 
   margin: auto;
   margin-top: 240px;
-  margin-bottom: -200px;
-
   background-color: rgba(131, 102, 186, 0);
 }
 
@@ -197,7 +196,7 @@ body{
 #blog{
   background-color: rgba(78, 219, 224, 0);
 
-  margin-top: 30px;
+  margin-top: 45px;
 
   width: 1140px;
   height: 1300px;
@@ -277,6 +276,7 @@ body{
   font-weight: 1;
   width: 130px;
   height: 30px;
+
   text-align: left;
   margin-left: -200px;
   font-family: 'Montserrat Alternates';
@@ -295,9 +295,9 @@ background-color: rgba(216, 42, 42, 0);
 .spanstyle2{
   font-size: 15px;
   margin-left: -10px;
-  width: 340px;
+  width: 337px;
   float:left;
-  margin-top: 23px;
+  margin-top: 5px;
   font-family: 'Montserrat Alternates';
 font-style: normal;
 font-weight: 400;
@@ -326,11 +326,12 @@ background-color: rgba(187, 125, 125, 0);
 }
 */
 .spanfollower p{
+  position: absolute;
   font-size: 15px;
   margin-left: 250px;
   width: 150px;
   float:left;
-  margin-top: -61px;
+  margin-top: -19px;
   font-family: 'Montserrat Alternates';
 font-style: normal;
 font-weight: 400;
@@ -344,6 +345,37 @@ letter-spacing: 0.1em;
 color: #000000;
 
 }
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.btn {
+  border-radius: 5rem;
+  background:#749E94;
+  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+  color:#000000;
+  padding:.9rem 3.5rem;
+  font-size: 1.7rem;
+}
+
+.btn:hover, .btn:hover:enabled {
+  background: #C24332;
+}
+.ng_autocomplete{
+  /*width: 443px;*/
+  /*height: 40px;*/
+  margin-top: -500px;
+  /*border: 1px solid #000000;*/
+  /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+  /*padding-left: 11px;*/
+  /*padding-top: 5px;*/
+
+  color: #749E94;
+}
+
+
 /*
 .centerlineusers hr{
 
