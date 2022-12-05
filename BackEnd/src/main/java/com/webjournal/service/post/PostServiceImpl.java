@@ -11,6 +11,7 @@ import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
+import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
