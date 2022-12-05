@@ -59,15 +59,24 @@
     </div>
 
   </div>
+</div>
 
+<div class="CommentSection">
   <div>
     <div class="imgDivUser">
       <img src="assets/cooking.webp">
     </div>
-  </div>
-  <div>
-    <div class="imgDivUser">
-      <img src="assets/cooking.webp">
+    <div class="commentInfo">
+      <p id="commentUserName">Nick of person</p>
+      <p id="commentText">Comment jidjfso</p>
+    </div>
+    <div class="menuCommentDropdown">
+      <button class="dropbtn" id="{{idButtonShowAction}}" (click)="showActions()">
+        <img src="assets/iconsCommentIcon.png" height="39px" width="40px">
+      </button>
+      <div class="menuCommentDropdown-content" id="{{classButtonShowAction}}">
+        <button (click)="delete()">Delete</button>
+      </div>
     </div>
   </div>
 
@@ -88,7 +97,7 @@
 
   <div class="oneSimilarPost" id="secondPost">
     <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
-      <img src="assets/img.png">
+      <img src="assets/img.png" alt="menu">
     </div>
     <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Movies That Need to Be Seen on the Big Screen</a></p>
   </div>

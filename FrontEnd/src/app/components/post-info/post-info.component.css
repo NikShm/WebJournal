@@ -748,6 +748,12 @@ footer{
 }
 
 
+.CommentSection{
+  margin: auto;
+  width: 1140px;
+  margin-top: -240px;
+  background-color: rgba(255, 16, 0, 0);
+}
 /***********/
 .dropbtn {
   background-color: rgba(0, 255, 11, 0);
@@ -823,4 +829,105 @@ footer{
   transform: rotate(90deg);
   transition: 0.5s;
 }
-/*************************************************/
+/***************COMMENT*************/
+
+.commentInfo{
+  position: absolute;
+  margin-left: 150px;
+  margin-top: -90px;
+  width: 930px;
+  background-color: rgba(157, 234, 185, 0);
+}
+
+.commentInfo #commentUserName{
+  margin-bottom: 10px;
+  color: #C24332;
+  font-size: 16px;
+  font-family: 'Montserrat Alternates', serif;
+  width: 200px;
+  background-color: rgba(255, 30, 0, 0);
+}
+
+.commentInfo #commentText{
+  font-size: 16px;
+  font-family: 'Montserrat Alternates', serif;
+  background-color: rgba(255, 28, 0, 0);
+}
+
+.menuCommentIcon{
+
+}
+
+/***********/
+.dropbtn {
+  background-color: rgba(0, 255, 11, 0);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.menuCommentDropdown {
+  position: absolute;
+  margin-left: 1100px;
+  margin-top: -80px;
+  background-color: rgba(255, 31, 0, 0);
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.menuCommentDropdown-content {
+  margin-left: -15px;
+  display: none;
+  position: absolute;
+  background-color: rgba(249, 249, 249, 0);
+  width: 70px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.menuCommentDropdown-content button {
+  margin: auto;
+  text-align: center;
+  background-color: rgba(151, 255, 0, 0);
+  font-size: 16px;
+  font-family: 'Montserrat Alternates', serif;
+  border: 0;
+  border-bottom: 1px solid black;
+  color: black;
+  padding: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.menuCommentDropdown-content button:hover {
+  border-bottom: 1px solid #C24332;
+  color: #C24332;
+}
+
+/* Show the dropdown menu on hover */
+.menuCommentDropdown:hover .menuCommentDropdown-content {
+  display: block;
+}
+
+.menuCommentDropdown .dropbtn {
+  width: 40px;
+  height: 40px;
+}
+
+.menuCommentDropdown .dropbtn img {
+  margin-left: -15px;
+  margin-top: -15px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.menuCommentDropdown:hover .dropbtn {
+  transform: rotate(90deg);
+  transition: 0.5s;
+}
