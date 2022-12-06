@@ -17,8 +17,8 @@ import java.util.List;
 
 public interface IPostService{
     List<PostListDTO> getSimilarPosts(Integer postId);
-    void like(LikeDTO like);
-    void dislike(LikeDTO like);
+    void like(Integer postId);
+    void dislike(Integer postId);
 
     @Transactional
     Boolean approved(Integer postId);

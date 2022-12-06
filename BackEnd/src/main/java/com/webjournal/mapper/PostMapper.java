@@ -9,9 +9,11 @@ import com.webjournal.entity.Tag;
 import com.webjournal.entity.User;
 import com.webjournal.repository.UserRepository;
 import com.webjournal.service.user.UserServiceImpl;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -31,16 +33,22 @@ public class PostMapper {
     private final TagMapper tagMapper;
     private final UserRepository userRepository;
     private final UserServiceImpl userService;
-    public PostMapper(UserMapper userMapper, CommentMapper commentMapper, TagMapper tagMapper, UserRepository userRepository, UserServiceImpl userService) {
+    private final EntityManager entityManager;
+
+    public PostMapper(UserMapper userMapper, CommentMapper commentMapper, TagMapper tagMapper, UserRepository userRepository, UserServiceImpl userService, EntityManager entityManager) {
         this.userMapper = userMapper;
         this.commentMapper = commentMapper;
         this.tagMapper = tagMapper;
         this.userRepository = userRepository;
         this.userService = userService;
+        this.entityManager = entityManager;
     }
 
     public PostDTO toPostDto(Post entity) {
         PostDTO dto = new PostDTO();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = null;
 
         dto.setId(entity.getId());
         dto.setAuthor(userMapper.toAuthorDto(entity.getAuthor()));
@@ -54,7 +62,13 @@ public class PostMapper {
         dto.setPublishedAt(entity.getPublishedAt());
         dto.setCreatedAt(entity.getCreatedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
-
+        if (authentication.getPrincipal() != "anonymousUser") {
+            authorizeUser = (User) authentication.getPrincipal();
+            dto.setLike((Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
+                    .setParameter(1, authorizeUser.getId())
+                    .setParameter(2, dto.getId())
+                    .getSingleResult());
+        }
         return dto;
     }
 

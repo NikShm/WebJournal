@@ -159,8 +159,13 @@ export class PostService {
 
   goToPost(id:any){
     this.router.navigate(['/posts/' + id]).then(() => {});//() =>window.location.reload()
-    // this.router.navigateByUrl('/posts', { skipLocationChange: true }).then(() => {
-    //   this.router.navigate(['/posts/' + id]);
-    // });
+  }
+
+  like(id:any){
+    return this.http.get(GlobalConstants.apiURL +'/posts/like?id=' + id);
+  }
+
+  dislike(id:any){
+    return this.http.get(GlobalConstants.apiURL +'/posts/dislike?id=' + id);
   }
 }

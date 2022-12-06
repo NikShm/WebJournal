@@ -14,6 +14,7 @@ import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
 import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
+import com.webjournal.exception.ForbiddenException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
@@ -99,30 +100,36 @@ public class PostServiceImpl implements IPostService {
 
     @Transactional
     @Override
-    public void like(LikeDTO like) {
-        if (like.getPostId() != null && like.getUserId() != null) {
+    public void like(Integer postId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = (User)authentication.getPrincipal();
+        if (postId != null ) {
             Integer authorId = (Integer) entityManager.createNativeQuery("SELECT author_id from post where id = ?1")
-                    .setParameter(1, +like.getPostId())
+                    .setParameter(1, postId)
                     .getSingleResult();
-            Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
-                    .setParameter(1, like.getUserId())
-                    .setParameter(2, like.getPostId())
-                    .getSingleResult();
-            if (!Objects.equals(authorId, like.getUserId()) && !isExist) {
-                String INSERT_LIKE = "insert into \"like\"(user_id, post_id) VALUES (?1,?2) ON CONFLICT DO NOTHING";
-                entityManager.createNativeQuery(INSERT_LIKE).setParameter(1, like.getUserId())
-                        .setParameter(2, like.getPostId()).executeUpdate();
+            if (!Objects.equals(authorId, authorizeUser.getId())) {
+                Boolean isExist = (Boolean) entityManager.createNativeQuery("select exists(select 1 from \"like\" where user_id=?1 and post_id=?2)")
+                        .setParameter(1, authorizeUser.getId())
+                        .setParameter(2, postId)
+                        .getSingleResult();
+                if (!isExist) {
+                    String INSERT_LIKE = "insert into \"like\"(user_id, post_id) VALUES (?1,?2) ON CONFLICT DO NOTHING";
+                    entityManager.createNativeQuery(INSERT_LIKE).setParameter(1, authorizeUser.getId())
+                            .setParameter(2, postId).executeUpdate();
+                }
             }
         }
     }
 
     @Transactional
     @Override
-    public void dislike(LikeDTO like) {
-        if (like.getPostId() != null && like.getUserId() != null) {
+    public void dislike(Integer postId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authorizeUser = (User)authentication.getPrincipal();
+        if (postId != null) {
             String DELETE_LIKE = "delete from \"like\" where user_id = ?1 and post_id = ?2";
-            entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, like.getUserId())
-                    .setParameter(2, like.getPostId()).executeUpdate();
+            entityManager.createNativeQuery(DELETE_LIKE).setParameter(1, authorizeUser.getId())
+                    .setParameter(2, postId).executeUpdate();
         }
     }
 

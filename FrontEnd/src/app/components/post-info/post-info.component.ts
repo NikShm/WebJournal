@@ -22,9 +22,9 @@ export class PostInfoComponent implements OnInit {
   idButtonShowAction = "";
   classButtonShowAction = "";
   similarPosts: PostList[] = [];
-  approvedButton!:boolean;
-  canselApprovedButton!:boolean;
-  classButton = "heart"
+  approvedButton!: boolean;
+  canselApprovedButton!: boolean;
+  likeButton = "heart"
 
   constructor(private postService: PostService,
               private tagService: TagService,
@@ -49,12 +49,28 @@ export class PostInfoComponent implements OnInit {
       this.idButtonShowAction = ""
     }
 
+    if (this.post.like == null){
+      this.likeButton = ""
+    }
+
     this.postService.getSimilar(this.postId).subscribe((posts) => {
       this.similarPosts = posts
     })
 
     this.approvedButton = this.showApprovedButton()
     this.canselApprovedButton = this.showCancelApprovedButton()
+
+    switch (this.post.like) {
+      case null:
+        this.likeButton = ""
+        break;
+      case true:
+        this.likeButton = "heart heart-active"
+        break;
+      case false:
+        this.likeButton = "heart"
+        break;
+    }
   }
 
   // @ts-ignore
@@ -80,18 +96,18 @@ export class PostInfoComponent implements OnInit {
   }
 
   approved() {
-   this.postService.approved(this.postId).subscribe((data)=>{
-     if (data){
-       this.approvedButton = false
-       this.canselApprovedButton = true
-     }
-   })
+    this.postService.approved(this.postId).subscribe((data) => {
+      if (data) {
+        this.approvedButton = false
+        this.canselApprovedButton = true
+      }
+    })
   }
 
   canselApproved() {
-    this.postService.cancelApproved(this.postId).subscribe((data)=>{
+    this.postService.cancelApproved(this.postId).subscribe((data) => {
       console.log(data)
-      if (data){
+      if (data) {
         this.approvedButton = true
         this.canselApprovedButton = false
       }
@@ -122,14 +138,24 @@ export class PostInfoComponent implements OnInit {
     event.target.src = 'assets/PostImage/default.png';
   }
 
-  goToPost(id:any){
-    this.router.navigateByUrl('/posts', { skipLocationChange: true }).then(() => {
+  goToPost(id: any) {
+    this.router.navigateByUrl('/posts', {skipLocationChange: true}).then(() => {
       this.router.navigate(['/posts/' + id]);
     });
   }
 
-  on() {
-    this.classButton = "heart heart-active"
-    this.ngOnInit()
+  like() {
+    if (this.storageService.getUser().id != this.authorId) {
+      if (this.likeButton == "heart") {
+        this.likeButton = "heart heart-active"
+        this.postService.like(this.postId).subscribe();
+        this.post.likes++
+      }
+      else {
+        this.likeButton = "heart"
+        this.postService.dislike(this.postId).subscribe()
+        this.post.likes--
+      }
+    }
   }
 }

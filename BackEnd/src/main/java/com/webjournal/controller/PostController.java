@@ -7,10 +7,13 @@ import com.webjournal.dto.post.PostFormDTO;
 import com.webjournal.dto.post.PostListDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
+import com.webjournal.entity.User;
+import com.webjournal.exception.ForbiddenException;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import com.webjournal.service.post.PostServiceImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,14 +43,16 @@ public class PostController {
         return postService.create(postDTO);
     }
 
-    @PostMapping("/like")
-    public void createLike(@RequestBody LikeDTO likeDTO) {
-         postService.like(likeDTO);
+    @PreAuthorize("hasAnyRole('AUTHOR','ADMIN', 'MODERATOR')")
+    @GetMapping("/like")
+    public void createLike(@RequestParam("id") Integer postId) {
+         postService.like(postId);
     }
 
-    @PostMapping("/dislike")
-    public void deleteLike(@RequestBody LikeDTO likeDTO) {
-        postService.dislike(likeDTO);
+    @PreAuthorize("hasAnyRole('AUTHOR','ADMIN', 'MODERATOR')")
+    @GetMapping("/dislike")
+    public void deleteLike(@RequestParam("id") Integer postId) {
+        postService.dislike(postId);
     }
 
     @GetMapping("/approved")
