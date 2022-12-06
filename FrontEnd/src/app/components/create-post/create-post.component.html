@@ -43,13 +43,13 @@
             We recommend using high-quality files in the .jpg (up to 20 MB in size).</p>
           </div>
         </div>
-
+        <div class="error" style="margin-left: 220px" *ngIf="!photo.untouched">*Photo is required</div>
         <div id="uploadedPhoto" *ngIf="image != null || mode == 'UPDATE'">
           <p class="previewPhoto">Preview photo:</p>
           <div class="imgDiv">
             <img id="previewImg" [src]="previewImg + postId + '.jpg'" alt=""/>
           </div>
-        </div>
+        </div><br>
 
         <!--TAGS INPUT-->
 
@@ -65,6 +65,10 @@
                 [itemTemplate]="itemTemplate"
                 [notFoundTemplate]="notFoundTemplate"
                 [(ngModel)]="newTodo"
+                [maxlength]=50
+                [minlength]="1"
+                [minQueryLength]="1"
+                #newTag="ngModel"
                 name="newTodo">
               </ng-autocomplete>
 
@@ -77,7 +81,7 @@
                 </ng-template>
 
             </div>
-            <button class="button-89" role="button"  type="submit" [disabled]="newTodo== ''">Add</button>
+            <button class="button-89" role="button"  type="submit" [disabled]="newTag.invalid || newTag.untouched">Add</button>
           </form>
         </div>
         <div class="listOfTags">
