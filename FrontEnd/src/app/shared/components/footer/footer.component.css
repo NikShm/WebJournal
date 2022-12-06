@@ -3,12 +3,14 @@
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', serif;
+  user-select: none;
 }
 
 a {
   display: block;
   text-decoration: none;
   color: #000;
+  cursor: pointer;
 }
 
 a:hover {

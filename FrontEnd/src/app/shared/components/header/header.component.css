@@ -13,6 +13,7 @@
   width: 1140px;
   height: 156px;
   margin-bottom: -70px;
+  user-select: none;
 }
 
 a {
@@ -58,10 +59,11 @@ a {
 
 .nameBlog{
   position: absolute;
+  background-color: rgba(194, 67, 50, 0);
   margin: auto;
-  margin-left: 30px;
+  margin-left: 50px;
   margin-top: 200px;
-  width: 950px;
+  width: 1300px;
   height: 150px;
   font-family: 'Montserrat Alternates', serif;
   font-style: normal;
@@ -216,7 +218,7 @@ a {
 .headerHr {
   background-color: black;
   border: 0;
-  height: 0.1px;
+  height: 1px;
   position: absolute;
   width: 100%;
   margin-bottom: 1px;
@@ -252,6 +254,7 @@ a {
 }
 
 .aCss {
+  cursor: pointer;
   color: rgb(0, 0, 0);
   display: block;
   text-align: center;
@@ -280,6 +283,6 @@ li button img:hover{
 #lastHr{
   margin-bottom: -5px;
   background-color: black;
-  width: 0.1px;
+  width: 1px;
   border: 0;
 }

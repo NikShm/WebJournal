@@ -10,26 +10,29 @@
   <input type="text" placeholder="Search..." [(ngModel)]="searchParameter.searchPattern.search" (keyup.enter)="apply()" >
   <img id="searchIcon" src="assets/iconsSearch.png" (click)="apply()">
 </div>
-  <div style="width: 300px; height: 30px;">
-    <ng-autocomplete
-      [data]="tags"
-      [searchKeyword]="keyword"
-      placeholder="Tag..."
-      (inputChanged)='getTags($event)'
-      (selected)='selectedTags($event)'
-      [itemTemplate]="itemTemplate"
-      (keyup.enter)="apply()"
-      (inputCleared)="cleanTagSearch()"
-      initialValue='{{tag}}'
-    >
-    </ng-autocomplete>
-    <ng-template #itemTemplate let-item >
-      <a href="javascript:void(0)" class="ng-template">
-        <span [innerHTML]="item.name"></span>,
-        <span [innerHTML]="item.address"></span>
-      </a>
-    </ng-template>
+  <div>
+    <div style="width: 300px; height: 30px;">
+      <ng-autocomplete
+        [data]="tags"
+        [searchKeyword]="keyword"
+        placeholder="Tag..."
+        (inputChanged)='getTags($event)'
+        (selected)='selectedTags($event)'
+        [itemTemplate]="itemTemplate"
+        (keyup.enter)="apply()"
+        (inputCleared)="cleanTagSearch()"
+        initialValue='{{tag}}'
+      >
+      </ng-autocomplete>
+      <ng-template #itemTemplate let-item >
+        <a href="javascript:void(0)" class="ng-template">
+          <span [innerHTML]="item.name"></span>,
+          <span [innerHTML]="item.address"></span>
+        </a>
+      </ng-template>
+    </div>
   </div>
+
 
 <table class="select" matSort (matSortChange)="setSorted($event)" [matSortDirection]="sort.direction" [matSortActive]="sort.active">
 
@@ -67,15 +70,15 @@
 
       <div style="width: 1140px; background-color: #EBE6D1; margin: -30px auto auto;">
         <div style=" position: relative; font-size: 16px; margin: 20px auto auto;">
-          <button style="width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
-          <div style="width: 600px; text-align: center; background-color: #EBE6D1; margin: auto;">
+          <button style="font-family: 'Montserrat Alternates', serif; width: 210px; font-size: 16px; margin-top: -15px; float: left" class="btn btn-dark btn-lg" (click)="getFirst()">First Page</button>
+          <div style="width: 600px; font-family: 'Montserrat Alternates', serif; text-align: center; background-color: #EBE6D1; margin: auto;">
             <pagination-controls previousLabel="Previous"
                                  nextLabel="Next"
                                  class="my-pagination"
                                  [maxSize]="6" (pageChange)="changePage($event.valueOf() - 1)">
             </pagination-controls>
           </div>
-          <button style="width: 210px; font-size: 16px; float: right;  margin-top: -67px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
+          <button style="font-family: 'Montserrat Alternates', serif; width: 210px; font-size: 16px; float: right;  margin-top: -67px" class="btn btn-dark btn-lg" (click)="getLast()">Last Page</button>
         </div>
       </div>
 

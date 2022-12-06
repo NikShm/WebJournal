@@ -15,6 +15,7 @@ body{
 }
 
 #titleBlock{
+  user-select: none;
   height: 53px;
   width: 250px;
 
@@ -31,7 +32,7 @@ body{
 }
 
 #titleBlock p{
-  font-family: 'Montserrat', serif;
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
@@ -83,7 +84,7 @@ body{
 
 
 .search input::placeholder{
-  font-family: 'Montserrat', serif;
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -124,43 +125,22 @@ body{
 
 .alphabet{
   float: right;
-
+  user-select: none;
   width: 187px;
   height: 40px;
 
+  padding-left: 20px;
+  padding-top: 10px;
   background: #749E94;
   border: 1px solid #000000;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   text-align: center;
 
-  font-family: 'Montserrat', serif;
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  letter-spacing: 0.2em;
-
-  color: #000000;
-}
-
-.bydate{
-  position: absolute;
-  margin-left: 30px;
-
-  width: 137px;
-  height: 40px;
-
-  background: #749E94;
-  border: 1px solid #000000;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-  text-align: center;
-
-  font-family: 'Montserrat', serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 16px;
   letter-spacing: 0.2em;
 
@@ -168,10 +148,11 @@ body{
 }
 
 .bylikes{
+  user-select: none;
   position: absolute;
-  margin-left: 170px;
+  margin-left: 130px;
 
-  width: 137px;
+  width: 170px;
   height: 40px;
 
   background: #749E94;
@@ -180,10 +161,12 @@ body{
 
   text-align: center;
 
-  font-family: 'Montserrat', serif;
+  padding-left: 25px;
+  padding-top: 10px;
+  font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 16px;
   letter-spacing: 0.2em;
 
@@ -279,7 +262,7 @@ body{
 
   text-align: left;
   margin-left: -200px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
 font-style: normal;
 font-weight: 700;
 font-size: 16px;
@@ -298,7 +281,7 @@ background-color: rgba(216, 42, 42, 0);
   width: 337px;
   float:left;
   margin-top: 5px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
 font-style: normal;
 font-weight: 400;
 font-size: 15px;
@@ -326,13 +309,14 @@ background-color: rgba(187, 125, 125, 0);
 }
 */
 .spanfollower p{
+  user-select: none;
   position: absolute;
   font-size: 15px;
   margin-left: 250px;
   width: 150px;
   float:left;
   margin-top: -19px;
-  font-family: 'Montserrat Alternates';
+  font-family: 'Montserrat Alternates', serif;
 font-style: normal;
 font-weight: 400;
 font-size: 13px;
