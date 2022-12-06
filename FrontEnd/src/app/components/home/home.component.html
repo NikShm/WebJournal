@@ -4,6 +4,7 @@
 <div *ngIf="isDataLoaded">
 <section class="introduction">
   <div class="featuredPosts">
+    <div class="namesliders"><p> FEATURED POSTS</p></div>
     <!--image slider start-->
     <div class="slider">
       <div class="slides">
@@ -18,7 +19,7 @@
           <img [src]="postImage+posts[0].id+'.jpg'" (error)="onErrorPostImage($event)"  alt="">
           <div class="pslider">
             <h1>{{posts[0].title}}</h1>
-            <div class="datasliders"><p>{{posts[0].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="datasliders"><p style="margin-left: -8px">{{posts[0].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[0].foreword}}</p></div>
           </div>
         </div>
@@ -26,7 +27,7 @@
           <img [src]="postImage+posts[1].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
             <h1>{{posts[1].title}}</h1>
-            <div class="datasliders"><p>{{posts[1].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="datasliders"><p style="margin-left: -8px">{{posts[1].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[1].foreword}}</p></div>
           </div>
         </div>
@@ -34,7 +35,7 @@
           <img [src]="postImage+posts[2].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
             <h1>{{posts[2].title}}</h1>
-            <div class="datasliders"><p>{{posts[2].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="datasliders"><p style="margin-left: -8px">{{posts[2].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[2].foreword}}</p></div>
           </div>
         </div>
@@ -42,7 +43,7 @@
           <img [src]="postImage+posts[3].id+'.jpg'" (error)="onErrorPostImage($event)" alt="">
           <div class="pslider">
             <h1>{{posts[3].title}}</h1>
-            <div class="datasliders"><p>{{posts[3].publishedAt| date:'MMM d, y'}}</p></div>
+            <div class="datasliders"><p style="margin-left: -8px">{{posts[3].publishedAt| date:'MMM d, y'}}</p></div>
             <div class="aboutsliders"><p>{{posts[3].foreword}}</p></div>
           </div>
         </div>
@@ -66,8 +67,6 @@
       <!--manual navigation end-->
     </div>
     <hr class="lineafterslide">
-
-    <div class="namesliders"><p> FEATURED POSTS</p></div>
   </div>
 
 
@@ -119,7 +118,8 @@
       <th colspan="5" height="48cm">Actual tags</th>
     </tr>
     <tr class="b2" *ngFor="let tags of tagList">
-      <td [ngStyle]="{'background-color': setBackgroundColor(tag.id)}" *ngFor="let tag of tags" >{{tag.name}}</td>
+      <td [ngStyle]="{'background-color': setBackgroundColor(tag.id)}" *ngFor="let tag of tags"
+          style="text-transform: lowercase;">{{tag.name}}</td>
     </tr>
   </table>
 </section>

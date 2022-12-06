@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Author} from "../../models/author";
 import {UserService} from "../../services/user.service";
@@ -6,7 +6,7 @@ import {PostService} from "../../services/post.service";
 import {PostList} from "../../models/postList";
 import {TagService} from "../../services/tag.service";
 import {Tag} from "../../models/tag";
-import { StorageService } from 'src/app/services/storage.service';
+import {StorageService} from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -59,7 +59,22 @@ export class HomeComponent implements OnInit {
   }
 
   getRandomColor() {
-    return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    let sounds = ["hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  44  +", 79%, 53%)", //yellow
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  0  +", 0%, 0%, 0%)",
+                  "hsl(" +  348  +", 85%, 73%)", //pink
+                  "hsl(" +  24  +", 83%, 56%)",//orange
+                  "hsl(" +  200  +", 84%, 67%)", //blue
+                  "hsl(" +  166  +", 18%, 54%)"] //green
+    return sounds[Math.floor(Math.random() * sounds.length)];
   }
 
   goToArticles() {

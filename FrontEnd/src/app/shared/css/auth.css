@@ -38,9 +38,11 @@ a:hover {
 }
 
 .img {
+  border-right: 0.1px solid black;
+  border-left: 0.1px solid black;
     flex: 1;
-    background-image: url("../../../../../Resourse/colage.png");
-    background-size: 100% 100%;
+    background-image: url("../../../../../Resourse/travel.webp");
+    background-size: contain;
 }
 
 .form-content {
@@ -70,8 +72,8 @@ a:hover {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #ebe6d1 inset !important;
     box-shadow: 0 0 0 30px #ebe6d1 inset !important;

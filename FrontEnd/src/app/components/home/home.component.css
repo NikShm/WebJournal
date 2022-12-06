@@ -11,7 +11,7 @@
 }
 
 .featuredPosts{
-  width: 741px;
+  width: 800px;
   height: 667px;
   margin: auto;
   top: 20px;
@@ -20,14 +20,12 @@
 
 .slider{
   background: rgba(99, 148, 140, 0.69);
-  text-align: end;
-  width: 740px;
+  width: 800px;
   height: 667px;
   overflow: hidden;
 }
 
 .pslider{
-  margin-right: 1%;
 }
 
 .slider p{
@@ -48,14 +46,17 @@
 }
 
 .slide{
-  width: 20%;
+  width: 800px;
   transition: 2s;
+
 }
 
 .slide img{
   z-index: 2;
-  width: 800px;
-  height: 500px;
+  object-fit: cover;
+  vertical-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 /*----------------------------------css for manual slide navigation*/
@@ -171,31 +172,30 @@
   font-family: 'Montserrat Alternates', serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 24px;
   letter-spacing: 0.1em;
-
   color: #000000;
 }
 
+.pslider .datasliders{
+  width: 200px;
+  margin-left: 20px;
+  text-align: left;
+}
+
 .pslider .datasliders p{
-  width: 102.6px;
-  height: 20.61px;
-  margin-left: -10px;
+  width: 200px;
   margin-top: -10px;
+  text-align: left;
 
   font-family: 'Montserrat', serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 14px;
   line-height: 13px;
   letter-spacing: 0.1em;
-
   color: #000000;
-}
-
-.aboutsliders p{
-  text-align: right;
 }
 
 .pslider .aboutsliders p{
@@ -207,20 +207,20 @@
   font-family: 'Montserrat', serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 15px;
   letter-spacing: 0.1em;
   color: #000000;
 }
 
 .namesliders{
-  position: relative;
-  width: 30%;
-  height: 7%;
+  position: absolute;
+  marker: none;
+  margin-left: 10px;
+  width: 218px;
+  height: 45px;
   background: #EBE6D1;
-  margin-top: -95%;
-  left: 20px;
-  top:-8px;
+  margin-top: -30px;
   border: 1px solid black;
 }
 
@@ -228,8 +228,7 @@
 .namesliders p{
   text-align: center;
 
-  margin-left: 1%;
-  margin-top: 7%;
+  margin-top: 6%;
 
   font-family: 'Montserrat', serif;
   font-style: normal;
@@ -246,7 +245,7 @@
   width: 670px;
   align-items: center;
   position: relative;
-  left: 407px;
+  left: 435px;
   top: -340px;
   border: 1px solid #749E95;
   transform: rotate(-90deg);
@@ -373,9 +372,9 @@
 .actualTagsHr{
   position: absolute;
   width: 100%;
-  background-color: black; 
-  border: 0; 
-  height: 0.1px; 
+  background-color: black;
+  border: 0;
+  height: 1px;
 }
 
 .actual_tags{
@@ -580,9 +579,9 @@ top:63%;
   position: absolute;
   width: 290px;
   left: 755px;
-  background-color: black; 
-  border: 0; 
-  height: 0.1px; 
+  background-color: black;
+  border: 0;
+  height: 0.1px;
   transform: rotate(90deg);
 }
 

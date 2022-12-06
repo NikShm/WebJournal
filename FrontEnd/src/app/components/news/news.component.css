@@ -17,7 +17,7 @@ body{
 #titleBlock{
   height: 53px;
   width: 250px;
-
+  user-select: none;
   margin: auto;
 
   text-align: center;
