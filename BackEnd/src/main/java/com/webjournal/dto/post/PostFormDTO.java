@@ -1,4 +1,4 @@
-package com.webjournal.dto;
+package com.webjournal.dto.post;
 /*
   @author emilia
   @project WebJournal
@@ -8,6 +8,7 @@ package com.webjournal.dto;
 */
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.webjournal.dto.TagDTO;
 
 import java.util.List;
 

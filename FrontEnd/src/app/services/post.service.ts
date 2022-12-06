@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Tag } from "../models/tag";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
@@ -8,6 +8,8 @@ import {GlobalConstants} from "../global-constants";
 import {Post} from "../models/post";
 import {Page} from "../models/pages";
 import {Search} from "../models/search";
+import {ActivatedRoute, Router} from "@angular/router";
+import {PostInfoComponent} from "../components/post-info/post-info.component";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class PostService {
   searchPostsParameter = new Search("title", "ASC", 0,6,{search:"", searchTag:"", isApprove:true})
   searchProfileParameter!: Search;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   getToPerMonth():Observable<PostList[]> {
     return this.http.get<PostList[]>(GlobalConstants.apiURL +'/posts/top-per-month?count=4').pipe(map((data: any) => {
@@ -152,5 +155,12 @@ export class PostService {
 
   setTagSearch(name:any){
     this.searchPostsParameter.searchPattern.searchTag = name.toString()
+  }
+
+  goToPost(id:any){
+    this.router.navigate(['/posts/' + id]).then(() => {});//() =>window.location.reload()
+    // this.router.navigateByUrl('/posts', { skipLocationChange: true }).then(() => {
+    //   this.router.navigate(['/posts/' + id]);
+    // });
   }
 }

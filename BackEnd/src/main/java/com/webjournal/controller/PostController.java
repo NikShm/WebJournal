@@ -3,6 +3,8 @@ package com.webjournal.controller;
 import com.webjournal.dto.*;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.post.PostFormDTO;
+import com.webjournal.dto.post.PostListDTO;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;

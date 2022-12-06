@@ -1,12 +1,7 @@
 package com.webjournal.service.tag;
 
-import com.webjournal.dto.PostDTO;
-import com.webjournal.dto.PostFormDTO;
 import com.webjournal.dto.TagDTO;
-import com.webjournal.dto.search.AuthorSearch;
-import com.webjournal.entity.Post;
 import com.webjournal.entity.Tag;
-import com.webjournal.entity.User;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.TagMapper;
 import com.webjournal.repository.TagRepository;
@@ -17,13 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TagServiceImpl implements TagService {

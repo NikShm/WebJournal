@@ -24,6 +24,7 @@ export class PostInfoComponent implements OnInit {
   similarPosts: PostList[] = [];
   approvedButton!:boolean;
   canselApprovedButton!:boolean;
+  classButton = "heart"
 
   constructor(private postService: PostService,
               private tagService: TagService,
@@ -34,6 +35,7 @@ export class PostInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("Yes")
     if (this.storageService.getUser().id != this.authorId) {
       if (this.showActions()) {
         this.classButtonShowAction = ""
@@ -121,6 +123,13 @@ export class PostInfoComponent implements OnInit {
   }
 
   goToPost(id:any){
-    this.router.navigate(['/posts/' + id]).then(() =>window.location.reload());
+    this.router.navigateByUrl('/posts', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/posts/' + id]);
+    });
+  }
+
+  on() {
+    this.classButton = "heart heart-active"
+    this.ngOnInit()
   }
 }

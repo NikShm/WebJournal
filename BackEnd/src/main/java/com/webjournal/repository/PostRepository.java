@@ -22,7 +22,7 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Integer>, JpaSpecificationExecutor<Post> {
     @Query("SELECT u FROM Post u WHERE u.publishedAt BETWEEN ?1 AND current_date ORDER BY u.likes DESC")
     List<Post> findInterestingPosts(Pageable page, LocalDateTime date);
-    @Query(value = "SELECT * FROM post p left join follow folow on folow.user_id = ?1 where p.author_id = following_user_id and is_approved = true",
+    @Query(value = "SELECT * FROM post p left join follow folow on folow.following_user_id = ?1 where p.author_id = user_id and is_approved = true",
             nativeQuery = true)
     List<Post> findNewsPosts(Pageable page, Integer authorizeUserId);
     @Query("SELECT p FROM Post p WHERE p.author.id = ?1")

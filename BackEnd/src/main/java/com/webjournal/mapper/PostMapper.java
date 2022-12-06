@@ -1,6 +1,8 @@
 package com.webjournal.mapper;
 
 import com.webjournal.dto.*;
+import com.webjournal.dto.post.PostFormDTO;
+import com.webjournal.dto.post.PostListDTO;
 import com.webjournal.dto.post.PostPreviewDTO;
 import com.webjournal.entity.Post;
 import com.webjournal.entity.Tag;
