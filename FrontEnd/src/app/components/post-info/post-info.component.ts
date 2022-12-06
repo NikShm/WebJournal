@@ -6,6 +6,9 @@ import {TagService} from "../../services/tag.service";
 import {UserService} from "../../services/user.service";
 import {StorageService} from "../../services/storage.service";
 import {PostList} from "../../models/postList";
+import {CommentService} from "../../services/comment.service";
+import {Page} from "../../models/pages";
+import {Comment} from "../../models/comment";
 
 @Component({
   selector: 'app-post-info',
@@ -18,6 +21,7 @@ export class PostInfoComponent implements OnInit {
   @Input() authorId!: string;
   @Input() postId!: string;
 
+  userImage: string = "assets/UsersIcon/user_";
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
   classButtonShowAction = "";
@@ -25,17 +29,23 @@ export class PostInfoComponent implements OnInit {
   approvedButton!: boolean;
   canselApprovedButton!: boolean;
   likeButton = "heart"
+  comments: Page = new Page([], 0);
+  searchParameter = {page: 0,pageSize: 9}
+  isDataFullLoaded: boolean = true;
+  isCreateComment: boolean = false;
+  commentText: string = "";
+
 
   constructor(private postService: PostService,
               private tagService: TagService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private commentService:CommentService) {
   }
 
   ngOnInit(): void {
-    console.log("Yes")
     if (this.storageService.getUser().id != this.authorId) {
       if (this.showActions()) {
         this.classButtonShowAction = ""
@@ -51,6 +61,10 @@ export class PostInfoComponent implements OnInit {
 
     if (this.post.like == null){
       this.likeButton = ""
+    }
+
+    if (this.storageService.isLoggedIn()){
+      this.isCreateComment = true
     }
 
     this.postService.getSimilar(this.postId).subscribe((posts) => {
@@ -71,6 +85,22 @@ export class PostInfoComponent implements OnInit {
         this.likeButton = "heart"
         break;
     }
+    this.commentService.setPostId(this.postId)
+    this.search()
+  }
+
+  search() {
+    this.commentService.getComments().subscribe((page: Page) => {
+      if (page.content.length != 0) {
+        this.comments.content = this.comments.content.concat(page.content)
+        this.commentService.setPage();
+      }
+        else {
+          this.isDataFullLoaded = false
+        }
+      console.log(this.comments)
+      }
+    );
   }
 
   // @ts-ignore
@@ -93,6 +123,10 @@ export class PostInfoComponent implements OnInit {
   // @ts-ignore
   showAuthorsButton() {
     return this.storageService.getUser().id == this.authorId
+  }
+
+  showCommentButton(id:any) {
+    return this.storageService.getUser().id == id;
   }
 
   approved() {
@@ -129,6 +163,23 @@ export class PostInfoComponent implements OnInit {
     }
   }
 
+  createComment(){
+    let comment = new Comment()
+    console.log(this.commentText)
+    comment.text = this.commentText
+    comment.postId = this.post.id
+    comment.author = this.post.author
+    this.comments.content.unshift(comment)
+    this.commentService.createComment(comment)
+  }
+
+  deleteComment(comment:any){
+    if (window.confirm("Are you sure you want to permanently delete this post?")) {
+      this.commentService.deleteComment(comment.id)
+      this.comments.content = this.comments.content.filter(obj => obj !== comment);
+    }
+  }
+
   setTag(event: any) {
     this.postService.setTagSearch(event.target.value)
     this.router.navigate(['/posts'])
@@ -136,6 +187,10 @@ export class PostInfoComponent implements OnInit {
 
   onErrorPostImage(event: any) {
     event.target.src = 'assets/PostImage/default.png';
+  }
+
+  onErrorUserImage(event:any) {
+    event.target.src = 'assets/UsersIcon/default.png';
   }
 
   goToPost(id: any) {

@@ -18,8 +18,7 @@ export class PostService {
   searchPostsParameter = new Search("title", "ASC", 0,6,{search:"", searchTag:"", isApprove:true})
   searchProfileParameter!: Search;
 
-  constructor(private http: HttpClient,
-              private router: Router) { }
+  constructor(private http: HttpClient) { }
 
   getToPerMonth():Observable<PostList[]> {
     return this.http.get<PostList[]>(GlobalConstants.apiURL +'/posts/top-per-month?count=4').pipe(map((data: any) => {
@@ -155,10 +154,6 @@ export class PostService {
 
   setTagSearch(name:any){
     this.searchPostsParameter.searchPattern.searchTag = name.toString()
-  }
-
-  goToPost(id:any){
-    this.router.navigate(['/posts/' + id]).then(() => {});//() =>window.location.reload()
   }
 
   like(id:any){

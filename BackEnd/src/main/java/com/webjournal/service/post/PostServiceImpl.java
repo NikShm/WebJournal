@@ -139,8 +139,9 @@ public class PostServiceImpl implements IPostService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authorizeUser = (User)authentication.getPrincipal();
         Post post = repository.findById(postId).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + postId));
-        if (!Objects.equals(post.getId(), authorizeUser.getId())){
+        if (!Objects.equals(post.getAuthor().getId(), authorizeUser.getId())){
             post.setApproved(true);
+            post.setPublishedAt(LocalDateTime.now());
             repository.save(post);
             return true;
         }

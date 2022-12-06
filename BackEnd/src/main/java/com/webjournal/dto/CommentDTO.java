@@ -15,16 +15,18 @@ public class CommentDTO {
     private Integer id;
     private AuthorDTO author;
     private String text;
+    private Integer postId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(Integer id, AuthorDTO author, String text, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public CommentDTO(Integer id, AuthorDTO author, String text, Integer postId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.text = text;
+        this.postId = postId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -69,12 +71,21 @@ public class CommentDTO {
         this.updatedAt = updatedAt;
     }
 
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
     @Override
     public String toString() {
         return "CommentDTO{" +
                 "id=" + id +
                 ", author=" + author +
                 ", text='" + text + '\'' +
+                ", postId=" + postId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

@@ -107,7 +107,6 @@ public class PostMapper {
         entity.setContent(dto.getContent());
         entity.setLikes(0);
         entity.setApproved(false);
-        entity.setPublishedAt(LocalDateTime.now());
         return entity;
     }
 
