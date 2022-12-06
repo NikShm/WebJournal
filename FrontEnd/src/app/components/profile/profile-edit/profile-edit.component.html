@@ -1,1 +1,48 @@
-<p>profile-edit works!</p>
+<app-header></app-header>
+<section class="profile-section">
+    <div class="headings-section">
+        <p>Edit My Profile</p>
+    </div>
+    <div class="profile-edit container">
+        <form class="profile-form">
+            <div id="photo">
+                <p class="label">Profile picture</p>
+                <div class="user-photo">
+                    <img src="assets/UsersIcon/default.png" alt="">
+                </div>
+                <label for="profile-picture" class="btn-rectangular">Change Photo</label>
+                <input id="profile-picture" name="photo" type="file">
+                <button class="btn-rectangular btn-gray" id="delete">Delete photo</button>
+            </div>
+            <div id="info">
+                <p class="label">Profile details</p>
+                <div class="input-fields">
+                    <div class="labels">
+                        <label for="username" class="label" id="username-label">Username</label>
+                        <label for="bio" class="label" id="bio-label">Bio</label>
+                        <label for="email" class="label">Email</label>
+                    </div>
+                    <div class="fields">
+                        <div>
+                            <input id="username" name="username" (input)="onInput($event.target)">
+                            <div class="characters">{{usernameLength}}/64</div>
+                        </div>
+                        <div>
+                            <textarea id="bio" name="bio" maxlength="150" (input)="onInput($event.target)"></textarea>
+                            <div class="characters">{{bioLength}}/150</div>
+                        </div>
+                        <div>
+                            <input id="email" name="email" (input)="onInput($event.target)">
+                            <div class="characters">{{emailLength}}/256</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn-rectangular btn-gray" id="cancel">Cancel</button>
+                    <button class="btn-rectangular">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<app-footer></app-footer>
