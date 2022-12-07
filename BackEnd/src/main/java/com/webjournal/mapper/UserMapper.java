@@ -2,6 +2,7 @@ package com.webjournal.mapper;
 
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
+import com.webjournal.dto.user.UserUpdateRequest;
 import com.webjournal.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -45,5 +46,13 @@ public class UserMapper {
                 .setParameter(1, entity.getId()).getSingleResult()).longValue());
 
         return dto;
+    }
+
+    public User toUserEntity(User entity, UserUpdateRequest request) {
+        entity.setId(request.getId());
+        entity.setUsername(request.getUsername());
+        entity.setBio(request.getBio());
+
+        return entity;
     }
 }

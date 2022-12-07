@@ -4,15 +4,16 @@
         <p>Edit My Profile</p>
     </div>
     <div class="profile-edit container">
-        <form class="profile-form">
+        <form class="profile-form" #editForm="ngForm" (ngSubmit)="editForm.form.valid && onEdit()" autocomplete="off" novalidate>
             <div id="photo">
                 <p class="label">Profile picture</p>
                 <div class="user-photo">
-                    <img src="assets/UsersIcon/default.png" alt="">
+                    <img src="assets/UsersIcon/user_{{user.id}}.jpg" alt="{{user.username}}'s profile picture" id="preview-img" (error)="onErrorUserImage($event)">
                 </div>
+                <div *ngIf="!photo.valid && editForm.submitted" class="error error-photo">Only .jpg photos are allowed</div>
                 <label for="profile-picture" class="btn-rectangular">Change Photo</label>
-                <input id="profile-picture" name="photo" type="file">
-                <button class="btn-rectangular btn-gray" id="delete">Delete photo</button>
+                <input id="profile-picture" name="photo" type="file" accept="image/jpeg" appFileValidator (change)="previewImage()" ngModel #photo="ngModel">
+                <button type="button" class="btn-rectangular btn-gray" id="delete" (click)="deletePhoto()">Delete photo</button>
             </div>
             <div id="info">
                 <p class="label">Profile details</p>
@@ -20,26 +21,28 @@
                     <div class="labels">
                         <label for="username" class="label" id="username-label">Username</label>
                         <label for="bio" class="label" id="bio-label">Bio</label>
-                        <label for="email" class="label">Email</label>
                     </div>
                     <div class="fields">
                         <div>
-                            <input id="username" name="username" (input)="onInput($event.target)">
-                            <div class="characters">{{usernameLength}}/64</div>
+                            <input id="username" name="username" (input)="onInput($event.target)" [(ngModel)]="user.username" #username="ngModel" required maxlength="64" minlength="3">
+                            <div class="under-field">
+                                <div class="error" *ngIf="!username.valid && editForm.submitted">Username should be between 3 and 64 characters long</div>
+                                <div class="characters">{{usernameLength}}/64</div>
+                            </div>
                         </div>
                         <div>
-                            <textarea id="bio" name="bio" maxlength="150" (input)="onInput($event.target)"></textarea>
-                            <div class="characters">{{bioLength}}/150</div>
-                        </div>
-                        <div>
-                            <input id="email" name="email" (input)="onInput($event.target)">
-                            <div class="characters">{{emailLength}}/256</div>
+                            <textarea id="bio" name="bio" (input)="onInput($event.target)" [(ngModel)]="user.bio" #bio="ngModel" maxlength="150"></textarea>
+                            <div class="under-field">
+                                <div class="error" *ngIf="!bio.valid && editForm.submitted">Bio should contain 150 characters at most</div>
+                                <div class="characters">{{bioLength}}/150</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="error server-error" *ngIf="editFailed && editForm.submitted">Editing failed: {{errorMessage}}</div>
                 <div class="buttons">
-                    <button class="btn-rectangular btn-gray" id="cancel">Cancel</button>
-                    <button class="btn-rectangular">Save</button>
+                    <button type="button" class="btn-rectangular btn-gray" id="cancel" (click)="exit()">Cancel</button>
+                    <button type="submit" class="btn-rectangular">Save</button>
                 </div>
             </div>
         </form>

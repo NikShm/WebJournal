@@ -12,17 +12,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
 @Service
 public class FilesStorageServiceImpl implements IFilesStorageService {
-    private final Path root;
+    private Path root;
 
     public FilesStorageServiceImpl(@Value("${file.storage}") String path) {
         root = Paths.get(path);
+    }
+
+    public void setRoot(String root) {
+        this.root = Paths.get(root);
     }
 
     @Override
@@ -43,5 +44,10 @@ public class FilesStorageServiceImpl implements IFilesStorageService {
     @Override
     public boolean exists(String path) {
         return Files.exists(this.root.resolve(path));
+    }
+
+    @Override
+    public void saveOrReplace(MultipartFile file, String path) throws IOException {
+        Files.copy(file.getInputStream(), this.root.resolve(path), StandardCopyOption.REPLACE_EXISTING);
     }
 }

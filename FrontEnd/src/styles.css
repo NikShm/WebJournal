@@ -52,6 +52,7 @@ button {
   display: block;
   font-size: 16px;
   cursor: pointer;
+  letter-spacing: 0.1em;
 }
 
 .btn-rectangular:hover {

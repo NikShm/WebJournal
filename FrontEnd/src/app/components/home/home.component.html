@@ -79,7 +79,7 @@
         <div class="right-panel">
 
           <div class="friends-section" style="margin-top: 60px;">
-            <a class='friend' routerLink="/authors/{{author.username}}" *ngFor="let author of authors">
+            <a class='friend' routerLink="/authors/{{author.id}}" *ngFor="let author of authors">
               <div class="dp">
                 <img [src]="userImage+author.id+'.jpg'" (error)="onErrorUserImage($event)" alt="">
               </div>

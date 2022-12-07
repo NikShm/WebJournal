@@ -28,6 +28,7 @@ export class UserService {
             return data;
         }));
     }
+
     getAuthors(search: any): Observable<Page> {
       return this.http.post(GlobalConstants.apiURL +'/users/search', search).pipe(map((data: any) => {
         data.content = data.content.map((author:Author) => {
@@ -43,18 +44,24 @@ export class UserService {
     setSearchParameter(searchParameter:Search){
       console.log(this.searchParameter)
     }
-    // getAuPage():Observable<Page> {
-    //   return this.http.post(GlobalConstants.apiURL +'api/users/search', search).pipe(map((data: any) => {
-    //     data.content = data.content.map((post:Author) => {
-    //       return new Author(post)
-    //     })
-    //     return new Page(data.content, data.totalItem)
-    //   }));
-    // }
 
-    getUser(username: string): Observable<User> {
-      return this.http.get<User>(GlobalConstants.apiURL + '/users/' + username);
+    getUser(id: string): Observable<User> {
+      return this.http.get<User>(GlobalConstants.apiURL + '/users/' + id);
     }
 
+    async editUser(user: User, image: File | null) {
+      let userData: User | FormData;
+      if(image) {
+        userData = new FormData();
+        userData.append('photo', image);
+        userData.append('id', user.id);
+        await this.http.post(GlobalConstants.apiURL + '/users/upload-photo/', userData).toPromise();
+      }
+      userData = user;
+      await this.http.put(GlobalConstants.apiURL + '/users/', userData).toPromise();
+    }
 
+    deleteUserPhoto(id: string) {
+      return this.http.get(GlobalConstants.apiURL + '/users/delete-photo/' + id);
+    }
 }

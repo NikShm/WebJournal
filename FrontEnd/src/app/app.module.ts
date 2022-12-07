@@ -35,6 +35,7 @@ import {GlobalHttpInterceptorService} from "./services/global-http-interceptor.s
 
 import { ImageDragDirective } from './directives/image-drag.directive';
 import { BirthDateValidatorDirective } from './directives/birth-date-validator.directive';
+import { FileValidatorDirective } from './directives/file-validator.directive';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { BirthDateValidatorDirective } from './directives/birth-date-validator.d
     BirthDateValidatorDirective,
     PostInfoComponent,
     ProfileDetailsComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    FileValidatorDirective
   ],
   imports: [
     BrowserModule,
