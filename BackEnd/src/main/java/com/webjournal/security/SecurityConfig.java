@@ -69,11 +69,11 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/top-per-month", "/api/posts/{id}", "/api/users/{username}",
-                        "/api/users/author/{id}", "/api/users/top").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/posts/search", "/api/posts/by-user", "/api/users/search", "/api/users/{id}/posts-approved").permitAll()
-                .antMatchers("/api/comments/**").permitAll()
-                .antMatchers("/api/tags/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/posts/top-per-month", "/api/posts/{id}", "/api/posts/similar-posts",
+                        "/api/users/public/{id}", "/api/users/top", "/api/tags/{id}", "/api/tags/actual",
+                        "/api/tags/tag={name}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/posts/search", "/api/posts/by-user", "/api/users/search",
+                        "/api/users/{id}/posts-approved", "/api/comments/search").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

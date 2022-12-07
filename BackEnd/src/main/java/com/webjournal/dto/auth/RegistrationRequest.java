@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webjournal.validation.birthdate.BirthDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 /**
@@ -20,10 +17,12 @@ import java.time.LocalDate;
 public class RegistrationRequest {
     @NotBlank(message = "username is required")
     @Size(min = 3, max = 64, message = "username should be between 3 and 64 characters long")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]*$", message = "username can contain only Latin letters, numbers, underscores and hyphens")
     private String username;
 
     @NotBlank(message = "password is required")
     @Size(min = 6, max = 32, message = "password should be between 6 and 32 characters long")
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "password can contain only Latin letters and numbers")
     private String password;
 
     @NotBlank(message = "email is required")

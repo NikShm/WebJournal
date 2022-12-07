@@ -40,6 +40,12 @@ public class ApiExceptionHandler {
         return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
     }
 
+    @ExceptionHandler(UpdateException.class)
+    public ResponseEntity<ApiErrorMessage> handleUpdateException(UpdateException e, WebRequest request) {
+        LOGGER.error("Could not update entity", e);
+        return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
+    }
+
     @ExceptionHandler(TokenRefreshException.class)
     public ResponseEntity<ApiErrorMessage> handleTokenRefreshException(TokenRefreshException e, WebRequest request) {
         LOGGER.error("Refresh token was invalid", e);

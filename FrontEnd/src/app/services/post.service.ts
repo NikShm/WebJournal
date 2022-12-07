@@ -53,7 +53,6 @@ export class PostService {
 
   }
 
-
   async updateWithPhoto(postToUpdate: Post, newImage: File) {
     let postData: Post | FormData;
 
