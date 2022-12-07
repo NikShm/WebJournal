@@ -25,15 +25,18 @@
     width: 773px;
 }
 
-.articles-filter {
+.select {
     margin-left: 15px;
     border: 1px solid black;
     outline: none;
     background: none;
-    font-size: 24px;
     text-align: center;
     box-shadow: inset 0 0 0 2px #ebe6d1;
     cursor: pointer;
+}
+
+.articles-filter {
+    font-size: 24px;
 }
 
 .articles-filter:hover {
@@ -168,6 +171,20 @@
     text-align: center;
 }
 
+.email {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.role {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.role > p {
+    display: inline-block;
+}
+
 .box {
     margin-top: 38px;
     background: #63948C;
@@ -194,13 +211,26 @@
     margin: 48px auto auto;
 }
 
-.logout {
+.btn-underlined {
     display: block;
     background: none;
     border: none;
     text-decoration: underline;
-    font-size: 16px;
     margin: 30px auto auto;
+}
+
+.logout {
+    font-size: 16px;
+}
+
+.delete-account {
+    color: #c24332;
+    letter-spacing: 0.2em;
+    font-size: 24px;
+}
+
+.delete-account:hover {
+    color: #8a3226;
 }
 
 .logout:hover {

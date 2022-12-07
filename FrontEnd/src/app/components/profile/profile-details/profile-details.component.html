@@ -4,7 +4,7 @@
         <div class="headings container">
             <div id="art-heading">
                 <p>Articles</p>
-                <select *ngIf="hasPermission()" name="filter" class="articles-filter" (change)="changePostsFilter()" [(ngModel)]="searchModel.searchPattern.areApproved">
+                <select *ngIf="hasPermissionToFilter()" name="filter" class="select articles-filter" (change)="changePostsFilter()" [(ngModel)]="searchModel.searchPattern.areApproved">
                     <option value="true">Approved</option>
                     <option value="false">Not Approved</option>
                     <option value="">All</option>
@@ -49,14 +49,24 @@
                         <p class="number-label">followers</p>
                     </div>
                 </div>
+                <p class="email" *ngIf="user.email">{{user.email}}</p>
+                <div class="role" *ngIf="role">
+                    <p>Role:</p>
+                    <span *ngIf="!hasPermissionToChangeRole()"> {{user.role}}</span>
+                    <select *ngIf="hasPermissionToChangeRole()" name="role" class="select role-select" (change)="changeRole()" [(ngModel)]="role">
+                        <option value="AUTHOR">AUTHOR</option>
+                        <option value="MODERATOR">MODERATOR</option>
+                    </select>
+                </div>
                 <div class="box" *ngIf="user.bio && user.bio !== ''">
                     <p class="bio">{{user.bio}}</p>
                     <p class="name-authors">- by author</p>
                 </div>
                 <button *ngIf="!isYourProfile()" class="btn-rectangular">Follow</button>
                 <button *ngIf="isYourProfile()" class="btn-rectangular" (click)="enableEditMode()">Edit</button>
+                <button *ngIf="isAdmin() || isYourProfile()" class="btn-underlined delete-account" (click)="deleteAccount()">DELETE ACCOUNT</button>
             </div>
-            <button *ngIf="isYourProfile()" class="logout" (click)="logout()">Logout</button>
+            <button *ngIf="isYourProfile()" class="btn-underlined logout" (click)="logout()">Logout</button>
         </div>
     </div>
 </section>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +27,13 @@ export class ProfileComponent implements OnInit {
   }
 
   private getUser() {
-    this.userService.getUser(this.id).subscribe(data => this.user = new User(data));
+    const currentUser = this.storageService.getUser();
+    if (currentUser.id == this.id || currentUser.role === 'ADMIN') {
+      this.userService.getFullUser(this.id).subscribe(data => this.user = new User(data));
+    }
+    else {
+      this.userService.getPublicUser(this.id).subscribe(data => this.user = new User(data));
+    }
   }
 
   changeEditMode(value: boolean) {

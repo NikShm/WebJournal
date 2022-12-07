@@ -1,6 +1,7 @@
 package com.webjournal.mapper;
 
 import com.webjournal.dto.user.AuthorDTO;
+import com.webjournal.dto.user.FullUserDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.dto.user.UserUpdateRequest;
 import com.webjournal.entity.User;
@@ -48,6 +49,21 @@ public class UserMapper {
         return dto;
     }
 
+    public FullUserDTO toFullUserDto(User entity) {
+        FullUserDTO dto = new FullUserDTO();
+
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        dto.setBio(entity.getBio());
+        dto.setFollowers(entity.getCountFollowers());
+        dto.setFollowing((int) ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) from follow where following_user_id = ?1")
+                .setParameter(1, entity.getId()).getSingleResult()).longValue());
+        dto.setEmail(entity.getEmail());
+        dto.setRole(entity.getRole().getRole());
+
+        return dto;
+    }
+
     public User toUserEntity(User entity, UserUpdateRequest request) {
         entity.setId(request.getId());
         entity.setUsername(request.getUsername());
@@ -55,4 +71,6 @@ public class UserMapper {
 
         return entity;
     }
+
+
 }

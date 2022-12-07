@@ -6,19 +6,20 @@ import com.webjournal.dto.search.AuthorSearch;
 import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.search.AuthorsPostsSearch;
 import com.webjournal.dto.search.SearchDTO;
-import com.webjournal.dto.user.AuthorDTO;
-import com.webjournal.dto.user.UserDTO;
-import com.webjournal.dto.user.UserUpdateRequest;
+import com.webjournal.dto.user.*;
 import com.webjournal.entity.User;
+import com.webjournal.enums.RoleType;
 import com.webjournal.exception.ForbiddenException;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
 import com.webjournal.service.post.PostServiceImpl;
 import com.webjournal.service.user.UserServiceImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,33 +38,55 @@ public class UserController {
         fileService.setRoot("Resourse/UsersIcon");
     }
 
+    private void checkCurrentId(Integer id) {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!principal.getId().equals(id)) {
+            throw new ForbiddenException("Access is denied. You don't have permission to access this resource");
+        }
+    }
+
     @DeleteMapping("/{id}")
     public void deleteOne(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @PutMapping("/")
-    public void update(@RequestBody UserUpdateRequest request) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal.toString().equals("anonymousUser") || !((User) principal).getId().equals(request.getId())) {
-            throw new ForbiddenException("Access is denied. You don't have permission to access this resource");
-        }
-       service.update(request);
+    public void update(@Valid @RequestBody UserUpdateRequest request) {
+        checkCurrentId(request.getId());
+        service.update(request);
+    }
+
+    @PutMapping("/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void updateRole(@Valid @RequestBody RoleUpdateRequest request) {
+        service.changeRole(request);
     }
 
     @PostMapping("/upload-photo")
     public void uploadPhoto(@RequestPart MultipartFile photo, @RequestParam String id) throws IOException {
+        checkCurrentId(Integer.valueOf(id));
         fileService.saveOrReplace(photo, "user_" + id + ".jpg");
     }
 
     @GetMapping("/delete-photo/{id}")
     public void deletePhoto(@PathVariable String id) throws IOException {
+        checkCurrentId(Integer.valueOf(id));
         fileService.delete("user_" + id + ".jpg");
     }
 
-    @GetMapping("/{id}")
-    public UserDTO getById(@PathVariable Integer id) {
-        return service.getUserById(id);
+    @GetMapping("/public/{id}")
+    public UserDTO getPublicUserById(@PathVariable Integer id) {
+        return service.getPublicUserById(id);
+    }
+
+    @GetMapping("/full/{id}")
+    public FullUserDTO getFullUserById(@PathVariable Integer id) {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        RoleType role = principal.getRole().getRole();
+        if ((role == RoleType.AUTHOR || role == RoleType.MODERATOR) && !principal.getId().equals(id)) {
+            throw new ForbiddenException("Access is denied. You don't have permission to access this resource");
+        }
+        return service.getFullUserById(id);
     }
 
     @RequestMapping("/")
@@ -98,8 +121,8 @@ public class UserController {
 
     @PostMapping("/{id}/posts-filtered")
     public PageDTO<PostPreviewDTO> getAuthorsPosts(@RequestBody SearchDTO<AuthorsPostsSearch> search) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal.toString().equals("anonymousUser") || !((User) principal).getId().equals(search.getSearchPattern().getAuthorId())) {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal.getRole().getRole() == RoleType.AUTHOR && !principal.getId().equals(search.getSearchPattern().getAuthorId())) {
             throw new ForbiddenException("Access is denied. You don't have permission to access this resource");
         }
         return postService.getAuthorsPosts(search);

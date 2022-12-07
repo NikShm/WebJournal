@@ -5,6 +5,8 @@ export class User {
         this.bio = user.bio;
         this.followers = user.followers;
         this.following = user.following;
+        this.email = user.email;
+        this.role = user.role;
     }
 
     id: string;
@@ -12,4 +14,6 @@ export class User {
     bio: string;
     followers: number;
     following: number;
+    email: string;
+    role: string;
 }

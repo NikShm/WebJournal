@@ -37,6 +37,7 @@ export class UserService {
         return new Page(data.content, data.totalItem)
       }));
     }
+
     getSearchParameter(){
       return this.searchParameter
     }
@@ -45,23 +46,33 @@ export class UserService {
       console.log(this.searchParameter)
     }
 
-    getUser(id: string): Observable<User> {
-      return this.http.get<User>(GlobalConstants.apiURL + '/users/' + id);
+    getPublicUser(id: string): Observable<User> {
+      return this.http.get<User>(GlobalConstants.apiURL + '/users/public/' + id);
+    }
+
+    getFullUser(id: string): Observable<User> {
+      return this.http.get<User>(GlobalConstants.apiURL + '/users/full/' + id);
     }
 
     async editUser(user: User, image: File | null) {
-      let userData: User | FormData;
       if(image) {
-        userData = new FormData();
+        const userData = new FormData();
         userData.append('photo', image);
         userData.append('id', user.id);
         await this.http.post(GlobalConstants.apiURL + '/users/upload-photo/', userData).toPromise();
       }
-      userData = user;
-      await this.http.put(GlobalConstants.apiURL + '/users/', userData).toPromise();
+      await this.http.put(GlobalConstants.apiURL + '/users/', {id: user.id, username: user.username, bio: user.bio}).toPromise();
     }
 
     deleteUserPhoto(id: string) {
       return this.http.get(GlobalConstants.apiURL + '/users/delete-photo/' + id);
+    }
+
+    changeUserRole(id: string, role: string) {
+      return this.http.put(GlobalConstants.apiURL + '/users/role', {id: id, role: role});
+    }
+
+    deleteUserAccount(id: string) {
+      return this.http.delete(GlobalConstants.apiURL + '/users/' + id);
     }
 }

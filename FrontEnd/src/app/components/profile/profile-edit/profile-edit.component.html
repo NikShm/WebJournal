@@ -24,14 +24,14 @@
                     </div>
                     <div class="fields">
                         <div>
-                            <input id="username" name="username" (input)="onInput($event.target)" [(ngModel)]="user.username" #username="ngModel" required maxlength="64" minlength="3">
+                            <input id="username" name="username" (input)="onInput($event.target)" [(ngModel)]="user.username" #username="ngModel" required maxlength="64" minlength="3" placeholder="Enter unique username (min. 3 characters)">
                             <div class="under-field">
                                 <div class="error" *ngIf="!username.valid && editForm.submitted">Username should be between 3 and 64 characters long</div>
                                 <div class="characters">{{usernameLength}}/64</div>
                             </div>
                         </div>
                         <div>
-                            <textarea id="bio" name="bio" (input)="onInput($event.target)" [(ngModel)]="user.bio" #bio="ngModel" maxlength="150"></textarea>
+                            <textarea id="bio" name="bio" (input)="onInput($event.target)" [(ngModel)]="user.bio" #bio="ngModel" maxlength="150" placeholder="Any details such as age, occupation or city"></textarea>
                             <div class="under-field">
                                 <div class="error" *ngIf="!bio.valid && editForm.submitted">Bio should contain 150 characters at most</div>
                                 <div class="characters">{{bioLength}}/150</div>
