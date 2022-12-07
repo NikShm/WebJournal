@@ -14,12 +14,14 @@ import {Post} from "../models/post";
 })
 export class CommentService {
 
-  searchParameter = new Search("createdAt", "DESC", 0,2, {postId:""})
+
 
   constructor(private http: HttpClient) { }
 
-  getComments():Observable<Page>{
-    return this.http.post(GlobalConstants.apiURL +'/comments/search', this.searchParameter).pipe(map((data: any) => {
+  getComments(searchParameter:Search):Observable<Page>{
+    // this.searchParameter.page+=1
+    console.log(searchParameter)
+    return this.http.post(GlobalConstants.apiURL +'/comments/search', searchParameter).pipe(map((data: any) => {
       data.content = data.content.map((comment:Comment) => {
         return new Comment(comment)
       })
@@ -27,13 +29,6 @@ export class CommentService {
     }));
   }
 
-  setPage(){
-    this.searchParameter.page++
-  }
-
-  setPostId(id:any){
-    this.searchParameter.searchPattern.postId = id.valueOf()
-  }
 
   createComment(comment: Comment) {
     this.http.post(GlobalConstants.apiURL + '/comments/create/', comment).subscribe();

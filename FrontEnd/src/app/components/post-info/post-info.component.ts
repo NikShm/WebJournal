@@ -9,6 +9,7 @@ import {PostList} from "../../models/postList";
 import {CommentService} from "../../services/comment.service";
 import {Page} from "../../models/pages";
 import {Comment} from "../../models/comment";
+import {Search} from "../../models/search";
 
 @Component({
   selector: 'app-post-info',
@@ -21,6 +22,7 @@ export class PostInfoComponent implements OnInit {
   @Input() authorId!: string;
   @Input() postId!: string;
 
+  searchParameter = new Search("createdAt", "DESC", 0,2, {postId:""})
   userImage: string = "assets/UsersIcon/user_";
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
@@ -30,7 +32,6 @@ export class PostInfoComponent implements OnInit {
   canselApprovedButton!: boolean;
   likeButton = "heart"
   comments: Page = new Page([], 0);
-  searchParameter = {page: 0,pageSize: 9}
   isDataFullLoaded: boolean = true;
   isCreateComment: boolean = false;
   commentText: string = "";
@@ -46,6 +47,8 @@ export class PostInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.searchParameter.searchPattern.postId = this.postId
+    this.search()
     if (this.storageService.getUser().id != this.authorId) {
       if (this.showActions()) {
         this.classButtonShowAction = ""
@@ -58,7 +61,6 @@ export class PostInfoComponent implements OnInit {
       this.classButtonShowAction = ""
       this.idButtonShowAction = ""
     }
-
     if (this.post.like == null){
       this.likeButton = ""
     }
@@ -85,15 +87,13 @@ export class PostInfoComponent implements OnInit {
         this.likeButton = "heart"
         break;
     }
-    this.commentService.setPostId(this.postId)
-    this.search()
   }
 
   search() {
-    this.commentService.getComments().subscribe((page: Page) => {
+    this.commentService.getComments(this.searchParameter).subscribe((page: Page) => {
       if (page.content.length != 0) {
         this.comments.content = this.comments.content.concat(page.content)
-        this.commentService.setPage();
+        this.searchParameter.page++
       }
         else {
           this.isDataFullLoaded = false
@@ -168,7 +168,7 @@ export class PostInfoComponent implements OnInit {
     console.log(this.commentText)
     comment.text = this.commentText
     comment.postId = this.post.id
-    comment.author = this.post.author
+    comment.author = this.storageService.getUser()
     this.comments.content.unshift(comment)
     this.commentService.createComment(comment)
   }
