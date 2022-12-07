@@ -6,6 +6,7 @@ import com.webjournal.dto.search.AuthorSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.AuthorDTO;
 import com.webjournal.dto.user.UserDTO;
+import com.webjournal.dto.user.UserUpdateRequest;
 import com.webjournal.entity.User;
 import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
@@ -41,13 +42,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getByUsername(String username) {
-        return repository.findByUsername(username).map(mapper::toUserDto).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with username " + username));
+    public AuthorDTO getAuthorById(Integer id) {
+        return repository.findById(id).map(mapper::toAuthorDto).orElseThrow(() -> new DatabaseFetchException("Could not find Author entity with id " + id));
     }
 
     @Override
-    public AuthorDTO getAuthorById(Integer id) {
-        return repository.findById(id).map(mapper::toAuthorDto).orElseThrow(() -> new DatabaseFetchException("Could not find Author entity with id " + id));
+    public UserDTO getUserById(Integer id) {
+        return repository.findById(id).map(mapper::toUserDto).orElseThrow(() -> new DatabaseFetchException("Could not find Author entity with id " + id));
     }
 
     @Override
@@ -63,13 +64,12 @@ public class UserServiceImpl implements UserService {
         repository.deleteById(id);
     }
 
-    /* new DTO for updating user will be created
     @Override
-    public void update(UserDTO dto) {
-        User userToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with id " + dto.getId()));
-        User updatedUser = mapper.toUserEntity(userToUpdate, dto);
+    public void update(UserUpdateRequest request) {
+        User userToUpdate = repository.findById(request.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find User entity with id " + request.getId()));
+        User updatedUser = mapper.toUserEntity(userToUpdate, request);
         repository.save(updatedUser);
-    }*/
+    }
 
     @Override
     public UserDTO getById(Integer id) {

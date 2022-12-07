@@ -1,0 +1,143 @@
+.profile-section {
+    margin-bottom: -170px;
+}
+
+.headings-section p {
+    padding: 10px 48px;
+    display: inline-block;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.profile-edit {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 1px solid black;
+}
+
+.profile-form {
+    display: flex;
+}
+
+#photo {
+    width: 364px;
+    border-right: 1px solid black;
+    padding: 25px 30px;
+    text-align: center;
+}
+
+#profile-picture {
+    display: none;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user-photo {
+    margin-top: 26px;
+    margin-bottom: 36px;
+}
+
+#info {
+    flex: 1;
+    padding: 25px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-gray {
+    background-color: #919191;
+    box-shadow: 0px 4px 4px #8f8f8fb0;
+}
+
+.input-fields {
+    display: flex;
+    margin-top: 50px;
+    flex: 1;
+    gap: 50px;
+}
+
+.labels > label, .fields > input {
+    display: block;
+}
+
+#username-label {
+    margin-bottom: 88px;
+}
+
+.labels, .fields {
+    height: 222px;
+}
+
+.fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fields textarea {
+    resize: none;
+    height: 86px !important;
+}
+
+.fields input, .fields textarea {
+    background: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 30px;
+    padding: 10px;
+    width: 100%;
+    letter-spacing: 0.1em;
+}
+
+.characters {
+    font-size: 14px;
+    text-align: end;
+    flex: 1;
+}
+
+#info > .label {
+    text-align: center;
+}
+
+.buttons {
+    text-align: end;
+}
+
+.buttons > button {
+    display: inline-block;
+    width: 199px;
+}
+
+#cancel {
+    margin-right: 20px;
+}
+
+#delete {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.error {
+    color: #c24332;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.error-photo {
+    margin-bottom: 5px;
+}
+
+.under-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.server-error {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+}

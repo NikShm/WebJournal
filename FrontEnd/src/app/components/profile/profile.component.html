@@ -1,2 +1,2 @@
 <app-profile-details *ngIf="user && !editMode" [user]="user" (onEdit)="showEditForm($event)"></app-profile-details>
-<app-profile-edit *ngIf="editMode"></app-profile-edit>
+<app-profile-edit *ngIf="user && editMode" [user]="editedUser" (onDetails)="changeEditMode($event)"></app-profile-edit>

@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(['login']);
         }
         else {
-            this.router.navigate(['/authors/' + this.storageService.getUser().username]);
+            this.router.navigate(['/authors/' + this.storageService.getUser().id]);
         }
     }
 

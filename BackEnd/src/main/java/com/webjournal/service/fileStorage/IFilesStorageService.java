@@ -16,4 +16,5 @@ public interface IFilesStorageService {
     void delete(String filePath) throws IOException;
     void move(String oldPath, String newPath) throws IOException;
     boolean exists(String path);
+    void saveOrReplace(MultipartFile file, String path) throws IOException;
 }

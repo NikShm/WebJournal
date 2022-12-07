@@ -1,23 +1,19 @@
 <app-header></app-header>
-<section class="profile-details">
-    <div class="headings-container">
-        <div class="headings">
+<section class="profile-section">
+    <div class="headings-section">
+        <div class="headings container">
             <div id="art-heading">
                 <p>Articles</p>
-                <div *ngIf="articlesPage.totalItem > 0 && hasPermission()">
-                    <p>(</p>
-                    <select name="filter" class="articles-filter" (change)="changePostsFilter()" [(ngModel)]="searchModel.searchPattern.areApproved">
-                        <option value="true">Approved</option>
-                        <option value="false">Not Approved</option>
-                        <option value="">All</option>
-                    </select>
-                    <p>)</p>
-                </div>
+                <select *ngIf="hasPermission()" name="filter" class="articles-filter" (change)="changePostsFilter()" [(ngModel)]="searchModel.searchPattern.areApproved">
+                    <option value="true">Approved</option>
+                    <option value="false">Not Approved</option>
+                    <option value="">All</option>
+                </select>
             </div>
             <p id="username">{{user.username}}</p>
         </div>
     </div>
-    <div class="content">
+    <div class="details container">
         <div id="articles">
             <div class="articles-list">
                 <div class="article" *ngFor="let article of articlesPage.content | paginate: {itemsPerPage: searchModel.pageSize, currentPage: searchModel.page+1, totalItems: articlesPage.totalItem}">
@@ -57,8 +53,8 @@
                     <p class="bio">{{user.bio}}</p>
                     <p class="name-authors">- by author</p>
                 </div>
-                <button *ngIf="!isYourProfile()" class="profile-btn">Follow</button>
-                <button *ngIf="isYourProfile()" class="profile-btn" (click)="enableEditMode()">Edit</button>
+                <button *ngIf="!isYourProfile()" class="btn-rectangular">Follow</button>
+                <button *ngIf="isYourProfile()" class="btn-rectangular" (click)="enableEditMode()">Edit</button>
             </div>
             <button *ngIf="isYourProfile()" class="logout" (click)="logout()">Logout</button>
         </div>

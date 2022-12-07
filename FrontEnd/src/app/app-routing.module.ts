@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'createPost', component: CreatePostComponent},
   {path: 'authors', component: AuthorsComponent},
-  {path: 'authors/:username', component: ProfileComponent},
+  {path: 'authors/:id', component: ProfileComponent},
   {path: 'register', component: RegistrationComponent}
 ];
 
