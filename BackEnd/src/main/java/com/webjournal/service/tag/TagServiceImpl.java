@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
@@ -47,10 +48,10 @@ public class TagServiceImpl implements TagService {
         return all.getContent();
     }
 
-    private Predicate getPredicate(String tagName, CriteriaBuilder criteriaBuilder, Root<Tag> user) {
+    private Predicate getPredicate(String tagName, CriteriaBuilder criteriaBuilder, Root<Tag> tag) {
         List<Predicate> predicates = new ArrayList<>();
         if (tagName != null) {
-            predicates.add(QueryHelper.ilike(user.get("name"), criteriaBuilder, tagName));
+            predicates.add(QueryHelper.ilike(tag.get("name"), criteriaBuilder, tagName));
         }
         return predicates.size() == 1 ? predicates.get(0) : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

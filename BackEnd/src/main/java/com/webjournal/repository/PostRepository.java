@@ -31,4 +31,8 @@ public interface PostRepository extends JpaRepository<Post, Integer>, JpaSpecifi
     Page<Post> findApprovedAuthorsPosts(Pageable page, Integer authorId);
     @Query("SELECT p FROM Post p WHERE p.author.id = ?1 AND p.isApproved = ?2")
     Page<Post> findAuthorsPosts(Pageable page, Integer authorId, Boolean isApproved);
+    @Query(value = "SELECT * FROM post p WHERE\n" +
+            "array(SELECT name FROM tag LEFT JOIN post_tag pt ON pt.tag_id = tag.id WHERE pt.post_id = p.id)" +
+            " && array(SELECT name FROM tag LEFT JOIN post_tag pt ON pt.tag_id = tag.id WHERE pt.post_id = ?1) AND is_approved = true ORDER BY published_at", nativeQuery = true)
+    List<Post> findSimilarTags(Pageable page, Integer postId);
 }

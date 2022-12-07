@@ -22,8 +22,6 @@ export class PostsComponent implements OnInit {
   tags: Tag[] = [];
   role!:any;
   sort:Sort = new MatSort()
-  windowsHeight = window.innerWidth
-
 
   apply() {
     this.searchParameter.page = 0
@@ -32,7 +30,9 @@ export class PostsComponent implements OnInit {
   }
 
   getTags(name: string) {
-    this.searchParameter.searchPattern.searchTag = name
+    if (name != undefined) {
+      this.searchParameter.searchPattern.searchTag = name
+    }
     this.postService.getListTag().subscribe((tags: any) => {
       this.tags = tags;
     })
@@ -42,9 +42,8 @@ export class PostsComponent implements OnInit {
   }
 
   selectedTags(name: Tag) {
-    this.searchParameter.searchPattern.searchTag = name.name
-    if (this.tag != ""){
-      this.tag = ""
+    if (name instanceof Tag) {
+      this.searchParameter.searchPattern.searchTag = name.name
     }
   }
 
@@ -60,7 +59,7 @@ export class PostsComponent implements OnInit {
 
   changePage(page: number) {
     this.searchParameter.page = page
-    this.postService.setSearchParameter(this.searchParameter)
+    this.postService.setSearchPostParameter(this.searchParameter)
     this.search()
   }
 
@@ -99,15 +98,13 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.search();
-    this.searchParameter = this.postService.getSearchParameter();
+    this.searchParameter = this.postService.getSearchPostParameter();
     this.postService.getListTag().subscribe((tags: any) => {
       this.tags = tags
-      console.log(this.tags)
     })
     this.sort.active = this.searchParameter.sortField
     this.sort.direction = this.searchParameter.sortDirection.toLowerCase() != "asc"?"desc":"asc"
     this.tag = this.searchParameter.searchPattern.searchTag
-    console.log(this.windowsHeight)
   }
 
   onErrorPostImage(event: any) {

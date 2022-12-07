@@ -13,7 +13,8 @@ import {Search} from "../models/search";
   providedIn: 'root'
 })
 export class PostService {
-  searchParameter = new Search("title", "ASC", 0,3,{search:"", searchTag:""})
+  searchPostsParameter = new Search("title", "ASC", 0,6,{search:"", searchTag:"", isApprove:true})
+  searchProfileParameter!: Search;
 
   constructor(private http: HttpClient) { }
 
@@ -75,16 +76,28 @@ export class PostService {
     return this.http.delete<Post>(GlobalConstants.apiURL + '/posts/' + id);
   }
 
-  getSearchParameter() {
-    return this.searchParameter;
+  approved(id: string) {
+    return this.http.get(GlobalConstants.apiURL + '/posts/approved?id=' + id);
+  }
+
+  cancelApproved(id: string) {
+    return this.http.get(GlobalConstants.apiURL + '/posts/cancel-approved?id=' + id);
+  }
+
+  getSearchPostParameter(){
+    return this.searchPostsParameter
   }
 
   setSearchParameter(searchParameter:Search) {
-    this.searchParameter = searchParameter;
+    this.searchProfileParameter = searchParameter;
+  }
+
+  setSearchPostParameter(searchParameter:Search) {
+    this.searchPostsParameter = searchParameter;
   }
 
   getPostPage():Observable<Page> {
-    return this.http.post(GlobalConstants.apiURL +'/posts/search', this.searchParameter).pipe(map((data: any) => {
+    return this.http.post(GlobalConstants.apiURL +'/posts/search', this.searchPostsParameter).pipe(map((data: any) => {
       data.content = data.content.map((post:PostList) => {
         return new PostList(post)
       })
@@ -93,7 +106,7 @@ export class PostService {
   }
 
   getListTag():any {
-    return this.http.get(GlobalConstants.apiURL +'/tags/tag='+this.searchParameter.searchPattern.searchTag).pipe(map((data: any) => {
+    return this.http.get(GlobalConstants.apiURL +'/tags/tag='+this.searchPostsParameter.searchPattern.searchTag).pipe(map((data: any) => {
       data = data.map((tag:Tag) => {
         return new Tag(tag)
       })
@@ -122,10 +135,22 @@ export class PostService {
   }
 
   getApprovedAuthorsPostsPage(id: string): Observable<Page> {
-    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-approved`, this.searchParameter);
+    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-approved`, this.searchProfileParameter);
   }
 
   getFilteredAuthorsPostsPage(id: string): Observable<Page> {
-    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-filtered`, this.searchParameter);
+    return this.http.post<Page>(GlobalConstants.apiURL + `/users/${id}/posts-filtered`, this.searchProfileParameter);
+  }
+
+  getSimilar(postId:any):Observable<PostList[]> {
+    return this.http.get(GlobalConstants.apiURL +'/posts/similar-posts?postId='+postId).pipe(map((data: any) => {
+      return data.map(function(post: any): PostList {
+        return new PostList(post);
+      })
+    }));
+  }
+
+  setTagSearch(name:any){
+    this.searchPostsParameter.searchPattern.searchTag = name.toString()
   }
 }

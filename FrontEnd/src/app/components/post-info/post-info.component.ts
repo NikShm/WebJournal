@@ -1,12 +1,11 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Tag} from "../../models/tag";
 import {TagService} from "../../services/tag.service";
-import {Author} from "../../models/author";
 import {UserService} from "../../services/user.service";
 import {StorageService} from "../../services/storage.service";
+import {PostList} from "../../models/postList";
 
 @Component({
   selector: 'app-post-info',
@@ -22,32 +21,80 @@ export class PostInfoComponent implements OnInit {
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
   classButtonShowAction = "";
+  similarPosts: PostList[] = [];
+  approvedButton!:boolean;
+  canselApprovedButton!:boolean;
 
   constructor(private postService: PostService,
               private tagService: TagService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: StorageService) { }
+              private storageService: StorageService) {
+  }
 
   ngOnInit(): void {
-    if (this.storageService.getUser().id != this.authorId ||
-      this.storageService.getUser().role != "AUTHOR"){
-      this.idButtonShowAction = "notShow";
-      this.classButtonShowAction = "notShow";
-    } else{
+    if (this.storageService.getUser().id != this.authorId) {
+      if (this.showActions()) {
+        this.classButtonShowAction = ""
+        this.idButtonShowAction = ""
+      } else {
+        this.idButtonShowAction = "notShow";
+        this.classButtonShowAction = "notShow";
+      }
+    } else {
       this.classButtonShowAction = ""
       this.idButtonShowAction = ""
     }
+
+    this.postService.getSimilar(this.postId).subscribe((posts) => {
+      this.similarPosts = posts
+    })
+
+    this.approvedButton = this.showApprovedButton()
+    this.canselApprovedButton = this.showCancelApprovedButton()
   }
 
   // @ts-ignore
-  public showActions() {
+  showActions() {
     if (this.storageService.getUser().role != "AUTHOR") {
       return true;
     }
   }
 
+// @ts-ignore
+  showApprovedButton() {
+    return this.storageService.getUser().id != this.authorId && !this.post.approved;
+  }
+
+  // @ts-ignore
+  showCancelApprovedButton() {
+    return this.storageService.getUser().id != this.authorId && this.post.approved;
+  }
+
+  // @ts-ignore
+  showAuthorsButton() {
+    return this.storageService.getUser().id == this.authorId
+  }
+
+  approved() {
+   this.postService.approved(this.postId).subscribe((data)=>{
+     if (data){
+       this.approvedButton = false
+       this.canselApprovedButton = true
+     }
+   })
+  }
+
+  canselApproved() {
+    this.postService.cancelApproved(this.postId).subscribe((data)=>{
+      console.log(data)
+      if (data){
+        this.approvedButton = true
+        this.canselApprovedButton = false
+      }
+    })
+  }
 
   @Output() onEdit = new EventEmitter<boolean>();
 
@@ -62,5 +109,18 @@ export class PostInfoComponent implements OnInit {
         this.router.navigate(['/posts']);
       });
     }
+  }
+
+  setTag(event: any) {
+    this.postService.setTagSearch(event.target.value)
+    this.router.navigate(['/posts'])
+  }
+
+  onErrorPostImage(event: any) {
+    event.target.src = 'assets/PostImage/default.png';
+  }
+
+  goToPost(id:any){
+    this.router.navigate(['/posts/' + id]).then(() =>window.location.reload());
   }
 }
