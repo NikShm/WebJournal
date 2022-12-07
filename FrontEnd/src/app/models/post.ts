@@ -15,6 +15,7 @@ export class Post {
         return new Tag(tag)
       })
       this.approved = post.approved
+      this.like = post.like
     }
     else {
       this.id = '';
@@ -24,6 +25,7 @@ export class Post {
       this.author = new Author();
       this.likes = 0;
       this.approved = false
+      this.like = null
     }
   }
   id: string;
@@ -35,4 +37,5 @@ export class Post {
   tags: Tag[] = [];
   likes: number;
   approved:boolean;
+  like:boolean|null
 }

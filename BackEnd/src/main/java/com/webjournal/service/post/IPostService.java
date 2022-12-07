@@ -3,11 +3,12 @@ package com.webjournal.service.post;
 import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
+import com.webjournal.dto.post.PostFormDTO;
+import com.webjournal.dto.post.PostListDTO;
 import com.webjournal.dto.post.PostPreviewDTO;
 import com.webjournal.dto.search.AuthorsPostsSearch;
 import com.webjournal.dto.search.PostSearch;
 import com.webjournal.dto.search.SearchDTO;
-import com.webjournal.dto.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -15,9 +16,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IPostService{
-    List<PostListDTO> getSimilarPosts( Integer postId);
-    void like(LikeDTO like);
-    void dislike(LikeDTO like);
+    List<PostListDTO> getSimilarPosts(Integer postId);
+    void like(Integer postId);
+    void dislike(Integer postId);
 
     @Transactional
     Boolean approved(Integer postId);

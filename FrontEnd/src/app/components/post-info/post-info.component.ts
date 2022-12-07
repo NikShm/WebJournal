@@ -6,6 +6,9 @@ import {TagService} from "../../services/tag.service";
 import {UserService} from "../../services/user.service";
 import {StorageService} from "../../services/storage.service";
 import {PostList} from "../../models/postList";
+import {CommentService} from "../../services/comment.service";
+import {Page} from "../../models/pages";
+import {Comment} from "../../models/comment";
 
 @Component({
   selector: 'app-post-info',
@@ -18,19 +21,28 @@ export class PostInfoComponent implements OnInit {
   @Input() authorId!: string;
   @Input() postId!: string;
 
+  userImage: string = "assets/UsersIcon/user_";
   postImage: string = "assets/PostImage/post_";
   idButtonShowAction = "";
   classButtonShowAction = "";
   similarPosts: PostList[] = [];
-  approvedButton!:boolean;
-  canselApprovedButton!:boolean;
+  approvedButton!: boolean;
+  canselApprovedButton!: boolean;
+  likeButton = "heart"
+  comments: Page = new Page([], 0);
+  searchParameter = {page: 0,pageSize: 9}
+  isDataFullLoaded: boolean = true;
+  isCreateComment: boolean = false;
+  commentText: string = "";
+
 
   constructor(private postService: PostService,
               private tagService: TagService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private commentService:CommentService) {
   }
 
   ngOnInit(): void {
@@ -47,12 +59,48 @@ export class PostInfoComponent implements OnInit {
       this.idButtonShowAction = ""
     }
 
+    if (this.post.like == null){
+      this.likeButton = ""
+    }
+
+    if (this.storageService.isLoggedIn()){
+      this.isCreateComment = true
+    }
+
     this.postService.getSimilar(this.postId).subscribe((posts) => {
       this.similarPosts = posts
     })
 
     this.approvedButton = this.showApprovedButton()
     this.canselApprovedButton = this.showCancelApprovedButton()
+
+    switch (this.post.like) {
+      case null:
+        this.likeButton = ""
+        break;
+      case true:
+        this.likeButton = "heart heart-active"
+        break;
+      case false:
+        this.likeButton = "heart"
+        break;
+    }
+    this.commentService.setPostId(this.postId)
+    this.search()
+  }
+
+  search() {
+    this.commentService.getComments().subscribe((page: Page) => {
+      if (page.content.length != 0) {
+        this.comments.content = this.comments.content.concat(page.content)
+        this.commentService.setPage();
+      }
+        else {
+          this.isDataFullLoaded = false
+        }
+      console.log(this.comments)
+      }
+    );
   }
 
   // @ts-ignore
@@ -77,19 +125,23 @@ export class PostInfoComponent implements OnInit {
     return this.storageService.getUser().id == this.authorId
   }
 
+  showCommentButton(id:any) {
+    return this.storageService.getUser().id == id;
+  }
+
   approved() {
-   this.postService.approved(this.postId).subscribe((data)=>{
-     if (data){
-       this.approvedButton = false
-       this.canselApprovedButton = true
-     }
-   })
+    this.postService.approved(this.postId).subscribe((data) => {
+      if (data) {
+        this.approvedButton = false
+        this.canselApprovedButton = true
+      }
+    })
   }
 
   canselApproved() {
-    this.postService.cancelApproved(this.postId).subscribe((data)=>{
+    this.postService.cancelApproved(this.postId).subscribe((data) => {
       console.log(data)
-      if (data){
+      if (data) {
         this.approvedButton = true
         this.canselApprovedButton = false
       }
@@ -111,6 +163,23 @@ export class PostInfoComponent implements OnInit {
     }
   }
 
+  createComment(){
+    let comment = new Comment()
+    console.log(this.commentText)
+    comment.text = this.commentText
+    comment.postId = this.post.id
+    comment.author = this.post.author
+    this.comments.content.unshift(comment)
+    this.commentService.createComment(comment)
+  }
+
+  deleteComment(comment:any){
+    if (window.confirm("Are you sure you want to permanently delete this post?")) {
+      this.commentService.deleteComment(comment.id)
+      this.comments.content = this.comments.content.filter(obj => obj !== comment);
+    }
+  }
+
   setTag(event: any) {
     this.postService.setTagSearch(event.target.value)
     this.router.navigate(['/posts'])
@@ -120,7 +189,28 @@ export class PostInfoComponent implements OnInit {
     event.target.src = 'assets/PostImage/default.png';
   }
 
-  goToPost(id:any){
-    this.router.navigate(['/posts/' + id]).then(() =>window.location.reload());
+  onErrorUserImage(event:any) {
+    event.target.src = 'assets/UsersIcon/default.png';
+  }
+
+  goToPost(id: any) {
+    this.router.navigateByUrl('/posts', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['/posts/' + id]);
+    });
+  }
+
+  like() {
+    if (this.storageService.getUser().id != this.authorId) {
+      if (this.likeButton == "heart") {
+        this.likeButton = "heart heart-active"
+        this.postService.like(this.postId).subscribe();
+        this.post.likes++
+      }
+      else {
+        this.likeButton = "heart"
+        this.postService.dislike(this.postId).subscribe()
+        this.post.likes--
+      }
+    }
   }
 }

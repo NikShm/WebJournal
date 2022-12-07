@@ -31,9 +31,9 @@
     <a href="#">by {{post.author.username}}</a>
   </p>
 
-  <div class="heart-btn">
+  <div class="heart-btn"  *ngIf="!showAuthorsButton()">
     <div class="content">
-      <button class="heart"></button>
+      <button (click)="like()" class="{{likeButton}}"></button>
     </div>
   </div>
 
@@ -49,37 +49,45 @@
 <!------start comment section----->
 <div class="commentBody">
   <h2 class="similarPostsTitle">Comments</h2>
-  <div>
-    <div class="imgDivUser">
+  <div style=" position: relative;  font-size: 16px; margin: 0px auto auto;"  *ngIf="!isCreateComment">
+    <div class="con">
+      <b class="spanstyle">Authorize to create comment</b>
+    </div>
+  </div>
+  <div *ngIf="isCreateComment">
+    <div class="imgDivUser" >
       <img src="assets/cooking.webp" alt="">
     </div>
 
     <div class="input-container">
-      <input type="text" required=""/>
+      <input type="text" required="" [(ngModel)]="commentText"/>
       <label>Add a comment</label>
-      <button type="button" class="fill"><p id="publishBtn">publish</p></button>
+      <button type="button" class="fill"><p id="publishBtn" (click)="createComment()">publish</p></button>
     </div>
 
   </div>
 </div>
 
 <div class="CommentSection">
-  <div>
+  <div *ngFor="let comment of comments.content">
     <div class="imgDivUser">
-      <img src="assets/cooking.webp">
+      <img [src]="userImage+comment.author.id+'.jpg'" (error)="onErrorUserImage($event)">
     </div>
     <div class="commentInfo">
-      <p id="commentUserName">Nick of person</p>
-      <p id="commentText">Comment jidjfso</p>
+      <p id="commentUserName">{{comment.author.username}}</p>
+      <p id="commentText">{{comment.text}}</p>
     </div>
-    <div class="menuCommentDropdown">
-      <button class="dropbtn" id="{{idButtonShowAction}}" (click)="showActions()">
-        <img src="assets/iconsCommentIcon.png" height="39px" width="40px">
+    <div class="menuCommentDropdown" >
+      <button class="dropbtn" (click)="showActions()" *ngIf="showCommentButton(comment.author.id)">
+        <img src="assets/iconsCommentIcon.png" height="39px" width="40px" >
       </button>
-      <div class="menuCommentDropdown-content" id="{{classButtonShowAction}}">
-        <button (click)="delete()">Delete</button>
+      <div class="menuCommentDropdown-content">
+        <button (click)="deleteComment(comment)">Delete</button>
       </div>
     </div>
+  </div>
+  <div style=" position: relative; font-size: 16px; margin: 0px auto auto;" *ngIf="isDataFullLoaded">
+    <button style="width: 210px;height: 30px; font-size: 16px; margin: -20px auto 30px; display: block;" class="btn btn-dark btn-lg" (click)="search()">Download</button>
   </div>
 
 </div>
@@ -104,35 +112,6 @@
       </a>
     </div>
   </div>
-  <!--  <div class="oneSimilarPost" *ngFor="let post of similarPosts">-->
-  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
-  <!--      <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)">-->
-  <!--    </div>-->
-  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.title}}</a></p>-->
-  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">{{post.foreword}}</a></p>-->
-  <!--  </div>-->
-
-  <!--  <div class="oneSimilarPost">-->
-
-  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
-  <!--      <img src="assets/cooking.webp">-->
-  <!--    </div>-->
-  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Best Podcasts to Listen to When Traveling</a></p>-->
-  <!--  </div>-->
-
-  <!--  <div class="oneSimilarPost" id="secondPost">-->
-  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
-  <!--      <img src="assets/img.png">-->
-  <!--    </div>-->
-  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">Movies That Need to Be Seen on the Big Screen</a></p>-->
-  <!--  </div>-->
-
-  <!--  <div class="oneSimilarPost"  id="thirdPost">-->
-  <!--    <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">-->
-  <!--      <img src="assets/colage.png">-->
-  <!--    </div>-->
-  <!--    <p class="similarPostsPostTitle"><a class="postTitleA" href="#">This Artist Will Blow Your Mind</a></p>-->
-  <!--  </div>-->
 </div>
 </body>
 <!------start footer section----->

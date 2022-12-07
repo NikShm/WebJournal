@@ -38,6 +38,7 @@ public class CommentMapper {
         entity.setId(dto.getId());
         entity.setAuthor(userRepository.getReferenceById(dto.getAuthor().getId()));
         entity.setText(dto.getText());
+        entity.setPostId(dto.getPostId());
 
         return entity;
     }

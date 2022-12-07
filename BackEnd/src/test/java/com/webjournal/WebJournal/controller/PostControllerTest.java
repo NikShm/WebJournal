@@ -49,13 +49,13 @@ public class PostControllerTest {
         LocalDateTime date4 = LocalDateTime.of(2022,10,14,19,10,25);
         List<PostDTO> featuredPosts = Arrays.asList(
                 new PostDTO(1, new AuthorDTO(1, "yulianabilak", 0), "Sesame Apricot Tofu",
-                        "Cooking", "Cooking", 6, new ArrayList<>(), true, date1, date2, date2),
+                        "Cooking", "Cooking", 6, new ArrayList<>(), true, date1, date2, date2,true),
                 new PostDTO(5, new AuthorDTO(6, "yuliana", 0), "Logo Design", "UI",
-                        "UI", 5, new ArrayList<>(), true, date3, date2, date2),
+                        "UI", 5, new ArrayList<>(), true, date3, date2, date2,false),
                 new PostDTO(4, new AuthorDTO(3, "yulianabil", 0), "Custom Exceptions", "Programming",
-                        "Programming", 4, new ArrayList<>(), true, date4, date2, date2),
+                        "Programming", 4, new ArrayList<>(), true, date4, date2, date2,true),
                 new PostDTO(2, new AuthorDTO(1, "yulianabilak", 0), "Awesome Broccoli Cheese Soup",
-                        "Cooking", "Cooking", 3, new ArrayList<>(), true, date1, date2, date2)
+                        "Cooking", "Cooking", 3, new ArrayList<>(), true, date1, date2, date2,true)
         );
 
         mockMvc.perform(get("/api/posts/top-per-month").param("count", "4"))

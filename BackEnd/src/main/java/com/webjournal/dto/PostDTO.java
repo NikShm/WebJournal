@@ -32,11 +32,12 @@ public class PostDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
+    private Boolean isLike;
 
     public PostDTO() {
     }
 
-    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, Integer likes, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public PostDTO(Integer id, AuthorDTO author, String title, String foreword, String content, Integer likes, List<TagDTO> tags, boolean isApproved, LocalDateTime publishedAt, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean isLike) {
         this.id = id;
         this.author = author;
         this.title = title;
@@ -48,6 +49,7 @@ public class PostDTO {
         this.publishedAt = publishedAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isLike = isLike;
     }
 
     public Integer getId() {
@@ -138,6 +140,14 @@ public class PostDTO {
         this.updatedAt = updatedAt;
     }
 
+    public Boolean getLike() {
+        return isLike;
+    }
+
+    public void setLike(Boolean like) {
+        isLike = like;
+    }
+
     @Override
     public String toString() {
         return "PostDTO{" +
@@ -152,6 +162,7 @@ public class PostDTO {
                 ", publishedAt=" + publishedAt +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", isLike=" + isLike +
                 '}';
     }
 }

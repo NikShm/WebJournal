@@ -25,6 +25,9 @@ public class Comment {
     @Size(max = 512, message = "COMMENT TEXT must be between 1 and 500 characters long")
     private String text;
 
+    @Column(name="post_id", updatable = false)
+    private Integer postId;
+
     @Column(name="created_at", updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
@@ -36,10 +39,11 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Integer id, User author, String text, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Comment(Integer id, User author, String text, Integer postId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.author = author;
         this.text = text;
+        this.postId = postId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -76,12 +80,21 @@ public class Comment {
         return updatedAt;
     }
 
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", author=" + author +
                 ", text='" + text + '\'' +
+                ", postId=" + postId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

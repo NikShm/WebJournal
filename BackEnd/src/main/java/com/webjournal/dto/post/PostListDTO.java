@@ -1,4 +1,4 @@
-package com.webjournal.dto;
+package com.webjournal.dto.post;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
