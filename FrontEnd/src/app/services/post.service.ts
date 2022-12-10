@@ -32,7 +32,7 @@ export class PostService {
     let postData: Post | FormData;
     postData = new Post(postToCreate);
     const id = <string>await this.http.post(GlobalConstants.apiURL + '/posts/create', postData).toPromise();
-    const newPath = `post_${id}.jpg`;
+    const newPath = `PostImage/post_${id}.jpg`;
     postData = new FormData();
     postData.append('id', id);
 
@@ -59,7 +59,7 @@ export class PostService {
     postData = new Post(postToUpdate);
     await this.http.put(GlobalConstants.apiURL + '/posts/updateWithPhoto/', postData).toPromise();
 
-    const newPath = `post_${postToUpdate.id}.jpg`;
+    const newPath = `PostImage/post_${postToUpdate.id}.jpg`;
     let imageData: FormData;
     imageData = new FormData();
     imageData.append('photo', newImage);

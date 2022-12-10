@@ -35,7 +35,6 @@ public class UserController {
         this.service = service;
         this.postService = postService;
         this.fileService = fileService;
-        fileService.setRoot("Resourse/UsersIcon");
     }
 
     private void checkCurrentId(Integer id) {
@@ -65,13 +64,13 @@ public class UserController {
     @PostMapping("/upload-photo")
     public void uploadPhoto(@RequestPart MultipartFile photo, @RequestParam String id) throws IOException {
         checkCurrentId(Integer.valueOf(id));
-        fileService.saveOrReplace(photo, "user_" + id + ".jpg");
+        fileService.saveOrReplace(photo, "UsersIcon/user_" + id + ".jpg");
     }
 
     @GetMapping("/delete-photo/{id}")
     public void deletePhoto(@PathVariable String id) throws IOException {
         checkCurrentId(Integer.valueOf(id));
-        fileService.delete("user_" + id + ".jpg");
+        fileService.delete("UsersIcon/user_" + id + ".jpg");
     }
 
     @GetMapping("/public/{id}")
