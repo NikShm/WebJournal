@@ -26,6 +26,7 @@
     "ngx-pagination": "^6.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "windows-1250": "^3.0.4",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "@angular/compiler-cli": "^14.1.0",
     "@types/html-to-text": "^8.1.1",
     "@types/jasmine": "~4.0.0",
+    "@types/node": "^18.11.11",
     "jasmine-core": "~4.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

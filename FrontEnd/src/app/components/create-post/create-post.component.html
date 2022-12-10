@@ -38,7 +38,7 @@
           <p id="photo">Photo <b class="red">*</b> :</p>
           <div class="dropzone">
             <input type="file" name="photo" id="uploadPhoto" accept="image/png, image/jpeg" appFileValidator
-                   (change)="previewImage()" ngModel #photo="ngModel" [required]="mode === 'create'">
+                   (change)="previewImage()" ngModel #photo="ngModel">
             <p>Drag or <i style="text-decoration: underline">tap</i> to download<br>
             We recommend using high-quality files in the .jpg (up to 20 MB in size).</p>
           </div>
@@ -69,7 +69,8 @@
                 [minlength]="1"
                 [minQueryLength]="1"
                 #newTag="ngModel"
-                name="newTodo">
+                name="newTodo"
+                appTrim>
               </ng-autocomplete>
 
                 <ng-template #itemTemplate let-item>
@@ -95,7 +96,7 @@
           <div class="errorContent" *ngIf="!content.valid && !content.untouched">*Content is required</div>
         </div>
         <p  id="warning">🌭 Fields with <b class="red">*</b> are mandatory 🌭</p>
-        <div class="checkBox">
+        <div class="checkBox" *ngIf="mode != 'UPDATE'">
 
           <br><input type="checkbox" id="switch" name="checkbox" (change)="changeEvent($event)" /><label for="switch"></label>
 
@@ -103,8 +104,12 @@
             the publication of other people's works or the publication of works that violate
             the rules may lead to the removal of these works and blocking access to the site.</p>
         </div>
-        <button type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid
-         || photo.invalid || toogleBool"
+        <button *ngIf="mode == 'UPDATE'" type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid
+         || photo.invalid || post.tags.length == 0"
+                [title]="postForm.invalid ? 'Fill all fields with valid values.' : ''">Publish</button>
+
+        <button *ngIf="mode == 'CREATE'" type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid
+         || photo.invalid || toogleBool || post.tags.length == 0 || image == null"
                 [title]="postForm.invalid ? 'Fill all fields with valid values.' : ''">Publish</button>
       </form>
     </div>

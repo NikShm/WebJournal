@@ -57,7 +57,7 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public void delete(Integer id) throws IOException {
-        fileService.delete("post_" + id + ".jpg");
+        fileService.delete("PostImage/post_" + id + ".jpg");
         repository.deleteById(id);
     }
 
@@ -72,7 +72,7 @@ public class PostServiceImpl implements IPostService {
     public void updateWithPhoto(PostDTO dto) throws IOException {
         Post postToUpdate = repository.findById(dto.getId()).orElseThrow(() -> new DatabaseFetchException("Could not find Post entity with id " + dto.getId()));
         Post updatedProduct = postMapper.toEntity(postToUpdate, dto);
-        fileService.delete("post_" + dto.getId() + ".jpg");
+        fileService.delete("PostImage/post_" + dto.getId() + ".jpg");
         repository.save(updatedProduct);
     }
 

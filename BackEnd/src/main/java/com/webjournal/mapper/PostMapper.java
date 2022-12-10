@@ -9,14 +9,22 @@ import com.webjournal.entity.Tag;
 import com.webjournal.entity.User;
 import com.webjournal.repository.UserRepository;
 import com.webjournal.service.user.UserServiceImpl;
+import org.apache.commons.io.IOUtils;
+import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -89,7 +97,29 @@ public class PostMapper {
         entity.setForeword(dto.getForeword());
         Set<Tag> tags = dto.getTags().stream().map(tagMapper::toEntity).collect(Collectors.toSet());
         entity.setTags(tags);
-        entity.setContent(dto.getContent());
+
+        if(dto.getContent().contains("&#")){
+            StringBuilder newStr = new StringBuilder(dto.getContent().replace(";", "&#"));
+
+            String[] text = newStr.toString().split("&#");
+
+            newStr = new StringBuilder();
+            for (String s : text) {
+                if(s.length() <= 4 && s.matches("[-+]?\\d+")){
+                    int m = Integer.parseInt(s, 10);
+                    newStr.append(Character.toString(m));
+                }
+                else {
+                    newStr.append(s);
+                }
+            }
+
+            entity.setContent(String.valueOf(newStr));
+        }
+        else {
+            entity.setContent(dto.getContent());
+        }
+
         entity.setLikes(dto.getLikes());
         entity.setApproved(dto.isApproved());
         entity.setPublishedAt(dto.getPublishedAt());
@@ -104,9 +134,31 @@ public class PostMapper {
         entity.setForeword(dto.getForeword());
         Set<Tag> tags = dto.getTags().stream().map(tagMapper::toEntity).collect(Collectors.toSet());
         entity.setTags(tags);
-        entity.setContent(dto.getContent());
+
+        if(dto.getContent().contains("&#")){
+            StringBuilder newStr = new StringBuilder(dto.getContent().replace(";", "&#"));
+
+            String[] text = newStr.toString().split("&#");
+
+            newStr = new StringBuilder();
+            for (String s : text) {
+                if(s.length() <= 4 && s.matches("[-+]?\\d+")){
+                    int m = Integer.parseInt(s, 10);
+                    newStr.append(Character.toString(m));
+                }
+                else {
+                    newStr.append(s);
+                }
+            }
+
+            entity.setContent(String.valueOf(newStr));
+        }
+        else {
+            entity.setContent(dto.getContent());
+        }
         entity.setLikes(0);
         entity.setApproved(false);
+        entity.setPublishedAt(LocalDateTime.now());
         return entity;
     }
 

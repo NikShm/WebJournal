@@ -39,6 +39,7 @@ export class CreatePostComponent implements OnInit {
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
+
     toolbarHiddenButtons: [
       ['bold']
     ],
@@ -162,13 +163,25 @@ export class CreatePostComponent implements OnInit {
   newTag = new Tag;
 
   addTodo(event: any) {
+    let isPresent = false;
     if (this.newTodo instanceof Tag) {
-      this.post.tags.push(this.newTodo);
+      for (let i = 0; i < this.post.tags.length; i++) {
+        if(this.post.tags[i].id == this.newTodo.id){
+          isPresent = true;
+        }
+      }
+      if(isPresent == false){
+        this.post.tags.push(this.newTodo);
+      }
     }
     else{
-      this.newTag.name = this.newTodo;
-      this.post.tags.push(this.newTag);
-      this.newTag = new Tag;
+      this.newTodo.trim();
+      if(this.newTodo != ""){
+        this.newTag.name = this.newTodo;
+        this.post.tags.push(this.newTag);
+        this.newTag = new Tag;
+      }
+
     }
     this.newTodo = '';
     event.preventDefault();
