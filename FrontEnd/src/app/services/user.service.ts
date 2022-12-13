@@ -14,7 +14,6 @@ import {Search} from "../models/search";
     providedIn: 'root'
 })
 export class UserService {
-
   searchParameter = new Search("title", "ASC", 0,2,{search:""})
 
   constructor(private http: HttpClient) {
@@ -74,5 +73,13 @@ export class UserService {
 
     deleteUserAccount(id: string) {
       return this.http.delete(GlobalConstants.apiURL + '/users/' + id);
+    }
+
+    followUser(userId: string, userToFollowId: string) {
+      return this.http.get(GlobalConstants.apiURL + `/users/${userId}/follow/${userToFollowId}`);
+    }
+
+    unfollowUser(userId: string, userToUnfollowId: string) {
+      return this.http.delete(GlobalConstants.apiURL + `/users/${userId}/unfollow/${userToUnfollowId}`);
     }
 }

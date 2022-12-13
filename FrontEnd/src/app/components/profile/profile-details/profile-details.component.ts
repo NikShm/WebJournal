@@ -121,7 +121,21 @@ export class ProfileDetailsComponent implements OnInit {
     if (window.confirm("Are you sure you want to delete this account? This action cannot be undone")) {
       this.userService.deleteUserAccount(this.user.id).subscribe(() => {
         this.router.navigate(['/login']);
-      })
+      });
     }
+  }
+
+  follow() {
+    this.userService.followUser(this.storageService.getUser().id, this.user.id).subscribe(() => {
+      window.alert("Now you follow " + this.user.username);
+      window.location.reload();
+    });
+  }
+
+  unfollow() {
+    this.userService.unfollowUser(this.storageService.getUser().id, this.user.id).subscribe(() => {
+      window.alert("You unfollowed " + this.user.username);
+      window.location.reload();
+    });
   }
 }

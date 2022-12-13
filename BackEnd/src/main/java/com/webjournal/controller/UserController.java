@@ -1,9 +1,9 @@
 package com.webjournal.controller;
 
+import com.webjournal.dto.MessageResponse;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.post.PostPreviewDTO;
 import com.webjournal.dto.search.AuthorSearch;
-import com.webjournal.dto.FollowDTO;
 import com.webjournal.dto.search.AuthorsPostsSearch;
 import com.webjournal.dto.search.SearchDTO;
 import com.webjournal.dto.user.*;
@@ -11,6 +11,7 @@ import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
 import com.webjournal.exception.ForbiddenException;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
+import com.webjournal.service.follow.FollowServiceImpl;
 import com.webjournal.service.post.PostServiceImpl;
 import com.webjournal.service.user.UserServiceImpl;
 import org.springframework.http.MediaType;
@@ -30,11 +31,13 @@ public class UserController {
     private final UserServiceImpl service;
     private final PostServiceImpl postService;
     private final FilesStorageServiceImpl fileService;
+    private final FollowServiceImpl followService;
 
-    public UserController(UserServiceImpl service, PostServiceImpl postService, FilesStorageServiceImpl fileService) {
+    public UserController(UserServiceImpl service, PostServiceImpl postService, FilesStorageServiceImpl fileService, FollowServiceImpl followService) {
         this.service = service;
         this.postService = postService;
         this.fileService = fileService;
+        this.followService = followService;
     }
 
     private void checkCurrentId(Integer id) {
@@ -103,14 +106,18 @@ public class UserController {
         return service.getAuthorPage(search);
     }
 
-    @PostMapping("/unsubscribe")
-    public void unsubscribe(@RequestBody FollowDTO followDTO){
-        service.unsubscribe(followDTO);
+    @DeleteMapping ("/{userId}/unfollow/{userToUnfollowId}")
+    @PreAuthorize("#userId == authentication.principal.id")
+    public MessageResponse unfollow(@PathVariable Integer userId, @PathVariable Integer userToUnfollowId) {
+        followService.unfollow(userId, userToUnfollowId);
+        return new MessageResponse("Successfully unfollowed user № " + userToUnfollowId);
     }
 
-    @PostMapping("/subscribe")
-    public void subscribe(@RequestBody FollowDTO followDTO){
-        service.subscribe(followDTO);
+    @GetMapping("/{userId}/follow/{userToFollowId}")
+    @PreAuthorize("#userId == authentication.principal.id")
+    public MessageResponse follow(@PathVariable Integer userId, @PathVariable Integer userToFollowId) {
+        followService.follow(userId, userToFollowId);
+        return new MessageResponse("Successfully followed user № " + userToFollowId);
     }
 
     @PostMapping("/{id}/posts-approved")

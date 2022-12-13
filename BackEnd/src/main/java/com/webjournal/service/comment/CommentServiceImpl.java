@@ -10,7 +10,6 @@ import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
 import com.webjournal.mapper.CommentMapper;
 import com.webjournal.repository.CommentRepository;
-import com.webjournal.service.post.PostServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

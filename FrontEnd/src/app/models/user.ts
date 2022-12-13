@@ -7,6 +7,7 @@ export class User {
         this.following = user.following;
         this.email = user.email;
         this.role = user.role;
+        this.isFollowing = user.isFollowing;
     }
 
     id: string;
@@ -16,4 +17,5 @@ export class User {
     following: number;
     email: string;
     role: string;
+    isFollowing: boolean;
 }

@@ -62,7 +62,8 @@
                     <p class="bio">{{user.bio}}</p>
                     <p class="name-authors">- by author</p>
                 </div>
-                <button *ngIf="!isYourProfile()" class="btn-rectangular">Follow</button>
+                <button *ngIf="!isYourProfile() && !user.isFollowing" class="btn-rectangular" (click)="follow()">Follow</button>
+                <button *ngIf="user.isFollowing" class="btn-rectangular" (click)="unfollow()">Unfollow</button>
                 <button *ngIf="isYourProfile()" class="btn-rectangular" (click)="enableEditMode()">Edit</button>
                 <button *ngIf="isAdmin() || isYourProfile()" class="btn-underlined delete-account" (click)="deleteAccount()">DELETE ACCOUNT</button>
             </div>
