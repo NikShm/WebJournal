@@ -38,31 +38,34 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') || #id == authentication.principal.id")
-    public void deleteOne(@PathVariable Integer id) {
+    public MessageResponse deleteOne(@PathVariable Integer id) {
         service.delete(id);
+        return new MessageResponse("Successfully deleted user № " + id);
     }
 
     @PutMapping("/")
     @PreAuthorize("#request.id == authentication.principal.id")
-    public void update(@Valid @RequestBody UserUpdateRequest request) {
+    public MessageResponse update(@Valid @RequestBody UserUpdateRequest request) {
         service.update(request);
+        return new MessageResponse("Successfully updated user № " + request.getId());
     }
 
     @PutMapping("/role")
     @PreAuthorize("hasRole('ADMIN')")
-    public void updateRole(@Valid @RequestBody RoleUpdateRequest request) {
+    public MessageResponse updateRole(@Valid @RequestBody RoleUpdateRequest request) {
         service.changeRole(request);
+        return new MessageResponse("Successfully changed user № " + request.getId() + " role to " + request.getRole());
     }
 
     @PostMapping("/upload-photo")
     @PreAuthorize("#id == authentication.principal.id")
-    public void uploadPhoto(@RequestPart MultipartFile photo, @RequestParam String id) throws IOException {
+    public void uploadPhoto(@RequestPart MultipartFile photo, @RequestParam Integer id) throws IOException {
         fileService.saveOrReplace(photo, "UsersIcon/user_" + id + ".jpg");
     }
 
     @GetMapping("/delete-photo/{id}")
     @PreAuthorize("#id == authentication.principal.id")
-    public void deletePhoto(@PathVariable String id) throws IOException {
+    public void deletePhoto(@PathVariable Integer id) throws IOException {
         fileService.delete("UsersIcon/user_" + id + ".jpg");
     }
 
@@ -78,7 +81,7 @@ public class UserController {
     }
 
     @RequestMapping("/")
-    List<UserDTO> showAll(){
+    public List<UserDTO> showAll(){
         return service.getAll();
     }
 

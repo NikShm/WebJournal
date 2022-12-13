@@ -65,7 +65,7 @@
                 <button *ngIf="!isYourProfile() && !user.isFollowing" class="btn-rectangular" (click)="follow()">Follow</button>
                 <button *ngIf="user.isFollowing" class="btn-rectangular" (click)="unfollow()">Unfollow</button>
                 <button *ngIf="isYourProfile()" class="btn-rectangular" (click)="enableEditMode()">Edit</button>
-                <button *ngIf="isAdmin() || isYourProfile()" class="btn-underlined delete-account" (click)="deleteAccount()">DELETE ACCOUNT</button>
+                <button *ngIf="(isAdmin() && user.role !== 'ADMIN') || isYourProfile()" class="btn-underlined delete-account" (click)="deleteAccount()">DELETE ACCOUNT</button>
             </div>
             <button *ngIf="isYourProfile()" class="btn-underlined logout" (click)="logout()">Logout</button>
         </div>
