@@ -12,6 +12,7 @@ import com.webjournal.repository.UserRepository;
 import com.webjournal.service.role.RoleServiceImpl;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -111,5 +112,10 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         repository.save(user);
 
         mailTokenService.deleteToken(mailToken);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

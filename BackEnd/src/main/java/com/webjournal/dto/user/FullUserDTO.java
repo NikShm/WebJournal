@@ -14,14 +14,15 @@ public class FullUserDTO {
     private String username;
     private String email;
     private String bio;
-    private Integer followers;
-    private Integer following;
+    private int followers;
+    private int following;
     private RoleType role;
+    private boolean isFollowing;
 
     public FullUserDTO() {
     }
 
-    public FullUserDTO(Integer id, String username, String email, String bio, Integer followers, Integer following, RoleType role) {
+    public FullUserDTO(Integer id, String username, String email, String bio, int followers, int following, RoleType role, boolean isFollowing) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -29,6 +30,7 @@ public class FullUserDTO {
         this.followers = followers;
         this.following = following;
         this.role = role;
+        this.isFollowing = isFollowing;
     }
 
     public Integer getId() {
@@ -63,19 +65,19 @@ public class FullUserDTO {
         this.bio = bio;
     }
 
-    public Integer getFollowers() {
+    public int getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Integer followers) {
+    public void setFollowers(int followers) {
         this.followers = followers;
     }
 
-    public Integer getFollowing() {
+    public int getFollowing() {
         return following;
     }
 
-    public void setFollowing(Integer following) {
+    public void setFollowing(int following) {
         this.following = following;
     }
 
@@ -85,6 +87,14 @@ public class FullUserDTO {
 
     public void setRole(RoleType role) {
         this.role = role;
+    }
+
+    public boolean getIsFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(boolean following) {
+        isFollowing = following;
     }
 
     @Override
@@ -97,6 +107,7 @@ public class FullUserDTO {
                 ", followers=" + followers +
                 ", following=" + following +
                 ", role=" + role +
+                ", isFollowing=" + isFollowing +
                 '}';
     }
 }

@@ -1,6 +1,5 @@
 package com.webjournal.entity;
 
-import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,9 +32,6 @@ public class User implements UserDetails {
 
     private String bio;
 
-    @Formula("(select count(*) from follow f where f.user_id = {alias}.id)")
-    private int countFollowers;
-
     @ManyToOne
     @JoinColumn(name="role_id")
     private Role role;
@@ -51,14 +47,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Integer id, String username, String password, String email, Boolean accountVerified, String bio, int countFollowers, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String password, String email, Boolean accountVerified, String bio, Role role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountVerified = accountVerified;
         this.bio = bio;
-        this.countFollowers = countFollowers;
         this.role = role;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -155,14 +150,6 @@ public class User implements UserDetails {
         return updatedAt;
     }
 
-    public int getCountFollowers() {
-        return countFollowers;
-    }
-
-    public void setCountFollowers(int countFollowers) {
-        this.countFollowers = countFollowers;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -172,7 +159,6 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", accountVerified=" + accountVerified +
                 ", bio='" + bio + '\'' +
-                ", countFollowers=" + countFollowers +
                 ", role=" + role +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

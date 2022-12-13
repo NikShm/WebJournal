@@ -5,10 +5,9 @@ import com.webjournal.dto.user.FullUserDTO;
 import com.webjournal.dto.user.UserDTO;
 import com.webjournal.dto.user.UserUpdateRequest;
 import com.webjournal.entity.User;
+import com.webjournal.service.auth.AuthServiceImpl;
+import com.webjournal.service.follow.FollowServiceImpl;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.EntityManager;
-import java.math.BigInteger;
 
 /**
  * @author Yuliana
@@ -19,10 +18,12 @@ import java.math.BigInteger;
  **/
 @Component
 public class UserMapper {
-    private final EntityManager entityManager;
+    private final FollowServiceImpl followService;
+    private final AuthServiceImpl authService;
 
-    public UserMapper(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public UserMapper(FollowServiceImpl followService, AuthServiceImpl authService) {
+        this.followService = followService;
+        this.authService = authService;
     }
 
     public AuthorDTO toAuthorDto(User entity) {
@@ -30,7 +31,7 @@ public class UserMapper {
 
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
-        dto.setFollowers(entity.getCountFollowers());
+        dto.setFollowers(followService.getNumberOfUserFollowers(entity.getId()));
         dto.setBio(entity.getBio());
 
         return dto;
@@ -42,9 +43,9 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setBio(entity.getBio());
-        dto.setFollowers(entity.getCountFollowers());
-        dto.setFollowing((int) ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) from follow where following_user_id = ?1")
-                .setParameter(1, entity.getId()).getSingleResult()).longValue());
+        dto.setFollowers(followService.getNumberOfUserFollowers(entity.getId()));
+        dto.setFollowing(followService.getNumberOfUserFollowings(entity.getId()));
+        dto.setIsFollowing(followService.isFollowing(entity.getId(), authService.getCurrentUser().getId()));
 
         return dto;
     }
@@ -55,11 +56,11 @@ public class UserMapper {
         dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setBio(entity.getBio());
-        dto.setFollowers(entity.getCountFollowers());
-        dto.setFollowing((int) ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) from follow where following_user_id = ?1")
-                .setParameter(1, entity.getId()).getSingleResult()).longValue());
+        dto.setFollowers(followService.getNumberOfUserFollowers(entity.getId()));
+        dto.setFollowing(followService.getNumberOfUserFollowings(entity.getId()));
         dto.setEmail(entity.getEmail());
         dto.setRole(entity.getRole().getRole());
+        dto.setIsFollowing(followService.isFollowing(entity.getId(), authService.getCurrentUser().getId()));
 
         return dto;
     }
@@ -71,6 +72,4 @@ public class UserMapper {
 
         return entity;
     }
-
-
 }

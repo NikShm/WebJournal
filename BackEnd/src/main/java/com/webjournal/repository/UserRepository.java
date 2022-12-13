@@ -19,10 +19,10 @@ import java.util.Optional;
 */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
-    @Query("SELECT u FROM User u ORDER BY u.countFollowers DESC")
+    @Query("SELECT u FROM User u JOIN Follow f ON u.id = f.userId GROUP BY u ORDER BY COUNT(u) DESC")
     List<User> findInterestingAuthors(Pageable page);
     Optional<User> findByEmail(String email);
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
-    Optional<User> findByUsername(String username);
+    boolean existsById(Integer id);
 }

@@ -11,18 +11,20 @@ public class UserDTO {
     private Integer id;
     private String username;
     private String bio;
-    private Integer followers;
-    private Integer following;
+    private int followers;
+    private int following;
+    private boolean isFollowing;
 
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String username, String bio, Integer followers, Integer following) {
+    public UserDTO(Integer id, String username, String bio, int followers, int following, boolean isFollowing) {
         this.id = id;
         this.username = username;
         this.bio = bio;
         this.followers = followers;
         this.following = following;
+        this.isFollowing = isFollowing;
     }
 
     public Integer getId() {
@@ -49,20 +51,28 @@ public class UserDTO {
         this.bio = bio;
     }
 
-    public Integer getFollowers() {
+    public int getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Integer followers) {
+    public void setFollowers(int followers) {
         this.followers = followers;
     }
 
-    public Integer getFollowing() {
+    public int getFollowing() {
         return following;
     }
 
-    public void setFollowing(Integer following) {
+    public void setFollowing(int following) {
         this.following = following;
+    }
+
+    public boolean getIsFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(boolean following) {
+        isFollowing = following;
     }
 
     @Override
@@ -73,6 +83,7 @@ public class UserDTO {
                 ", bio='" + bio + '\'' +
                 ", followers=" + followers +
                 ", following=" + following +
+                ", isFollowing=" + isFollowing +
                 '}';
     }
 }

@@ -40,9 +40,9 @@ public class ApiExceptionHandler {
         return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
     }
 
-    @ExceptionHandler(UpdateException.class)
-    public ResponseEntity<ApiErrorMessage> handleUpdateException(UpdateException e, WebRequest request) {
-        LOGGER.error("Could not update entity", e);
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ApiErrorMessage> handleInvalidRequestException(InvalidRequestException e, WebRequest request) {
+        LOGGER.error("Request contained invalid data", e);
         return getResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
     }
 
