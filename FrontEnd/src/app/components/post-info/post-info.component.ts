@@ -105,7 +105,7 @@ export class PostInfoComponent implements OnInit {
 
   // @ts-ignore
   showActions() {
-    if (this.storageService.getUser().role != "AUTHOR") {
+    if (this.storageService.getUser().role != "AUTHOR" && this.storageService.getUser().role != null) {
       return true;
     }
   }
@@ -117,7 +117,8 @@ export class PostInfoComponent implements OnInit {
 
   // @ts-ignore
   showCancelApprovedButton() {
-    return this.storageService.getUser().id != this.authorId && this.post.approved;
+    return this.storageService.getUser().id != this.authorId && this.post.approved &&
+      (this.storageService.getUser().role == "ADMIN" || this.storageService.getUser().role == "MODERATOR");
   }
 
   // @ts-ignore
@@ -180,8 +181,8 @@ export class PostInfoComponent implements OnInit {
     }
   }
 
-  setTag(event: any) {
-    this.postService.setTagSearch(event.target.value)
+  setTag(name: string) {
+    this.postService.setTagSearch(name)
     this.router.navigate(['/posts'])
   }
 

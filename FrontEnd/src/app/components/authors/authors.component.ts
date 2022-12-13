@@ -11,6 +11,7 @@ export class AuthorsComponent implements OnInit {
   searchParameter = {sortField: "id", sortDirection: "ASC", page:0, pageSize: 12, searchPattern:{search:""}}
   page:Page = new Page([], 0);
   sort = "";
+  userImage: string = "assets/UsersIcon/user_";
 
   constructor(private authorService: UserService ) { }
 
@@ -30,34 +31,10 @@ export class AuthorsComponent implements OnInit {
     console.log(event)
   }
 
-  // setSorted(event: any) {
-  //   switch (this.sort) {
-  //     case "Popular": {
-  //       this.searchParameter.sortField = "likes";
-  //       this.searchParameter.sortDirection = "ASC";
-  //       break;
-  //     }
-  //     case "Unpopular": {
-  //       this.searchParameter.sortField = "likes";
-  //       this.searchParameter.sortDirection = "DESC";
-  //       break;
-  //     }
-  //
-  //     case "A to Z": {
-  //       this.searchParameter.sortField = "title";
-  //       this.searchParameter.sortDirection = "ASC";
-  //       break;
-  //     }
-  //     case "Z to A": {
-  //       this.searchParameter.sortField = "title";
-  //       this.searchParameter.sortDirection = "DESC";
-  //       break;
-  //     }
-  //     default: {
-  //       break;
-  //     }
-  //   }
-  // }
+  onErrorUserImage(event:any) {
+    event.target.src = 'assets/UsersIcon/default.png';
+  }
+
   setSorted(event:any) {
     console.log(event.active)
     this.searchParameter.sortField = event.active
@@ -81,6 +58,7 @@ export class AuthorsComponent implements OnInit {
     }
     this.search()
   }
+
 
   apply() {
     this.searchParameter.page = 0

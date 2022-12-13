@@ -58,6 +58,12 @@ export class HomeComponent implements OnInit {
     return this.colors.get(id)
   }
 
+  setTag(name: string) {
+    console.log(name)
+    this.postService.setTagSearch(name)
+    this.router.navigate(['/posts'])
+  }
+
   getRandomColor() {
     let sounds = ["hsl(" +  0  +", 0%, 0%, 0%)",
                   "hsl(" +  0  +", 0%, 0%, 0%)",
