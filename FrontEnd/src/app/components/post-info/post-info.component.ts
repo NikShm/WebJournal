@@ -158,7 +158,6 @@ export class PostInfoComponent implements OnInit {
   delete() {
     if (window.confirm("Are you sure you want to permanently delete this post?")) {
       this.postService.deletePost(this.postId).subscribe(() => {
-        window.alert(`Post was deleted successfully.`);
         this.router.navigate(['/posts']);
       });
     }

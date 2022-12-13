@@ -292,6 +292,7 @@ background-color: #20826b00;
 color: #000000;
 }
 .centerusers{
+  cursor: pointer;
   display: flex;
 background-color: rgba(187, 125, 125, 0);
   width: 520px;

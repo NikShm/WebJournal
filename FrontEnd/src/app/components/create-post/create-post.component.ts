@@ -122,18 +122,15 @@ export class CreatePostComponent implements OnInit {
   onSave() {
     if (this.mode === 'CREATE') {
       this.postService.createPost(this.post, this.image).then((id: any) => {
-        window.alert(`Post was created successfully with id ${id}.`);
         this.router.navigate([`/posts/${id}`]);
       })
     } else if (this.mode === 'UPDATE') {
       if(this.image == null){
         this.postService.updatePost(this.post).then(() => {
-          window.alert(`Post was updated successfully with id №${this.postId}.`);
         })
       }
       else{
         this.postService.updateWithPhoto(this.post, this.image).then(() => {
-          window.alert(`Post was updated successfully with id №${this.postId}.`);
         })
       }
 
