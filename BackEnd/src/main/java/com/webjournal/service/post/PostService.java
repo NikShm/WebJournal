@@ -1,6 +1,5 @@
 package com.webjournal.service.post;
 
-import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.post.PostFormDTO;
@@ -15,17 +14,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface IPostService{
+public interface PostService {
     List<PostListDTO> getSimilarPosts(Integer postId);
     void like(Integer postId);
     void dislike(Integer postId);
-
     @Transactional
     Boolean approved(Integer postId);
-
     @Transactional
     Boolean canselApproved(Integer postId);
-
     PageDTO<PostListDTO> getPage(SearchDTO<PostSearch> searchDTO);
     Integer create(PostFormDTO dto);
     void delete(Integer id) throws IOException;
@@ -35,7 +31,5 @@ public interface IPostService{
     List<PostDTO> getAll();
     List<PostListDTO> getFeaturedPosts(Integer quantity, LocalDateTime date);
     List<PostListDTO> getNewPost(SearchDTO<PostSearch> search);
-    PageDTO<PostPreviewDTO> getAuthorsPosts(SearchDTO<AuthorsPostsSearch> search);
-
-    PageDTO<PostPreviewDTO> getApprovedAuthorsPosts(SearchDTO<String> search);
+    PageDTO<PostPreviewDTO> getAuthorsPosts(SearchDTO<AuthorsPostsSearch> search, Integer authorId);
 }

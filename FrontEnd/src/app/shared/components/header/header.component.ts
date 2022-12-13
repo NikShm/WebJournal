@@ -25,14 +25,14 @@ export class HeaderComponent implements OnInit {
         }
     }
 
-  goToNewsPosts() {
-    if (!this.storageService.isLoggedIn()) {
-      this.router.navigate(['login']);
+    goToNewsPosts() {
+      if (!this.storageService.isLoggedIn()) {
+        this.router.navigate(['login']);
+      }
+      else {
+        this.router.navigate(['/news-posts']);
+      }
     }
-    else {
-      this.router.navigate(['/news-posts']);
-    }
-  }
 
     goToCreatePostPage() {
       if (!this.storageService.isLoggedIn()) {

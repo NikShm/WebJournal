@@ -31,12 +31,12 @@ export class ProfileDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.role = this.user.role;
     if (this.hasPermissionToFilter()) {
-      this.searchModel = new Search("createdAt", "DESC", 0, 6, {authorId: this.user.id, areApproved: true});
+      this.searchModel = new Search("createdAt", "DESC", 0, 6, {areApproved: true});
     }
     else {
-      this.searchModel = new Search("publishedAt", "DESC", 0, 6, this.user.id);
+      this.searchModel = new Search("publishedAt", "DESC", 0, 6, {areApproved: true});
     }
-    this.postService.setSearchParameter(this.searchModel);
+    this.postService.setSearchProfileParameter(this.searchModel);
     this.search();
   }
 
@@ -74,7 +74,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   changePage(page: number) {
     this.searchModel.page = page
-    this.postService.setSearchParameter(this.searchModel);
+    this.postService.setSearchProfileParameter(this.searchModel);
     this.search();
   }
 
@@ -92,7 +92,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   changePostsFilter() {
-    this.postService.setSearchParameter(this.searchModel);
+    this.postService.setSearchProfileParameter(this.searchModel);
     this.search();
   }
 

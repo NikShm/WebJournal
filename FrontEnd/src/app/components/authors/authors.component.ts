@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Page} from "../../models/pages";
-import {User} from "../../models/user";
+
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
@@ -17,18 +17,12 @@ export class AuthorsComponent implements OnInit {
 
   ngOnInit(): void {
   this.authorService.getAuthors(this.searchParameter).subscribe((data)=>{
-    this.page = data
-    console.log(data)})
-
+    this.page = data})
   }
+
   changePage(page: number) {
     this.searchParameter.page = page
-    this.authorService.setSearchParameter(this.searchParameter)
     this.search()
-  }
-  sorted(event:any){
-    console.log(this.sort)
-    console.log(event)
   }
 
   onErrorUserImage(event:any) {
@@ -36,7 +30,6 @@ export class AuthorsComponent implements OnInit {
   }
 
   setSorted(event:any) {
-    console.log(event.active)
     this.searchParameter.sortField = event.active
     if (this.searchParameter.sortDirection === "ASC"){
       this.searchParameter.sortDirection ="DESC";
@@ -45,6 +38,7 @@ export class AuthorsComponent implements OnInit {
     }
     this.search()
   }
+
   getFirst() {
     this.searchParameter.page = 0;
     this.search()
@@ -59,16 +53,14 @@ export class AuthorsComponent implements OnInit {
     this.search()
   }
 
-
   apply() {
     this.searchParameter.page = 0
     this.search()
-
   }
+
   search() {
     this.authorService.getAuthors(this.searchParameter).subscribe((page: Page) => {
       this.page = page
     });
   }
-
 }

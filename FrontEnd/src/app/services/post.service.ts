@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {ElementRef, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Tag } from "../models/tag";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
@@ -8,8 +8,6 @@ import {GlobalConstants} from "../global-constants";
 import {Post} from "../models/post";
 import {Page} from "../models/pages";
 import {Search} from "../models/search";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PostInfoComponent} from "../components/post-info/post-info.component";
 
 @Injectable({
   providedIn: 'root'
@@ -89,7 +87,7 @@ export class PostService {
     return this.searchPostsParameter
   }
 
-  setSearchParameter(searchParameter:Search) {
+  setSearchProfileParameter(searchParameter:Search) {
     this.searchProfileParameter = searchParameter;
   }
 

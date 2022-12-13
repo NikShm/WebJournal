@@ -12,13 +12,13 @@ import com.webjournal.exception.ForbiddenException;
 import com.webjournal.exception.InvalidRequestException;
 import com.webjournal.mapper.UserMapper;
 import com.webjournal.repository.UserRepository;
+import com.webjournal.service.auth.AuthServiceImpl;
 import com.webjournal.service.role.RoleServiceImpl;
 import com.webjournal.utils.QueryHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,11 +34,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final UserMapper mapper;
     private final RoleServiceImpl roleService;
+    private final AuthServiceImpl authService;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper, RoleServiceImpl roleService) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, RoleServiceImpl roleService, AuthServiceImpl authService) {
         this.repository = repository;
         this.mapper = mapper;
         this.roleService = roleService;
+        this.authService = authService;
     }
 
     @Override
@@ -60,8 +62,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(Integer id) {
         User userToDelete = getEntityById(id);
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!principal.getId().equals(id) && userToDelete.getRole().getRole() != RoleType.ADMIN) {
+        User principal = (User) authService.getCurrentUser();
+        if (!principal.getId().equals(userToDelete.getId()) && userToDelete.getRole().getRole() == RoleType.ADMIN) {
             throw new ForbiddenException("Access is denied. You don't have permission to access this resource");
         }
         repository.deleteById(id);

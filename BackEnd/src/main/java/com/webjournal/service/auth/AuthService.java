@@ -1,7 +1,6 @@
 package com.webjournal.service.auth;
 
 import com.webjournal.dto.auth.RegistrationRequest;
-import com.webjournal.entity.User;
 import freemarker.template.TemplateException;
 
 import javax.mail.MessagingException;
@@ -19,5 +18,5 @@ public interface AuthService {
     Boolean checkIfUserExistsByEmail(String email);
     void register(RegistrationRequest registrationRequest) throws TemplateException, MessagingException, IOException;
     void verifyUser(String token);
-    User getCurrentUser();
+    Object getCurrentUser();
 }

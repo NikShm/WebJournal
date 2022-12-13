@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../../shared/css/auth.css', './login.component.css']
+  styleUrls: ['../../shared/css/auth.css', '../../shared/css/center.css', './login.component.css']
 })
 export class LoginComponent implements OnInit {
   login: LoginRequest = new LoginRequest();

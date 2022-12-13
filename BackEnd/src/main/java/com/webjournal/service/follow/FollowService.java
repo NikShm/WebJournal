@@ -10,7 +10,6 @@ package com.webjournal.service.follow;
 public interface FollowService {
     void follow(Integer userId, Integer userToFollowId);
     void unfollow(Integer userId, Integer userToUnfollowId);
-    int getNumberOfUserFollowers(Integer userId);
     int getNumberOfUserFollowings(Integer userId);
     boolean isFollowing(Integer followerId, Integer userId);
 }

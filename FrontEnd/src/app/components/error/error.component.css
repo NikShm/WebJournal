@@ -1,0 +1,21 @@
+.centered-content {
+    text-align: center;
+}
+
+.btn-rectangular {
+    margin: auto;
+    margin-bottom: 33px;
+}
+
+.code {
+    font-size: 128px;
+    color: #c24332;
+}
+
+.reason {
+    margin-bottom: 15px;
+}
+
+.description {
+    margin-bottom: 40px;
+}

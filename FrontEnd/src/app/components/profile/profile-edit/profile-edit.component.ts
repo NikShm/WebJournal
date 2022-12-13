@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,14 +17,12 @@ export class ProfileEditComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
-    private userService: UserService,
-    private storageService: StorageService,
-    private router: Router
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.usernameLength = String(this.user.username.length);
-    this.bioLength = String(this.user.bio.length);
+    this.bioLength = this.user.bio ? String(this.user.bio.length) : '0';
   }
 
   onInput(target: any) {

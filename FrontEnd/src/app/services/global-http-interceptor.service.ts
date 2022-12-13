@@ -37,6 +37,9 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
                                     return this.handle401Error(req, next);
                                 }
                                 break;
+                            case 403:
+                                this.router.navigate(['/403']);
+                                break;
                             case 404:
                                 if (req.method === 'GET') {
                                     this.router.navigate(['/404']);

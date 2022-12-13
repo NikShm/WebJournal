@@ -1,6 +1,5 @@
 package com.webjournal.service.post;
 
-import com.webjournal.dto.LikeDTO;
 import com.webjournal.dto.PageDTO;
 import com.webjournal.dto.PostDTO;
 import com.webjournal.dto.post.PostFormDTO;
@@ -14,7 +13,6 @@ import com.webjournal.entity.User;
 import com.webjournal.enums.RoleType;
 import com.webjournal.enums.SortDirection;
 import com.webjournal.exception.DatabaseFetchException;
-import com.webjournal.exception.ForbiddenException;
 import com.webjournal.mapper.PostMapper;
 import com.webjournal.repository.PostRepository;
 import com.webjournal.service.fileStorage.FilesStorageServiceImpl;
@@ -35,7 +33,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class PostServiceImpl implements IPostService {
+public class PostServiceImpl implements PostService {
     private final PostRepository repository;
     private final PostMapper postMapper;
     private final EntityManager entityManager;
@@ -266,31 +264,16 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public PageDTO<PostPreviewDTO> getAuthorsPosts(SearchDTO<AuthorsPostsSearch> search) {
-        Pageable pageable = getAuthorsPostsPageable(search.getSortDirection(), search.getSortField(), search.getPage(), search.getPageSize());
+    public PageDTO<PostPreviewDTO> getAuthorsPosts(SearchDTO<AuthorsPostsSearch> search, Integer authorId) {
+        Sort sort = search.getSortDirection() == SortDirection.DESC
+                ? Sort.by(search.getSortField()).descending()
+                : Sort.by(search.getSortField()).ascending();
+        Pageable pageable = PageRequest.of(search.getPage(), search.getPageSize(), sort);
         Page<Post> pages;
         if (search.getSearchPattern().getAreApproved() == null) {
-            pages = repository.findAllAuthorsPosts(pageable, search.getSearchPattern().getAuthorId());
+            pages = repository.findAllAuthorsPosts(pageable, authorId);
         }
-        else pages = repository.findAuthorsPosts(pageable, search.getSearchPattern().getAuthorId(), search.getSearchPattern().getAreApproved());
-        return getPostPreview(pages);
-    }
-
-    @Override
-    public PageDTO<PostPreviewDTO> getApprovedAuthorsPosts(SearchDTO<String> search) {
-        Pageable pageable = getAuthorsPostsPageable(search.getSortDirection(), search.getSortField(), search.getPage(), search.getPageSize());
-        Page<Post> pages = repository.findApprovedAuthorsPosts(pageable, Integer.valueOf(search.getSearchPattern()));
-        return getPostPreview(pages);
-    }
-
-    private Pageable getAuthorsPostsPageable(SortDirection sortDir, String sortField, Integer currentPage, Integer pageSize) {
-        Sort sort = sortDir == SortDirection.DESC
-                ? Sort.by(sortField).descending()
-                : Sort.by(sortField).ascending();
-        return PageRequest.of(currentPage, pageSize, sort);
-    }
-
-    private PageDTO<PostPreviewDTO> getPostPreview(Page<Post> pages) {
+        else pages = repository.findAuthorsPosts(pageable, authorId, search.getSearchPattern().getAreApproved());
         PageDTO<PostPreviewDTO> pageDTO = new PageDTO<>();
         pageDTO.setContent(pages.getContent().stream().map(postMapper::toPostPreviewDTO).toList());
         pageDTO.setTotalItem(pages.getTotalElements());

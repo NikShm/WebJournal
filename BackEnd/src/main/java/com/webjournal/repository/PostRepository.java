@@ -27,8 +27,6 @@ public interface PostRepository extends JpaRepository<Post, Integer>, JpaSpecifi
     List<Post> findNewsPosts(Pageable page, Integer authorizeUserId);
     @Query("SELECT p FROM Post p WHERE p.author.id = ?1")
     Page<Post> findAllAuthorsPosts(Pageable page, Integer authorId);
-    @Query("SELECT p FROM Post p WHERE p.author.id = ?1 AND p.isApproved = true")
-    Page<Post> findApprovedAuthorsPosts(Pageable page, Integer authorId);
     @Query("SELECT p FROM Post p WHERE p.author.id = ?1 AND p.isApproved = ?2")
     Page<Post> findAuthorsPosts(Pageable page, Integer authorId, Boolean isApproved);
     @Query(value = "SELECT * FROM post p WHERE\n" +
