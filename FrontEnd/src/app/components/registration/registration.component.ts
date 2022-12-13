@@ -42,6 +42,7 @@ export class RegistrationComponent implements OnInit {
   onRegistration() {
     this.authService.register(this.reg).subscribe({
       next: () => {
+        window.alert("Successfully registered. We sent you a confirmation email, go check and verify your account");
         this.router.navigate(['/login']);
       },
       error: err => {
