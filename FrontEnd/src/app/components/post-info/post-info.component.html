@@ -103,12 +103,12 @@
     </div>
     <div class="post" *ngFor="let post of similarPosts">
       <!--        <div class="label">Programming</div>-->
-      <div style="height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
+      <div style="width: 343px; height: 200px; border-bottom: 0.1px solid black;" class="imgDiv">
         <img [src]="postImage+post.id+'.jpg'" (error)="onErrorPostImage($event)">
       </div>
       <a (click)="goToPost(post.id)">
-      <p class="similarPostsPostTitle"><a class="postTitleA">{{post.title}}</a></p>
-      <p class="postForeword"><a class="postTitleA">{{post.foreword}}</a></p>
+      <p class="similarPostsPostTitle" style="margin-top: -20px; font-size: 16px"><a class="postTitleA">{{post.title}}</a></p>
+      <p class="postForeword" style="font-size: 14px"><a class="postTitleA">{{post.foreword}}</a></p>
       </a>
     </div>
   </div>

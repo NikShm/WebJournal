@@ -188,7 +188,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   deleteTodo(index: any) {
-    window.confirm("Are you sure you want to delete this tag?")
     this.post.tags.splice(index, 1);
   }
 

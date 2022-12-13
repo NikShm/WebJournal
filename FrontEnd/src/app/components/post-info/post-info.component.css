@@ -576,6 +576,7 @@ li a img:hover{
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: flex-start;
+  cursor: pointer;
 }
 
 .similarPostsTitle{
