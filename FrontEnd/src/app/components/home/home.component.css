@@ -11,7 +11,7 @@
 }
 
 .featuredPosts{
-  width: 800px;
+  width: 740px;
   height: 667px;
   margin: auto;
   top: 20px;
@@ -20,7 +20,7 @@
 
 .slider{
   background: rgba(99, 148, 140, 0.69);
-  width: 800px;
+  width: 740px;
   height: 667px;
   overflow: hidden;
 }
@@ -46,9 +46,14 @@
 }
 
 .slide{
-  width: 800px;
+  width: 740px;
   transition: 2s;
 
+}
+
+.imgContainer{
+  width: 740px;
+  height: 480px;
 }
 
 .slide img{
@@ -64,7 +69,7 @@
 .navigation-manual{
   margin: auto;
 
-  width: 800px;
+  width: 740px;
   margin-top: 150px;
   display: flex;
   justify-content: center;
@@ -245,7 +250,7 @@
   width: 670px;
   align-items: center;
   position: relative;
-  left: 435px;
+  left: 405px;
   top: -340px;
   border: 1px solid #749E95;
   transform: rotate(-90deg);
@@ -357,7 +362,8 @@
 
 .right-panel .friends-section .friend > .dp > img{
   width:100%;
-
+  height: 100%;
+  object-fit: cover;
 }
 
 .right-panel .pages-section .name, .right-panel .friends-section .name{
