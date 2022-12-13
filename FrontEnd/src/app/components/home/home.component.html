@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <!--start section content... -->
-<div *ngIf="isDataLoaded">
+<div style="z-index: 1000;" *ngIf="isDataLoaded">
 <section class="introduction">
   <div class="featuredPosts">
     <div class="namesliders"><p> FEATURED POSTS</p></div>
@@ -117,23 +117,23 @@
 
 </section>
 <!----------------start tag section--bgcolor=#c5c6d0------------->
-<section>
+<section >
   <hr style="margin-top: -220px;" class="actualTagsHr">
   <hr style="margin-top: -170px;" class="actualTagsHr">
   <hr style="margin-top: 11.5px;" class="actualTagsHr">
-  <table class="actual_tags">
+  <table class="actual_tags" style="z-index: 10;">
     <tr>
       <th colspan="5" height="48cm">Actual tags</th>
     </tr>
     <tr class="b2" *ngFor="let tags of tagList">
       <td [ngStyle]="{'background-color': setBackgroundColor(tag.id)}" *ngFor="let tag of tags"
-          style="text-transform: lowercase;">{{tag.name}}</td>
+          style="text-transform: lowercase;"><a (click)="setTag(tag.name)">{{tag.name}}</a></td>
     </tr>
   </table>
 </section>
 <!----------------Start video section------------->
 
-<section class="videosParts">
+<section  style="z-index: 0;" class="videosParts">
   <div class="checkOutNewArticles">
     <p>Check out new articles</p>
     <button type="button" class="fill1" (click)="goToArticles()"><p>discover</p></button>

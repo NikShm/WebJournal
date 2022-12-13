@@ -186,19 +186,15 @@ public class PostServiceImpl implements IPostService {
      * @see com.webjournal.utils.FullTextSearchPred
      */
 
-    private StringBuilder getQuery() {
-        return new StringBuilder();
-    }
-
     private String getPageQuery(SearchDTO<PostSearch> search) {
-        StringBuilder query = getQuery();
+        StringBuilder query = new StringBuilder();
         PostSearch searchPattern = new PostSearch();
         if (search.getSearchPattern() != null) {
             searchPattern = search.getSearchPattern();
         }
         query.append("SELECT * FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
-            getFilter(searchPattern, query);
+            query.append(getWhere(searchPattern));
             if (search.getSortDirection() != null && search.getSortField() != null) {
                 query.append(" ORDER BY p.").append(search.getSortField()).append(" ").append(search.getSortDirection());
             }
@@ -211,28 +207,30 @@ public class PostServiceImpl implements IPostService {
     }
 
     private String getCountQuery(SearchDTO<PostSearch> search) {
-        StringBuilder query = getQuery();
+        StringBuilder query = new StringBuilder();
         PostSearch searchPattern = search.getSearchPattern();
         query.append("SELECT count(*) FROM post p");
         if (searchPattern != null && searchPattern.getSearch() != null) {
-            getFilter(searchPattern, query);
+            query.append(getWhere(searchPattern));
         }
         return query.toString();
     }
 
-    private void getFilter(PostSearch postSearch, StringBuilder query) {
+    private StringBuilder getWhere(PostSearch postSearch) {
+        StringBuilder query = new StringBuilder();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authorizeUser = null;
         if (authentication.getPrincipal() != "anonymousUser") {
             authorizeUser = (User) authentication.getPrincipal();
         }
-        if (authorizeUser == null) {
-            query.append(" WHERE is_approved = true");
-        } else if (authorizeUser.getRole().getRole() == RoleType.AUTHOR || postSearch.getIsApprove() == null) {
-            query.append(" WHERE is_approved = true");
+        query.append(" WHERE ");
+        boolean apr = true;
+        if (authorizeUser == null || authorizeUser.getRole().getRole() == RoleType.AUTHOR || postSearch.getIsApprove() == null) {
+            apr = true;
         } else if (postSearch.getIsApprove() != null) {
-            query.append(" WHERE is_approved = ").append(postSearch.getIsApprove()).append(" ");
+            apr = postSearch.getIsApprove();
         }
+        query.append(" is_approved = ").append(apr).append(' ');
         if (postSearch.getSearchTag() != null || postSearch.getSearch() != null) {
             if (!Objects.equals(postSearch.getSearch(), "") || !Objects.equals(postSearch.getSearchTag(), "")) {
                 query.append(" and (");
@@ -251,6 +249,7 @@ public class PostServiceImpl implements IPostService {
                 query.append(")");
             }
         }
+        return query;
     }
 
     @Override

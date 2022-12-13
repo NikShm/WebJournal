@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <p id="datePostDiv">{{post.publishedAt | date:'MMM d, y'}}</p>
+  <p id="datePostDiv" *ngIf="post.approved">{{post.publishedAt | date:'MMM d, y'}}</p>
   <h1 id="titlePostDiv">{{post.title}}</h1>
   <p id="forewordPostDiv">{{post.foreword}}</p>
 
@@ -43,7 +43,7 @@
 
 <!------start tags section----->
 <div class="tagsSection">
-  <button class="button-89" (click)="setTag($event)" value="{{tag.name}}"
+  <button class="button-89" (click)="setTag(tag.name)" value="{{tag.name}}"
           *ngFor="let tag of post.tags">{{tag.name}}</button>
 </div>
 <!------start comment section----->

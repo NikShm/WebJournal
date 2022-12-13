@@ -10,7 +10,7 @@ package com.webjournal.dto.search;
 public class PostSearch {
     private String search;
     private String searchTag;
-    private String isApprove;
+    private Boolean isApprove;
 
     public String getSearch() {
         return search;
@@ -28,11 +28,11 @@ public class PostSearch {
         this.searchTag = searchTag;
     }
 
-    public String getIsApprove() {
+    public Boolean getIsApprove() {
         return isApprove;
     }
 
-    public void setIsApprove(String isApprove) {
+    public void setIsApprove(Boolean isApprove) {
         this.isApprove = isApprove;
     }
 

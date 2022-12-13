@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post";
+import {Subscription, switchMap} from "rxjs";
 
 
 @Component({
@@ -13,16 +14,23 @@ export class PostComponent implements OnInit {
   post!: Post;
   editedPost!: Post;
   editMode: boolean = false;
+  id: number | undefined;
+  private subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private postService: PostService) { }
+  constructor(private route: ActivatedRoute, private postService: PostService) {
+    this.subscription = route.params.subscribe(params=>this.id=params['id']);
+  }
 
   ngOnInit(): void {
+    this.route.paramMap.pipe(
+      switchMap(params => params.getAll('id'))
+    )
+      .subscribe(data=> this.id = +data);
     this.getPost();
   }
 
   private getPost(): void {
-    const id: string = this.route.snapshot.paramMap.get('id') ?? '';
-    this.postService.getOnePost(id).subscribe(data => this.post = new Post(data));
+    this.postService.getOnePost(this.id!.toString()).subscribe(data => this.post = new Post(data));
   }
 
   changeEditMode(value: boolean) {
