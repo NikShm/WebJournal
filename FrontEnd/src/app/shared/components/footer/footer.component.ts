@@ -22,16 +22,7 @@ export class FooterComponent implements OnInit {
       this.router.navigate(['login']);
     }
     else {
-      this.router.navigate(['/authors/' + this.storageService.getUser().username]);
-    }
-  }
-
-  goToNewsPosts() {
-    if (!this.storageService.isLoggedIn()) {
-      this.router.navigate(['login']);
-    }
-    else {
-      this.router.navigate(['/news-posts']);
+      this.router.navigate(['/authors/' + this.storageService.getUser().id]);
     }
   }
 

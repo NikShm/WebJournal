@@ -11,6 +11,7 @@ import { RulesComponent } from './components/rules/rules.component';
 import { LoginComponent } from './components/login/login.component';
 import {SafeUrl} from "@angular/platform-browser";
 import {NewsComponent} from "./components/news/news.component";
+import { ErrorComponent } from './components/error/error.component';
 
 export interface FileHandle {
   file: File;
@@ -28,7 +29,10 @@ const routes: Routes = [
   {path: 'createPost', component: CreatePostComponent},
   {path: 'authors', component: AuthorsComponent},
   {path: 'authors/:id', component: ProfileComponent},
-  {path: 'register', component: RegistrationComponent}
+  {path: 'register', component: RegistrationComponent},
+  {path: '404', component: ErrorComponent},
+  {path: '403', component: ErrorComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

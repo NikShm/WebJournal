@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['../../shared/css/auth.css', './registration.component.css']
+  styleUrls: ['../../shared/css/auth.css', '../../shared/css/center.css', './registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
   reg: RegistrationRequest = new RegistrationRequest();

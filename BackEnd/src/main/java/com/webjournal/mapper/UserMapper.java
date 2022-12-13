@@ -45,7 +45,11 @@ public class UserMapper {
         dto.setBio(entity.getBio());
         dto.setFollowers(followService.getNumberOfUserFollowers(entity.getId()));
         dto.setFollowing(followService.getNumberOfUserFollowings(entity.getId()));
-        dto.setIsFollowing(followService.isFollowing(entity.getId(), authService.getCurrentUser().getId()));
+        Object currentUser = authService.getCurrentUser();
+        if (currentUser.toString().equals("anonymousUser")) {
+            dto.setIsFollowing(false);
+        }
+        else dto.setIsFollowing(followService.isFollowing(entity.getId(), ((User) currentUser).getId()));
 
         return dto;
     }
@@ -60,7 +64,11 @@ public class UserMapper {
         dto.setFollowing(followService.getNumberOfUserFollowings(entity.getId()));
         dto.setEmail(entity.getEmail());
         dto.setRole(entity.getRole().getRole());
-        dto.setIsFollowing(followService.isFollowing(entity.getId(), authService.getCurrentUser().getId()));
+        Object currentUser = authService.getCurrentUser();
+        if (currentUser.toString().equals("anonymousUser")) {
+            dto.setIsFollowing(false);
+        }
+        else dto.setIsFollowing(followService.isFollowing(entity.getId(), ((User) currentUser).getId()));
 
         return dto;
     }
