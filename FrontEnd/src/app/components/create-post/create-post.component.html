@@ -43,7 +43,6 @@
             We recommend using high-quality files in the .jpg (up to 20 MB in size).</p>
           </div>
         </div>
-        <div class="error" style="margin-left: 220px" *ngIf="!photo.untouched">*Photo is required</div>
         <div id="uploadedPhoto" *ngIf="image != null || mode == 'UPDATE'">
           <p class="previewPhoto">Preview photo:</p>
           <div class="imgDiv">
@@ -104,8 +103,7 @@
             the publication of other people's works or the publication of works that violate
             the rules may lead to the removal of these works and blocking access to the site.</p>
         </div>
-        <button *ngIf="mode == 'UPDATE'" type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid
-         || photo.invalid || post.tags.length == 0"
+        <button *ngIf="mode == 'UPDATE'" type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid || post.tags.length == 0"
                 [title]="postForm.invalid ? 'Fill all fields with valid values.' : ''">Publish</button>
 
         <button *ngIf="mode == 'CREATE'" type="submit" class="button-74" role="button" [disabled]="title.invalid || content.invalid || foreword.invalid

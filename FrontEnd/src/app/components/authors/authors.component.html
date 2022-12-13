@@ -22,7 +22,8 @@
               <div class="centerusers" *ngFor="let author of page.content | paginate: {itemsPerPage: searchParameter.pageSize, currentPage:  searchParameter.page+1, totalItems: page.totalItem}">
                 <div class="con" routerLink="/authors/{{author.id}}">
                   <div class="con1">
-                    <img [src]="userImage+author.id+'.jpg'" (error)="onErrorUserImage($event)" class="usering">
+                      <img [src]="userImage+author.id+'.jpg'" (error)="onErrorUserImage($event)" class="usering">
+
                       <div class="innercon"></div>
 
                       <div class="sidebox" >
