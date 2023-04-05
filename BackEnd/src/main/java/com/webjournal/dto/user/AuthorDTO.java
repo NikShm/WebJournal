@@ -16,10 +16,11 @@ public class AuthorDTO {
     public AuthorDTO() {
     }
 
-    public AuthorDTO(Integer id, String username, Integer followers) {
+    public AuthorDTO(Integer id, String username, Integer followers, String bio) {
         this.id = id;
         this.username = username;
         this.followers = followers;
+        this.bio = bio;
     }
 
     public Integer getId() {
