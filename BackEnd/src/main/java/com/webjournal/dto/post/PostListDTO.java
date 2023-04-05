@@ -1,8 +1,6 @@
 package com.webjournal.dto.post;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.webjournal.dto.user.AuthorDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -21,6 +19,16 @@ public class PostListDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;
+
+    public PostListDTO() {
+    }
+
+    public PostListDTO(Integer id, String title, String foreword, LocalDateTime publishedAt) {
+        this.id = id;
+        this.title = title;
+        this.foreword = foreword;
+        this.publishedAt = publishedAt;
+    }
 
     public Integer getId() {
         return id;

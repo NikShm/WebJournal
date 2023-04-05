@@ -1,7 +1,7 @@
 package com.webjournal.WebJournal.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjournal.dto.TagDTO;
+import com.webjournal.utils.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,11 +33,9 @@ public class TagControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
-
     @Test
-    @Sql(value = "/actual-tags/create-tags-before.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "/actual-tags/delete-tags-after.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = {"/users/create-users-before.sql", "/posts/create-posts-before.sql", "/tags/create-tags-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"/tags/delete-tags-after.sql", "/posts/delete-posts-after.sql", "/users/delete-users-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testGetActualTags() throws Exception {
         List<TagDTO> actualTags = Arrays.asList(
                 new TagDTO(1, "ui", LocalDateTime.of(2022,10,15,19,10,25)),
@@ -48,7 +46,7 @@ public class TagControllerTest {
         mockMvc.perform(get("/api/tags/actual").param("count", "3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(objectMapper.writeValueAsString(actualTags)))
+                .andExpect(content().string(JsonUtil.toJson(actualTags)))
                 .andDo(print());
     }
 }
