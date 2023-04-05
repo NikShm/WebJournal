@@ -1,7 +1,7 @@
 package com.webjournal.WebJournal.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webjournal.dto.user.AuthorDTO;
+import com.webjournal.utils.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,20 +31,18 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Test
-    @Sql(value = "/interesting-authors/create-users-before.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    @Sql(value = "/interesting-authors/delete-users-after.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    @Sql(value = {"/users/create-users-before.sql", "/follows/create-follows-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value = {"/follows/delete-follows-after.sql", "/users/delete-users-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void testGetInterestingAuthors() throws Exception {
-        List<AuthorDTO> interestingAuthors = Arrays.asList(new AuthorDTO(1, "yulianabilak", 6),
-                                                        new AuthorDTO(3, "yulianabil", 5),
-                                                        new AuthorDTO(4, "yulianabi", 4));
+        List<AuthorDTO> interestingAuthors = Arrays.asList(new AuthorDTO(1, "yulianabilak", 6, "..."),
+                new AuthorDTO(3, "yulianabil", 5, "..."),
+                new AuthorDTO(4, "yulianabi", 4, "..."));
 
         mockMvc.perform(get("/api/users/top").param("count", "3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(objectMapper.writeValueAsString(interestingAuthors)))
+                .andExpect(content().string(JsonUtil.toJson(interestingAuthors)))
                 .andDo(print());
     }
 }
